@@ -7,7 +7,7 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 const NavBar = () => {
     const [navState, setnavState] = useState(false);
   return (
-    <div className='sticky flex flex-col w-full px-10 py-5 lg:py-0 gap-2'>
+    <div className='flex flex-col w-full px-10 py-5 lg:py-0 gap-2'>
           {/* Top part of Navbar Logo,search and cart*/}
           
           <div className="flex px-5 max-h-36 flex-row items-center justify-between gap-5">
@@ -23,16 +23,16 @@ const NavBar = () => {
               <NavSearchBox />
               
               {/* Right */}
-              <div className="relative">
-                <Link to={'/cart'}><AiOutlineShoppingCart className='cursor-pointer w-10 h-10' /></Link>  
-                  <p className= "absolute bg-red-600 text-white rounded-[100%] px-2 top-0 -right-1">2</p>
+              <div className="relative ">
+                <Link to={'/cart'}><AiOutlineShoppingCart className=' cursor-pointer w-10 h-10' /></Link>  
+                  <p className= "absolute  bg-red-600 text-white rounded-[100%] px-2 top-0 -right-1">2</p>
               </div>
 
           </div>
 
           {/* Bottom Part of Navbar Login,signup,account,etc */}
-          <div className="w-full flex items-center justify-center bg-teal-500 bg-opacity-10 lg:bg-white  ">
-              <NavbarList navState={navState} />
+          <div className="w-full  flex  items-center justify-center bg-teal-500 bg-opacity-10 lg:bg-white  ">
+              <NavbarList  navState={navState} />
       </div>
     </div>
   )

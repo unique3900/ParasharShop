@@ -64,7 +64,7 @@ const Register = () => {
                             {
                                 error && !phone?(
                                     <p className="italic text-red-500">Phone is Required*</p>
-                                ) :  phone.length!==10? (
+                                ) : phone &&  phone.length!==10? (
                                     <p className="italic text-red-500">Invalid Phone Number*</p>    
                                 ):""
                             }
