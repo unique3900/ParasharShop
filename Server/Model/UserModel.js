@@ -27,6 +27,10 @@ const userSchema = new mongoose.Schema({
     address: {
         type: String,
         required: true,
+    },
+    isSeller: {
+        type: Boolean,
+        default:false
     }
 }, { timestamps: true });
 
