@@ -31,7 +31,7 @@ const NavbarList = ({
             
             {
                 navState == true && (
-                    <div className='flex h-screen flex-col text-white font-bold w-full px-3 py-10 items-center gap-14'>
+                    <div className='flex h-screen flex-col text-black font-bold w-full px-3 py-10 items-center gap-14'>
                 {
                 navList.map((item) => (
                     <Link key={

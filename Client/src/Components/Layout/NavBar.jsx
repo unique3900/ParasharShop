@@ -23,11 +23,11 @@ const NavBar = () => {
               <NavSearchBox />
               
               {/* Right */}
-                <AiOutlineShoppingCart className='w-10 h-10'/>
+                <AiOutlineShoppingCart className='cursor-pointer w-10 h-10'/>
           </div>
 
           {/* Bottom Part of Navbar Login,signup,account,etc */}
-          <div className="w-full flex items-center justify-center bg-teal-500 lg:bg-neutral-300">
+          <div className="w-full flex items-center justify-center bg-teal-500 bg-opacity-10 lg:bg-black lg:text-white">
               <NavbarList navState={navState} />
       </div>
     </div>
