@@ -8,7 +8,7 @@ const salt = 10;
 // ******************** User Registration *******************
 
 const RegisterController = async (req, res) => {
-    const { fullName, email, phone, password, address,isSeller } = req.body;
+    const { fullName, email, phone, password, address,isSeller,gender } = req.body;
     try {
         if (!fullName) {
             res.json({ success: false, message: "Enter Full Name" });
@@ -25,14 +25,16 @@ const RegisterController = async (req, res) => {
         if (!address) {
             res.json({ success: false, message: "Enter Address" });
         }
-
+        if (!gender) {
+            res.json({ success: false, message: "Enter Gender" });
+        }
         const userExist = await UserModel.findOne({ email , phone });
         if (userExist) {
             res.json({ success: false, message: "User Already Exist" });
         }
         else {
             const hashedPwd =  bcrypt.hashSync(password, salt);
-            const fetchData = await UserModel.create({ fullName, email, password: hashedPwd, phone, address,isSeller });
+            const fetchData = await UserModel.create({ fullName, email, password: hashedPwd, phone, address,isSeller,gender });
             res.json({ success: true, message: "Registration Successful", fetchData });       
         }
             
