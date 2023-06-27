@@ -22,7 +22,8 @@ const userSchema = new mongoose.Schema({
     },
     secretKey: {
         type: Number,
-        default: 2222,
+        default: null,
+        expires: '1m'
     },
     address: {
         type: String,

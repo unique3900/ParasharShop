@@ -1,5 +1,7 @@
 const UserModel = require("../Model/UserModel");
 const bcrypt = require('bcrypt');
+const JWT = require('jsonwebtoken');
+const dotenv = require('dotenv').config();
 const salt = 10;
 
 // ****************** Registration Controller ***************
@@ -60,7 +62,8 @@ const LoginController = async (req, res) => {
         else {
             const passwordMatch = bcrypt.compareSync(password,fetchData.password);
             if (passwordMatch) {
-                res.json({success:true,message:"User Authenticated"})
+                const token= JWT.sign({_id:fetchData._id,email:fetchData.email,phone:fetchData.phone,name:fetchData.fullName,isSeller:fetchData.isSeller},process.env.JWT_SECRET,{ expiresIn: '3d' })
+                res.json({success:true,message:"User Authenticated",fetchData,token})
             }
             else {
                 res.json({success:false,message:"Invalid Password"})
