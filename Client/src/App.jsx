@@ -6,7 +6,10 @@ import { Route, Routes } from 'react-router-dom'
 import Register from './Components/Auth/Register'
 import Login from './Components/Auth/Login'
 import SingleProductPage from './Components/Products/SingleProductPage'
+import axios, { Axios } from 'axios'
 
+axios.defaults.baseURL = 'http://127.0.0.1:8080';
+axios.defaults.withCredentials = true;
 const App = () => {
   return (
     <div>

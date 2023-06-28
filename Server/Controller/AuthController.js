@@ -29,13 +29,14 @@ const RegisterController = async (req, res) => {
             res.json({ success: false, message: "Enter Gender" });
         }
         const userExist = await UserModel.findOne({ email , phone });
-        if (userExist) {
-            res.json({ success: false, message: "User Already Exist" });
-        }
-        else {
+        if (!userExist) {
             const hashedPwd =  bcrypt.hashSync(password, salt);
             const fetchData = await UserModel.create({ fullName, email, password: hashedPwd, phone, address,isSeller,gender });
-            res.json({ success: true, message: "Registration Successful", fetchData });       
+            res.json({ success: true, message: "Registration Successful", fetchData });  
+        }
+        else {
+            res.json({ success: false, message: "User Already Exist" });
+            return
         }
             
     } catch (error) {

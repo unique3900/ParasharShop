@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-
+import axios from 'axios';
+import { ToastBar, Toaster, toast } from 'react-hot-toast';
 const Register = () => {
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState("");
@@ -11,15 +12,23 @@ const Register = () => {
 
     const [error, setError] = useState(false);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
         if (!fullName || !email || !password || !confirmPassword || !address || !phone || !gender) {
             setError(true);
+        }
+        const { data } = await axios.post('/api/v1/auth/register', { fullName, email, password, address, phone,gender });
+        if (data.success) {
+            toast.success(data.message)
+        }
+        else {
+            toast.error(data.message);
         }
         console.log(fullName,email,phone,gender,address,password,confirmPassword)
     }
     return (
         <div className='flex flex-col h-screen justify-center items-center'>
+            <Toaster/>
             <div className=" grid mt-0 grid-flow-row gap-3 lg:grid-flow-col items-center align-middle lg:grid-cols-2 w-full lg:w-fit   p-6 round-xl shadow-md shadow-slate-400 overflow-x-auto no-scrollbar">
                 <div className="hidden lg:flex relative justify-center place-content-center">
                     <img className='lg:w-full lg:h-[500px] h-60'
