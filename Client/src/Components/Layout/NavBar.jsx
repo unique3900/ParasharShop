@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import NavSearchBox from './NavSearchBox'
-import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { AiOutlineShoppingCart,AiTwotoneHeart ,AiOutlineHeart} from 'react-icons/ai';
 import NavbarList from './NavbarList';
 import { GiHamburgerMenu } from 'react-icons/gi';
 const NavBar = () => {
@@ -26,6 +26,10 @@ const NavBar = () => {
               <div className="relative ">
                 <Link to={'/cart'}><AiOutlineShoppingCart className=' cursor-pointer w-10 h-10' /></Link>  
                   <p className= "absolute  bg-red-600 text-white rounded-[100%] px-2 top-0 -right-1">2</p>
+        </div>
+        <div className="relative ">
+                <Link to={'/wishlist'}><AiOutlineHeart className=' cursor-pointer w-10 h-10 fill-red-600' /></Link>  
+                <p className= "absolute  bg-red-600 text-white rounded-[100%] px-2 top-0 -right-1">2</p>
               </div>
 
           </div>

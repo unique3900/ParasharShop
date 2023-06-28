@@ -78,4 +78,18 @@ const LoginController = async (req, res) => {
     }
 }
 
-module.exports = { LoginController,RegisterController };
+// ==========Current user Controller=========================
+// ====================== Use for route protection ==================
+const currentUserController = async (req, res) => {
+    try {
+        const { _id,email } = req.body;
+        const fetchData = await UserModel.findOne( {_id}).select("-password");
+        res.json({success:true,message:"Current user fetched",fetchData,_id,email})
+    } catch (error) {
+        console.log(error);
+        res.json({success:false,message:"Error in current user controller",error})
+    }
+    
+}
+
+module.exports = { LoginController,RegisterController,currentUserController };
