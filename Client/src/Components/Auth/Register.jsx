@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { ToastBar, Toaster, toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 const Register = () => {
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState("");
@@ -12,6 +13,8 @@ const Register = () => {
 
     const [error, setError] = useState(false);
 
+    const navigate = useNavigate();
+
     const handleSubmit = async(e) => {
         e.preventDefault();
         if (!fullName || !email || !password || !confirmPassword || !address || !phone || !gender) {
@@ -19,7 +22,13 @@ const Register = () => {
         }
         const { data } = await axios.post('/api/v1/auth/register', { fullName, email, password, address, phone,gender });
         if (data.success) {
-            toast.success(data.message)
+            toast.success(data.message + " Redirecting...");
+            setTimeout(() => {
+                navigate('/login');
+            }, 2000);
+            
+            
+            
         }
         else {
             toast.error(data.message);

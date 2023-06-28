@@ -1,13 +1,14 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { Toaster, toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     
-
+    const navigate = useNavigate();
     const [error, setError] = useState(false);
 
     const handleSubmit = async(e) => {
@@ -17,7 +18,14 @@ const Login = () => {
         }
         const { data } = await axios.post('/api/v1/auth/login', { email, password });
         if (data.success) {
-            toast.success(data.message)
+            toast.success(data.message + " Redirecting...");
+            setTimeout(() => {
+                navigate('/');
+            }, 2000);
+                
+            
+            
+            
         }
         else {
             toast.error(data.message);
