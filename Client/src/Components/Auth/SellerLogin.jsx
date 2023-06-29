@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import { ToastBar, Toaster, toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import API from '../../Services/API';
 const SellerLogin = () => {
 
     const [password, setPassword] = useState("");
@@ -17,7 +18,7 @@ const SellerLogin = () => {
         if ( !password ) {
             setError(true);
         }
-        const { data } = await axios.post('/api/v1/auth/seller-login', { password});
+        const { data } = await API.post('/api/v1/auth/seller-login', { password});
         if (data.success) {
             toast.success(data.message + " Redirecting...");
             setTimeout(() => {

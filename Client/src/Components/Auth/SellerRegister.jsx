@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import { ToastBar, Toaster, toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import API from '../../Services/API';
 const SellerRegister = () => {
     const [businessName, setBusinessName] = useState('');
     const [businessAddress, setBusinessAddress] = useState("");
@@ -18,7 +19,7 @@ const SellerRegister = () => {
         if (!businessName || !businessAddress || !password || !confirmPassword) {
             setError(true);
         }
-        const { data } = await axios.post('/api/v1/auth/seller-register', { businessName, businessAddress, password});
+        const { data } = await API.post('/api/v1/auth/seller-register', { businessName, businessAddress, password});
         if (data.success) {
             toast.success(data.message + " Redirecting...");
             setTimeout(() => {

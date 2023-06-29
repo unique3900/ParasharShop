@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import { ToastBar, Toaster, toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import API from '../../Services/API';
 const Register = () => {
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState("");
@@ -20,7 +21,7 @@ const Register = () => {
         if (!fullName || !email || !password || !confirmPassword || !address || !phone || !gender) {
             setError(true);
         }
-        const { data } = await axios.post('/api/v1/auth/register', { fullName, email, password, address, phone,gender });
+        const { data } = await API.post('/api/v1/auth/register', { fullName, email, password, address, phone,gender });
         if (data.success) {
             toast.success(data.message + " Redirecting...");
             setTimeout(() => {
