@@ -123,4 +123,27 @@ const sellerRegisterController = async (req, res) => {
     }
 }
 
-module.exports = { LoginController,RegisterController,currentUserController,sellerRegisterController };
+// ====================== Seller Login Controller===============
+// ===========================================================
+// ========================================================
+const sellerLoginController = async (req, res) => {
+    const { _id, email, password } = req.body;
+    try {
+        if (!_id || !email) {
+            res.json({success:false,message:"Login to Procced"})
+        }
+        if (!password) {
+            res.json({success:false,message:"Password is required"})
+        }
+        else {
+            const data = await UserModel.findById({ _id });
+            const findSeller = await SellerModel.findOne({ data }).populate("data");
+            res.send(findSeller);
+        }
+    } catch (error) {
+        console.log(error);
+        res.json({success:false,message:"Error in seller login controller"+error})
+    }
+}
+
+module.exports = { LoginController,RegisterController,currentUserController,sellerRegisterController,sellerLoginController };

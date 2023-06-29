@@ -15,7 +15,7 @@ const SellerSchema = new mongoose.Schema({
     },
     data: {
         type: mongoose.ObjectId,
-        ref:"user"
+        ref:"users"
     },
   
 });
