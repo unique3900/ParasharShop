@@ -99,14 +99,22 @@ const currentUserController = async (req, res) => {
 
 const sellerRegisterController = async (req, res) => {
     try {
-        const {_id,password} = req.body;
+        const {_id,password,businessName,businessAddress} = req.body;
         if (!_id) {
-          
         res.json({success:false,message:"Login to Procced"})
+        }
+        if (!businessName) {
+            res.json({success:false,message:"Business Name is Required"})
+        }
+        if (!businessAddress) {
+            res.json({success:false,message:"Business Address is Required"})
+        }
+        if (!password) {
+            res.json({success:false,message:"Password is Required"})
         }
         else {
          
-            const fetchData = await SellerModel.create({ data:_id, password: bcrypt.hashSync(password, 10)});
+            const fetchData = await SellerModel.create({ data:_id,businessName,businessAddress, password: bcrypt.hashSync(password, 10)});
             res.json({success:true,fetchData})
         }
     } catch (error) {
