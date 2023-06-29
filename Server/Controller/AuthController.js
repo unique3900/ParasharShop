@@ -113,9 +113,16 @@ const sellerRegisterController = async (req, res) => {
             res.json({success:false,message:"Password is Required"})
         }
         else {
-         
-            const fetchData = await SellerModel.create({ data:_id,businessName,businessAddress, password: bcrypt.hashSync(password, 10)});
+            const data = await UserModel.findById({ _id });
+            const sellerExist = await SellerModel.findOne({ data }).populate("data");
+            if (sellerExist) {
+                res.json({success:false,message:"Seller already exist"})
+            }
+            else {
+                const fetchData = await SellerModel.create({ data:_id,businessName,businessAddress, password: bcrypt.hashSync(password, 10)});
             res.json({success:true,fetchData})
+            }
+            
         }
     } catch (error) {
         console.log(error);
@@ -137,7 +144,7 @@ const sellerLoginController = async (req, res) => {
         }
         else {
             const data = await UserModel.findById({ _id });
-            const findSeller = await SellerModel.findOne({ data }).populate("data");
+            const findSeller = await SellerModel.findOne({ data }).select("-password").populate("data",{email:1,phone:2,address:3,fullName:4});
             res.send(findSeller);
         }
     } catch (error) {
