@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import { Toaster, toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import API from '../../Services/API';
+import store from '../Project State/store';
+import { userLogin } from '../Project State/Features/auth/authActions';
 
 const Login = () => {
   
@@ -17,18 +19,13 @@ const Login = () => {
         if (!email || !password ) {
             setError(true);
         }
-        const { data } = await API.post('/api/v1/auth/login', { email, password });
+       const {data}= store.dispatch(userLogin({ email, password }))
         if (data.success) {
-            toast.success(data.message + " Redirecting...");
-            localStorage.setItem("token", data.token);
-            setTimeout(() => {
-                navigate('/');
-            }, 2000); 
+            navigate('/')
         }
         else {
-            toast.error(data.message);
+            navigate('/mamam')
         }
-        console.log(email,password)
     }
   return (
     <div className='flex flex-col h-screen justify-center items-center'>

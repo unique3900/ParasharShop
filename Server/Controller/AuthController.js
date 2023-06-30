@@ -144,14 +144,20 @@ const sellerLoginController = async (req, res) => {
         }
         else {
             const data = await UserModel.findById({ _id });
+
             const findSeller = await SellerModel.findOne({ data }).populate("data",{email:1,phone:2,address:3,fullName:4});
-            const passMatch = bcrypt.compareSync(password, findSeller.password);
-            if (passMatch) {
-                res.json({success:true,message:"Seller Login Successful",findSeller});
-            } else {
-                res.json({success:false,message:"Invalid Seller Password"});
+            if (!findSeller) {
+                res.json({ success: false, message: "Seller Doesnot Exist" });
             }
-            
+            else {
+                const passMatch = bcrypt.compareSync(password, findSeller.password);
+                if (passMatch) {
+                   
+                    res.json({success:true,message:"Seller Login Successful",findSeller});
+                } else {
+                    res.json({success:false,message:"Invalid Seller Password"});
+                }  
+            }
         }
     } catch (error) {
         console.log(error);

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import NavBar from './Components/Layout/NavBar'
 import Hero from './Components/Layout/Hero'
 import Homepage from './Components/Layout/Homepage'
@@ -12,15 +12,18 @@ import SellerChoosePage from './Components/Auth/SellerChoosePage'
 import SellerRegister from './Components/Auth/SellerRegister'
 import SellerLogin from './Components/Auth/SellerLogin'
 import SellerDashboard from './Components/SellerOptions/SellerDashboard'
+import { Toaster } from 'react-hot-toast'
 
 axios.defaults.baseURL = 'http://127.0.0.1:8080';
 axios.defaults.withCredentials = true;
 const App = () => {
+  
   return (
     <div>
+
       <TopNavbar/>
       <NavBar />
-  
+      <Toaster/>
       
       <Routes>
         <Route path='/' element={<Homepage />} />
