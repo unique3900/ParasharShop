@@ -23,7 +23,7 @@ const SellerRegister = () => {
         if (data.success) {
             toast.success(data.message + " Redirecting...");
             setTimeout(() => {
-                navigate('/login');
+                navigate('/sellerOptions/sellerLogin');
             }, 2000);
             
             

@@ -3,7 +3,7 @@ const JWT = require('jsonwebtoken');
 const authMiddleware = async (req, res, next) => {
     try {
         if (!req.headers["authorization"]) {
-            res.json({ success: false, message: "No token Found" })
+            res.json({ success: false, message: "Unauthorized Access No Token Found" })
         }
         else {
             const token = req.headers["authorization"].split(" ")[1];

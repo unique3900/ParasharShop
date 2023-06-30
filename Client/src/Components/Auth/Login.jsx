@@ -20,13 +20,10 @@ const Login = () => {
         const { data } = await API.post('/api/v1/auth/login', { email, password });
         if (data.success) {
             toast.success(data.message + " Redirecting...");
+            localStorage.setItem("token", data.token);
             setTimeout(() => {
                 navigate('/');
-            }, 2000);
-                
-            
-            
-            
+            }, 2000); 
         }
         else {
             toast.error(data.message);
