@@ -2,9 +2,8 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import { ToastBar, Toaster, toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import API from '../../Services/API';
-import store from '../Project State/store';
-import { userRegister } from '../Project State/Features/auth/authActions';
+
+
 const Register = () => {
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState("");

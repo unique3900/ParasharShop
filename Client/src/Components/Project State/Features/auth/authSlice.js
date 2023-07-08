@@ -42,15 +42,13 @@ const authSlice = createSlice({
             state.error = null
         })
             builder.addCase(userRegister.fulfilled, (state, {payload}) => {
-                
                 state.loading = false;
                 state.error = false;
-                state.user = payload.fetchData;
-                state.token = payload.token;
+                state.user = "";
             })
             builder.addCase(userRegister.rejected, (state,{payload}) => {
                 state.loading = false,
-                state.error = payload
+                    state.error = payload.fetchData;
             })  
     }
 });
