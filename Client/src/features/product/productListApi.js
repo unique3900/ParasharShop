@@ -22,3 +22,10 @@ export function fetchProductsByFilter(filter,sort) {
     console.log("ququq",queryString)  
     return axios.get(`http://localhost:8080/products?${queryString}`)    
 }
+
+export function fetchAllBrands() {
+    return axios.get('http://localhost:8080/brands')
+}
+export function fetchAllCategory() {
+    return axios.get('http://localhost:8080/category')
+}

@@ -11,8 +11,8 @@ import { StarIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
 import Pagination from '../../Components/Layout/Pagination';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllProductsAsync, fetchProductsByFilterAsync, selectAllProducts } from './productListSlice';
-import { filters, sortOptions } from '../../Data/data';
+import { fetchAllProductsAsync, fetchBrandsAsync, fetchCategoryAsync, fetchProductsByFilterAsync, selectAllBrands, selectAllCategories, selectAllProducts } from './productListSlice';
+import {  sortOptions } from '../../Data/data';
 
 
 function classNames(...classes) {
@@ -27,6 +27,8 @@ export const ProductList = () => {
   const [sort, setSort] = useState({});
   const dispatch = useDispatch()
   
+  const brands = useSelector(selectAllBrands);
+  const categories = useSelector(selectAllCategories);
   const products = useSelector(selectAllProducts);
 
 
@@ -57,8 +59,24 @@ export const ProductList = () => {
     console.log(option)
   }
 
+  const filters = [
+    {
+      id: 'brand',
+      name: 'Brands',
+      options: brands
+    },
+    {
+      id: 'category',
+      name: 'Category',
+      options: categories
+    },
+  ]
+
+
   useEffect(() => {
-    dispatch(fetchProductsByFilterAsync({filter,sort}))
+    dispatch(fetchProductsByFilterAsync({ filter, sort }))
+    dispatch(fetchBrandsAsync());
+    dispatch(fetchCategoryAsync());
   }, [dispatch,filter,sort]);
 
 
@@ -68,7 +86,9 @@ export const ProductList = () => {
          <div className="bg-white">
       <div>
         {/* Mobile filter dialog */}
-        <MobileFilter setMobileFiltersOpen={setMobileFiltersOpen} handleFilters={handleFilters} Fragment={Fragment} mobileFiltersOpen={mobileFiltersOpen}/>
+          <MobileFilter setMobileFiltersOpen={setMobileFiltersOpen} handleFilters={handleFilters} Fragment={Fragment} mobileFiltersOpen={mobileFiltersOpen}
+          filters={filters}
+          />
 
         <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
@@ -147,7 +167,7 @@ export const ProductList = () => {
                 <Toaster />
         <h3 className="text-4xl font-bold text-center">Latest Products</h3>
 
-                  <ProductGrid products={products} page={page} />
+                  <ProductGrid products={products} page={page} filters={filters} />
           <Pagination page={Math.ceil(page) } setPage={setPage} totalPage={Math.floor(products.length)} />
                 
                 
@@ -162,7 +182,7 @@ export const ProductList = () => {
   )
 }
 
-function MobileFilter({mobileFiltersOpen,Fragment,setMobileFiltersOpen,handleFilters}) {
+function MobileFilter({mobileFiltersOpen,Fragment,setMobileFiltersOpen,handleFilters,filters}) {
   return (
     <Transition.Root show={mobileFiltersOpen} as={Fragment}>
     <Dialog as="div" className="relative z-40 lg:hidden" onClose={setMobileFiltersOpen}>
@@ -258,7 +278,7 @@ function MobileFilter({mobileFiltersOpen,Fragment,setMobileFiltersOpen,handleFil
   )
 }
 
-function ProductGrid({products,page}) {
+function ProductGrid({products,page,filters}) {
   return (
     <div className="grid grid-cols-2 justify-center lg:grid-cols-3 gap-3">
     {

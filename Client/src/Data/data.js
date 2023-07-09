@@ -385,7 +385,8 @@ export const filters = [
                 checked: false
             }
         ]
-    }, {
+  },
+  {
         id: 'category',
         name: 'Category',
         options: [
