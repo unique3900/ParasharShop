@@ -22,7 +22,7 @@ pagination</br>
 JWT</br>
 Redux Toolkit for global state management</br>
 
-<h3>Features:</h3></br>
+<h3>References:</h3></br>
 <ul>
   <li>Tech info yt</li>
   <li>React official documentation</li>
