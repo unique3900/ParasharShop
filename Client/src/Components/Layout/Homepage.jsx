@@ -1,7 +1,7 @@
 import React from 'react'
 import Hero from './Hero'
 
-import { ProductList } from '../../features/ProductListing/ProductList'
+import { ProductList } from '../../features/product/ProductList'
 
 const Homepage = () => {
   return (

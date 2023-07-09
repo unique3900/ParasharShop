@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { Toaster, toast } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
@@ -11,6 +12,8 @@ const Login = () => {
     
     const navigate = useNavigate();
     const [error, setError] = useState(false);
+
+    const dispatch = useDispatch();
 
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -69,6 +72,7 @@ const Login = () => {
                 <button type='submit' className='mt-1 bg-blue-500 p-2 w-full text-white'
                    >Login</button>
             </form>
+            <Link to={'/register'} className='italic text-purple-500  text-lg underline'>Create an Account</Link>
         </div>
     </div>
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { ToastBar, Toaster, toast } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const Register = () => {
@@ -153,6 +153,8 @@ const Register = () => {
                         <button type='submit' className='mt-1 bg-blue-500 p-2 w-full text-white'
                            >Register</button>
                     </form>
+
+                    <Link to={'/login'} className='italic text-purple-500  text-lg underline'>Already have Account? Login</Link>
                 </div>
             </div>
 
