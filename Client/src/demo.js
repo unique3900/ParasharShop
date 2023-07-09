@@ -1,23 +1,4 @@
-export const navList = [
-    { id: 1, title: 'Home' },
-    { id: 2, title: 'Login' },
-    { id: 3, title: 'Signup' },
-    { id: 4, title: 'Profile' },
-    { id: 5, title: 'Categories' },
-    { id: 6, title: 'Logout' },
-]
-
-export const categories = [
-    { id: 1, name: 'Shoes' },
-    { id: 2, name: 'Shirt' },
-    {id:3,name:'Watch'},
-    { id: 4, name: 'Sunglass' },
-    
-]
-
-
-
-export const products= [
+ const products= [
   {
     "id": 1,
     "title": "iPhone 9",
@@ -1858,3 +1839,8 @@ export const products= [
     ]
   }
 ]
+  
+ const categories=[...new Set([...products.map(c => c.category)])  ]
+
+ const data=categories.map(c=> ({value:c,label:c.split('-').join(' '),checked:false}))
+ console.log(data)
