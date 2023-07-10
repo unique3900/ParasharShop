@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 
+
+
 const Login = () => {
   
     const [email, setEmail] = useState("");
@@ -12,17 +14,23 @@ const Login = () => {
     
     const navigate = useNavigate();
     const [error, setError] = useState(false);
-
+    const [emailregErr, setEmailRegErr] = useState();
+    const [pwdRegErr, setPwdRegErr] = useState();
     const dispatch = useDispatch();
+
 
     const handleSubmit = async(e) => {
         e.preventDefault();
+        const emailRegEx = /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi
+        const passwordRegEx=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm
         if (!email || !password ) {
             setError(true);
         }
-       const {data}= store.dispatch(userLogin({ email, password }))
-        if (data.success) {
-            navigate('/')
+        if (!emailRegEx.test(email)) {
+            setEmailRegErr(true);
+        }
+        if (!passwordRegEx.test(password)) {
+            setPwdRegErr(true);
         }
         else {
             navigate('/mamam')
@@ -42,17 +50,19 @@ const Login = () => {
         <div className="">
             <h1 className='text-center text-4xl lg:text-6xl py-5 '>Login</h1>
 
-            <form onSubmit={handleSubmit} className="form grid grid-flow-row  lg:grid-cols-1   gap-2  mt-5">
+            <form noValidate onSubmit={handleSubmit} className="form grid grid-flow-row  lg:grid-cols-1   gap-2  mt-5">
 
  
                 <div className="inputBox flex flex-col gap-1">
                     <label htmlFor="Name">Email:</label>
                     <input value={email} type="text" name='name' required className='outline-black border-b-2 px-2 py-2 rounded-md shadow-sm' onChange={(e)=>{
                         setEmail(e.target.value)
-                    }} />
+                    }}  />
                     {
                         error && !email?(
                             <p className="italic text-red-500">Email is Required*</p>
+                              ) : emailregErr ? (
+                                <p className="italic text-red-500">Invalid Email format*</p>
                         ):""
                     }
                 </div>
@@ -65,6 +75,10 @@ const Login = () => {
                     {
                         error && !password?(
                             <p className="italic text-red-500">Password is Required*</p>
+                              ) : pwdRegErr ? (
+                                <p className="italic text-red-500">- at least 8 characters
+                                - must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number
+                                - Can contain special characters*</p>      
                         ):""
                     }
                 </div>
