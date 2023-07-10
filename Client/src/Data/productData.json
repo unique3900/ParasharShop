@@ -1840,7 +1840,7 @@
       ]
     }
   ],
-  "brands":[
+  "brands": [
     {
       "value": "Apple",
       "label": "Apple",
@@ -2232,7 +2232,7 @@
       "checked": false
     }
   ],
-  "category":[
+  "category": [
     {
       "value": "smartphones",
       "label": "smartphones",
@@ -2332,6 +2332,17 @@
       "value": "lighting",
       "label": "lighting",
       "checked": false
+    }
+  ],
+  "users": [
+    {
+      "email": "para@para.com",
+      "password": "#Pharmacy2022",
+      "address": "aa",
+      "gender": "male",
+      "phone": "9809876616",
+      "fullName": "ss ss",
+      "id": 1
     }
   ]
 }

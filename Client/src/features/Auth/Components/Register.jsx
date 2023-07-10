@@ -1,4 +1,5 @@
 import React, {
+    useEffect,
     useState
 } from 'react'
 import axios from 'axios';
@@ -11,9 +12,15 @@ import {
     Link,
     useNavigate
 } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { createUserAsync, selectLoggedInUser } from '../authSlice';
 
 
 const Register = () => {
+
+        
+
+    const data=useSelector(selectLoggedInUser)
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -22,12 +29,16 @@ const Register = () => {
     const [phone, setPhone] = useState("");
     const [gender, setGender] = useState("male");
 
+
     const [error, setError] = useState(false);
     const [emailregErr, setEmailRegErr] = useState(false);
     const [pwdRegErr, setPwdRegErr] = useState(false);
     const [phoneRegErr, setPhoneRegerr] = useState(false);
     const [fullNameRegErr, setFullNameRegErr] = useState(false);
+
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
 
     const validateEmail = (email) => {
         const emailRegEx = /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi
@@ -69,10 +80,7 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const emailRegEx = /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi
-    
- 
-      
+       
         if (emailregErr || phoneRegErr || pwdRegErr) {
             setError(true)
             return
@@ -83,10 +91,15 @@ const Register = () => {
             return
         }
         else {
+            dispatch(createUserAsync({email,password,address,fullName,phone,gender}))
             console.log(fullName, email, phone, gender, address, password, confirmPassword)
         }
         
     }
+    useEffect(() => {
+      console.log(data)
+    }, []);
+
     return (
         <div className='flex flex-col h-screen justify-center items-center'>
             <Toaster/>

@@ -1,5 +1,6 @@
 import axios from 'axios';
 
-export function fetchProducts() {
- return axios.get('http://localhost:8080')
+export function createUser({email, password, address, gender, phone, fullName}) {
+    console.log(email, password, address, gender, phone, fullName)
+ return axios.post('http://localhost:8080/users',{email,password,address,gender,phone,fullName})
 }
