@@ -13,6 +13,7 @@ import RegisterPage from './Components/Pages/RegisterPage'
 import LoginPage from './Components/Pages/LoginPage'
 import CartPage from './Components/Pages/CartPage'
 import CheckoutPage from './Components/Pages/CheckoutPage'
+import Protected from './features/Auth/Components/Protected'
 
 
 axios.defaults.baseURL = 'http://127.0.0.1:8080';
@@ -31,7 +32,12 @@ const App = () => {
         <Route path='/' element={<Homepage />} />
         <Route path='/register' element={<RegisterPage/>} />
         <Route path='/login' element={<LoginPage />} />
-        <Route path='/cart' element={<CartPage/>} />
+        <Route path='/cart' element={
+          <Protected>
+              <CartPage />
+          </Protected>
+          
+        } />
         <Route path='/checkout' element={<CheckoutPage/>} />
         <Route path='/products/:id' element={""} />
         <Route path='/sellerOptions' element={""} />
