@@ -1,8 +1,9 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { Toaster, toast } from 'react-hot-toast';
-import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { loginUserAsync, selectLoggedInUser } from '../authSlice';
 
 
 
@@ -18,6 +19,7 @@ const Login = () => {
     const [pwdRegErr, setPwdRegErr] = useState();
     const dispatch = useDispatch();
 
+    const user = useSelector(selectLoggedInUser);
 
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -33,11 +35,14 @@ const Login = () => {
             setPwdRegErr(true);
         }
         else {
-            navigate('/mamam')
+            dispatch(loginUserAsync({email,password}))
+            
         }
     }
-  return (
+    return (
+     
     <div className='flex flex-col h-screen justify-center items-center'>
+            {user && <Navigate to={'/'} replace={true} />}
         <Toaster/>
     <div className=" grid mt-0 grid-flow-row gap-3 lg:grid-flow-col items-center align-middle lg:grid-cols-2 w-full lg:w-fit   p-6 round-xl shadow-md shadow-slate-400 overflow-x-auto no-scrollbar">
         <div className="hidden lg:flex relative justify-center place-content-center">

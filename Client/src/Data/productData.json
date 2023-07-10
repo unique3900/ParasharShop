@@ -2343,6 +2343,24 @@
       "phone": "9809876616",
       "fullName": "ss ss",
       "id": 1
+    },
+    {
+      "email": "limbu1@gmail.com",
+      "password": "#Pharmacy2022",
+      "address": "ssss",
+      "gender": "female",
+      "phone": "9807878764",
+      "fullName": "para para",
+      "id": 2
+    },
+    {
+      "email": "ssa@ss.com",
+      "password": "#Maik12345",
+      "address": "aa",
+      "gender": "male",
+      "phone": "9897867161",
+      "fullName": "Ram sa",
+      "id": 3
     }
   ]
 }

@@ -6,21 +6,13 @@ import { Navigate, useNavigate } from 'react-router-dom';
 const Protected = ({ children }) => {
     const user = useSelector(selectLoggedInUser);
     const navigate = useNavigate();
-    useEffect(() => {
-   
         if (!user) {
             alert("Login to Continue")
-            navigate('/login')
+            window.location.replace('/login');
         } else {
             return children
         }
-    }, [])
-    
-    
- 
-   
 
-    
 }
 
 export default Protected

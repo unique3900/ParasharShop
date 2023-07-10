@@ -14,6 +14,7 @@ import LoginPage from './Components/Pages/LoginPage'
 import CartPage from './Components/Pages/CartPage'
 import CheckoutPage from './Components/Pages/CheckoutPage'
 import Protected from './features/Auth/Components/Protected'
+import Cart from './features/cart/Cart'
 
 
 axios.defaults.baseURL = 'http://127.0.0.1:8080';
