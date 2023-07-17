@@ -13,6 +13,7 @@ import Pagination from '../../Components/Layout/Pagination';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllProductsAsync, fetchBrandsAsync, fetchCategoryAsync, fetchProductsByFilterAsync, selectAllBrands, selectAllCategories, selectAllProducts } from './productListSlice';
 import {  sortOptions } from '../../Data/data';
+import { Link } from 'react-router-dom';
 
 
 function classNames(...classes) {
@@ -284,9 +285,9 @@ function ProductGrid({products,page,filters}) {
     {
         products.slice(page*12-12,page*12).map((item, index) => (
           <div key={index} className="relative flex flex-col gap-2 lg:items-stretch  justify-between px-3 py-4 lg:w-72 shadow-lg">
-          <div className="flex items-center justify-center">
+          <Link to={`/products/${item.id}`} className="flex items-center justify-center">
               <img className='object-cover place-content-center h-56 max-h-60' src={item.thumbnail} alt="" />
-                </div>
+                </Link>
                 <AiOutlineHeart className='absolute top-0 right-1 fill-red-600 cursor-pointer w-8 h-8 text-red-500' onClick={()=>{
                   toast.success( `${item.title.slice(0,20)+'...'} Added to Wishlist` )
                 }}/>

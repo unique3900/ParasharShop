@@ -4,7 +4,6 @@ import Hero from './Components/Layout/Hero'
 
 import Homepage from './Components/Layout/Homepage'
 import { Route, Routes } from 'react-router-dom'
-import SingleProductPage from './Components/Products/SingleProductPage'
 import axios, { Axios } from 'axios'
 import TopNavbar from './Components/Layout/TopNavbar'
 import { Toaster } from 'react-hot-toast'
@@ -15,6 +14,7 @@ import CartPage from './Components/Pages/CartPage'
 import CheckoutPage from './Components/Pages/CheckoutPage'
 import Protected from './features/Auth/Components/Protected'
 import Cart from './features/cart/Cart'
+import SingleProductPage from './features/product/SingleProductPage'
 
 
 axios.defaults.baseURL = 'http://127.0.0.1:8080';
@@ -40,7 +40,7 @@ const App = () => {
           
         } />
         <Route path='/checkout' element={<CheckoutPage/>} />
-        <Route path='/products/:id' element={""} />
+        <Route path='/products/:id' element={<SingleProductPage/>} />
         <Route path='/sellerOptions' element={""} />
         <Route path='/sellerOptions/sellerRegister' element={"" } />
         <Route path='/sellerOptions/sellerLogin' element={""} />
