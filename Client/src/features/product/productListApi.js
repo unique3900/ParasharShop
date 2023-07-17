@@ -3,7 +3,9 @@ import axios from 'axios';
 export function fetchAllProducts() {
     return axios.get('http://localhost:8080/products')    
 }
-
+export function fetchProductById(id) {
+    return axios.get(`http://localhost:8080/products/${id}`)
+}
 export function fetchProductsByFilter(filter,sort) {
     // let queryString = 'category=smartphones ';
     // console.log("heueue",filter)
