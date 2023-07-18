@@ -11,3 +11,6 @@ export function getCartByUserEmail(email) {
 
   return axios.get(`http://localhost:8080/cart?user=${email}`)
 }
+export function removeFromCart(id) {
+  return axios.delete(`http://localhost:8080/cart/${id}`)
+}

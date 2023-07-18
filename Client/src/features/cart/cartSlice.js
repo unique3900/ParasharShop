@@ -1,5 +1,5 @@
 import { addListener, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { addToCart, getCartByUserEmail } from "./cartAPI";
+import { addToCart, getCartByUserEmail, removeFromCart } from "./cartAPI";
 
 const initialState = {
   value: 0,
@@ -22,6 +22,14 @@ export const getCartByEmailAsync = createAsyncThunk(
   "cart/getCartByEmail",
   async (email) => {
     const response = await getCartByUserEmail(email);
+    return response.data;
+  }
+)
+
+export const removeFromCartAsync = createAsyncThunk(
+  "cart/removeFromCart",
+  async (id) => {
+    const response = await removeFromCart(id);
     return response.data;
   }
 )
@@ -55,7 +63,15 @@ export const cartSlice = createSlice({
       state.items = action.payload;
       state.cartTotalNumber = state.items.length;
     }
-  )
+    )
+      .addCase(removeFromCartAsync.rejected, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(removeFromCartAsync.fulfilled, (state, action) => {
+        state.status = "loading";
+        const index = state.items.findIndex(item => item.id === action.payload.id);
+        state.items.splice(index, 1);
+    })
     
   },
 });

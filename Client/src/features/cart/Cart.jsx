@@ -13,9 +13,11 @@ import {
     Link, Navigate
 } from 'react-router-dom'
 import {
+    useDispatch,
     useSelector
 } from 'react-redux'
 import {
+    removeFromCartAsync,
     selectCartLengtg,
     selectcartItems
 } from './cartSlice'
@@ -48,7 +50,12 @@ export default function Cart() {
     const [open, setOpen] = useState(true)
     const items = useSelector(selectcartItems);
 
+    const dispatch = useDispatch();
     const totalItems = useSelector(selectCartLengtg);
+    const handleRemove = (id) => {
+     
+        dispatch(removeFromCartAsync(id));
+    }
     return (
         <>
             {!items.length&& <Navigate to={'/'}></Navigate>}
@@ -109,7 +116,10 @@ export default function Cart() {
     
     
                                                 <div className="flex">
-                                                    <button type="button" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                                    <button onClick={(e) => {
+                                                           e.preventDefault();
+                                                        handleRemove(product.id);
+                                                    }} type="button" className="font-medium text-indigo-600 hover:text-indigo-500">
                                                         Remove
                                                     </button>
                                                 </div>
