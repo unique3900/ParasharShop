@@ -19,7 +19,8 @@ import {
 import {
     removeFromCartAsync,
     selectCartLengtg,
-    selectcartItems
+    selectcartItems,
+    updateCartAsync
 } from './cartSlice'
 
 const product = [
@@ -51,10 +52,17 @@ export default function Cart() {
     const items = useSelector(selectcartItems);
 
     const dispatch = useDispatch();
-    const totalItems = useSelector(selectCartLengtg);
+    const totalItems =   items.reduce((accumulator, object) => {
+        return object.quantity + accumulator;
+    }, 0)
     const handleRemove = (id) => {
      
         dispatch(removeFromCartAsync(id));
+    }
+
+    const handleQuantityChange = (e, items) => {
+        //Existing items obj. spread then change its quantity
+        dispatch(updateCartAsync({...items,quantity: +e.target.value}))
     }
     return (
         <>
@@ -63,7 +71,7 @@ export default function Cart() {
 
                     <h1 className="text-center font-bold text-4xl p-2">Your Cart</h1>
                     <p className="text-center text-purple-700 font-bold">Total {totalItems}
-                        items in Cart</p>
+                       &nbsp; items in Cart</p>
                     <div className="mt-8 p-10">
                         <div className="flow-root">
                             <ul role="list" className="-my-6 divide-y divide-gray-200">
@@ -107,10 +115,12 @@ export default function Cart() {
                                             <div className="flex flex-1 items-end justify-between text-sm">
                                                 <div className="flex items-center gap-2">
                                                     <p className="text-gray-500">Qty</p>
-                                                    <select name="" id="">
+                                                    <select name="" onChange={(e) => {
+                                                        handleQuantityChange(e,product);
+                                                    }} id="" value={product.quantity}>
                                                         <option value="1">1</option>
-                                                        <option value="1">2</option>
-                                                        <option value="1">3</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
                                                     </select>
                                                 </div>
     
@@ -137,7 +147,7 @@ export default function Cart() {
                             <p>Subtotal</p>
                             <p>Npr &nbsp; {
                                 items.reduce((accumulator, object) => {
-                                    return accumulator + object.price
+                                    return accumulator + object.price*object.quantity
                                 }, 0)
                             }</p>
                         </div>

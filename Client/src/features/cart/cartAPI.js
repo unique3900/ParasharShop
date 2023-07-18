@@ -14,3 +14,6 @@ export function getCartByUserEmail(email) {
 export function removeFromCart(id) {
   return axios.delete(`http://localhost:8080/cart/${id}`)
 }
+export function updateCart(items) {
+  return axios.patch(`http://localhost:8080/cart/${items.id}`,{...items})
+}
