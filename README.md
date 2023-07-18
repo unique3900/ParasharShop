@@ -29,7 +29,7 @@ Redux Toolkit for global state management</br>
   <li>Redux official documentation</li>
   <li>Coder Dost</li>
   <li>Goose Dev</li>
-  <li>Lama Dost</li>
+  <li>Lama Dev</li>
 </ul>
 
 
