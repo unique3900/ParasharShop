@@ -14,6 +14,8 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchProductByIdAsync, selectProductById } from './productListSlice';
+import { addToCartAsync } from '../cart/cartSlice';
+import { selectLoggedInUser } from '../Auth/authSlice';
 
 
 const products = {
@@ -61,36 +63,7 @@ const products = {
             selectedClass: 'ring-gray-900'
         },
     ],
-    sizes: [
-        {
-            name: 'XXS',
-            inStock: false
-        },
-        {
-            name: 'XS',
-            inStock: true
-        },
-        {
-            name: 'S',
-            inStock: true
-        },
-        {
-            name: 'M',
-            inStock: true
-        }, {
-            name: 'L',
-            inStock: true
-        }, {
-            name: 'XL',
-            inStock: true
-        }, {
-            name: '2XL',
-            inStock: true
-        }, {
-            name: '3XL',
-            inStock: true
-        },
-    ],
+
     description: 'The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: "Black". Need to add an extra pop of color to your outfit? Our white tee has you covered.',
     highlights: [
         'Hand cut and sewn locally', 'Dyed with our proprietary colors', 'Pre-washed & pre-shrunk', 'Ultra-soft 100% cotton',
@@ -123,7 +96,38 @@ const  highlights= [
     'Dyed with our proprietary colors',
     'Pre-washed & pre-shrunk',
     'Ultra-soft 100% cotton',
-  ]
+]
+  
+const sizes= [
+    {
+        name: 'XXS',
+        inStock: false
+    },
+    {
+        name: 'XS',
+        inStock: true
+    },
+    {
+        name: 'S',
+        inStock: true
+    },
+    {
+        name: 'M',
+        inStock: true
+    }, {
+        name: 'L',
+        inStock: true
+    }, {
+        name: 'XL',
+        inStock: true
+    }, {
+        name: '2XL',
+        inStock: true
+    }, {
+        name: '3XL',
+        inStock: true
+    },
+]
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -135,7 +139,16 @@ const SingleProductPage = () => {
     const params = useParams();
     const dispatch = useDispatch();
     const product = useSelector(selectProductById);
+    const loggedInUser=useSelector(selectLoggedInUser)
 
+
+
+    const handleCart = (e) => {
+        e.preventDefault();
+        console.log(loggedInUser)
+        dispatch(addToCartAsync({...product,quantity:1,user:loggedInUser.email}))
+
+    }
     useEffect(() => {
         console.log(params.id)
         dispatch(fetchProductByIdAsync(params.id))
@@ -146,7 +159,7 @@ const SingleProductPage = () => {
 
             {
             product?            <div className="pt-6">
-            {/* <nav aria-label="Breadcrumb">
+            <nav aria-label="Breadcrumb">
                 <ol role="list" className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
                     {
                    product.breadcrumbs && product.breadcrumbs.map((breadcrumb) => (
@@ -184,7 +197,7 @@ const SingleProductPage = () => {
                         } </a>
                     </li>
                 </ol>
-            </nav> */}
+            </nav>
 
             {/* Image gallery */}
             <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
@@ -200,29 +213,29 @@ const SingleProductPage = () => {
                 <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
                     <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                         <img src={
-                                product.images[1].src
+                                product.images[1]
                             }
                             alt={
-                                product.images[1].alt
+                                product.images[1]
                             }
                             className="h-full w-full object-cover object-center"/>
                     </div>
                     <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                         <img src={
-                                product.images[2].src
+                                product.images[2]
                             }
                             alt={
-                                product.images[2].alt
+                                product.images[2]
                             }
                             className="h-full w-full object-cover object-center"/>
                     </div>
                 </div>
                 <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
                     <img src={
-                            product.images[3].src
+                            product.images[3]
                         }
                         alt={
-                            product.images[3].alt
+                            product.images[3]
                         }
                         className="h-full w-full object-cover object-center"/>
                 </div>
@@ -240,10 +253,10 @@ const SingleProductPage = () => {
                 {/* Options */}
                 <div className="mt-4 lg:row-span-3 lg:mt-0">
                     <h2 className="sr-only">Product information</h2>
-                    <p className="text-3xl tracking-tight text-gray-900">
+                    <p className="text-3xl tracking-tight text-gray-900">NPR &nbsp;   
                         {
                         product.price
-                    }</p>
+                    } /-</p>
 
                     {/* Reviews */}
                     <div className="mt-6">
@@ -316,61 +329,62 @@ const SingleProductPage = () => {
                                 <h3 className="text-sm font-medium text-gray-900">Size</h3>
                             </div>
 
-                            <RadioGroup value={selectedSize}
-                                onChange={setSelectedSize}
-                                className="mt-4">
-                                <RadioGroup.Label className="sr-only">Choose a size</RadioGroup.Label>
-                                <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-                                    {
-                                   product.sizes && product.sizes.map((size) => (
-                                        <RadioGroup.Option key={
-                                                size.name
-                                            }
-                                            value={size}
-                                            disabled={
-                                                !size.inStock
-                                            }
-                                            className={
-                                                ({
-                                                    active
-                                                }) => classNames(size.inStock ? 'cursor-pointer bg-white text-gray-900 shadow-sm' : 'cursor-not-allowed bg-gray-50 text-gray-200', active ? 'ring-2 ring-indigo-500' : '', 'group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6')
-                                        }>
-                                            {
-                                            ({
-                                                active,
-                                                checked
-                                            }) => (
-                                                <>
-                                                    <RadioGroup.Label as="span">
-                                                        {
-                                                        size.name
-                                                    }</RadioGroup.Label>
-                                                    {
-                                                    size.inStock ? (
-                                                        <span className={
-                                                                classNames(active ? 'border' : 'border-2', checked ? 'border-indigo-500' : 'border-transparent', 'pointer-events-none absolute -inset-px rounded-md')
-                                                            }
-                                                            aria-hidden="true"/>
-                                                    ) : (
-                                                        <span aria-hidden="true" className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200">
-                                                            <svg className="absolute inset-0 h-full w-full stroke-2 text-gray-200" viewBox="0 0 100 100" preserveAspectRatio="none" stroke="currentColor">
-                                                                <line x1={0}
-                                                                    y1={100}
-                                                                    x2={100}
-                                                                    y2={0}
-                                                                    vectorEffect="non-scaling-stroke"/>
-                                                            </svg>
-                                                        </span>
-                                                    )
-                                                } </>
-                                            )
-                                        } </RadioGroup.Option>
-                                    ))
-                                } </div>
-                            </RadioGroup>
+                            <RadioGroup value={selectedSize} onChange={setSelectedSize} className="mt-4">
+                  <RadioGroup.Label className="sr-only">Choose a size</RadioGroup.Label>
+                  <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
+                    {sizes.map ((size) => (
+                      <RadioGroup.Option
+                        key={size.name}
+                        value={size}
+                        disabled={!size.inStock}
+                        className={({ active }) =>
+                          classNames(
+                            size.inStock
+                              ? 'cursor-pointer bg-white text-gray-900 shadow-sm'
+                              : 'cursor-not-allowed bg-gray-50 text-gray-200',
+                            active ? 'ring-2 ring-indigo-500' : '',
+                            'group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6'
+                          )
+                        }
+                      >
+                        {({ active, checked }) => (
+                          <>
+                            <RadioGroup.Label as="span">{size.name}</RadioGroup.Label>
+                            {size.inStock ? (
+                              <span
+                                className={classNames(
+                                  active ? 'border' : 'border-2',
+                                  checked ? 'border-indigo-500' : 'border-transparent',
+                                  'pointer-events-none absolute -inset-px rounded-md'
+                                )}
+                                aria-hidden="true"
+                              />
+                            ) : (
+                              <span
+                                aria-hidden="true"
+                                className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200"
+                              >
+                                <svg
+                                  className="absolute inset-0 h-full w-full stroke-2 text-gray-200"
+                                  viewBox="0 0 100 100"
+                                  preserveAspectRatio="none"
+                                  stroke="currentColor"
+                                >
+                                  <line x1={0} y1={100} x2={100} y2={0} vectorEffect="non-scaling-stroke" />
+                                </svg>
+                              </span>
+                            )}
+                          </>
+                        )}
+                      </RadioGroup.Option>
+                    ))}
+                  </div>
+                </RadioGroup>
                         </div>
 
-                        <button type="submit" className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                <button onClick={(e) => {
+                                    handleCart(e);
+                        }} type="submit" className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                             Add to Cart
                         </button>
                     </form>

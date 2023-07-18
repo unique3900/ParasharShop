@@ -33,11 +33,13 @@ export const ProductList = () => {
   const products = useSelector(selectAllProducts);
 
 
+
   const handleFilters = (e, option, section) => {
     const userFilter = { ...filter}
     if (e.target.checked) {
       if (userFilter[section.id]) {
         userFilter[section.id].push(option.value);
+        setPage(1);
       }
       else {
         userFilter[section.id] = [option.value];
@@ -50,6 +52,7 @@ export const ProductList = () => {
     }
     console.log("MyFilter",userFilter)
     setFilter(userFilter);
+    setPage(1);
    
   }
 
@@ -59,6 +62,8 @@ export const ProductList = () => {
     setSort(userSort);
     console.log(option)
   }
+
+
 
   const filters = [
     {
@@ -72,6 +77,7 @@ export const ProductList = () => {
       options: categories
     },
   ]
+
 
 
   useEffect(() => {
