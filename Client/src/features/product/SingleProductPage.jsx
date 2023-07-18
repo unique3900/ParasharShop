@@ -14,7 +14,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchProductByIdAsync, selectProductById } from './productListSlice';
-import { addToCartAsync } from '../cart/cartSlice';
+import { addToCartAsync, selectcartItems } from '../cart/cartSlice';
 import { selectLoggedInUser } from '../Auth/authSlice';
 
 
@@ -140,13 +140,20 @@ const SingleProductPage = () => {
     const dispatch = useDispatch();
     const product = useSelector(selectProductById);
     const loggedInUser=useSelector(selectLoggedInUser)
-
+    const items = useSelector(selectcartItems);
 
 
     const handleCart = (e) => {
         e.preventDefault();
-        console.log(loggedInUser)
-        dispatch(addToCartAsync({...product,quantity:1,user:loggedInUser.email}))
+        if (!loggedInUser) {
+            alert("Login TO Procced")
+        }
+        else {
+            console.log(loggedInUser[0].email)
+            dispatch(addToCartAsync({...product,quantity:1,user:loggedInUser[0].email}))
+            
+        }
+       
 
     }
     useEffect(() => {

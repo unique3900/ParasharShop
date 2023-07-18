@@ -15,12 +15,27 @@ import CheckoutPage from './Components/Pages/CheckoutPage'
 import Protected from './features/Auth/Components/Protected'
 import Cart from './features/cart/Cart'
 import SingleProductPage from './features/product/SingleProductPage'
+import { useDispatch, useSelector } from 'react-redux'
+import { useSelect } from '@material-tailwind/react'
+import { selectLoggedInUser } from './features/Auth/authSlice'
+import { getCartByEmailAsync, selectcartItems } from './features/cart/cartSlice'
 
 
 axios.defaults.baseURL = 'http://127.0.0.1:8080';
 axios.defaults.withCredentials = true;
 const App = () => {
   
+  const dispatch = useDispatch(); 
+  const user = useSelector(selectLoggedInUser);
+
+
+  useEffect(() => {
+ 
+    if (user) {
+      console.log(user[0].email)
+      dispatch(getCartByEmailAsync(user[0].email))
+    }
+  }, [dispatch,user])
   
   return (
     <div>

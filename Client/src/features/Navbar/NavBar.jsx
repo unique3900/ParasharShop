@@ -1,11 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import NavSearchBox from './NavSearchBox'
 import { AiOutlineShoppingCart,AiTwotoneHeart ,AiOutlineHeart} from 'react-icons/ai';
 import NavbarList from './NavbarList';
 import { GiHamburgerMenu } from 'react-icons/gi';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCartLengtg, selectcartItems } from '../cart/cartSlice';
 const NavBar = () => {
-    const [navState, setnavState] = useState(false);
+  const [navState, setnavState] = useState(false);
+
+  const dispatch = useDispatch();
+  const cartItems = useSelector(selectcartItems)
+
+  
+
+  
+
   return (
     <div className='flex flex-col w-full px-10 py-5 lg:py-0 gap-2'>
           {/* Top part of Navbar Logo,search and cart*/}
@@ -13,7 +23,7 @@ const NavBar = () => {
           <div className="flex px-5 max-h-36 flex-row items-center justify-between gap-5">
             {/* Left */}
               <div className="">
-              <Link to={'/'} className='w-[200px] h-[200px] hidden lg:flex'><img src={`/img/logo.png`} alt="" /> </Link>
+              <Link to={'/'} className='w-[200px] h-[200px] hidden lg:flex'><img src={`/img/logo.png`} alt="" /></Link>
                   <GiHamburgerMenu className='lg:hidden cursor-pointer w-10 h-10' onClick={() => {
                       setnavState(!navState)
               }}/>
@@ -25,7 +35,8 @@ const NavBar = () => {
               {/* Right */}
               <div className="relative ">
                 <Link to={'/cart'}><AiOutlineShoppingCart className=' cursor-pointer w-10 h-10' /></Link>  
-                  <p className= "absolute  bg-red-600 text-white rounded-[100%] px-2 top-0 -right-1">2</p>
+          
+          {cartItems.length>0?<p className="absolute  bg-red-600 text-white rounded-[100%] px-2 top-0 -right-1">{cartItems.length}</p>:"" }
         </div>
         <div className="relative ">
                 <Link to={'/wishlist'}><AiOutlineHeart className=' cursor-pointer w-10 h-10 fill-red-600' /></Link>  
