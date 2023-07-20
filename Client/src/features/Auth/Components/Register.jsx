@@ -93,7 +93,8 @@ const Register = () => {
             return
         }
         else {
-            dispatch(createUserAsync({email,password,address,fullName,phone,gender}))
+            dispatch(createUserAsync({email,password,address,fullName,phone,gender,addresses:[]}))
+            navigate('/');
             console.log(fullName, email, phone, gender, address, password, confirmPassword)
         }
         

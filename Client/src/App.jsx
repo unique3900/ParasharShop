@@ -30,11 +30,12 @@ const App = () => {
 
 
   useEffect(() => {
- 
-    if (user) {
-      console.log(user[0].email)
-      dispatch(getCartByEmailAsync(user[0].email))
+    if (!user) {
+      return
     }
+    else 
+      dispatch(getCartByEmailAsync(user.email))
+   
   }, [dispatch,user])
   
   return (

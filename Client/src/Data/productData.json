@@ -2250,8 +2250,49 @@
         "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
       ],
       "quantity": 1,
+      "user": "para@para.com",
+      "id": 2
+    },
+    {
+      "title": "iPhone X",
+      "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+      "price": 899,
+      "discountPercentage": 17.94,
+      "rating": 4.44,
+      "stock": 34,
+      "brand": "Apple",
+      "category": "smartphones",
+      "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+      "images": [
+        "https://i.dummyjson.com/data/products/2/1.jpg",
+        "https://i.dummyjson.com/data/products/2/2.jpg",
+        "https://i.dummyjson.com/data/products/2/3.jpg",
+        "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
+      ],
+      "quantity": 1,
       "user": "limbu1@gmail.com",
-      "id": 1
+      "id": 3
+    },
+    {
+      "title": "OPPOF19",
+      "description": "OPPO F19 is officially announced on April 2021.",
+      "price": 280,
+      "discountPercentage": 17.91,
+      "rating": 4.3,
+      "stock": 123,
+      "brand": "OPPO",
+      "category": "smartphones",
+      "thumbnail": "https://i.dummyjson.com/data/products/4/thumbnail.jpg",
+      "images": [
+        "https://i.dummyjson.com/data/products/4/1.jpg",
+        "https://i.dummyjson.com/data/products/4/2.jpg",
+        "https://i.dummyjson.com/data/products/4/3.jpg",
+        "https://i.dummyjson.com/data/products/4/4.jpg",
+        "https://i.dummyjson.com/data/products/4/thumbnail.jpg"
+      ],
+      "quantity": 1,
+      "user": "satya@gmail.com",
+      "id": 4
     },
     {
       "title": "iPhone X",
@@ -2271,7 +2312,7 @@
       ],
       "quantity": 1,
       "user": "para@para.com",
-      "id": 2
+      "id": 5
     }
   ],
   "category": [
@@ -2380,29 +2421,35 @@
     {
       "email": "para@para.com",
       "password": "#Pharmacy2022",
-      "address": "aa",
+      "address": "Rato Kapas",
       "gender": "male",
-      "phone": "9809876616",
-      "fullName": "ss ss",
+      "phone": "8782891927",
+      "fullName": "Parashar Neupane",
+      "addresses": [
+        {
+          "fullName": "ass sss",
+          "email": "ss@ss.com",
+          "phone": "2245798432",
+          "selectedState": "Bagmati",
+          "selectedCity": "Kathmandu",
+          "selectedLocation": "Baneshwor Area",
+          "street": "ss",
+          "houseNumber": "ss",
+          "message": "ss"
+        },
+        {
+          "fullName": "dsre ererw",
+          "email": "ere@ssda.cpm",
+          "phone": "27878768655",
+          "selectedState": "Bagmati",
+          "selectedCity": "Kathmandu",
+          "selectedLocation": "Kalanki Area",
+          "street": "ss",
+          "houseNumber": "ss",
+          "message": "ss"
+        }
+      ],
       "id": 1
-    },
-    {
-      "email": "limbu1@gmail.com",
-      "password": "#Pharmacy2022",
-      "address": "ssss",
-      "gender": "female",
-      "phone": "9807878764",
-      "fullName": "para para",
-      "id": 2
-    },
-    {
-      "email": "ssa@ss.com",
-      "password": "#Maik12345",
-      "address": "aa",
-      "gender": "male",
-      "phone": "9897867161",
-      "fullName": "Ram sa",
-      "id": 3
     }
   ]
 }

@@ -7,17 +7,23 @@ export function createUser({
     address,
     gender,
     phone,
-    fullName
+    fullName,
+    addresses
 }) {
-    console.log(email, password, address, gender, phone, fullName)
+    console.log(email, password, address, gender, phone, fullName,addresses)
     return axios.post('http://localhost:8080/users', {
         email,
         password,
         address,
         gender,
         phone,
-        fullName
+        fullName,
+        addresses
     })
+}
+export function updateUser(addresses) {
+    console.log("Received", {...addresses})
+    return axios.patch(`http://localhost:8080/users/${addresses.id}`,{...addresses});
 }
 export async function loginUser({
     email,
