@@ -2054,3 +2054,94 @@ export const products = [
         "images": ["https://i.dummyjson.com/data/products/100/1.jpg", "https://i.dummyjson.com/data/products/100/2.jpg", "https://i.dummyjson.com/data/products/100/3.jpg", "https://i.dummyjson.com/data/products/100/thumbnail.jpg"]
     }
 ]
+
+export const citiesData = [
+    {
+        id: 1,
+        stateName: "Bagmati",
+        cities: [
+            {
+                id: 1,
+                name: "Kathmandu",
+                locations: [
+                    {
+                        id: 1,
+                        address:"Koteshwor Area"
+                    },
+                    {
+                        id: 2,
+                        address:"Baneshwor Area"
+                    },
+                    {
+                        id: 3,
+                        address:"Kalanki Area"
+                    },
+                    {
+                        id: 4,
+                        address:"Balaju Area"
+                    }
+        
+                ]
+            },
+            {
+                id: 2,
+                name: "Bhaktapur",
+                locations: [
+                    {
+                        id: 1,
+                        address:"Duwakot Area"
+                    },
+                    {
+                        id: 2,
+                        address:"Thimi Area"
+                    },
+                    {
+                        id: 3,
+                        address:"Nagarkot Area"
+                    },
+                    {
+                        id: 4,
+                        address:"Suryabinayak Area"
+                    }
+        
+                ]
+            }
+        ]
+    },
+    {
+        id: 2,
+        stateName: "Koshi",
+        cities: [
+            {
+                id: 1,
+                name: "Taplejung",
+                locations: [
+                    {
+                        id: 1,
+                        address:"Thembu Area"
+                    },
+                    {
+                        id: 2,
+                        address:"Makaie Area"
+                    },
+        
+                ]
+            },
+            {
+                id: 2,
+                name: "Jhapa",
+                locations: [
+                    {
+                        id: 1,
+                        address:"Birtamod Area"
+                    },
+                    {
+                        id: 2,
+                        address:"Chowk Area"
+                    },
+                ]
+            }
+        ]
+    },
+    
+]

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Cart from '../../features/cart/Cart'
 import {
     Link, Navigate
@@ -12,6 +12,8 @@ import {
     selectcartItems,
     updateCartAsync
 } from '../../features/cart/cartSlice'
+import { citiesData } from '../../Data/data'
+
 
 
 const CheckoutPage = () => {
@@ -38,13 +40,59 @@ const CheckoutPage = () => {
 
     ]
 
+    //States
+    const [selectedState, setSelectedState] = useState("")
+    const [selectedCity, setselectedCity] = useState("")
+    const [selectedLocation, setSelectedLocation] = useState("")
+    const [fullName, setFullName] = useState("");
+    const [phone, setPhone] = useState();
+    const [email, setEmail] = useState("");
+    const [street, setStreet] = useState();
+    const [houseNumber, setHouseNumber] = useState("");
+    const [message, setMessage] = useState("");
 
+    const [error, setErr] = useState(false);
+    const [emailregErr, setEmailRegErr] = useState(false);
+    const [phoneRegErr, setPhoneRegerr] = useState(false);
+    const [fullNameRegErr, setFullNameRegErr] = useState(false);
+
+
+    const validateEmail = (email) => {
+        const emailRegEx = /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi;
+        if (!emailRegEx.test(email)) {
+            setEmailRegErr(true)
+        }
+        else {
+            setEmailRegErr(false);
+        }
+    }
+
+    const validateName = (name) => {
+        const fullNameRegEx=/^(?:([a-zA-Z]{2,4}\.){0,1} ?([a-zA-Z]{2,24})) ([a-zA-Z]{1,1}\. ){0,1}([a-zA-Z]{2,24} ){0,2}([A-Za-z']{2,24})((?:, ([a-zA-Z]{2,5}\.?)){0,4}?)$/im
+        if (!fullNameRegEx.test(name)) {
+            setFullNameRegErr(true)
+        }
+        else {
+            setFullNameRegErr(false);
+        }
+    }
+    
+    const validatePhone = (phone) => {
+        const nepalPhoneRegEx = /(?:[0-9]{10})/g
+        if (!nepalPhoneRegEx.test(phone)) {
+            setPhoneRegerr(true)
+        }
+        else {
+            setPhoneRegerr(false);
+        }
+    }
     const items = useSelector(selectcartItems);
 
     const dispatch = useDispatch();
     const totalItems = items.reduce((accumulator, object) => {
         return object.quantity + accumulator;
     }, 0)
+
     const handleRemove = (id) => {
 
         dispatch(removeFromCartAsync(id));
@@ -55,6 +103,18 @@ const CheckoutPage = () => {
             quantity: + e.target.value
         }))
     }
+
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!fullName || !email || !phone || !selectedState || !selectedCity || !selectedLocation || !street) {
+            setErr(true);
+        } else {
+            console.log(fullName,email,phone,selectedCity,selectedState,selectedState,street)
+        }
+    }
+
     return (
         <>
             {
@@ -69,35 +129,122 @@ const CheckoutPage = () => {
                         <div className="grid grid-cols-2 gap-3 justify-between">
                             <div className="flex flex-col gap-2">
                                 <label htmlFor="">Full Name</label>
-                                <input className='px-3 py-3' type="text" required/>
+                                <input value={fullName} onChange={(e) => {validateName(e.target.value) ; setFullName(e.target.value)}} className='px-3 py-3' type="text" required/>
+                                {
+                                    error && !fullName ? (
+                                        <p className="italic text-red-500">Full name is Required*</p>
+                                    ) : fullNameRegErr ? (
+                                        <p className="italic text-red-500">Invalid Name format,Separate by Space*</p>
+                                    ) : ""
+                                }
                             </div>
                             <div className="flex flex-col gap-2">
                                 <label htmlFor="">Email</label>
-                                <input className='px-3 py-3' type="email" required/>
+                                <input value={email} onChange={(e) => {validateEmail(e.target.value) ; setEmail(e.target.value)}} className='px-3 py-3' type="email" required/>
+                                {
+                                    error && !email ? (
+                                        <p className="italic text-red-500">Email is Required*</p>
+                                    ) : emailregErr ? (
+                                        <p className="italic text-red-500">Invalid Email format*</p>
+                                    ) : ""}
                             </div>
                             <div className="flex flex-col gap-2">
                                 <label htmlFor="">Phone</label>
-                                <input className='px-3 py-3' type="text" required/>
+                                <input value={phone} onChange={(e) => {validatePhone(e.target.value) ; setPhone(e.target.value)}} className='px-3 py-3' type="text" required/>
+                                {
+                                    error && !phone?(
+                                        <p className="italic text-red-500">Phone is Required*</p>
+                                          ) : phoneRegErr ? (
+                                            <p className="italic text-red-500">Invalid Phone format*</p>
+                                    ):""
+                                }
                             </div>
                             <div className="flex flex-col gap-2">
-                                <label htmlFor="">State</label>
-                                <input className='px-3 py-3' type="text" required/>
+                            <label htmlFor="">State</label>
+                                <select name="" id="" onClick={(e) => {
+                                    setSelectedState(e.target.value)
+                                    console.log(e.target.value)
+                                }}>
+                                    {
+                                        citiesData.map((item) => (
+                                           
+                                            <option key={item.id} value={item.stateName }>{item.stateName }</option>
+                                                
+    
+                                        ))
+                                    }
+                                    
+                                </select>
+                                {
+                                    error && !selectedState ? (
+                                        <p className="italic text-red-500">State is Required*</p>
+                                    ):""
+                                }
                             </div>
                             <div className="flex flex-col gap-2">
                                 <label htmlFor="">City</label>
-                                <input className='px-3 py-3' type="text" required/>
+                                <select name="" id=""   onClick={(e) => {
+                                    setselectedCity(e.target.value)
+                                    console.log(e.target.value)
+                                }}>
+                                    {
+                                        citiesData.map((item) => (
+                                            item.stateName == selectedState && item.cities.map((city) => (
+                                                <option key={city.id} value={city.name}>{city.name}</option>
+                                           ))
+                                           
+                                                
+    
+                                        ))
+                                    }
+                                    
+                                </select>
+                                {
+                                    error && !selectedCity ? (
+                                        <p className="italic text-red-500">City is Required*</p>
+                                    ):""
+                                }
                             </div>
                             <div className="flex flex-col gap-2">
-                                <label htmlFor="">Zip Code</label>
-                                <input className='px-3 py-3' type="text" required/>
+                                <label htmlFor="">Delivery Area</label>
+                                <select name="" id="" onClick={(e) => {
+                                    setSelectedLocation(e.target.value)
+                                }}>
+                                {
+                                        citiesData.map((item) => (
+                                            item.stateName == selectedState && item.cities.map((city) => (
+                                                city.name == selectedCity && city.locations.map((loc) => (
+                                                    <option key={loc.id} value={loc.address }>{loc.address}</option>
+                                                ))
+                                                
+                                           ))
+                                           
+                                                
+    
+                                        ))
+                                    }
+                                    
+                                   
+                                </select>
+                                {
+                                    error && !selectedLocation ? (
+                                        <p className="italic text-red-500">Delivery <Area:r></Area:r> is Required*</p>
+                                    ):""
+                                }
                             </div>
+
                             <div className="flex flex-col gap-2">
                                 <label htmlFor="">Street</label>
-                                <input className='px-3 py-3' type="text" required/>
+                                <input value={street} onChange={(e)=>setStreet(e.target.value)} className='px-3 py-3' type="text" required/>
+                                {
+                                    error && !street ? (
+                                        <p className="italic text-red-500">Street is Required*</p>
+                                    ):""
+                                }
                             </div>
                             <div className="flex flex-col gap-2">
                                 <label htmlFor="">House Number</label>
-                                <input className='px-3 py-3' type="text" required/>
+                                <input value={houseNumber} onChange={(e)=>setHouseNumber(e.target.value)} className='px-3 py-3' type="text" required/>
                             </div>
 
 
@@ -105,7 +252,7 @@ const CheckoutPage = () => {
                         <div className="flex flex-col gap-2 w-full mt-4">
                             <label htmlFor="">Message
                             </label>
-                            <textarea style={
+                            <textarea value={message} onChange={(e)=>setMessage(e.target.value)} style={
                                     {
                                         resize: 'none'
                                     }
@@ -221,12 +368,12 @@ const CheckoutPage = () => {
                                             }, 0)
                                         }</p>
                                     </div>
-                                    <p className="mt-0.5 text-sm text-gray-500">Terms and Condions Applied</p>
+                                    <p className="mt-0.5 text-sm text-gray-500">Terms and Conditons Applied</p>
                                     <div className="mt-6">
-                                        <Link to={'/checkout'}
+                                        <button onClick={(e)=>handleSubmit(e)}
                                             className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">
                                             Pay Now
-                                        </Link>
+                                        </button>
                                     </div>
                                     <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                                         <p>
