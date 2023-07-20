@@ -5,7 +5,8 @@ import React, {
 import Cart from '../../features/cart/Cart'
 import {
     Link,
-    Navigate
+    Navigate,
+    useNavigate
 } from 'react-router-dom'
 import {
     useDispatch,
@@ -25,6 +26,7 @@ import { selectLoggedInUser, selectUsers, updateUserAsync } from '../../features
 const CheckoutPage = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     // States
     const [selectedState, setSelectedState] = useState("")
@@ -44,9 +46,6 @@ const CheckoutPage = () => {
 
     const user = useSelector(selectLoggedInUser);
 
-    useEffect(() => {
-        console.log(user[0])
-    }, [])
     
     const validateEmail = (email) => {
         const emailRegEx = /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi;
@@ -106,7 +105,7 @@ const CheckoutPage = () => {
 
     return (
         <> {
-            ! items.length && <Navigate to={'/'}></Navigate>
+            ! items.length  && <Navigate to={'/'}></Navigate>
         }
             <div className='h-screen w-full flex flex-col '>
 
@@ -414,7 +413,7 @@ const CheckoutPage = () => {
                                         <div className="mt-6">
                                             <button 
                                                 className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">
-                                                Pay Now
+                                                Place Order
                                             </button>
                                         </div>
                                         <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
@@ -440,13 +439,14 @@ const CheckoutPage = () => {
                         <section className='p-5 flex flex-col gap-2 shadow-lg'>
                                     <h3 className="font-bold text-xl">Saved Addresses</h3>
                             <div className="flex p-7 flex-col gap-2 outline-black border-black">
-                                {user[0].addresses.map((item) => (
+                                {user[0].addresses.map((item,index) => (
                                                                     <div className="p-2 flex gap-2 items-center bg-yellow-100">
                                                                     <input type="radio" name="address" id="" />
                                                                     <div className="flex flex-col gap-2">
-                                                                        <label htmlFor="">AddressLine 1</label> 
-                                                                        <p className="">Address:Bagmati Kathmandu Koteshwor Area </p>
-                                                                        <p className="">Street: Tinkune Chaur</p>
+                                            <label className='font-bold' htmlFor="">AddressLine {index}</label> 
+                                            <p className="">Address: {item.selectedState } {item.selectedCity} {item.selectedLocation} </p>
+                                            <p className="">Street: {item.street} {item.houseNumber ? item.houseNumber :"" }</p>
+                                            <p className="">Message:{item.message?item.message:""}</p>
                                                                     </div>
                                                                     
                                                                 </div>

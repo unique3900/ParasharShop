@@ -34,7 +34,7 @@ const App = () => {
       return
     }
     else 
-      dispatch(getCartByEmailAsync(user.email))
+      dispatch(getCartByEmailAsync(user[0].email))
    
   }, [dispatch,user])
   
@@ -55,7 +55,7 @@ const App = () => {
           </Protected>
           
         } />
-        <Route path='/checkout' element={<CheckoutPage/>} />
+        <Route path='/checkout' element={<Protected><CheckoutPage/></Protected> } />
         <Route path='/products/:id' element={<SingleProductPage/>} />
         <Route path='/sellerOptions' element={""} />
         <Route path='/sellerOptions/sellerRegister' element={"" } />
