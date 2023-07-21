@@ -21,22 +21,22 @@ export function createUser({
         addresses
     })
 }
-export function updateUser(addresses) {
-    console.log("Received", {...addresses})
-    return axios.patch(`http://localhost:8080/users/${addresses.id}`,{...addresses});
+export function updateUser(users) {
+    console.log("Received",users)
+     return axios.patch(`http://localhost:8080/users/${users.id}`, users);
+
 }
 export async function loginUser({
     email,
     password
 }) {
-
     const getUser = await axios.get('http://localhost:8080/users?email=' + email);
     console.log(getUser.data.length)
     if (getUser.data.length > 0) {
         // console.log(password,getUser.data[0].password)
         if (getUser.data[0].password == password) {
-            console.log("Valid Password")
-            return getUser
+            console.log("Valid Password",getUser.data[0])
+            return {data:getUser.data[0]}
         }
         else {
             console.log("InValid Password",getUser.data.password,password)

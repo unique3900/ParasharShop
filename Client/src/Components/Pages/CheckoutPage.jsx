@@ -13,6 +13,7 @@ import {
     useSelector
 } from 'react-redux'
 import {
+    getCartByEmailAsync,
     removeFromCartAsync,
     selectcartItems,
     updateCartAsync
@@ -20,7 +21,11 @@ import {
 import {
     citiesData
 } from '../../Data/data'
-import { selectLoggedInUser, selectUsers, updateUserAsync } from '../../features/Auth/authSlice'
+import {
+   
+    selectLoggedInUser,
+    updateUserAsync
+} from '../../features/Auth/authSlice'
 
 
 const CheckoutPage = () => {
@@ -29,13 +34,15 @@ const CheckoutPage = () => {
     const navigate = useNavigate();
 
     // States
-    const [selectedState, setSelectedState] = useState("")
+    const [selectedState, setSelectedState] = useState("");
+    const [selectedDeliveryAddress, setSelectedDeliveryAddress] = useState(null);
+    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('cash');
     const [selectedCity, setselectedCity] = useState("")
     const [selectedLocation, setSelectedLocation] = useState("")
     const [fullName, setFullName] = useState("");
-    const [phone, setPhone] = useState();
+    const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
-    const [street, setStreet] = useState();
+    const [street, setStreet] = useState("");
     const [houseNumber, setHouseNumber] = useState("");
     const [message, setMessage] = useState("");
 
@@ -44,9 +51,9 @@ const CheckoutPage = () => {
     const [phoneRegErr, setPhoneRegerr] = useState(false);
     const [fullNameRegErr, setFullNameRegErr] = useState(false);
 
+
     const user = useSelector(selectLoggedInUser);
 
-    
     const validateEmail = (email) => {
         const emailRegEx = /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi;
         if (! emailRegEx.test(email)) {
@@ -75,13 +82,11 @@ const CheckoutPage = () => {
     }
     const items = useSelector(selectcartItems);
 
-   
     const totalItems = items.reduce((accumulator, object) => {
         return object.quantity + accumulator;
     }, 0)
 
     const handleRemove = (id) => {
-
         dispatch(removeFromCartAsync(id));
     }
     const handleQuantityChange = (e, items) => { // Existing items obj. spread then change its quantity
@@ -91,21 +96,49 @@ const CheckoutPage = () => {
         }))
     }
 
+    const handleDeliveryAddress = (e) =>{
+        setSelectedDeliveryAddress(user.addresses[+e.target.value])
+        console.log(selectedDeliveryAddress)
+    }
 
     const handleSubmit = (e) => {
-        e.preventDefault();
         if (!fullName || !email || !phone || !selectedState || !selectedCity || !selectedLocation || !street) {
             setErr(true);
         } else {
-            const data = { fullName, email, phone, selectedState, selectedCity, selectedLocation, street, houseNumber, message };
-            dispatch(updateUserAsync({ ...user[0],addresses:[...user[0].addresses,data]}));
-            console.log({fullName, email, phone, selectedCity, selectedState, selectedState, street})
+            const data = {
+                fullName,
+                email,
+                phone,
+                selectedState,
+                selectedCity,
+                selectedLocation,
+                street,
+                houseNumber,
+                message
+            };
+            
+            dispatch(updateUserAsync({
+                ...user,
+                addresses: [
+                    ...user.addresses,
+                    data
+                ]
+            }));
+            
+            
         }
     }
 
+
+
+    useEffect(() => {
+        console.log(user.addresses)
+    }, [])
+    
+
     return (
         <> {
-            ! items.length  && <Navigate to={'/'}></Navigate>
+            ! items.length && <Navigate to={'/'}></Navigate>
         }
             <div className='h-screen w-full flex flex-col '>
 
@@ -161,7 +194,7 @@ const CheckoutPage = () => {
                                             }
                                         }
                                         className='px-3 py-3'
-                                        type="tel"
+                                        type="text"
                                         required/> {
                                     error && !phone ? (
                                         <p className="italic text-red-500">Phone is Required*</p>
@@ -250,7 +283,7 @@ const CheckoutPage = () => {
                                     {
                                     error && !selectedLocation ? (
                                         <p className="italic text-red-500">Delivery
-                                            <Area:r></Area:r>
+                                            
                                             is Required*</p>
                                     ) : ""
                                 } </div>
@@ -301,10 +334,17 @@ const CheckoutPage = () => {
 
 
                             <div className="flex gap-2">
-                            <button className='px-3 py-2 bg-red-700 text-white font-bold mt-5 rounded-md shadow-sm' type="reset">Reset</button>
-                            <button onClick={(e)=>{handleSubmit(e)}} className='px-3 py-2 bg-blue-700 text-white font-bold mt-5 rounded-md shadow-sm' type="reset">Save</button>
+                                <button className='px-3 py-2 bg-red-700 text-white font-bold mt-5 rounded-md shadow-sm' type="reset">Reset</button>
+                                <button onClick={
+                                        (e) => {
+                                            handleSubmit(e);
+                                            e.preventDefault()
+                                        }
+                                    }
+                                    className='px-3 py-2 bg-blue-700 text-white font-bold mt-5 rounded-md shadow-sm'
+                                    type="submit">Save</button>
                             </div>
-                            
+
                         </form>
 
 
@@ -411,8 +451,12 @@ const CheckoutPage = () => {
                                         </div>
                                         <p className="mt-0.5 text-sm text-gray-500">Terms and Conditons Applied</p>
                                         <div className="mt-6">
-                                            <button 
-                                                className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">
+                                            <button onClick={
+                                        (e) => {
+                                            handleSubmit(e);
+                                            e.preventDefault()
+                                        }
+                                    } className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">
                                                 Place Order
                                             </button>
                                         </div>
@@ -436,23 +480,57 @@ const CheckoutPage = () => {
                             </div>
                         </section>
 
-                        <section className='p-5 flex flex-col gap-2 shadow-lg'>
-                                    <h3 className="font-bold text-xl">Saved Addresses</h3>
+                        <section className='p-5 flex flex-col gap-2  '>
+                            <h3 className="font-bold text-xl">Saved Addresses</h3>
                             <div className="flex p-7 flex-col gap-2 outline-black border-black">
-                                {user[0].addresses.map((item,index) => (
-                                                                    <div className="p-2 flex gap-2 items-center bg-yellow-100">
-                                                                    <input type="radio" name="address" id="" />
-                                                                    <div className="flex flex-col gap-2">
-                                            <label className='font-bold' htmlFor="">AddressLine {index}</label> 
-                                            <p className="">Address: {item.selectedState } {item.selectedCity} {item.selectedLocation} </p>
-                                            <p className="">Street: {item.street} {item.houseNumber ? item.houseNumber :"" }</p>
-                                            <p className="">Message:{item.message?item.message:""}</p>
-                                                                    </div>
-                                                                    
-                                                                </div>
-                                ))}
+                                {
+                                user.addresses.map((item, index) => (
+                                    <div key={index} className="p-2 flex gap-2 items-center bg-yellow-100">
+                                        <input value={index} onClick={handleDeliveryAddress} type="radio" name="address" id=""/>
+                                        <div className="flex flex-col gap-2">
+                                            <label className='font-bold' htmlFor="">AddressLine {index}</label>
+                                            <p className="">Address: {
+                                                item.selectedState
+                                            }&nbsp;
+                                                {
+                                                item.selectedCity
+                                            }&nbsp;
+                                                {
+                                                item.selectedLocation
+                                            } </p>
+                                            <p className="">Street: {
+                                                item.street
+                                            }&nbsp;
+                                                {
+                                                item.houseNumber ? item.houseNumber : ""
+                                            }</p>
+                                            <p className="">Message:{
+                                                item.message ? item.message : ""
+                                            }</p>
+                                        </div>
 
+                                    </div>
+                                ))
+                            } </div>
+                        </section>
 
+                        <section className='p-5 flex flex-col gap-2 shadow-lg'>
+                            <h3 className="font-bold text-xl">Payment Method</h3>
+                            <div className="flex flex-col gap-2">
+                                <div className="flex flex-row items-center gap-2">
+                                    <input  value={selectedPaymentMethod} defaultChecked onClick={(e) => {
+                                        setSelectedPaymentMethod(e.target.value);
+                                        console.log(e.target.value)
+                                    }} type="radio" name="paymentMethod" id="" />
+                                    <label htmlFor="" className="font-bold">Cash</label>
+                                </div>
+                                <div className="flex flex-row gap-2">
+                                    <input onClick={(e) => {
+                                        setSelectedPaymentMethod(e.target.value)
+                                        console.log(e.target.value)
+                                    }} value={'card'} type="radio" name="paymentMethod" id="" />
+                                    <label htmlFor="" className="font-bold">Card</label>
+                                </div>
                             </div>
                         </section>
 

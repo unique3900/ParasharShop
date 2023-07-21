@@ -31,11 +31,13 @@ const App = () => {
 
   useEffect(() => {
     if (!user) {
-      return
+    return
     }
-    else 
-      dispatch(getCartByEmailAsync(user[0].email))
-   
+    else {
+      console.log(user)
+      dispatch(getCartByEmailAsync(user.email))
+    }
+      
   }, [dispatch,user])
   
   return (
@@ -44,7 +46,6 @@ const App = () => {
       <TopNavbar/>
       <NavBar/>
       <Toaster/>
-      
       <Routes>
         <Route path='/' element={<Homepage />} />
         <Route path='/register' element={<RegisterPage/>} />
