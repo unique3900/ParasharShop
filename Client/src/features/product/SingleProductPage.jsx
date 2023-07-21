@@ -149,8 +149,8 @@ const SingleProductPage = () => {
             alert("Login TO Procced")
         }
         else {
-            console.log(loggedInUser[0].email);
-            const newCartItem = { ...product, quantity: 1, user: loggedInUser[0].email };
+            console.log(loggedInUser.email);
+            const newCartItem = { ...product, quantity: 1, user: loggedInUser.email };
             //Fix for duplicate id in the cart
             delete newCartItem['id'];
             dispatch(addToCartAsync(newCartItem))

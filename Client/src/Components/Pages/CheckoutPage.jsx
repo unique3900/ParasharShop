@@ -96,11 +96,13 @@ const CheckoutPage = () => {
         }))
     }
 
-    const handleDeliveryAddress = (e) =>{
+    const handleDeliveryAddress = (e) => {
+        console.log(e.target.value)
         setSelectedDeliveryAddress(user.addresses[+e.target.value])
         console.log(selectedDeliveryAddress)
     }
 
+    //For Delivery Info
     const handleSubmit = (e) => {
         if (!fullName || !email || !phone || !selectedState || !selectedCity || !selectedLocation || !street) {
             setErr(true);
@@ -124,9 +126,17 @@ const CheckoutPage = () => {
                     data
                 ]
             }));
+
+            setEmail(""); setFullName(""); setHouseNumber(""); setMessage(""); setPhone(""); setStreet("");
             
             
         }
+    }
+
+    //For Placing Order
+    const handleOrder = (e) => {
+        e.preventDefault();
+        
     }
 
 
@@ -453,10 +463,10 @@ const CheckoutPage = () => {
                                         <div className="mt-6">
                                             <button onClick={
                                         (e) => {
-                                            handleSubmit(e);
+                                            handleOrder(e)
                                             e.preventDefault()
                                         }
-                                    } className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">
+                                    } className="flex w-full items-center justify-center rounded-md border border-transparent bg-purple-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">
                                                 Place Order
                                             </button>
                                         </div>
@@ -498,7 +508,7 @@ const CheckoutPage = () => {
                                                 {
                                                 item.selectedLocation
                                             } </p>
-                                            <p className="">Street: {
+                                            <p className="">Street/House No. : {
                                                 item.street
                                             }&nbsp;
                                                 {
@@ -507,6 +517,7 @@ const CheckoutPage = () => {
                                             <p className="">Message:{
                                                 item.message ? item.message : ""
                                             }</p>
+                                            <p className="">Receiver: {item.fullName }({item.phone+'/'+item.email})</p>
                                         </div>
 
                                     </div>
