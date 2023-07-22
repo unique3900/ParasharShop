@@ -5,7 +5,7 @@ import { AiOutlineShoppingCart,AiTwotoneHeart ,AiOutlineHeart} from 'react-icons
 import NavbarList from './NavbarList';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCartLengtg, selectcartItems } from '../cart/cartSlice';
+import {  selectcartItems } from '../cart/cartSlice';
 import { selectLoggedInUser } from '../Auth/authSlice';
 const NavBar = () => {
   const [navState, setnavState] = useState(false);

@@ -26,6 +26,8 @@ import {
     selectLoggedInUser,
     updateUserAsync
 } from '../../features/Auth/authSlice'
+import { newOrder } from '../../features/order/orderApi'
+import { newOrderAsync, selectCurrentOrder } from '../../features/order/orderSlice'
 
 
 const CheckoutPage = () => {
@@ -53,6 +55,8 @@ const CheckoutPage = () => {
 
 
     const user = useSelector(selectLoggedInUser);
+    const items = useSelector(selectcartItems);
+    const currentOrder = useSelector(selectCurrentOrder);
 
     const validateEmail = (email) => {
         const emailRegEx = /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi;
@@ -80,10 +84,14 @@ const CheckoutPage = () => {
             setPhoneRegerr(false);
         }
     }
-    const items = useSelector(selectcartItems);
+    
 
     const totalItems = items.reduce((accumulator, object) => {
         return object.quantity + accumulator;
+    }, 0);
+
+    const totalAmount= items.reduce((accumulator, object) => {
+        return accumulator + object.price * object.quantity
     }, 0)
 
     const handleRemove = (id) => {
@@ -136,20 +144,25 @@ const CheckoutPage = () => {
     //For Placing Order
     const handleOrder = (e) => {
         e.preventDefault();
-        
+        if (!selectedDeliveryAddress || !selectedPaymentMethod) {
+            alert("Please Select All Required Fields")
+        }
+        else {
+            const order = { items, selectedPaymentMethod, selectedDeliveryAddress, user, totalItems, totalAmount,status:'pending' };
+            dispatch(newOrderAsync(order))
+        }
+       
+
     }
 
-
-
-    useEffect(() => {
-        console.log(user.addresses)
-    }, [])
     
 
     return (
         <> {
-            ! items.length && <Navigate to={'/'}></Navigate>
-        }
+            !items.length || !user && <Navigate to={'/'}></Navigate>  }
+           { currentOrder && <Navigate to={`/order-success/${currentOrder.id}`}></Navigate>}
+        
+      
             <div className='h-screen w-full flex flex-col '>
 
                 <h1 className="text-5xl font-bold p-3 text-center">Checkout</h1>
@@ -454,9 +467,7 @@ const CheckoutPage = () => {
                                         <div className="flex justify-between text-base font-medium text-gray-900">
                                             <p>Subtotal</p>
                                             <p>Npr &nbsp; {
-                                                items.reduce((accumulator, object) => {
-                                                    return accumulator + object.price * object.quantity
-                                                }, 0)
+                                               totalAmount
                                             }</p>
                                         </div>
                                         <p className="mt-0.5 text-sm text-gray-500">Terms and Conditons Applied</p>

@@ -19,35 +19,9 @@ import {
 } from 'react-redux'
 import {
     removeFromCartAsync,
-    selectCartLengtg,
     selectcartItems,
     updateCartAsync
-} from './cartSlice'
-
-const product = [
-    {
-        id: 1,
-        name: 'Throwback Hip Bag',
-        href: '#',
-        color: 'Salmon',
-        price: '$90.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
-        imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.'
-    }, {
-        id: 2,
-        name: 'Medium Stuff Satchel',
-        href: '#',
-        color: 'Blue',
-        price: '$32.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-        imageAlt: 'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.'
-    },
-
-]
-
-
+} from './cartSlice';
 export default function Cart() {
     const [open, setOpen] = useState(true)
     const items = useSelector(selectcartItems);
@@ -57,7 +31,6 @@ export default function Cart() {
         return object.quantity + accumulator;
     }, 0)
     const handleRemove = (id) => {
-
         dispatch(removeFromCartAsync(id));
     }
 
@@ -71,6 +44,7 @@ export default function Cart() {
         <> {
             ! items.length && <Navigate to={'/'}></Navigate>
         }
+            
             <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
 
                 <h1 className="text-center font-bold text-4xl p-2">Your Cart</h1>

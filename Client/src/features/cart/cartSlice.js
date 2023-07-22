@@ -1,11 +1,11 @@
 import { addListener, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { addToCart, getCartByUserEmail, removeFromCart, updateCart } from "./cartAPI";
+import { addToCart, getCartByUserEmail, removeFromCart, resetCart, updateCart } from "./cartAPI";
 
 const initialState = {
   value: 0,
   status: "idle",
   items: [],
-  cartTotalNumber:0,
+
   cartLoaded:false
 };
 
@@ -30,6 +30,14 @@ export const removeFromCartAsync = createAsyncThunk(
   "cart/removeFromCart",
   async (id) => {
     const response = await removeFromCart(id);
+    return response.data;
+  }
+)
+
+export const resetCartAsync = createAsyncThunk(
+  "cart/resetCart",
+  async (email) => {
+    const response = await resetCart(email);
     return response.data;
   }
 )
@@ -60,7 +68,7 @@ export const cartSlice = createSlice({
       .addCase(addToCartAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.items.push(action.payload);
-        state.cartTotalNumber = state.items.length;
+        state.cartLoaded = true;
       }
     )
     .addCase(getCartByEmailAsync.pending, (state) => {
@@ -69,7 +77,7 @@ export const cartSlice = createSlice({
     .addCase(getCartByEmailAsync.fulfilled, (state, action) => {
       state.status = "idle";
       state.items = action.payload;
-      state.cartTotalNumber = state.items.length;
+
     }
     )
       .addCase(removeFromCartAsync.rejected, (state, action) => {
@@ -79,6 +87,14 @@ export const cartSlice = createSlice({
         state.status = "idle";
         const index = state.items.findIndex(item => item.id === action.payload.id);
         state.items.splice(index, 1);
+      })
+      .addCase(resetCartAsync.rejected, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(resetCartAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.items = [];
+        state.cartLoaded = false;
       })
       .addCase(updateCartAsync.rejected, (state, action) => {
         state.status = "loading";
@@ -95,7 +111,4 @@ export const cartSlice = createSlice({
 export const { increment } = cartSlice.actions;
 
 export const selectcartItems = (state) => state.cart.items;
-export const selectCartLengtg = (state) => state.cart.cartTotalNumber;
-
-
 export default cartSlice.reducer;
