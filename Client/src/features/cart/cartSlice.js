@@ -29,7 +29,7 @@ export const getCartByEmailAsync = createAsyncThunk(
 export const removeFromCartAsync = createAsyncThunk(
   "cart/removeFromCart",
   async (id) => {
-    const response = await removeFromCart(id);
+    const response =await removeFromCart(id);
     return response.data;
   }
 )
