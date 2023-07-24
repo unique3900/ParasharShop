@@ -22,6 +22,7 @@ import { getCartByEmailAsync, selectcartItems } from './features/cart/cartSlice'
 import Error404NotFound from './Components/Pages/404NotFound'
 import OrderSuccessPage from './Components/Pages/OrderSuccessPage'
 import UserOrders from './features/user/Components/UserOrders'
+import UserInfo from './features/user/Components/UserInfo'
 
 
 axios.defaults.baseURL = 'http://127.0.0.1:8080';
@@ -66,7 +67,8 @@ const App = () => {
         <Route path='/sellerOptions/sellerLogin' element={""} />
         <Route path='/sellerOptions/seller-Dashboard' element={<></>} />
         <Route path='/order-success/:id' element={<OrderSuccessPage></OrderSuccessPage>} />
-        <Route path='/my-orders' element={<UserOrders/>} />
+        <Route path='/my orders' element={<Protected><UserOrders/></Protected> } />
+        <Route path='/my profile' element={<Protected><UserInfo/></Protected>} />
         <Route path='*' element={<Error404NotFound></Error404NotFound>} />
       </Routes>
     </div>

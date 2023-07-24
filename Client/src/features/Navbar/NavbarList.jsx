@@ -3,6 +3,7 @@ import React, {
 } from 'react'
 import {
     categories,
+    dashOptions,
     navList
 } from '../../Data/data'
 import {
@@ -29,12 +30,21 @@ import {
     Button,
     Input
 } from "@material-tailwind/react";
+import {
+    useSelector
+} from 'react-redux';
+import {
+    selectLoggedInUser
+} from '../Auth/authSlice';
 
 
 const NavbarList = ({
     navState
 }) => {
     const [category, setCategory] = useState("");
+    const [dashoptions, setdashoptions] = useState("");
+
+    const user = useSelector(selectLoggedInUser);
     return (
         <> {
             navState == false && (
@@ -57,7 +67,7 @@ const NavbarList = ({
                                 }</Button>
                             </MenuHandler>
                             <MenuList className='flex flex-col gap-2 max-h-72'>
-                               {
+                                {
                                 categories.map((item) => {
                                     return (
                                         <Link key={
@@ -88,28 +98,72 @@ const NavbarList = ({
                         </Menu>
                     </div>
 
-                    <div className="flex flex-row items-center gap-2">
-                        <BiSolidUserCircle className='w-8 h-5'/>
-                        <Link to={'/dashboard'}
-                            className='hover:scale-105 hover:font-extrabold'>Dashboard</Link>
-                    </div>
+                    {user && (
+                                        <div className="flex flex-row items-center gap-2">
+                                        <BiSolidUserCircle className='w-8 h-5'/>
+                
+                                        <Menu className="bg-white w-full">
+                                            <MenuHandler className="bg-white text-black px-3">
+                                                <Button className='w-full  whitespace-pre-wrap text-xl'>
+                                                    {
+                                                    dashoptions ? dashoptions : "Dashboard"
+                                                }</Button>
+                                            </MenuHandler>
+                                            <MenuList className='flex flex-col gap-2 max-h-72'>
+                                                {
+                                                dashOptions.map((item) => {
+                                                    return (
+                                                        <Link className='capitalize'
+                                                            key={
+                                                                item.id
+                                                            }
+                                                            to={
+                                                                item.name
+                                                        }>
+                                                            <MenuItem className='cursor-pointer text-md'
+                                                                value={
+                                                                    item.name
+                                                                }
+                                                                onClick={
+                                                                    (e) => {
+                                                                        setCategory(e.target.value);
+                                                                        console.log(category)
+                                                                    }
+                                                            }>
+                                                                {
+                                                                item.name
+                                                            }</MenuItem>
+                                                        </Link>
+                                                    )
+                                                })
+                                            } </MenuList>
+                                        </Menu>
+                                    </div>
+                    )}
+    
 
-                    <div className="flex flex-row items-center gap-2">
-                        <BiSolidKey className='w-8 h-5'/>
-                        <Link to={'/login'}
-                            className='hover:scale-105 hover:font-extrabold'>Login</Link>
-                    </div>
-                    <div className="flex flex-row items-center gap-2">
-                        <BsFillKeyboardFill className='w-8 h-5'/>
-                        <Link to={'/register'}
-                            className='hover:scale-105 hover:font-extrabold'>Signup</Link>
-                    </div>
-                    <div className="flex flex-row items-center gap-2">
-                        <AiOutlineLogout className='w-8 h-5'/>
-                        <Link className='hover:scale-105 hover:font-extrabold'>Logout</Link>
-                    </div>
+                    {
+                    ! user ? (
+                        <>
+                            <div className="flex flex-row items-center gap-2">
+                                <BiSolidKey className='w-8 h-5'/>
+                                <Link to={'/login'}
+                                    className='hover:scale-105 hover:font-extrabold'>Login</Link>
+                            </div>
+                            <div className="flex flex-row items-center gap-2">
+                                <BsFillKeyboardFill className='w-8 h-5'/>
+                                <Link to={'/register'}
+                                    className='hover:scale-105 hover:font-extrabold'>Signup</Link>
+                            </div>
+                        </>
+                    ) : (
 
-                </div>
+                        <div className="flex flex-row items-center gap-2">
+                            <AiOutlineLogout className='w-8 h-5'/>
+                            <Link className='hover:scale-105 hover:font-extrabold'>Logout</Link>
+                        </div>
+                    )
+                } </div>
             )
         }
 

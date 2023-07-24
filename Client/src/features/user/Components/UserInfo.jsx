@@ -6,15 +6,15 @@ import { Toaster, toast } from 'react-hot-toast';
 
 
 
-const Login = () => {
+const UserInfo = () => {
   
 
   
     return (
         <>
-        
+        <h1>Profile</h1>
         </>
   )
 }
 
-export default Login
+export default UserInfo
