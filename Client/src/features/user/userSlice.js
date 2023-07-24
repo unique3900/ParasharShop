@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchLoggedInUserInfo, fetchLoggedInUserOrders} from "./userAPI";
+import { fetchLoggedInUserInfo, fetchLoggedInUserOrders, updateUserInfo} from "./userAPI";
 
 const initialState = {
   userInfo: null,
@@ -22,6 +22,14 @@ export const fetchLoggedInUserOrdersAsync = createAsyncThunk(
     const response = await fetchLoggedInUserOrders(userId);
     return response.data;
 }
+)
+
+export const updateuserInfoAsync=createAsyncThunk(
+  "user/updateUserInfo",
+  async (update) => {
+    const response = await updateUserInfo(update);
+    return response.data;
+  }
 )
 
 
@@ -48,6 +56,13 @@ export const userSlice = createSlice({
         state.status = "loading";
       })
       .addCase(fetchLoggedInUserOrdersAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.userOrders = action.payload;
+      })
+      .addCase(updateuserInfoAsync.rejected, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(updateuserInfoAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.userOrders = action.payload;
       });

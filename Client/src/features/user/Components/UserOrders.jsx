@@ -22,7 +22,6 @@ const UserOrders = () => {
     const orders = useSelector(selectLoggedInUserOrders);
 
     useEffect(() => {
-
         dispatch(fetchLoggedInUserOrdersAsync(user.id));
         console.log("My Orders", orders)
     }, [dispatch, user])

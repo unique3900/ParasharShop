@@ -24,7 +24,6 @@ export function createUser({
 export function updateUser(users) {
     console.log("Received",users)
      return axios.patch(`http://localhost:8080/users/${users.id}`, users);
-
 }
 export async function loginUser({
     email,

@@ -23,6 +23,8 @@ import Error404NotFound from './Components/Pages/404NotFound'
 import OrderSuccessPage from './Components/Pages/OrderSuccessPage'
 import UserOrders from './features/user/Components/UserOrders'
 import UserInfo from './features/user/Components/UserInfo'
+import { fetchLoggedInUserInfo } from './features/user/userAPI'
+import { fetchLoggedInUserInfoAsync, selectLoggedInUserInfo } from './features/user/userSlice'
 
 
 axios.defaults.baseURL = 'http://127.0.0.1:8080';
@@ -31,18 +33,18 @@ const App = () => {
   
   const dispatch = useDispatch(); 
   const user = useSelector(selectLoggedInUser);
-
+  const userInfo = useSelector(selectLoggedInUserInfo);
 
   useEffect(() => {
     if (!user) {
     return
     }
     else {
-      console.log(user)
-      dispatch(getCartByEmailAsync(user.email))
+      dispatch(getCartByEmailAsync(user.email));
+      dispatch(fetchLoggedInUserInfoAsync(user.id))
     }
       
-  }, [dispatch,user])
+  }, [dispatch,user,userInfo])
   
   return (
     <div>

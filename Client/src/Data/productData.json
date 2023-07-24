@@ -2342,41 +2342,7 @@
       "gender": "male",
       "phone": "9808367121",
       "fullName": "Parashar Neupane",
-      "addresses": [
-        {
-          "fullName": "Ramesh Sharma",
-          "email": "sharmaramesh@yahoo.com",
-          "phone": "98081728912",
-          "selectedState": "Koshi",
-          "selectedCity": "Jhapa",
-          "selectedLocation": "Birtamod Area",
-          "street": "9983",
-          "houseNumber": "47682",
-          "message": "Behind ABC English School"
-        },
-        {
-          "fullName": "Krishna Ram Sharma",
-          "email": "krish88@yahoo.com",
-          "phone": "9808178782",
-          "selectedState": "Bagmati",
-          "selectedCity": "Kathmandu",
-          "selectedLocation": "Baneshwor Area",
-          "street": "901",
-          "houseNumber": "90981",
-          "message": "50m ahead of kantigalli 1"
-        },
-        {
-          "fullName": "Demo name",
-          "email": "demo@demo.com",
-          "phone": "9892881921",
-          "selectedState": "Koshi",
-          "selectedCity": "Jhapa",
-          "selectedLocation": "Chowk Area",
-          "street": "89878",
-          "houseNumber": "ss21",
-          "message": "Deliver Fast"
-        }
-      ],
+      "addresses": [],
       "id": 1
     },
     {
@@ -2387,17 +2353,6 @@
       "phone": "9876287811",
       "fullName": "Samyok Limbyu",
       "addresses": [
-        {
-          "fullName": "Samyok Limbu",
-          "email": "limbu1@gmail.com",
-          "phone": "9809898121",
-          "selectedState": "Bagmati",
-          "selectedCity": "Kathmandu",
-          "selectedLocation": "Kalanki Area",
-          "street": "Xyz Street",
-          "houseNumber": "9909",
-          "message": "Behind The temple"
-        },
         {
           "fullName": "Bibek Gosai",
           "email": "gosaiBibek@gmail.com",
@@ -2413,7 +2368,27 @@
       "id": 2
     }
   ],
-  "cart": [],
+  "cart": [
+    {
+      "title": "Huawei P30",
+      "description": "Huawei’s re-badged P30 Pro New Edition was officially unveiled yesterday in Germany and now the device has made its way to the UK.",
+      "price": 499,
+      "discountPercentage": 10.58,
+      "rating": 4.09,
+      "stock": 32,
+      "brand": "Huawei",
+      "category": "smartphones",
+      "thumbnail": "https://i.dummyjson.com/data/products/5/thumbnail.jpg",
+      "images": [
+        "https://i.dummyjson.com/data/products/5/1.jpg",
+        "https://i.dummyjson.com/data/products/5/2.jpg",
+        "https://i.dummyjson.com/data/products/5/3.jpg"
+      ],
+      "quantity": 1,
+      "user": "para@para.com",
+      "id": 1
+    }
+  ],
   "orders": [
     {
       "items": [
@@ -2619,6 +2594,68 @@
       "totalAmount": 1497,
       "status": "pending",
       "id": 2
+    },
+    {
+      "items": [
+        {
+          "title": "iPhone X",
+          "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+          "price": 899,
+          "discountPercentage": 17.94,
+          "rating": 4.44,
+          "stock": 34,
+          "brand": "Apple",
+          "category": "smartphones",
+          "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/2/1.jpg",
+            "https://i.dummyjson.com/data/products/2/2.jpg",
+            "https://i.dummyjson.com/data/products/2/3.jpg",
+            "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
+          ],
+          "quantity": 1,
+          "user": "para@para.com",
+          "id": 1
+        }
+      ],
+      "selectedPaymentMethod": "cash",
+      "selectedDeliveryAddress": {
+        "fullName": "Ramesh Yadav",
+        "email": "yadavramesh@gmail.com",
+        "phone": "9882881021",
+        "selectedState": "Bagmati",
+        "selectedCity": "Kathmandu",
+        "selectedLocation": "Kalanki Area",
+        "street": "sswe2",
+        "houseNumber": "d2dcc",
+        "message": "Deliver"
+      },
+      "user": {
+        "email": "para@para.com",
+        "password": "#Pharmacy2022",
+        "address": "Kathmandu",
+        "gender": "male",
+        "phone": "9808367121",
+        "fullName": "Parashar Neupane",
+        "addresses": [
+          {
+            "fullName": "Ramesh Yadav",
+            "email": "yadavramesh@gmail.com",
+            "phone": "9882881021",
+            "selectedState": "Bagmati",
+            "selectedCity": "Kathmandu",
+            "selectedLocation": "Kalanki Area",
+            "street": "sswe2",
+            "houseNumber": "d2dcc",
+            "message": "Deliver"
+          }
+        ],
+        "id": 1
+      },
+      "totalItems": 1,
+      "totalAmount": 899,
+      "status": "pending",
+      "id": 3
     }
   ]
 }

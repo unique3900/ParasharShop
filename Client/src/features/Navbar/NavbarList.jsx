@@ -126,8 +126,8 @@ const NavbarList = ({
                                                                 }
                                                                 onClick={
                                                                     (e) => {
-                                                                        setCategory(e.target.value);
-                                                                        console.log(category)
+                                                                        setdashoptions(e.target.value);
+                                                                    
                                                                     }
                                                             }>
                                                                 {
