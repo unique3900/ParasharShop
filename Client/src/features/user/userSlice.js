@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchLoggedInUserInfo, fetchLoggedInUserOrders, updateUserInfo} from "./userAPI";
 
 const initialState = {
-  userInfo: null,
+  userInfo: [],
   userOrders:[],
   status: 'idle',
   

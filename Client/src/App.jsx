@@ -42,9 +42,10 @@ const App = () => {
     else {
       dispatch(getCartByEmailAsync(user.email));
       dispatch(fetchLoggedInUserInfoAsync(user.id))
+      console.log("uuu",userInfo)
     }
       
-  }, [dispatch,user,userInfo])
+  }, [dispatch,user,userInfo.email])
   
   return (
     <div>

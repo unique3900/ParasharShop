@@ -2352,19 +2352,7 @@
       "gender": "male",
       "phone": "9876287811",
       "fullName": "Samyok Limbyu",
-      "addresses": [
-        {
-          "fullName": "Bibek Gosai",
-          "email": "gosaiBibek@gmail.com",
-          "phone": "9801882121",
-          "selectedState": "Bagmati",
-          "selectedCity": "Bhaktapur",
-          "selectedLocation": "Thimi Area",
-          "street": "Bode Bakha Bazar",
-          "houseNumber": "8785",
-          "message": "Fast Please"
-        }
-      ],
+      "addresses": [],
       "id": 2
     }
   ],
@@ -2387,6 +2375,26 @@
       "quantity": 1,
       "user": "para@para.com",
       "id": 1
+    },
+    {
+      "title": "iPhone X",
+      "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+      "price": 899,
+      "discountPercentage": 17.94,
+      "rating": 4.44,
+      "stock": 34,
+      "brand": "Apple",
+      "category": "smartphones",
+      "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+      "images": [
+        "https://i.dummyjson.com/data/products/2/1.jpg",
+        "https://i.dummyjson.com/data/products/2/2.jpg",
+        "https://i.dummyjson.com/data/products/2/3.jpg",
+        "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
+      ],
+      "quantity": 1,
+      "user": "limbu1@gmail.com",
+      "id": 2
     }
   ],
   "orders": [

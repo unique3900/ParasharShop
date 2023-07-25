@@ -28,6 +28,7 @@ import {
 } from '../../features/Auth/authSlice'
 import { newOrder } from '../../features/order/orderApi'
 import { newOrderAsync, selectCurrentOrder } from '../../features/order/orderSlice'
+import { selectLoggedInUserInfo } from '../../features/user/userSlice'
 
 
 const CheckoutPage = () => {
@@ -154,6 +155,7 @@ const CheckoutPage = () => {
        
 
     }
+
 
     
 
