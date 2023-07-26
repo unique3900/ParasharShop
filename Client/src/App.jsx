@@ -42,10 +42,9 @@ const App = () => {
     else {
       dispatch(getCartByEmailAsync(user.email));
       dispatch(fetchLoggedInUserInfoAsync(user.id))
-      console.log("uuu",userInfo)
     }
       
-  }, [dispatch,user,userInfo.email])
+  }, [dispatch,user])
   
   return (
     <div>
@@ -71,7 +70,7 @@ const App = () => {
         <Route path='/sellerOptions/seller-Dashboard' element={<></>} />
         <Route path='/order-success/:id' element={<OrderSuccessPage></OrderSuccessPage>} />
         <Route path='/my orders' element={<Protected><UserOrders/></Protected> } />
-        <Route path='/my profile' element={<Protected><UserInfo/></Protected>} />
+        <Route path='/my profile' element={<UserInfo/>} />
         <Route path='*' element={<Error404NotFound></Error404NotFound>} />
       </Routes>
     </div>

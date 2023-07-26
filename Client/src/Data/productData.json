@@ -2352,7 +2352,29 @@
       "gender": "male",
       "phone": "9876287811",
       "fullName": "Samyok Limbyu",
-      "addresses": [],
+      "addresses": [
+        {
+          "fullName": "Hello Demo Work",
+          "email": "dajdh2@gmail.com",
+          "phone": "656456454556",
+          "selectedState": "Bagmati",
+          "selectedCity": "Kathmandu",
+          "selectedLocation": "Baneshwor Area",
+          "street": "gdfg",
+          "houseNumber": "99",
+          "message": "ss"
+        },
+        {
+          "fullName": "Nandu Lal Kami",
+          "email": "fdf@sdsf.com",
+          "phone": "9872918212",
+          "selectedState": "Bagmati",
+          "selectedCity": "Kathmandu",
+          "selectedLocation": "Kalanki Area",
+          "street": "2123s",
+          "message": "Behind the temple"
+        }
+      ],
       "id": 2
     }
   ],

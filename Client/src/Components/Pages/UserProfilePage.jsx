@@ -20,6 +20,7 @@ import {
     selectLoggedInUser, updateUserAsync
 } from '../../features/Auth/authSlice';
 import {
+    Link,
     Navigate
 } from 'react-router-dom';
 
@@ -83,11 +84,12 @@ const UserProfilePage = () => {
             addresses: [... user.addresses]
         };
         newUser.addresses.splice(id, 1);
-        dispatch(updateuserInfoAsync(newUser))
+        dispatch(updateUserAsync(newUser))
         setEditOption({})
     }
 
-    const editBtnHandler = () => {
+    const editBtnHandler = (id) => {
+        console.log(editOption)
         setFullName(editOption.fullName);
         setEmail(editOption.email);
         setPhone(editOption.phone);
@@ -95,12 +97,35 @@ const UserProfilePage = () => {
         setSelectedState(editOption.selectedState);
         setSelectedLocation(editOption.selectedLocation);
         setStreet(editOption.street);
-        setHouseNumber(editOption.houseNumber);
-        setMessage(editOption.message);
+        setHouseNumber(editOption?.houseNumber);
+        setMessage(editOption?.message);
     }
-    const handleedit = (e) => {
+
+    const handleedit = (id) => {
         if (!fullName || !email || !phone || !selectedState || !selectedCity || !selectedLocation || !street) {
             setErr(true);
+        }
+        else {
+            const newUser = {
+                ... user,
+                addresses: [...user.addresses]
+            };
+            const data = {
+                fullName,
+                email,
+                phone,
+                selectedState,
+                selectedCity,
+                selectedLocation,
+                street,
+                houseNumber,
+                message
+            };
+            newUser.addresses.splice(id, 1,data)
+            console.log("New New User",newUser.addresses)
+            dispatch(updateUserAsync(newUser))
+            
+            setEditOption({})
         }
     }
 
@@ -139,10 +164,11 @@ const UserProfilePage = () => {
 
 
     return (
-        <> {
+        <>
+            {/* {
             ! user && <Navigate to={'/login'}
                 replace={true}></Navigate>
-        }
+        } */}
 
             <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-5'>
                 <h3 className="text-4xl font-bold text-center">Your Profile</h3>
@@ -157,7 +183,7 @@ const UserProfilePage = () => {
                             }</h2>
                         </div>
                         <div className="">
-                            <button className="px-3 py-2 cursor-pointer bg-green-600 text-white font-bold">New Address</button>
+                            <p className="text-gray-500 text-sm italic">New Address can be added from checkout page</p>
                         </div>
                     </div>
 
@@ -198,9 +224,9 @@ const UserProfilePage = () => {
                                         <button onClick={
                                                 (e) => {
                                                     e.preventDefault();
-                                                    console.log(item)
-                                                    setEditOption(item);
-                                                    editBtnHandler();
+                                                    
+                                                    setEditOption({...item,index});
+                                                    editBtnHandler(index);
                                                 }
                                             }
                                             className='px-3 py-2 bg-green-600 text-white font-bold rounded-full w-full'>Edit</button>
@@ -216,8 +242,8 @@ const UserProfilePage = () => {
                             ))
                         }
                             {
-                            editOption.email&& (
-                                <form action="" className="py-5">
+                            editOption.email && (
+                                <form noValidate={true} action="" className="py-5">
                                     <h1 className="font-bold text-3xl py-2 underline mb-1">Edit Personal Information</h1>
                                     <div className="grid grid-cols-2 gap-3 justify-between">
                                         <div className="flex flex-col gap-2">
@@ -408,9 +434,10 @@ const UserProfilePage = () => {
                                     <div className="flex gap-2">
                                         <button className='px-3 py-2 bg-red-700 text-white font-bold mt-5 rounded-md shadow-sm' type="reset">Reset</button>
                                         <button onClick={
-                                                (e) => {
-                                                    handleedit(e);
-                                                    e.preventDefault()
+                                                    (e) => {
+                                                    console.log(editOption.id)    
+                                                    handleedit(editOption.index);
+                                                   
                                                 }
                                             }
                                             className='px-3 py-2 bg-blue-700 text-white font-bold mt-5 rounded-md shadow-sm'
