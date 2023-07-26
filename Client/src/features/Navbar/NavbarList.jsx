@@ -160,7 +160,7 @@ const NavbarList = ({
 
                         <div className="flex flex-row items-center gap-2">
                             <AiOutlineLogout className='w-8 h-5'/>
-                            <Link className='hover:scale-105 hover:font-extrabold'>Logout</Link>
+                            <Link to={'/logout'} className='hover:scale-105 hover:font-extrabold'>Logout</Link>
                         </div>
                     )
                 } </div>

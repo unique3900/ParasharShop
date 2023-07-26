@@ -25,6 +25,7 @@ import UserOrders from './features/user/Components/UserOrders'
 import UserInfo from './features/user/Components/UserInfo'
 import { fetchLoggedInUserInfo } from './features/user/userAPI'
 import { fetchLoggedInUserInfoAsync, selectLoggedInUserInfo } from './features/user/userSlice'
+import LogoutPage from './Components/Pages/LogoutPage'
 
 
 axios.defaults.baseURL = 'http://127.0.0.1:8080';
@@ -56,6 +57,7 @@ const App = () => {
         <Route path='/' element={<Homepage />} />
         <Route path='/register' element={<RegisterPage/>} />
         <Route path='/login' element={<LoginPage />} />
+        <Route path='/logout' element={<LogoutPage />} />
         <Route path='/cart' element={
           <Protected>
               <CartPage />

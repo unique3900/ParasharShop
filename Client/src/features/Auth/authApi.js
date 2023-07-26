@@ -49,3 +49,7 @@ export async function loginUser({
     }
     
 }
+
+export function userLogout(user) {
+    return { data: 'success' };
+}

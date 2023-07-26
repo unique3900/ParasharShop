@@ -432,7 +432,10 @@ const UserProfilePage = () => {
 
 
                                     <div className="flex gap-2">
-                                        <button className='px-3 py-2 bg-red-700 text-white font-bold mt-5 rounded-md shadow-sm' type="reset">Reset</button>
+                                                <button onClick={(e) => {
+                                                    e.preventDefault();
+                                                    setEditOption({})
+                                        }} className='px-3 py-2 text-black font-bold mt-5 rounded-md shadow-sm' type="reset">Cancle</button>
                                         <button onClick={
                                                     (e) => {
                                                     console.log(editOption.id)    
