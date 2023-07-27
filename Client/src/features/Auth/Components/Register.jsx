@@ -93,7 +93,7 @@ const Register = () => {
             return
         }
         else {
-            dispatch(createUserAsync({email,password,address,fullName,phone,gender,addresses:[]}))
+            dispatch(createUserAsync({email,password,address,fullName,phone,gender,addresses:[],role:'buyer',businessInfo:[]}))
             navigate('/');
         }
     }

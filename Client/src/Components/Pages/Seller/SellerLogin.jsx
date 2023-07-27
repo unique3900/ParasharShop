@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import { ToastBar, Toaster, toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import API from '../../Services/API';
 const SellerLogin = () => {
 
     const [password, setPassword] = useState("");
@@ -13,26 +12,7 @@ const SellerLogin = () => {
 
     const navigate = useNavigate();
 
-    const handleSubmit = async(e) => {
-        e.preventDefault();
-        if ( !password ) {
-            setError(true);
-        }
-        const { data } = await API.post('/api/v1/auth/seller-login', { password});
-        if (data.success) {
-            toast.success(data.message + " Redirecting...");
-            setTimeout(() => {
-                navigate('/sellerOptions/seller-Dashboard');
-            }, 2000);
-            
-            
-            
-        }
-        else {
-            toast.error(data.message);
-        }
-        console.log(password)
-    }
+
     return (
         <div className='flex flex-col h-screen justify-center items-center'>
             <Toaster/>
@@ -47,12 +27,12 @@ const SellerLogin = () => {
                 <div className="">
                     <h1 className='text-center text-4xl lg:text-6xl py-5 '>Seller Login</h1>
 
-                    <form onSubmit={handleSubmit} className="form grid grid-flow-row  lg:grid-cols-1   gap-2  mt-5">
+                    <form className="form grid grid-flow-row  lg:grid-cols-1   gap-2  mt-5">
 
 
                         <div className="inputBox flex flex-col gap-1">
                             <label htmlFor="Name">Password:</label>
-                            <input value={password} type="password" name='name' required className='outline-black border-b-2 px-2 py-2 rounded-md shadow-sm' onChange={(e)=>{
+                            <input value={""} type="password" name='name' required className='outline-black border-b-2 px-2 py-2 rounded-md shadow-sm' onChange={(e)=>{
                                 setPassword(e.target.value)
                             }} />
                             {

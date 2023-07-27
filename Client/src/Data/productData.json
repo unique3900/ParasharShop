@@ -2337,16 +2337,19 @@
   "users": [
     {
       "email": "para@para.com",
+      "role": "buyer",
       "password": "#Pharmacy2022",
       "address": "Kathmandu",
       "gender": "male",
       "phone": "9808367121",
       "fullName": "Parashar Neupane",
       "addresses": [],
+      "businessInfo": [],
       "id": 1
     },
     {
       "email": "limbu1@gmail.com",
+      "role": "buyer",
       "password": "#Pharmacy2022",
       "address": "Thechambu",
       "gender": "male",
@@ -2375,6 +2378,11 @@
           "message": "Behind the temple"
         }
       ],
+      "businessInfo": {
+        "businessName": "ss",
+        "businessAddress": "ss",
+        "businessPassword": "ssss"
+      },
       "id": 2
     }
   ],
@@ -2738,6 +2746,149 @@
       "totalAmount": 899,
       "status": "pending",
       "id": 4
+    },
+    {
+      "items": [
+        {
+          "title": "iPhone X",
+          "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+          "price": 899,
+          "discountPercentage": 17.94,
+          "rating": 4.44,
+          "stock": 34,
+          "brand": "Apple",
+          "category": "smartphones",
+          "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/2/1.jpg",
+            "https://i.dummyjson.com/data/products/2/2.jpg",
+            "https://i.dummyjson.com/data/products/2/3.jpg",
+            "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
+          ],
+          "quantity": 1,
+          "user": "limbu1@gmail.com",
+          "id": 2
+        }
+      ],
+      "selectedPaymentMethod": "card",
+      "selectedDeliveryAddress": {
+        "fullName": "Nandu Lal Kami",
+        "email": "fdf@sdsf.com",
+        "phone": "9872918212",
+        "selectedState": "Bagmati",
+        "selectedCity": "Kathmandu",
+        "selectedLocation": "Kalanki Area",
+        "street": "2123s",
+        "message": "Behind the temple"
+      },
+      "user": {
+        "email": "limbu1@gmail.com",
+        "password": "#Pharmacy2022",
+        "address": "Thechambu",
+        "gender": "male",
+        "phone": "9876287811",
+        "fullName": "Samyok Limbyu",
+        "addresses": [
+          {
+            "fullName": "Hello Demo Work",
+            "email": "dajdh2@gmail.com",
+            "phone": "656456454556",
+            "selectedState": "Bagmati",
+            "selectedCity": "Kathmandu",
+            "selectedLocation": "Baneshwor Area",
+            "street": "Neupane Sadak",
+            "houseNumber": "6969",
+            "message": "Behind the church"
+          },
+          {
+            "fullName": "Nandu Lal Kami",
+            "email": "fdf@sdsf.com",
+            "phone": "9872918212",
+            "selectedState": "Bagmati",
+            "selectedCity": "Kathmandu",
+            "selectedLocation": "Kalanki Area",
+            "street": "2123s",
+            "message": "Behind the temple"
+          }
+        ],
+        "id": 2
+      },
+      "totalItems": 1,
+      "totalAmount": 899,
+      "status": "pending",
+      "id": 5
+    },
+    {
+      "items": [
+        {
+          "title": "iPhone X",
+          "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+          "price": 899,
+          "discountPercentage": 17.94,
+          "rating": 4.44,
+          "stock": 34,
+          "brand": "Apple",
+          "category": "smartphones",
+          "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/2/1.jpg",
+            "https://i.dummyjson.com/data/products/2/2.jpg",
+            "https://i.dummyjson.com/data/products/2/3.jpg",
+            "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
+          ],
+          "quantity": 1,
+          "user": "limbu1@gmail.com",
+          "id": 2
+        }
+      ],
+      "selectedPaymentMethod": "cash",
+      "selectedDeliveryAddress": {
+        "fullName": "Hello Demo Work",
+        "email": "dajdh2@gmail.com",
+        "phone": "656456454556",
+        "selectedState": "Bagmati",
+        "selectedCity": "Kathmandu",
+        "selectedLocation": "Baneshwor Area",
+        "street": "Neupane Sadak",
+        "houseNumber": "6969",
+        "message": "Behind the church"
+      },
+      "user": {
+        "email": "limbu1@gmail.com",
+        "password": "#Pharmacy2022",
+        "address": "Thechambu",
+        "gender": "male",
+        "phone": "9876287811",
+        "fullName": "Samyok Limbyu",
+        "addresses": [
+          {
+            "fullName": "Hello Demo Work",
+            "email": "dajdh2@gmail.com",
+            "phone": "656456454556",
+            "selectedState": "Bagmati",
+            "selectedCity": "Kathmandu",
+            "selectedLocation": "Baneshwor Area",
+            "street": "Neupane Sadak",
+            "houseNumber": "6969",
+            "message": "Behind the church"
+          },
+          {
+            "fullName": "Nandu Lal Kami",
+            "email": "fdf@sdsf.com",
+            "phone": "9872918212",
+            "selectedState": "Bagmati",
+            "selectedCity": "Kathmandu",
+            "selectedLocation": "Kalanki Area",
+            "street": "2123s",
+            "message": "Behind the temple"
+          }
+        ],
+        "id": 2
+      },
+      "totalItems": 1,
+      "totalAmount": 899,
+      "status": "pending",
+      "id": 6
     }
   ]
 }

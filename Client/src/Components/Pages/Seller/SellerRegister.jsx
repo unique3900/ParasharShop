@@ -1,39 +1,38 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { ToastBar, Toaster, toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import API from '../../Services/API';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectLoggedInUser, updateUserAsync } from '../../../features/Auth/authSlice';
+
+
+
 const SellerRegister = () => {
+    const user = useSelector(selectLoggedInUser);
     const [businessName, setBusinessName] = useState('');
     const [businessAddress, setBusinessAddress] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    
 
     const [error, setError] = useState(false);
 
-    const navigate = useNavigate();
 
-    const handleSubmit = async(e) => {
+    const dispatch = useDispatch();
+
+
+    
+    const handleSubmit = (e) => {
         e.preventDefault();
-        if (!businessName || !businessAddress || !password || !confirmPassword) {
-            setError(true);
-        }
-        const { data } = await API.post('/api/v1/auth/seller-register', { businessName, businessAddress, password});
-        if (data.success) {
-            toast.success(data.message + " Redirecting...");
-            setTimeout(() => {
-                navigate('/sellerOptions/sellerLogin');
-            }, 2000);
-            
-            
-            
+        const data = { businessName, businessAddress,businessPassword: password };
+        if (user.businessInfo) {
+            alert("Already a Business Registered")
         }
         else {
-            toast.error(data.message);
+            dispatch(updateUserAsync({ ...user, businessInfo: data }));
         }
-        console.log(businessName,businessAddress,password,confirmPassword)
+        
     }
+
     return (
         <div className='flex flex-col h-screen justify-center items-center'>
             <Toaster/>
@@ -48,7 +47,7 @@ const SellerRegister = () => {
                 <div className="">
                     <h1 className='text-center text-4xl lg:text-6xl py-5 '>Seller Registration</h1>
 
-                    <form onSubmit={handleSubmit} className="form grid grid-flow-row  lg:grid-cols-1   gap-2  mt-5">
+                    <form onSubmit={(e) => { handleSubmit(e) }} className="form grid grid-flow-row  lg:grid-cols-1   gap-2  mt-5">
 
                         <div className="inputBox flex flex-col gap-1">
                             <label htmlFor="Name">Business Name:</label>
@@ -99,7 +98,7 @@ const SellerRegister = () => {
                         </div>
 
 
-                        <button type='submit' className='mt-1 bg-blue-500 p-2 w-full text-white'
+                        <button  type='submit' className='mt-1 bg-blue-500 p-2 w-full text-white'
                            >Register</button>
                     </form>
                 </div>

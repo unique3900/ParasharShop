@@ -18,7 +18,8 @@ export function createUser({
         gender,
         phone,
         fullName,
-        addresses
+        addresses,
+        role
     })
 }
 export function updateUser(users) {
@@ -53,3 +54,4 @@ export async function loginUser({
 export function userLogout(user) {
     return { data: 'success' };
 }
+

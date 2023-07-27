@@ -165,10 +165,10 @@ const UserProfilePage = () => {
 
     return (
         <>
-            {/* {
+            {
             ! user && <Navigate to={'/login'}
                 replace={true}></Navigate>
-        } */}
+        }
 
             <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-5'>
                 <h3 className="text-4xl font-bold text-center">Your Profile</h3>
@@ -183,7 +183,10 @@ const UserProfilePage = () => {
                             }</h2>
                         </div>
                         <div className="">
-                            <p className="text-gray-500 text-sm italic">New Address can be added from checkout page</p>
+                            <p className="text-gray-500 text-sm italic"><span className="font-bold text-red-500">Note:</span> New Address can be added from checkout page</p>
+                        </div>
+                        <div className="">
+                            <Link to={'/change-password'} className='px-3 py-2 bg-indigo-700 text-white rounded-md cursor-pointer'>Change Password</Link>
                         </div>
                     </div>
 

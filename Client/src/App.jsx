@@ -26,6 +26,12 @@ import UserInfo from './features/user/Components/UserInfo'
 import { fetchLoggedInUserInfo } from './features/user/userAPI'
 import { fetchLoggedInUserInfoAsync, selectLoggedInUserInfo } from './features/user/userSlice'
 import LogoutPage from './Components/Pages/LogoutPage'
+import ChangePassword from './Components/Pages/Password/ChangePassword'
+import SellerChoosePage from './Components/Pages/Seller/SellerChoosePage'
+import SellerLogin from './Components/Pages/Seller/SellerLogin'
+import ProtectedSeller from './features/Auth/Components/ProtectedSeller'
+import SellerDashboard from './Components/Pages/Seller/SellerDashboard'
+import SellerRegister from './Components/Pages/Seller/SellerRegister'
 
 
 axios.defaults.baseURL = 'http://127.0.0.1:8080';
@@ -58,6 +64,7 @@ const App = () => {
         <Route path='/register' element={<RegisterPage/>} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/logout' element={<LogoutPage />} />
+        <Route path='/change-password' element={<Protected><ChangePassword/></Protected> } />
         <Route path='/cart' element={
           <Protected>
               <CartPage />
@@ -66,10 +73,10 @@ const App = () => {
         } />
         <Route path='/checkout' element={<Protected><CheckoutPage/></Protected> } />
         <Route path='/products/:id' element={<SingleProductPage/>} />
-        <Route path='/sellerOptions' element={""} />
-        <Route path='/sellerOptions/sellerRegister' element={"" } />
-        <Route path='/sellerOptions/sellerLogin' element={""} />
-        <Route path='/sellerOptions/seller-Dashboard' element={<></>} />
+        <Route path='/sellerOptions' element={<SellerChoosePage/>} />
+        <Route path='/sellerOptions/sellerRegister' element={<SellerRegister/> } />
+        <Route path='/sellerOptions/sellerLogin' element={<SellerLogin/>} />
+        <Route path='/sellerOptions/seller-Dashboard' element={<ProtectedSeller><SellerDashboard/></ProtectedSeller>} />
         <Route path='/order-success/:id' element={<OrderSuccessPage></OrderSuccessPage>} />
         <Route path='/my orders' element={<Protected><UserOrders/></Protected> } />
         <Route path='/my profile' element={<UserInfo/>} />
