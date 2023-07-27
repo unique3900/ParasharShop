@@ -16,19 +16,30 @@ const SellerRegister = () => {
 
     const [error, setError] = useState(false);
 
-
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        console.log(user)
+    }, [])
+    
 
     
     const handleSubmit = (e) => {
         e.preventDefault();
         const data = { businessName, businessAddress,businessPassword: password };
-        if (user.businessInfo) {
-            alert("Already a Business Registered")
+        const businessLength = Object.keys(user.businessInfo).length;
+        console.log(businessLength)
+        if (businessLength>0) {
+            toast("A Business is already registered for your account")
+            setBusinessAddress("");
+            setBusinessName("");
+            setPassword("");
+            setConfirmPassword("");
         }
         else {
-            dispatch(updateUserAsync({ ...user, businessInfo: data }));
+            dispatch(updateUserAsync({ ...user,user,role:'seller',businessInfo: data }));
+            navigate("/sellerOptions/sellerLogin")
         }
         
     }

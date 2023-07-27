@@ -9,7 +9,7 @@ const SellerChoosePage = () => {
             
           <Link className='bg-purple-600 px-5 py-4 text-white font-bold cursor-pointer rounded-full text-center' to={'sellerLogin'}><button className=''>Seller Login</button></Link>    
         <Link className='bg-green-600 px-5 py-4 text-white font-bold cursor-pointer rounded-full text-center ' to={'sellerRegister'}> <button >Seller Registration</button></Link>
-        {/* <Link className='bg-green-600 px-5 py-4 text-white font-bold cursor-pointer rounded-full text-center ' to={'seller-Dashboard'}> <button >Seller Dashboard</button></Link>   */}
+        <Link className='bg-green-600 px-5 py-4 text-white font-bold cursor-pointer rounded-full text-center ' to={'seller-Dashboard'}> <button >Seller Dashboard</button></Link>  
       </div>
     </div>
   )
