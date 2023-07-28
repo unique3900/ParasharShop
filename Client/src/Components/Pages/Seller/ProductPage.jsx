@@ -44,10 +44,12 @@ import {
     fetchAllProductsAsync,
     fetchBrandsAsync,
     fetchCategoryAsync,
+    fetchProductBySellerIdAsync,
     fetchProductsByFilterAsync,
     selectAllBrands,
     selectAllCategories,
-    selectAllProducts
+    selectAllProducts,
+    sellerProducts
 } from '../../../features/product/productListSlice';
 
 import {
@@ -57,7 +59,8 @@ import Pagination from '../../Layout/Pagination';
 import {
     sortOptions
 } from '../../../Data/data';
-import { fetchAllBrands } from '../../../features/product/productListApi';
+import { fetchAllBrands, fetchProductBySellerId } from '../../../features/product/productListApi';
+import { selectLoggedInSeller, selectLoggedInUser } from '../../../features/Auth/authSlice';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -69,11 +72,16 @@ const ProductPage = () => {
     const [sort, setSort] = useState({});
     const dispatch = useDispatch()
 
+  
+  const user = useSelector(selectLoggedInUser);
     const brands = useSelector(selectAllBrands);
     const categories = useSelector(selectAllCategories);
-    const products = useSelector(selectAllProducts);
+    const products = useSelector(sellerProducts);
 
 
+
+
+  
     const handleFilters = (e, option, section) => {
         const userFilter = {
             ...filter
@@ -119,7 +127,8 @@ const ProductPage = () => {
     ]
 
 
-    useEffect(() => {
+  useEffect(() => {
+    dispatch(fetchProductBySellerIdAsync(user.id));
         dispatch(fetchProductsByFilterAsync({
             filter,
             sort

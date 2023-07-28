@@ -28,6 +28,10 @@ export function createProduct(product) {
     console.log("Received New Product", product);
     return axios.post(`http://localhost:8080/products`,{...product})
 }
+export function fetchProductBySellerId(id) {
+    console.log("Received Seller Id", id);
+    return axios.get(`http://localhost:8080/products?seller=${id}`)
+}
 
 export function fetchAllBrands() {
     return axios.get('http://localhost:8080/brands')
