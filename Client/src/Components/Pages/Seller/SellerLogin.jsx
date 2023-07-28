@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { ToastBar, Toaster, toast } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { selectLoggedInUser } from '../../../features/Auth/authSlice';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginSellerAsync, selectLoggedInSeller, selectLoggedInUser } from '../../../features/Auth/authSlice';
 const SellerLogin = () => {
 
     const user = useSelector(selectLoggedInUser);
+    const seller = useSelector(selectLoggedInSeller);
     const [password, setPassword] = useState("");
     
     
@@ -14,21 +15,19 @@ const SellerLogin = () => {
     const [error, setError] = useState(false);
 
     const navigate = useNavigate();
-
+    const dispatch = useDispatch();
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        if (user.businessInfo.businessPassword == password) {
-            toast("Seller Authenticated");
-            navigate("/sellerOptions/seller-Dashboard");
-        }
-        else {
-            toast.error("Invalid Business Password")
-        }
+        const data = { user, password };
+        dispatch(loginSellerAsync({data}))
+        
     }
 
     return (
-        <div className='flex flex-col h-screen justify-center items-center'>
+        <>
+            {!user && <Navigate to={'/'} replace={true}></Navigate>}
+            {seller&&<Navigate to={'/sellerOptions/seller-Dashboard'} replace={true}></Navigate>}
+                    <div className='flex flex-col h-screen justify-center items-center'>
             <Toaster/>
             <div className=" grid mt-0 grid-flow-row gap-3 lg:grid-flow-col items-center align-middle lg:grid-cols-2 w-full lg:w-fit   p-6 round-xl shadow-md shadow-slate-400 overflow-x-auto no-scrollbar">
                 <div className="hidden lg:flex relative justify-center place-content-center">
@@ -62,6 +61,8 @@ const SellerLogin = () => {
             </div>
 
         </div>
+        </>
+
     )
 }
 

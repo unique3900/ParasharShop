@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { ToastBar, Toaster, toast } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectLoggedInUser, updateUserAsync } from '../../../features/Auth/authSlice';
+import { selectLoggedInSeller, selectLoggedInUser, updateUserAsync } from '../../../features/Auth/authSlice';
 
 
 
 const SellerRegister = () => {
     const user = useSelector(selectLoggedInUser);
+    const seller=useSelector(selectLoggedInSeller)
     const [businessName, setBusinessName] = useState('');
     const [businessAddress, setBusinessAddress] = useState("");
     const [password, setPassword] = useState("");
@@ -45,7 +46,10 @@ const SellerRegister = () => {
     }
 
     return (
-        <div className='flex flex-col h-screen justify-center items-center'>
+        <>
+         {!user && <Navigate to={'/'} replace={true}></Navigate>}
+            {seller&&<Navigate to={'/sellerOptions/seller-Dashboard'} replace={true}></Navigate>}
+            <div className='flex flex-col h-screen justify-center items-center'>
             <Toaster/>
             <div className=" grid mt-0 grid-flow-row gap-3 lg:grid-flow-col items-center align-middle lg:grid-cols-2 w-full lg:w-fit   p-6 round-xl shadow-md shadow-slate-400 overflow-x-auto no-scrollbar">
                 <div className="hidden lg:flex relative justify-center place-content-center">
@@ -116,6 +120,8 @@ const SellerRegister = () => {
             </div>
 
         </div>
+        </>
+  
     )
 }
 
