@@ -32,6 +32,8 @@ import SellerLogin from './Components/Pages/Seller/SellerLogin'
 import ProtectedSeller from './features/Auth/Components/ProtectedSeller'
 import SellerDashboard from './Components/Pages/Seller/SellerDashboard'
 import SellerRegister from './Components/Pages/Seller/SellerRegister'
+import ProductPage from './Components/Pages/Seller/ProductPage'
+import ProductForm from './Components/Pages/Seller/ProductForm'
 
 
 axios.defaults.baseURL = 'http://127.0.0.1:8080';
@@ -76,8 +78,10 @@ const App = () => {
         <Route path='/sellerOptions' element={<SellerChoosePage/>} />
         <Route path='/sellerOptions/sellerRegister' element={<SellerRegister/> } />
         <Route path='/sellerOptions/sellerLogin' element={<SellerLogin/>} />
-        <Route path='/sellerOptions/seller-Dashboard' element={<ProtectedSeller><SellerDashboard/></ProtectedSeller>} />
         <Route path='/order-success/:id' element={<OrderSuccessPage></OrderSuccessPage>} />
+        <Route path='/sellerOptions/seller-Dashboard' element={<ProtectedSeller><SellerDashboard/></ProtectedSeller>} />
+        <Route path='/sellerOptions/seller-Dashboard/manage-products' element={<ProtectedSeller><ProductPage/></ProtectedSeller>} />
+        <Route path='/sellerOptions/seller-Dashboard/manage-products/add-product' element={<ProtectedSeller><ProductForm/></ProtectedSeller>} />
         <Route path='/my orders' element={<Protected><UserOrders/></Protected> } />
         <Route path='/my profile' element={<UserInfo/>} />
         <Route path='*' element={<Error404NotFound></Error404NotFound>} />

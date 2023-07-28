@@ -1838,6 +1838,26 @@
         "https://i.dummyjson.com/data/products/100/3.jpg",
         "https://i.dummyjson.com/data/products/100/thumbnail.jpg"
       ]
+    },
+  
+    {
+      "title": "Nike Air force1",
+      "description": "Shine in satin, stay classic in canvas or get luxe with leather. No matter what you choose, these AF1s are all about you. 12 color choices and an additional gum rubber option for the sole mean your design is destined to be one of a kind—just like you.",
+      "price": "233",
+      "discountPercentage": "2",
+      "stock": "11",
+      "thumbnail": "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/10027c30-1fb5-4b98-b41c-8aa0f56a6059/custom-nike-air-force-1-low-by-you.png",
+      "brand": "Bake Parlor Big",
+      "category": "sunglasses",
+      "images": [
+        "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/d16d44ab-a6ff-4ad9-b7ae-ffc097385ea1/custom-nike-air-force-1-low-by-you.png",
+        "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/a478f532-13c9-4e7b-8327-e0bd4dd89102/custom-nike-air-force-1-low-by-you.png",
+        "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/5c8d9595-fe28-4d19-89ed-42dcbd739d71/custom-nike-air-force-1-low-by-you.png",
+        "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/10027c30-1fb5-4b98-b41c-8aa0f56a6059/custom-nike-air-force-1-low-by-you.png"
+      ],
+      "rating": 0,
+      "seller": 1,
+      "id": 102
     }
   ],
   "brands": [
@@ -2472,19 +2492,20 @@
   ],
   "cart": [
     {
-      "title": "Huawei P30",
-      "description": "Huawei’s re-badged P30 Pro New Edition was officially unveiled yesterday in Germany and now the device has made its way to the UK.",
-      "price": 499,
-      "discountPercentage": 10.58,
-      "rating": 4.09,
-      "stock": 32,
-      "brand": "Huawei",
+      "title": "iPhone X",
+      "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+      "price": 899,
+      "discountPercentage": 17.94,
+      "rating": 4.44,
+      "stock": 34,
+      "brand": "Apple",
       "category": "smartphones",
-      "thumbnail": "https://i.dummyjson.com/data/products/5/thumbnail.jpg",
+      "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
       "images": [
-        "https://i.dummyjson.com/data/products/5/1.jpg",
-        "https://i.dummyjson.com/data/products/5/2.jpg",
-        "https://i.dummyjson.com/data/products/5/3.jpg"
+        "https://i.dummyjson.com/data/products/2/1.jpg",
+        "https://i.dummyjson.com/data/products/2/2.jpg",
+        "https://i.dummyjson.com/data/products/2/3.jpg",
+        "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
       ],
       "quantity": 1,
       "user": "para@para.com",
