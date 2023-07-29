@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
     filters
 } from '../../../Data/data'
@@ -13,46 +13,77 @@ import {
     selectLoggedInSeller,
     selectLoggedInUser
 } from '../../../features/Auth/authSlice'
-import { Navigate } from 'react-router-dom'
-import { createProductAsync } from '../../../features/product/productListSlice';
+import { Navigate, useParams } from 'react-router-dom'
+import { createProductAsync, fetchProductByIdAsync, selectProductById, updateProductAsync } from '../../../features/product/productListSlice';
 
-const ProductForm = () => {
+const EditProduct = () => {
     const user = useSelector(selectLoggedInUser);
     const seller = useSelector(selectLoggedInSeller);
 
+
+    const params = useParams();
+
     const dispatch = useDispatch();
+  
+    const selectedProduct = useSelector(selectProductById);
     const {
         register,
         handleSubmit,
+        setValue,
         formState: {
             errors
         }
     } = useForm();
-    return (
-        <>
+
+
+    useEffect(() => {
+        if (params.id) {
+            dispatch(fetchProductByIdAsync(params.id));
+        }
+        console.log(selectedProduct)
+    }, [params.id, dispatch, user]);
+
+    useEffect(() => {
+        if (selectedProduct) {
+            setValue('title', selectedProduct.title)
+        setValue('description', selectedProduct.description);
+        setValue('price', selectedProduct.price);
+        setValue('discountPercentage', selectedProduct.discountPercentage);
+        setValue('stock', selectedProduct.stock);
+        setValue('category', selectedProduct.category);
+        setValue('thumbnail', selectedProduct.thumbnail);
+        setValue('brand', selectedProduct.brand);
+        setValue('image1', selectedProduct.images[0]);
+        setValue('image2', selectedProduct.images[1]);
+        setValue('image3', selectedProduct.images[2]);
+        }
+    }, [selectedProduct])
+    
+    
+  return (
+    <>
             {!user && <Navigate to={'/'} replace={true}></Navigate>}
             {!seller && <Navigate to={'/'} replace={true}></Navigate>}
             <div className="h-screen  flex flex-col  items-center ">
                 <form noValidate
-                    onSubmit={
-                        handleSubmit((data) => {
-                            const product = {
-                                ...data
-                            };
-                            product.images = [product.image1, product.image2, product.image3, product.thumbnail];
-                            product.rating = 0;
-                            product.seller = user.id;
-                            delete product['image1'];
-                            delete product['image2'];
-                            delete product['image3'];
-                            console.log(product)
-                            dispatch(createProductAsync(product))
-                        })
-                    }
+                  onSubmit={handleSubmit((data) => {
+                      const datas = { ...data };
+                      datas.id = +params.id;
+                      datas.images = [datas.image1, datas.image2, datas.image3, datas.thumbnail];
+                      datas.images = [datas.image1, datas.image2, datas.image3, datas.thumbnail];
+                      datas.rating = 0;
+                      datas.seller = user.id;
+                    delete datas['image1'];
+                    delete datas['image2'];
+                      delete datas['image3'];
+                      console.log(datas)
+                      dispatch(updateProductAsync(datas))
+
+                    })}
                     className='mt-5 shadow-lg px-5 py-3 bg-white'>
                     <div className="space-y-12">
                         <div className="border-b border-gray-900/10 pb-12">
-                            <h2 className=" text-4xl font-bold leading-7 text-gray-900 text-center">New Product</h2>
+                            <h2 className=" text-4xl font-bold leading-7 text-gray-900 text-center">Edit Product</h2>
                             <p className="mt-3 text-sm leading-6 text-gray-600 text-center">This information will be displayed publicly so be careful what you share.</p>
 
                             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -60,7 +91,7 @@ const ProductForm = () => {
                                     <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">Product Title</label>
                                     <div className="mt-2">
                                         <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                                            <input type="text" {...register('title',{required:"Title is Required"})} id="title" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Product Title Here"/>
+                                            <input  type="text" {...register('title',{required:"Title is Required"})} id="title" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Product Title Here"/>
                                         </div>
                                     </div>
                                 </div>
@@ -110,7 +141,7 @@ const ProductForm = () => {
                                     <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">Product Thumbnail URL</label>
                                     <div className="mt-2">
                                         <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                                            <input type="text" {...register('thumbnail',{required:"Thumbnail is Required"})} id="thumbnail" autoComplete="title" className="w-full block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Paste Product Thumbnail Here"/>
+                                            <input type="text" {...register('thumbnail',{required:"thumbnail is Required"})} id="thumbnail" autoComplete="title" className="w-full block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Paste Product Thumbnail Here"/>
                                         </div>
                                     </div>
                                 </div>
@@ -192,10 +223,8 @@ const ProductForm = () => {
                     </div>
                 </form>
             </div>
-        </>
-
-
-    )
+        </>    
+  )
 }
 
-export default ProductForm
+export default EditProduct
