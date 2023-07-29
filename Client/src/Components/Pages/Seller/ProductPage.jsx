@@ -41,6 +41,7 @@ import {
 } from 'react-redux';
 
 import {
+  deleteProductAsync,
     fetchAllProductsAsync,
     fetchBrandsAsync,
     fetchCategoryAsync,
@@ -80,8 +81,6 @@ const ProductPage = () => {
 
 
 
-
-  
     const handleFilters = (e, option, section) => {
         const userFilter = {
             ...filter
@@ -114,6 +113,7 @@ const ProductPage = () => {
     }
 
 
+
     const filters = [
         {
             id: 'brand',
@@ -126,6 +126,10 @@ const ProductPage = () => {
         },
     ]
 
+    const handleDeleteProduct = (id) => {
+      dispatch(deleteProductAsync(id))
+      
+    }
 
   useEffect(() => {
     dispatch(fetchProductBySellerIdAsync(user.id));
@@ -135,7 +139,10 @@ const ProductPage = () => {
         }))
         dispatch(fetchBrandsAsync());
         dispatch(fetchCategoryAsync());
-    }, [dispatch, filter, sort]);
+  }, [dispatch, filter, sort]);
+  
+ 
+
 
 
     return (
@@ -227,7 +234,7 @@ const ProductPage = () => {
                     <Toaster />
             <h3 className="text-4xl font-bold text-center">All Products</h3>
     
-                      <ProductGrid products={products} page={page} filters={filters} />
+                      <ProductGrid products={products} page={page} filters={filters} handleDeleteProduct={handleDeleteProduct} />
               <Pagination page={Math.ceil(page) } setPage={setPage} totalPage={Math.floor(products.length)} />
                     
                     
@@ -338,7 +345,7 @@ const ProductPage = () => {
       )
     }
     
-    function ProductGrid({products,page,filters}) {
+    function ProductGrid({products,page,filters,handleDeleteProduct}) {
       return (
         <div className="grid grid-cols-2 justify-center lg:grid-cols-3 gap-3">
         {
@@ -368,10 +375,13 @@ const ProductPage = () => {
                  
               </div>
     
-              <div className="flex justify-center items-center">
+              <div className="flex flex-col lg:flex-row gap-3 justify-center items-center">
                         <Link to={`edit-product/${item.id}`} className="relative w-full text-center bg-purple-800 text-white px-3 py-2 rounded-full">Edit</Link>
-                      
-              </div>
+                  <button  onClick={(e) => {
+                    e.preventDefault();
+                    handleDeleteProduct(item.id)
+                      }}  className="relative w-full text-center bg-red-700 text-white px-3 py-2 rounded-full">Delete</button>
+                </div>
           </div>
             ))
         }

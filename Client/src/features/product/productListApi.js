@@ -32,6 +32,10 @@ export function updateProduct(data) {
     console.log("Received New Product", data);
     return axios.patch(`http://localhost:8080/products/${data.id}`, {...data})
 }
+export function deleteProduct(id) {
+    console.log("Received Delete Id", id);
+    return axios.delete(`http://localhost:8080/products/${id}`)
+}
 export function fetchProductBySellerId(id) {
     console.log("Received Seller Id", id);
     return axios.get(`http://localhost:8080/products?seller=${id}`)

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createProduct, fetchAllBrands, fetchAllCategory, fetchAllProducts, fetchProductById, fetchProductBySellerId, fetchProductsByFilter, updateProduct } from "./productListApi";
+import { createProduct, deleteProduct, fetchAllBrands, fetchAllCategory, fetchAllProducts, fetchProductById, fetchProductBySellerId, fetchProductsByFilter, updateProduct } from "./productListApi";
 
 const initialState = {
   products: [],
@@ -30,6 +30,13 @@ export const updateProductAsync = createAsyncThunk(
   "products/updateProduct",
   async (data) => {
     const response = await updateProduct(data);
+    return response.data;
+  }
+)
+export const deleteProductAsync = createAsyncThunk(
+  "products/deleteProduct",
+  async (id) => {
+    const response = await deleteProduct(id);
     return response.data;
   }
 )
@@ -102,6 +109,14 @@ export const productSlice = createSlice({
         state.status = "idle";
         state.products = action.payload;
       })
+      .addCase(deleteProductAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(deleteProductAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        const index = state.sellerProducts.findIndex(item => item.id === action.payload.id);
+        state.sellerProducts.splice(index, 1);
+      })
       .addCase(fetchProductByIdAsync.pending, (state) => {
         state.status = "loading";
       })
@@ -114,7 +129,7 @@ export const productSlice = createSlice({
       })
       .addCase(fetchProductBySellerIdAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.sellerProducts=action.payload ;
+        state.sellerProducts = action.payload;
       })
       .addCase(fetchProductsByFilterAsync.pending, (state) => {
         state.status = "loading";

@@ -83,6 +83,7 @@ const App = () => {
         <Route path='/sellerOptions/seller-Dashboard' element={<ProtectedSeller><SellerDashboard/></ProtectedSeller>} />
         <Route path='/sellerOptions/seller-Dashboard/manage-products' element={<ProtectedSeller><ProductPage/></ProtectedSeller>} />
         <Route path='/sellerOptions/seller-Dashboard/manage-products/edit-product/:id' element={<ProtectedSeller><EditProduct/></ProtectedSeller>} />
+        <Route path='/sellerOptions/seller-Dashboard/manage-products/add-product' element={<ProtectedSeller><ProductForm/></ProtectedSeller>} />
         <Route path='/my orders' element={<Protected><UserOrders/></Protected> } />
         <Route path='/my profile' element={<UserInfo/>} />
         <Route path='*' element={<Error404NotFound></Error404NotFound>} />
