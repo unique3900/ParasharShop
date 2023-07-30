@@ -36,6 +36,8 @@ const CheckoutPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+  
+
     // States
     const [selectedState, setSelectedState] = useState("");
     const [selectedDeliveryAddress, setSelectedDeliveryAddress] = useState(null);

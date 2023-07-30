@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllProductsAsync, fetchBrandsAsync, fetchCategoryAsync, fetchProductsByFilterAsync, selectAllBrands, selectAllCategories, selectAllProducts } from './productListSlice';
 import {  sortOptions } from '../../Data/data';
 import { Link } from 'react-router-dom';
+import { selectLoggedInUser } from '../Auth/authSlice';
 
 
 function classNames(...classes) {
@@ -27,12 +28,12 @@ export const ProductList = () => {
   const [filter, setFilter] = useState({});
   const [sort, setSort] = useState({});
   const dispatch = useDispatch()
-  
+  const loggedInUser=useSelector(selectLoggedInUser)
   const brands = useSelector(selectAllBrands);
   const categories = useSelector(selectAllCategories);
   const products = useSelector(selectAllProducts);
 
-
+  
 
   const handleFilters = (e, option, section) => {
     const userFilter = { ...filter}
@@ -316,7 +317,7 @@ function ProductGrid({products,page,filters}) {
           </div>
 
           <div className="flex justify-center items-center">
-                    <button className="relative w-full bg-purple-800 text-white px-3 py-2 rounded-full">Add to Cart</button>
+                    <button  className="relative w-full bg-purple-800 text-white px-3 py-2 rounded-full">Add to Cart</button>
                     <BiCartAdd className='absolute right-10 lg:right-14 text-white w-5 h-5 lg:w-7 lg:h-8'/>
           </div>
       </div>

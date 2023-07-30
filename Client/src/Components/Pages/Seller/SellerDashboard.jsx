@@ -33,7 +33,7 @@ const SellerDashboard = () => {
                 <div className="flex flex-row h-fit lg:flex-col gap-2 text-sm flex-wrap">
                     <Link className='bg-red-700 text-white font-bold text-center px-3 py-2'>Manage Category</Link>
                     <Link to={'manage-products'} className='bg-purple-700 text-white font-bold text-center px-3 py-2'>Manage Products</Link>
-                    <Link className='bg-blue-700 text-white font-bold text-center px-3 py-2'>Manage Orders</Link>
+                    <Link to={'manage-orders'} className='bg-blue-700 text-white font-bold text-center px-3 py-2'>Manage Orders</Link>
                     <Link className='bg-green-700 text-white font-bold text-center px-3 py-2'>Change Business Password</Link>
                 </div>
                 <div className="h-full flex flex-col items-center shadow-lg w-full">
