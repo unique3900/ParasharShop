@@ -7,7 +7,7 @@ const Protected = ({ children }) => {
     const user = useSelector(selectLoggedInUser);
     const navigate = useNavigate();
         if (!user) {
-            alert("Login to Continue")
+            // alert("Login to Continue")
             window.location.replace('/login');
         } else {
             return children
