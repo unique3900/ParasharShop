@@ -16,6 +16,7 @@ import {
     Link,
     Navigate
 } from 'react-router-dom'
+import { discountedPrice } from '../../../app/constants'
 const UserOrders = () => {
     const dispatch = useDispatch();
     const user = useSelector(selectLoggedInUser);
@@ -86,7 +87,7 @@ const UserOrders = () => {
                                                         <div className="flex flex-col justify-center gap-2">
                                                             <p className="ml-4">
                                                                 NPR &nbsp; {
-                                                                orderItems.price
+                                                               discountedPrice(orderItems)
                                                             }</p>
                                                             <p className="ml-4">Payment Method : {orders.selectedPaymentMethod
     }</p>

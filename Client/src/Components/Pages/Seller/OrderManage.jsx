@@ -12,27 +12,34 @@ import {
     fetchOrderForSellerAsync,
     selectSellerOrder
 } from '../../../features/order/orderSlice';
-
+import { discountedPrice } from '../../../app/constants';
+import { AiOutlineEdit,AiOutlineEye } from 'react-icons/ai';
 const OrderManage = () => {
     const seller = useSelector(selectLoggedInSeller);
     const sellerOrders = useSelector(selectSellerOrder);
     const dispatch = useDispatch();
-    useEffect(() => {
 
+    const handleShow = (order) => {
+        
+    }
+    const handleEdit = (order) => {
+        console.log(order)
+    }
+    useEffect(() => {
         dispatch(fetchOrderForSellerAsync(seller.id))
         console.log(sellerOrders)
     }, [dispatch, seller])
 
     return (
         <> {/* component */}
-            <div className="overflow-x-auto">
+            <div className="overflow-scroll">
                 <h2 className="text-center font-bold text-4xl p-3">Manage Orders</h2>
                 <div className=" bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
-                    <div className="w-full">
+                    <div className="">
                         <div className="bg-white shadow-md rounded my-6">
-                            <table className="min-w-max w-full table-auto">
-                                <thead>
-                                    <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                            <table className="overflow-scroll w-full table-auto">
+                                <thead className=''>
+                                    <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal ">
                                         <th className="py-3 px-6 text-left">Order Id</th>
                                         <th className="py-3 px-6 text-left">Items</th>
                                         <th className="py-3 px-6 text-center">Product Detail</th>
@@ -144,22 +151,34 @@ const OrderManage = () => {
                                             </td>
 
                                             <td className="py-3 px-6 text-center  whitespace-nowrap">
-                                                <div className="flex flex-col items-center justify-center">
+                                                <div className="flex flex-col gap-5 items-center justify-center">
 
-                                                    <span className="font-medium">
-                                                        {
-                                                        item.totalAmount
-                                                    }</span>
+                                                    {item.items.map((prod) => (
+                                                         <span className="font-medium">
+                                                          {discountedPrice(prod)}
+                                                        </span>
+                                                    ))}
+
                                                 </div>
                                             </td>
 
                                             <td className="py-3 px-6 text-center  whitespace-nowrap">
                                                 <div className="flex flex-col items-center justify-center">
 
-                                                    <span className="font-medium">
-                                                        {
-                                                        item.status
-                                                    }</span>
+                                                    <select className='bg-purple-200 rounded-full text-xs text-purple-700'>
+                                                        <option value="">Pending</option>
+                                                        <option value="">Shipped</option>
+                                                        <option value="">Delivered</option>
+                                                        <option value="">Cancelled</option>
+                                                   </select>
+                                                </div>
+                                            </td>
+
+                                            <td className="py-3 px-6 text-center  whitespace-nowrap">
+                                                <div className="flex flex-row gap-2 items-center justify-center">
+                                                        
+                                                    <AiOutlineEdit onClick={(e) => { handleEdit(item) }} className='w-6 h-6 cursor-pointer' />
+                                                    <AiOutlineEye onClick={(e)=>{handleShow} } className='w-6 h-6 cursor-pointer'/>
                                                 </div>
                                             </td>
                                         </tr>

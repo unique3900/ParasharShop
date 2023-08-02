@@ -29,6 +29,7 @@ import {
 import { newOrder } from '../../features/order/orderApi'
 import { newOrderAsync, selectCurrentOrder } from '../../features/order/orderSlice'
 import { selectLoggedInUserInfo } from '../../features/user/userSlice'
+import { discountedPrice } from '../../app/constants'
 
 
 const CheckoutPage = () => {
@@ -95,7 +96,7 @@ const CheckoutPage = () => {
     }, 0);
 
     const totalAmount= items.reduce((accumulator, object) => {
-        return accumulator + object.price * object.quantity
+        return accumulator + discountedPrice(object) * object.quantity;
     }, 0)
 
     const handleRemove = (id) => {
@@ -419,7 +420,7 @@ const CheckoutPage = () => {
                                                                     </h3>
                                                                     <p className="ml-4">
                                                                         NPR &nbsp; {
-                                                                        product.price
+                                                                        discountedPrice(product)
                                                                     }</p>
                                                                 </div>
                                                                 <p className="mt-1 text-sm text-gray-500">

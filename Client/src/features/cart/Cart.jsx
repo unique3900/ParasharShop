@@ -22,11 +22,13 @@ import {
     selectcartItems,
     updateCartAsync
 } from './cartSlice';
+import { discountedPrice } from '../../app/constants'
 export default function Cart() {
     const [open, setOpen] = useState(true)
     const items = useSelector(selectcartItems);
 
     const dispatch = useDispatch();
+
     const totalItems = items.reduce((accumulator, object) => {
         return object.quantity + accumulator;
     }, 0)
@@ -82,7 +84,7 @@ export default function Cart() {
                                                 </h3>
                                                 <p className="ml-4">
                                                     NPR &nbsp; {
-                                                    product.price
+                                                   discountedPrice(product)
                                                 }</p>
                                             </div>
                                             <p className="mt-1 text-sm text-gray-500">
@@ -136,7 +138,7 @@ export default function Cart() {
                         <p>Subtotal</p>
                         <p>Npr &nbsp; {
                             items.reduce((accumulator, object) => {
-                                return accumulator + object.price * object.quantity
+                                return accumulator + discountedPrice(object) * object.quantity
                             }, 0)
                         }</p>
                     </div>

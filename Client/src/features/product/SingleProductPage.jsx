@@ -16,6 +16,7 @@ import { useParams } from 'react-router-dom';
 import { fetchProductByIdAsync, selectProductById } from './productListSlice';
 import { addToCartAsync, selectcartItems } from '../cart/cartSlice';
 import { selectLoggedInUser } from '../Auth/authSlice';
+import { discountedPrice } from '../../app/constants';
 
 
 const products = {
@@ -265,7 +266,7 @@ const SingleProductPage = () => {
                     <h2 className="sr-only">Product information</h2>
                     <p className="text-3xl tracking-tight text-gray-900">NPR &nbsp;   
                         {
-                        product.price
+                        discountedPrice(product) 
                     } /-</p>
 
                     {/* Reviews */}
