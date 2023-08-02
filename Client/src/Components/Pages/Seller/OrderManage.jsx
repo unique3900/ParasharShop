@@ -1,5 +1,5 @@
 import React, {
-    useEffect
+    useEffect, useState
 } from 'react'
 import {
     useDispatch,
@@ -15,25 +15,30 @@ import {
 } from '../../../features/order/orderSlice';
 import { discountedPrice } from '../../../app/constants';
 import { AiOutlineEdit,AiOutlineEye } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
+import Pagination from '../../Layout/Pagination';
 const OrderManage = () => {
     const seller = useSelector(selectLoggedInSeller);
     const sellerOrders = useSelector(selectSellerOrder);
     const dispatch = useDispatch();
 
+
+    const [editable, setEditable] = useState(-1);
+    const [page, setPage] = useState(1);
     const handleShow = (order) => {
         
     }
     const handleEdit = (e, order) => {
         const updatedOrder = { ...order, status: e.target.value };
-        
         dispatch(updateOrderAsync(updatedOrder));
+
+        setEditable(-1)
     
         
     }
     useEffect(() => {
         dispatch(fetchOrderForSellerAsync(seller.id))
-        console.log(sellerOrders)
-    }, [dispatch, seller])
+    }, [dispatch,editable])
 
     return (
         <> {/* component */}
@@ -56,7 +61,7 @@ const OrderManage = () => {
                                 </thead>
                                 <tbody className="text-gray-600 text-sm font-light">
                                     {
-                                    sellerOrders.map((item, index) => (
+                                    sellerOrders.slice(page*12-12,page*12).map((item, index) => (
                                         <tr key={
                                                 item.id
                                             }
@@ -170,26 +175,34 @@ const OrderManage = () => {
                                             <td className="py-3 px-6 text-center  whitespace-nowrap">
                                                 <div className="flex flex-col items-center justify-center">
 
-                                                    <select value={item.status} onChange={(e)=>handleEdit(e,item)} className='bg-purple-200 rounded-full text-xs text-purple-700'>
-                                                        <option value="Pending">Pending</option>
-                                                        <option value="Shipped">Shipped</option>
-                                                        <option value="Delivered">Delivered</option>
-                                                        <option value="Cancelled">Cancelled</option>
-                                                   </select>
+                                                    {
+                                                       editable==item.id? (
+                                                            <select defaultValue={item.status} onChange={(e)=>handleEdit(e,item)} className='bg-purple-200 rounded-full text-xs text-purple-700'>
+                                                            <option value="Pending">Pending</option>
+                                                            <option value="Shipped">Shipped</option>
+                                                            <option value="Delivered">Delivered</option>
+                                                            <option value="Cancelled">Cancelled</option>
+                                                       </select>
+                                                        ) : <p className="">{item.status }</p>
+                                                    }
+
                                                 </div>
                                             </td>
 
                                             <td className="py-3 px-6 text-center  whitespace-nowrap">
                                                 <div className="flex flex-row gap-2 items-center justify-center">
                                                         
-                                                    <AiOutlineEdit onClick={(e) => { handleEdit(item) }} className='w-6 h-6 cursor-pointer' />
-                                                    <AiOutlineEye onClick={(e)=>{handleShow} } className='w-6 h-6 cursor-pointer'/>
+                                                    <AiOutlineEdit  onClick={() => { setEditable(item.id) }} className='w-6 h-6 cursor-pointer' />
+                                                 
                                                 </div>
                                             </td>
                                         </tr>
                                     ))
-                                } </tbody>
+                                    } </tbody>
+                                
+                              
                             </table>
+                            <Pagination page={Math.ceil(page)} setPage={setPage} totalPage={Math.floor(sellerOrders.length)} />
                         </div>
                     </div>
                 </div>
