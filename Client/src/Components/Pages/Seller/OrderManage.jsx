@@ -10,7 +10,8 @@ import {
 } from '../../../features/Auth/authSlice'
 import {
     fetchOrderForSellerAsync,
-    selectSellerOrder
+    selectSellerOrder,
+    updateOrderAsync
 } from '../../../features/order/orderSlice';
 import { discountedPrice } from '../../../app/constants';
 import { AiOutlineEdit,AiOutlineEye } from 'react-icons/ai';
@@ -22,8 +23,12 @@ const OrderManage = () => {
     const handleShow = (order) => {
         
     }
-    const handleEdit = (order) => {
-        console.log(order)
+    const handleEdit = (e, order) => {
+        const updatedOrder = { ...order, status: e.target.value };
+        
+        dispatch(updateOrderAsync(updatedOrder));
+    
+        
     }
     useEffect(() => {
         dispatch(fetchOrderForSellerAsync(seller.id))
@@ -153,8 +158,8 @@ const OrderManage = () => {
                                             <td className="py-3 px-6 text-center  whitespace-nowrap">
                                                 <div className="flex flex-col gap-5 items-center justify-center">
 
-                                                    {item.items.map((prod) => (
-                                                         <span className="font-medium">
+                                                    {item.items.map((prod,index) => (
+                                                         <span key={index}  className="font-medium">
                                                           {discountedPrice(prod)}
                                                         </span>
                                                     ))}
@@ -165,11 +170,11 @@ const OrderManage = () => {
                                             <td className="py-3 px-6 text-center  whitespace-nowrap">
                                                 <div className="flex flex-col items-center justify-center">
 
-                                                    <select className='bg-purple-200 rounded-full text-xs text-purple-700'>
-                                                        <option value="">Pending</option>
-                                                        <option value="">Shipped</option>
-                                                        <option value="">Delivered</option>
-                                                        <option value="">Cancelled</option>
+                                                    <select value={item.status} onChange={(e)=>handleEdit(e,item)} className='bg-purple-200 rounded-full text-xs text-purple-700'>
+                                                        <option value="Pending">Pending</option>
+                                                        <option value="Shipped">Shipped</option>
+                                                        <option value="Delivered">Delivered</option>
+                                                        <option value="Cancelled">Cancelled</option>
                                                    </select>
                                                 </div>
                                             </td>

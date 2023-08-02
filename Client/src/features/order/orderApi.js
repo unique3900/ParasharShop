@@ -16,4 +16,8 @@ export async function fetchOrderForSeller(id) {
   return {data};
 
 }
+export function updateOrder(order) {
+  console.log("Received for Update",order);
+  return axios.patch(`http://localhost:8080/orders/${order.id}`,{...order})
 
+}

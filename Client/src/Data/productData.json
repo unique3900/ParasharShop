@@ -700,29 +700,7 @@
       }
     }
   ],
-  "cart": [
-    {
-      "title": "Nike Air Force 1 Low By You",
-      "description": "Shine in satin, stay classic in canvas or get luxe with leather. No matter what you choose, these AF1s are all about you. 12 color choices and an additional gum rubber option for the sole mean your design is destined to be one of a kind—just like you.\n\nShown: Multi-Color/Multi-Color/Multi-Color/Multi-Color\nStyle: DZ3638-900",
-      "price": "455",
-      "discountPercentage": "2",
-      "stock": "10",
-      "thumbnail": "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/10027c30-1fb5-4b98-b41c-8aa0f56a6059/custom-nike-air-force-1-low-by-you.png",
-      "brand": "Infinix",
-      "category": "mens-shoes",
-      "images": [
-        "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/d16d44ab-a6ff-4ad9-b7ae-ffc097385ea1/custom-nike-air-force-1-low-by-you.png",
-        "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/a478f532-13c9-4e7b-8327-e0bd4dd89102/custom-nike-air-force-1-low-by-you.png",
-        "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/5c8d9595-fe28-4d19-89ed-42dcbd739d71/custom-nike-air-force-1-low-by-you.png",
-        "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/10027c30-1fb5-4b98-b41c-8aa0f56a6059/custom-nike-air-force-1-low-by-you.png"
-      ],
-      "rating": 0,
-      "seller": 1,
-      "quantity": 2,
-      "user": "para@para.com",
-      "id": 1
-    }
-  ],
+  "cart": [],
   "orders": [
     {
       "items": [
@@ -823,7 +801,7 @@
       },
       "totalItems": 2,
       "totalAmount": 1132,
-      "status": "pending",
+      "status": "Cancelled",
       "id": 1
     },
     {
@@ -1214,6 +1192,87 @@
       "totalAmount": 788,
       "status": "pending",
       "id": 5
+    },
+    {
+      "items": [
+        {
+          "title": "Nike Air Force 1 Low By You",
+          "description": "Shine in satin, stay classic in canvas or get luxe with leather. No matter what you choose, these AF1s are all about you. 12 color choices and an additional gum rubber option for the sole mean your design is destined to be one of a kind—just like you.\n\nShown: Multi-Color/Multi-Color/Multi-Color/Multi-Color\nStyle: DZ3638-900",
+          "price": "455",
+          "discountPercentage": "2",
+          "stock": "10",
+          "thumbnail": "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/10027c30-1fb5-4b98-b41c-8aa0f56a6059/custom-nike-air-force-1-low-by-you.png",
+          "brand": "Infinix",
+          "category": "mens-shoes",
+          "images": [
+            "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/d16d44ab-a6ff-4ad9-b7ae-ffc097385ea1/custom-nike-air-force-1-low-by-you.png",
+            "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/a478f532-13c9-4e7b-8327-e0bd4dd89102/custom-nike-air-force-1-low-by-you.png",
+            "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/5c8d9595-fe28-4d19-89ed-42dcbd739d71/custom-nike-air-force-1-low-by-you.png",
+            "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/10027c30-1fb5-4b98-b41c-8aa0f56a6059/custom-nike-air-force-1-low-by-you.png"
+          ],
+          "rating": 0,
+          "seller": 1,
+          "quantity": 2,
+          "user": "para@para.com",
+          "id": 1
+        }
+      ],
+      "selectedPaymentMethod": "cash",
+      "selectedDeliveryAddress": {
+        "fullName": "Parashar Neupane",
+        "email": "parasharneupane3900@gmail.com",
+        "phone": "9089299121",
+        "selectedState": "Bagmati",
+        "selectedCity": "Kathmandu",
+        "selectedLocation": "Baneshwor Area",
+        "street": "sfd3",
+        "houseNumber": "cccc",
+        "message": "Behind the Temple"
+      },
+      "user": {
+        "email": "para@para.com",
+        "role": "seller",
+        "password": "#Pharmacy2022",
+        "address": "Kathmandu",
+        "gender": "male",
+        "phone": "9808367121",
+        "fullName": "Parashar Neupane",
+        "addresses": [
+          {
+            "fullName": "Parashar Neupane",
+            "email": "parasharneupane3900@gmail.com",
+            "phone": "9089299121",
+            "selectedState": "Bagmati",
+            "selectedCity": "Kathmandu",
+            "selectedLocation": "Baneshwor Area",
+            "street": "sfd3",
+            "houseNumber": "cccc",
+            "message": "Behind the Temple"
+          }
+        ],
+        "businessInfo": {
+          "businessName": "Rato Kapas",
+          "businessAddress": "MaitiDevi Kathmandu",
+          "businessPassword": "ssss"
+        },
+        "id": 1,
+        "user": {
+          "email": "para@para.com",
+          "role": "buyer",
+          "password": "#Pharmacy2022",
+          "address": "Kathmandu",
+          "gender": "male",
+          "phone": "9808367121",
+          "fullName": "Parashar Neupane",
+          "addresses": [],
+          "businessInfo": {},
+          "id": 1
+        }
+      },
+      "totalItems": 2,
+      "totalAmount": 892,
+      "status": "pending",
+      "id": 6
     }
   ]
 }
