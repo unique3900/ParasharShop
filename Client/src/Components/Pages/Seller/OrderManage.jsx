@@ -28,13 +28,9 @@ const OrderManage = () => {
     const handleShow = (order) => {
         
     }
-    const handleEdit = (e, order) => {
-        const updatedOrder = { ...order, status: e.target.value };
-        dispatch(updateOrderAsync(updatedOrder));
-
-        setEditable(-1)
-    
-        
+    const handleEdit = (e, order,index, id) => {
+        const data = { value: e.target.value,index:index, id: id, order }
+        dispatch(updateOrderAsync(data))
     }
     useEffect(() => {
         dispatch(fetchOrderForSellerAsync(seller.id))
@@ -44,12 +40,12 @@ const OrderManage = () => {
         <> {/* component */}
             <div className="overflow-scroll">
                 <h2 className="text-center font-bold text-4xl p-3">Manage Orders</h2>
-                <div className=" bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
-                    <div className="">
-                        <div className="bg-white shadow-md rounded my-6">
-                            <table className="overflow-scroll w-full table-auto">
+                <div className=" bg-gray-100 w-full flex  items-center justify-center font-sans overflow-hidden">
+                    <div className="overflow-auto no-scrollbar">
+                        <div className=" bg-white w-screen min-w-max lg:min-w-fit lg:w-fit shadow-md rounded my-6 p-5">
+                            <table className=" table-auto">
                                 <thead className=''>
-                                    <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal ">
+                                    <tr className="bg-gray-200  text-gray-600 uppercase text-sm leading-normal ">
                                         <th className="py-3 px-6 text-left">Order Id</th>
                                         <th className="py-3 px-6 text-left">Items</th>
                                         <th className="py-3 px-6 text-center">Product Detail</th>
@@ -68,18 +64,18 @@ const OrderManage = () => {
                                             className="border-b border-gray-200 hover:bg-gray-100">
 
 
+                                           
                                             <td className="py-3 px-6 text-center whitespace-nowrap">
-                                                <div className="flex items-center justify-center">
+                                                <div className="flex flex-col items-center justify-center">
 
                                                     <span className="font-medium">
                                                        # {
                                                         item.id
                                                     }</span>
                                                 </div>
-                                            </td>
-
-
-                                            <td className="py-3 px-6 text-center  whitespace-nowrap">
+                                                </td>
+                                                
+                                                <td className="py-3 px-6 text-center  whitespace-nowrap">
                                                 <div className="flex flex-col items-center justify-center">
 
                                                     <span className="font-medium">
@@ -88,6 +84,11 @@ const OrderManage = () => {
                                                     }</span>
                                                 </div>
                                             </td>
+                                  
+
+
+
+                                   
                                             {
                                             item.items.map((prod) => (
                                                 <div key={
@@ -120,22 +121,22 @@ const OrderManage = () => {
                                         }
 
 
-                                            <td className="py-3 px-6 text-center  whitespace-nowrap">
+                                            <td className="py-3 px-6 text-center whitespace-nowrap">
                                                 <div className="flex flex-col items-center ">
 
-                                                    <span className="font-medium">
+                                                    <span className="font-medium text-xs">
                                                         {
                                                         item.selectedDeliveryAddress.fullName
                                                     }</span>
-                                                    <span className="font-medium">
+                                                    <span className="font-medium text-xs">
                                                         {
                                                         item.selectedDeliveryAddress.email
                                                     }</span>
-                                                    <span className="font-medium">
+                                                    <span className="font-medium text-xs">
                                                         {
                                                         item.selectedDeliveryAddress.phone
                                                     }</span>
-                                                    <span className="font-medium">
+                                                    <span className="font-medium text-xs">
                                                         {
                                                         item.selectedDeliveryAddress.selectedState
                                                     }  &nbsp;
@@ -172,22 +173,25 @@ const OrderManage = () => {
                                                 </div>
                                             </td>
 
-                                            <td className="py-3 px-6 text-center  whitespace-nowrap">
-                                                <div className="flex flex-col items-center justify-center">
+                                            {item.items.map((prod, index) => (
+                                                <td key={index} className="py-3 px-6 flex flex-col text-center  whitespace-nowrap">
+                                                                                            <div className="flex flex-col items-center justify-center">
+                                            
+                                                                                                {
+                                                                                               seller.id==prod.seller &&  editable==item.id? (
+                                                                                                        <select defaultValue={prod.status} onChange={(e)=>handleEdit(e,item,index,item.id)} className='bg-purple-200 rounded-full text-xs text-purple-700'>
+                                                                                                        <option value="Pending">Pending</option>
+                                                                                                        <option value="Shipped">Shipped</option>
+                                                                                                        <option value="Delivered">Delivered</option>
+                                                                                                        <option value="Cancelled">Cancelled</option>
+                                                                                                   </select>
+                                                                                                    ) : <p className={ prod.status=="Pending"?"bg-purple-700 text-white p-1":prod.status=="Cancelled"? "bg-red-700 text-white p-1":prod.status=="Shipped"?"bg-indigo-700 text-white p-1":prod.status=="Delivered"?"bg-green-700 text-white p-1":"" }>{prod.status }</p>
+                                                                                                }
+                                            
+                                                                                            </div>
+                                                                                        </td>
+                                            ))}
 
-                                                    {
-                                                       editable==item.id? (
-                                                            <select defaultValue={item.status} onChange={(e)=>handleEdit(e,item)} className='bg-purple-200 rounded-full text-xs text-purple-700'>
-                                                            <option value="Pending">Pending</option>
-                                                            <option value="Shipped">Shipped</option>
-                                                            <option value="Delivered">Delivered</option>
-                                                            <option value="Cancelled">Cancelled</option>
-                                                       </select>
-                                                        ) : <p className="">{item.status }</p>
-                                                    }
-
-                                                </div>
-                                            </td>
 
                                             <td className="py-3 px-6 text-center  whitespace-nowrap">
                                                 <div className="flex flex-row gap-2 items-center justify-center">
@@ -202,8 +206,9 @@ const OrderManage = () => {
                                 
                               
                             </table>
-                            <Pagination page={Math.ceil(page)} setPage={setPage} totalPage={Math.floor(sellerOrders.length)} />
+                           
                         </div>
+                        <Pagination page={Math.ceil(page)} setPage={setPage} totalPage={Math.floor(sellerOrders.length)} />
                     </div>
                 </div>
             </div>

@@ -153,7 +153,7 @@ const CheckoutPage = () => {
             alert("Please Select All Required Fields")
         }
         else {
-            const order = {items, selectedPaymentMethod, selectedDeliveryAddress, user, totalItems, totalAmount,status:'pending' };
+            const order = { items, selectedPaymentMethod, selectedDeliveryAddress, user, totalItems, totalAmount};
             dispatch(newOrderAsync(order))
         }
        

@@ -26,8 +26,8 @@ export const fetchOrderForSellerAsync = createAsyncThunk(
 );
 export const updateOrderAsync = createAsyncThunk(
   "order/updateOrder",
-  async (order) => { 
-    const response = await updateOrder(order);
+  async (data) => { 
+    const response = await updateOrder(data);
     console.log(response.data)
     return response.data;
   }

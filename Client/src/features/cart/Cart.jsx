@@ -38,8 +38,9 @@ export default function Cart() {
 
     const handleQuantityChange = (e, items) => { // Existing items obj. spread then change its quantity
         dispatch(updateCartAsync({
-            ... items,
-            quantity: + e.target.value
+            ...items,
+            quantity: + e.target.value,
+           
         }))
     }
     return (
