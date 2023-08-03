@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { createProduct, deleteProduct, fetchAllBrands, fetchAllCategory, fetchAllProducts, fetchProductById, fetchProductBySellerId, fetchProductsByFilter, updateProduct } from "./productListApi";
+import toast from "react-hot-toast";
 
 const initialState = {
   products: [],
@@ -22,6 +23,7 @@ export const createProductAsync = createAsyncThunk(
   "products/createNewProduct",
   async (product) => {
     const response = await createProduct(product);
+    toast.success("Product Added Successfully");
     return response.data;
   }
 );
@@ -30,6 +32,7 @@ export const updateProductAsync = createAsyncThunk(
   "products/updateProduct",
   async (data) => {
     const response = await updateProduct(data);
+    toast.success("Product Updated Successfully");
     return response.data;
   }
 )
@@ -37,6 +40,7 @@ export const deleteProductAsync = createAsyncThunk(
   "products/deleteProduct",
   async (id) => {
     const response = await deleteProduct(id);
+    toast.success("Product Deleted Successfully");
     return response.data;
   }
 )

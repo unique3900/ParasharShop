@@ -47,16 +47,18 @@ const Login = () => {
         if (! passwordRegEx.test(password)) {
             setPwdRegErr(true);
         } else {
-            dispatch(loginUserAsync({
+         dispatch(loginUserAsync({
                 email,
                 password
-            }))
+         }))
+           
 
         }
     }
     return (
 
         <div className='flex flex-col h-screen justify-center items-center'>
+            <Toaster/>
             {
             user && <Navigate to={'/'}
                 replace={true}/>

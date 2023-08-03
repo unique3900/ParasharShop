@@ -31,6 +31,7 @@ const OrderManage = () => {
     const handleEdit = (e, order,index, id) => {
         const data = { value: e.target.value,index:index, id: id, order }
         dispatch(updateOrderAsync(data))
+        setEditable(-1);
     }
     useEffect(() => {
         dispatch(fetchOrderForSellerAsync(seller.id))

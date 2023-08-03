@@ -13,13 +13,14 @@ import {
     selectLoggedInSeller,
     selectLoggedInUser
 } from '../../../features/Auth/authSlice'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { createProductAsync } from '../../../features/product/productListSlice';
 
 const ProductForm = () => {
     const user = useSelector(selectLoggedInUser);
     const seller = useSelector(selectLoggedInSeller);
 
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const {
         register,
@@ -47,6 +48,7 @@ const ProductForm = () => {
                             delete product['image3'];
                             console.log(product)
                             dispatch(createProductAsync(product))
+                            navigate('/sellerOptions/seller-Dashboard/manage-products')
                         })
                     }
                     className='mt-5 shadow-lg px-5 py-3 bg-white'>

@@ -92,7 +92,7 @@ const UserOrders = () => {
                                                                 NPR &nbsp; {
                                                                 discountedPrice(orderItems)
                                                             }</p>
-                                                            <p className="ml-4">
+                                                            <p className={orderItems.status=='Pending'?"ml-4 bg-indigo-600 text-white text-center":orderItems.status=='Cancelled'?"ml-4 bg-red-600 text-white text-center":orderItems.status=='Shipped'?"ml-4 bg-blue-600 text-white text-center":orderItems.status=='Delivered'?"ml-4 bg-green-600 text-white text-center":""}>
                                                                 Status &nbsp; {
                                                                 orderItems.status
                                                             }</p>

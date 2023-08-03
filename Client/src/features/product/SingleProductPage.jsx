@@ -17,6 +17,7 @@ import { fetchProductByIdAsync, selectProductById } from './productListSlice';
 import { addToCartAsync, selectcartItems } from '../cart/cartSlice';
 import { selectLoggedInUser } from '../Auth/authSlice';
 import { discountedPrice } from '../../app/constants';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const products = {
@@ -141,20 +142,25 @@ const SingleProductPage = () => {
     const dispatch = useDispatch();
     const product = useSelector(selectProductById);
     const loggedInUser=useSelector(selectLoggedInUser)
-    const items = useSelector(selectcartItems);
+    const cart = useSelector(selectcartItems);
+    
 
 
     const handleCart = (e) => {
         e.preventDefault();
         if (!loggedInUser) {
-            alert("Login TO Procced")
+            toast.error("Login to Proceed")
         }
         else {
-            console.log(loggedInUser.email);
-            const newCartItem = { ...product, quantity: 1, status:'Pending', user: loggedInUser.email};
-            //Fix for duplicate id in the cart
-            delete newCartItem['id'];
-            dispatch(addToCartAsync(newCartItem))
+            // console.log(loggedInUser.email);
+
+
+                const newCartItem = { ...product, quantity: 1, status:'Pending', user: loggedInUser.email};
+                //Fix for duplicate id in the cart
+                delete newCartItem['id'];
+                dispatch(addToCartAsync(newCartItem))
+           
+           
             
         }
        
@@ -163,11 +169,11 @@ const SingleProductPage = () => {
     useEffect(() => {
         console.log(params.id)
         dispatch(fetchProductByIdAsync(params.id))
-    }, [dispatch,params.id])
+    }, [dispatch])
     
     return (
         <div className="bg-white">
-
+<Toaster/>
             {
             product?  <div className="pt-6">
             <nav aria-label="Breadcrumb">
@@ -393,11 +399,15 @@ const SingleProductPage = () => {
                 </RadioGroup>
                         </div>
 
-                                <button onClick={(e) => {
-                                    handleCart(e);
-                        }} type="submit" className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                            Add to Cart
-                        </button>
+                                {
+                                    product.stock > 0 ?
+                                    <button onClick={(e) => {
+                                        handleCart(e);
+                            }} type="submit" className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                Add to Cart
+                            </button>:<p className='text-red-600 font-bold text-center text-2xl p-3'>Out Of Stock</p>
+                                }
+                               
                     </form>
                 </div>
 

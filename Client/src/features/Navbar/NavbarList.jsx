@@ -57,46 +57,7 @@ const NavbarList = ({
                     </div>
 
 
-                    <div className="flex flex-row items-center gap-2">
-                        <BsTags className='w-8 h-5'/>
-                        <Menu className="bg-white w-full">
-                            <MenuHandler className="bg-white text-black px-3">
-                                <Button className='w-full  whitespace-pre-wrap text-xl'>
-                                    {
-                                    category ? category : "Categories"
-                                }</Button>
-                            </MenuHandler>
-                            <MenuList className='flex flex-col gap-2 max-h-72'>
-                                {
-                                categories.map((item) => {
-                                    return (
-                                        <Link key={
-                                                item.id
-                                            }
-                                            to={
-                                                `/products/${
-                                                    item.name
-                                                }`
-                                        }>
-                                            <MenuItem className='cursor-pointer text-md'
-                                                value={
-                                                    item.name
-                                                }
-                                                onClick={
-                                                    (e) => {
-                                                        setCategory(e.target.value);
-                                                        console.log(category)
-                                                    }
-                                            }>
-                                                {
-                                                item.name
-                                            }</MenuItem>
-                                        </Link>
-                                    )
-                                })
-                            } </MenuList>
-                        </Menu>
-                    </div>
+        
 
                     {user && (
                                         <div className="flex flex-row items-center gap-2">

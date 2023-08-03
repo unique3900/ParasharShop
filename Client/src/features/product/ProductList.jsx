@@ -316,9 +316,22 @@ function ProductGrid({products,page,filters}) {
              
           </div>
 
-          <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center">
+            {/* <Link to={`/products/${item.id}`} className="flex items-center justify-center"></Link> */}
+            
+              {
+                item.stock > 0 ?
+                 
+                    <>
                     <button  className="relative w-full bg-purple-800 text-white px-3 py-2 rounded-full">Add to Cart</button>
-                    <BiCartAdd className='absolute right-10 lg:right-14 text-white w-5 h-5 lg:w-7 lg:h-8'/>
+                          <BiCartAdd className='absolute right-10 lg:right-14 text-white w-5 h-5 lg:w-7 lg:h-8'/>
+                    </>
+                  
+                : <p className='text-red-600 font-bold'>Out Of Stock</p>
+             }
+
+            
+                    
           </div>
       </div>
         ))

@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 export function fetchAllProducts() {
     return axios.get('http://localhost:8080/products')    
 }
@@ -26,7 +27,8 @@ export function fetchProductsByFilter(filter,sort) {
 }
 export function createProduct(product) {
     console.log("Received New Product", product);
-    return axios.post(`http://localhost:8080/products`,{...product})
+    return axios.post(`http://localhost:8080/products`, { ...product })
+   
 }
 export function updateProduct(data) {
     console.log("Received New Product", data);

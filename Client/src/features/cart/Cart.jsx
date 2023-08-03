@@ -45,7 +45,8 @@ export default function Cart() {
     }
     return (
         <> {
-            ! items.length && <Navigate to={'/'}></Navigate>
+            !items.length && <Navigate to={'/'} ></Navigate>
+            
         }
             
             <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
@@ -145,6 +146,7 @@ export default function Cart() {
                     </div>
                     <p className="mt-0.5 text-sm text-gray-500">Terms and Condions Applied</p>
                     <div className="mt-6">
+                        
                         <Link to={'/checkout'}
                             className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">
                             Checkout

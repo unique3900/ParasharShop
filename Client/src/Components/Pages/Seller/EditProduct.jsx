@@ -13,7 +13,7 @@ import {
     selectLoggedInSeller,
     selectLoggedInUser
 } from '../../../features/Auth/authSlice'
-import { Navigate, useParams } from 'react-router-dom'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { createProductAsync, fetchProductByIdAsync, selectProductById, updateProductAsync } from '../../../features/product/productListSlice';
 
 const EditProduct = () => {
@@ -23,6 +23,7 @@ const EditProduct = () => {
 
     const params = useParams();
 
+    const navigate = useNavigate();
     const dispatch = useDispatch();
   
     const selectedProduct = useSelector(selectProductById);
@@ -78,6 +79,8 @@ const EditProduct = () => {
                       delete datas['image3'];
                       console.log(datas)
                       dispatch(updateProductAsync(datas))
+                      navigate('/sellerOptions/seller-Dashboard/manage-products/')
+                      
 
                     })}
                     className='mt-5 shadow-lg px-5 py-3 bg-white'>
