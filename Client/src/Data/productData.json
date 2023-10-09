@@ -18,6 +18,25 @@
       "rating": 0,
       "seller": 1,
       "id": 1
+    },
+    {
+      "title": "Demo Product 1",
+      "description": "hshshhshshshs",
+      "price": "1000",
+      "discountPercentage": "60",
+      "stock": "1000",
+      "thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+      "brand": "Infinix",
+      "category": "tops",
+      "images": [
+        "https://i.dummyjson.com/data/products/6/1.png",
+        "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/a478f532-13c9-4e7b-8327-e0bd4dd89102/custom-nike-air-force-1-low-by-you.png",
+        "https://i.dummyjson.com/data/products/6/3.png",
+        "https://i.dummyjson.com/data/products/1/thumbnail.jpg"
+      ],
+      "rating": 0,
+      "seller": 2,
+      "id": 2
     }
   ],
   "brands": [
@@ -684,7 +703,7 @@
           "rating": 0,
           "seller": 2,
           "quantity": 2,
-          "status": "Delivered",
+          "status": "Shipped",
           "user": "para@para.com",
           "id": 1
         },
@@ -787,7 +806,7 @@
           "rating": 0,
           "seller": 2,
           "quantity": 2,
-          "status": "Shipped",
+          "status": "Cancelled",
           "user": "para@para.com",
           "id": 1
         },
@@ -869,6 +888,447 @@
       "totalItems": 3,
       "totalAmount": 1714,
       "id": 2
+    },
+    {
+      "items": [
+        {
+          "title": "Nike Air Force 1 Low By You Only",
+          "description": "Shine in satin, stay classic in canvas or get luxe with leather. No matter what you choose, these AF1s are all about you. 12 color choices and an additional gum rubber option for the sole mean your design is destined to be one of a kind—just like you.\\n\\nShown: Multi-Color/Multi-Color/Multi-Color/Multi-Color\\nStyle: DZ3638-900",
+          "price": "299",
+          "discountPercentage": "20",
+          "stock": "200",
+          "thumbnail": "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/10027c30-1fb5-4b98-b41c-8aa0f56a6059/custom-nike-air-force-1-low-by-you.png",
+          "brand": "Apple",
+          "category": "mens-shoes",
+          "images": [
+            "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/d16d44ab-a6ff-4ad9-b7ae-ffc097385ea1/custom-nike-air-force-1-low-by-you.png",
+            "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/a478f532-13c9-4e7b-8327-e0bd4dd89102/custom-nike-air-force-1-low-by-you.png",
+            "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/5c8d9595-fe28-4d19-89ed-42dcbd739d71/custom-nike-air-force-1-low-by-you.png",
+            "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/10027c30-1fb5-4b98-b41c-8aa0f56a6059/custom-nike-air-force-1-low-by-you.png"
+          ],
+          "rating": 0,
+          "seller": 1,
+          "quantity": 2,
+          "status": "Shipped",
+          "user": "limbu1@gmail.com",
+          "id": 1
+        }
+      ],
+      "selectedPaymentMethod": "card",
+      "selectedDeliveryAddress": {
+        "fullName": "Hello Demo Work",
+        "email": "dajdh2@gmail.com",
+        "phone": "656456454556",
+        "selectedState": "Bagmati",
+        "selectedCity": "Kathmandu",
+        "selectedLocation": "Baneshwor Area",
+        "street": "Neupane Sadak",
+        "houseNumber": "6969",
+        "message": "Behind the church"
+      },
+      "user": {
+        "email": "limbu1@gmail.com",
+        "role": "seller",
+        "password": "#Pharmacy2022",
+        "address": "Thechambu",
+        "gender": "male",
+        "phone": "9876287811",
+        "fullName": "Samyok Limbyu",
+        "addresses": [
+          {
+            "fullName": "Hello Demo Work",
+            "email": "dajdh2@gmail.com",
+            "phone": "656456454556",
+            "selectedState": "Bagmati",
+            "selectedCity": "Kathmandu",
+            "selectedLocation": "Baneshwor Area",
+            "street": "Neupane Sadak",
+            "houseNumber": "6969",
+            "message": "Behind the church"
+          },
+          {
+            "fullName": "Nandu Lal Kami",
+            "email": "fdf@sdsf.com",
+            "phone": "9872918212",
+            "selectedState": "Bagmati",
+            "selectedCity": "Kathmandu",
+            "selectedLocation": "Kalanki Area",
+            "street": "2123s",
+            "message": "Behind the temple"
+          }
+        ],
+        "businessInfo": {
+          "businessName": "ss ",
+          "businessAddress": "ss",
+          "businessPassword": "ssss"
+        },
+        "id": 2,
+        "user": {
+          "email": "limbu1@gmail.com",
+          "role": "seller",
+          "password": "#Pharmacy2022",
+          "address": "Thechambu",
+          "gender": "male",
+          "phone": "9876287811",
+          "fullName": "Samyok Limbyu",
+          "addresses": [
+            {
+              "fullName": "Hello Demo Work",
+              "email": "dajdh2@gmail.com",
+              "phone": "656456454556",
+              "selectedState": "Bagmati",
+              "selectedCity": "Kathmandu",
+              "selectedLocation": "Baneshwor Area",
+              "street": "Neupane Sadak",
+              "houseNumber": "6969",
+              "message": "Behind the church"
+            },
+            {
+              "fullName": "Nandu Lal Kami",
+              "email": "fdf@sdsf.com",
+              "phone": "9872918212",
+              "selectedState": "Bagmati",
+              "selectedCity": "Kathmandu",
+              "selectedLocation": "Kalanki Area",
+              "street": "2123s",
+              "message": "Behind the temple"
+            }
+          ],
+          "businessInfo": {},
+          "id": 2,
+          "user": {
+            "email": "limbu1@gmail.com",
+            "role": "buyer",
+            "password": "#Pharmacy2022",
+            "address": "Thechambu",
+            "gender": "male",
+            "phone": "9876287811",
+            "fullName": "Samyok Limbyu",
+            "addresses": [
+              {
+                "fullName": "Hello Demo Work",
+                "email": "dajdh2@gmail.com",
+                "phone": "656456454556",
+                "selectedState": "Bagmati",
+                "selectedCity": "Kathmandu",
+                "selectedLocation": "Baneshwor Area",
+                "street": "Neupane Sadak",
+                "houseNumber": "6969",
+                "message": "Behind the church"
+              },
+              {
+                "fullName": "Nandu Lal Kami",
+                "email": "fdf@sdsf.com",
+                "phone": "9872918212",
+                "selectedState": "Bagmati",
+                "selectedCity": "Kathmandu",
+                "selectedLocation": "Kalanki Area",
+                "street": "2123s",
+                "message": "Behind the temple"
+              }
+            ],
+            "businessInfo": {},
+            "id": 2
+          }
+        }
+      },
+      "totalItems": 2,
+      "totalAmount": 478,
+      "id": 3
+    },
+    {
+      "items": [
+        {
+          "title": "Nike Air Force 1 Low By You Only",
+          "description": "Shine in satin, stay classic in canvas or get luxe with leather. No matter what you choose, these AF1s are all about you. 12 color choices and an additional gum rubber option for the sole mean your design is destined to be one of a kind—just like you.\\n\\nShown: Multi-Color/Multi-Color/Multi-Color/Multi-Color\\nStyle: DZ3638-900",
+          "price": "299",
+          "discountPercentage": "20",
+          "stock": "200",
+          "thumbnail": "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/10027c30-1fb5-4b98-b41c-8aa0f56a6059/custom-nike-air-force-1-low-by-you.png",
+          "brand": "Apple",
+          "category": "mens-shoes",
+          "images": [
+            "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/d16d44ab-a6ff-4ad9-b7ae-ffc097385ea1/custom-nike-air-force-1-low-by-you.png",
+            "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/a478f532-13c9-4e7b-8327-e0bd4dd89102/custom-nike-air-force-1-low-by-you.png",
+            "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/5c8d9595-fe28-4d19-89ed-42dcbd739d71/custom-nike-air-force-1-low-by-you.png",
+            "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/10027c30-1fb5-4b98-b41c-8aa0f56a6059/custom-nike-air-force-1-low-by-you.png"
+          ],
+          "rating": 0,
+          "seller": 1,
+          "quantity": 2,
+          "status": "Pending",
+          "user": "limbu1@gmail.com",
+          "id": 1
+        }
+      ],
+      "selectedPaymentMethod": "cash",
+      "selectedDeliveryAddress": {
+        "fullName": "Hello Demo Work",
+        "email": "dajdh2@gmail.com",
+        "phone": "656456454556",
+        "selectedState": "Bagmati",
+        "selectedCity": "Kathmandu",
+        "selectedLocation": "Baneshwor Area",
+        "street": "Neupane Sadak",
+        "houseNumber": "6969",
+        "message": "Behind the church"
+      },
+      "user": {
+        "email": "limbu1@gmail.com",
+        "role": "seller",
+        "password": "#Pharmacy2022",
+        "address": "Thechambu",
+        "gender": "male",
+        "phone": "9876287811",
+        "fullName": "Samyok Limbyu",
+        "addresses": [
+          {
+            "fullName": "Hello Demo Work",
+            "email": "dajdh2@gmail.com",
+            "phone": "656456454556",
+            "selectedState": "Bagmati",
+            "selectedCity": "Kathmandu",
+            "selectedLocation": "Baneshwor Area",
+            "street": "Neupane Sadak",
+            "houseNumber": "6969",
+            "message": "Behind the church"
+          },
+          {
+            "fullName": "Nandu Lal Kami",
+            "email": "fdf@sdsf.com",
+            "phone": "9872918212",
+            "selectedState": "Bagmati",
+            "selectedCity": "Kathmandu",
+            "selectedLocation": "Kalanki Area",
+            "street": "2123s",
+            "message": "Behind the temple"
+          }
+        ],
+        "businessInfo": {
+          "businessName": "ss ",
+          "businessAddress": "ss",
+          "businessPassword": "ssss"
+        },
+        "id": 2,
+        "user": {
+          "email": "limbu1@gmail.com",
+          "role": "seller",
+          "password": "#Pharmacy2022",
+          "address": "Thechambu",
+          "gender": "male",
+          "phone": "9876287811",
+          "fullName": "Samyok Limbyu",
+          "addresses": [
+            {
+              "fullName": "Hello Demo Work",
+              "email": "dajdh2@gmail.com",
+              "phone": "656456454556",
+              "selectedState": "Bagmati",
+              "selectedCity": "Kathmandu",
+              "selectedLocation": "Baneshwor Area",
+              "street": "Neupane Sadak",
+              "houseNumber": "6969",
+              "message": "Behind the church"
+            },
+            {
+              "fullName": "Nandu Lal Kami",
+              "email": "fdf@sdsf.com",
+              "phone": "9872918212",
+              "selectedState": "Bagmati",
+              "selectedCity": "Kathmandu",
+              "selectedLocation": "Kalanki Area",
+              "street": "2123s",
+              "message": "Behind the temple"
+            }
+          ],
+          "businessInfo": {},
+          "id": 2,
+          "user": {
+            "email": "limbu1@gmail.com",
+            "role": "buyer",
+            "password": "#Pharmacy2022",
+            "address": "Thechambu",
+            "gender": "male",
+            "phone": "9876287811",
+            "fullName": "Samyok Limbyu",
+            "addresses": [
+              {
+                "fullName": "Hello Demo Work",
+                "email": "dajdh2@gmail.com",
+                "phone": "656456454556",
+                "selectedState": "Bagmati",
+                "selectedCity": "Kathmandu",
+                "selectedLocation": "Baneshwor Area",
+                "street": "Neupane Sadak",
+                "houseNumber": "6969",
+                "message": "Behind the church"
+              },
+              {
+                "fullName": "Nandu Lal Kami",
+                "email": "fdf@sdsf.com",
+                "phone": "9872918212",
+                "selectedState": "Bagmati",
+                "selectedCity": "Kathmandu",
+                "selectedLocation": "Kalanki Area",
+                "street": "2123s",
+                "message": "Behind the temple"
+              }
+            ],
+            "businessInfo": {},
+            "id": 2
+          }
+        }
+      },
+      "totalItems": 2,
+      "totalAmount": 478,
+      "id": 4
+    },
+    {
+      "items": [
+        {
+          "title": "Nike Air Force 1 Low By You Only",
+          "description": "Shine in satin, stay classic in canvas or get luxe with leather. No matter what you choose, these AF1s are all about you. 12 color choices and an additional gum rubber option for the sole mean your design is destined to be one of a kind—just like you.\\n\\nShown: Multi-Color/Multi-Color/Multi-Color/Multi-Color\\nStyle: DZ3638-900",
+          "price": "299",
+          "discountPercentage": "20",
+          "stock": "200",
+          "thumbnail": "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/10027c30-1fb5-4b98-b41c-8aa0f56a6059/custom-nike-air-force-1-low-by-you.png",
+          "brand": "Apple",
+          "category": "mens-shoes",
+          "images": [
+            "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/d16d44ab-a6ff-4ad9-b7ae-ffc097385ea1/custom-nike-air-force-1-low-by-you.png",
+            "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/a478f532-13c9-4e7b-8327-e0bd4dd89102/custom-nike-air-force-1-low-by-you.png",
+            "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/5c8d9595-fe28-4d19-89ed-42dcbd739d71/custom-nike-air-force-1-low-by-you.png",
+            "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/10027c30-1fb5-4b98-b41c-8aa0f56a6059/custom-nike-air-force-1-low-by-you.png"
+          ],
+          "rating": 0,
+          "seller": 1,
+          "quantity": 2,
+          "status": "Pending",
+          "user": "limbu1@gmail.com",
+          "id": 1
+        }
+      ],
+      "selectedPaymentMethod": "cash",
+      "selectedDeliveryAddress": {
+        "fullName": "Hello Demo Work",
+        "email": "dajdh2@gmail.com",
+        "phone": "656456454556",
+        "selectedState": "Bagmati",
+        "selectedCity": "Kathmandu",
+        "selectedLocation": "Baneshwor Area",
+        "street": "Neupane Sadak",
+        "houseNumber": "6969",
+        "message": "Behind the church"
+      },
+      "user": {
+        "email": "limbu1@gmail.com",
+        "role": "seller",
+        "password": "#Pharmacy2022",
+        "address": "Thechambu",
+        "gender": "male",
+        "phone": "9876287811",
+        "fullName": "Samyok Limbyu",
+        "addresses": [
+          {
+            "fullName": "Hello Demo Work",
+            "email": "dajdh2@gmail.com",
+            "phone": "656456454556",
+            "selectedState": "Bagmati",
+            "selectedCity": "Kathmandu",
+            "selectedLocation": "Baneshwor Area",
+            "street": "Neupane Sadak",
+            "houseNumber": "6969",
+            "message": "Behind the church"
+          },
+          {
+            "fullName": "Nandu Lal Kami",
+            "email": "fdf@sdsf.com",
+            "phone": "9872918212",
+            "selectedState": "Bagmati",
+            "selectedCity": "Kathmandu",
+            "selectedLocation": "Kalanki Area",
+            "street": "2123s",
+            "message": "Behind the temple"
+          }
+        ],
+        "businessInfo": {
+          "businessName": "ss ",
+          "businessAddress": "ss",
+          "businessPassword": "ssss"
+        },
+        "id": 2,
+        "user": {
+          "email": "limbu1@gmail.com",
+          "role": "seller",
+          "password": "#Pharmacy2022",
+          "address": "Thechambu",
+          "gender": "male",
+          "phone": "9876287811",
+          "fullName": "Samyok Limbyu",
+          "addresses": [
+            {
+              "fullName": "Hello Demo Work",
+              "email": "dajdh2@gmail.com",
+              "phone": "656456454556",
+              "selectedState": "Bagmati",
+              "selectedCity": "Kathmandu",
+              "selectedLocation": "Baneshwor Area",
+              "street": "Neupane Sadak",
+              "houseNumber": "6969",
+              "message": "Behind the church"
+            },
+            {
+              "fullName": "Nandu Lal Kami",
+              "email": "fdf@sdsf.com",
+              "phone": "9872918212",
+              "selectedState": "Bagmati",
+              "selectedCity": "Kathmandu",
+              "selectedLocation": "Kalanki Area",
+              "street": "2123s",
+              "message": "Behind the temple"
+            }
+          ],
+          "businessInfo": {},
+          "id": 2,
+          "user": {
+            "email": "limbu1@gmail.com",
+            "role": "buyer",
+            "password": "#Pharmacy2022",
+            "address": "Thechambu",
+            "gender": "male",
+            "phone": "9876287811",
+            "fullName": "Samyok Limbyu",
+            "addresses": [
+              {
+                "fullName": "Hello Demo Work",
+                "email": "dajdh2@gmail.com",
+                "phone": "656456454556",
+                "selectedState": "Bagmati",
+                "selectedCity": "Kathmandu",
+                "selectedLocation": "Baneshwor Area",
+                "street": "Neupane Sadak",
+                "houseNumber": "6969",
+                "message": "Behind the church"
+              },
+              {
+                "fullName": "Nandu Lal Kami",
+                "email": "fdf@sdsf.com",
+                "phone": "9872918212",
+                "selectedState": "Bagmati",
+                "selectedCity": "Kathmandu",
+                "selectedLocation": "Kalanki Area",
+                "street": "2123s",
+                "message": "Behind the temple"
+              }
+            ],
+            "businessInfo": {},
+            "id": 2
+          }
+        }
+      },
+      "totalItems": 2,
+      "totalAmount": 478,
+      "id": 5
     }
   ]
 }
