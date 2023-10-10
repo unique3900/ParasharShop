@@ -1,0 +1,76 @@
+const express = require('express');
+const { Product } = require('../models/Product');
+const app = express();
+
+
+
+exports.createProduct = async (req, res) => {
+    
+    try {
+        const product = await Product.create(req.body);
+        res.status(201).json({ success: true, message: "Product Created Successfully",product });
+    } catch (error) {
+        res.status(400).json({ success: false, message: "Error in Product Creation", error })
+    }
+}
+
+exports.fetchAllProducts = async (req, res) => {
+
+
+        // Condition:
+        // 1. User might have entered sorting criteria to fetch
+        // 2. User might have fetched all by category
+        // 3. User might have fetched all by brand
+        // 3. We fetch all acc. to pagination
+        // 5. Simply we may have to print all products in the homepage
+
+        // So, get query string and then start fetch
+
+
+        let query = Product.find({});
+        let totalProductsQuery = Product.find({});
+
+
+        if (req.query.category) {
+            query = query.find({ category: {$in:req.query.category.split(',')} });
+            totalProductsQuery = totalProductsQuery.find({
+              category: {$in:req.query.category.split(',')},
+            });
+          }
+          if (req.query.brand) {
+            query = query.find({ brand: {$in:req.query.brand.split(',')} });
+            totalProductsQuery = totalProductsQuery.find({ brand: {$in:req.query.brand.split(',') }});
+          }
+          if (req.query._sort && req.query._order) {
+            query = query.sort({ [req.query._sort]: req.query._order });
+          }
+        
+          const totalDocs = await totalProductsQuery.count().exec();
+          console.log({ totalDocs });
+        
+          if (req.query._page && req.query._limit) {
+            const pageSize = req.query._limit;
+            const page = req.query._page;
+            query = query.skip(pageSize * (page - 1)).limit(pageSize);
+          }
+        
+          try {
+            const docs = await query.exec();
+            res.set('X-Total-Count', totalDocs);
+            res.status(200).json(docs);
+          } catch (err) {
+            res.status(400).json(err);
+          }
+};
+        
+exports.fetchProductById = async (req, res) => {
+    const { id } = req.params;
+  
+    try {
+      const product = await Product.findById(id);
+      res.status(200).json(product);
+    } catch (err) {
+      res.status(400).json(err);
+    }
+  };
+  
