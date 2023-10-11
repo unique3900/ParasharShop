@@ -57,20 +57,32 @@ exports.fetchAllProducts = async (req, res) => {
           try {
             const docs = await query.exec();
             res.set('X-Total-Count', totalDocs);
-            res.status(200).json(docs);
+            res.status(200).res.status(400).json({ success: true, message: "Successfully Fetched All Products", docs })
           } catch (err) {
-            res.status(400).json(err);
+            res.status(400).json({ success: false, message: "Error in Fetching All Products", err })
           }
 };
         
 exports.fetchProductById = async (req, res) => {
-    const { id } = req.params;
-  
-    try {
+  const { id } = req.params;
+  try {
+    
       const product = await Product.findById(id);
       res.status(200).json(product);
     } catch (err) {
-      res.status(400).json(err);
+      res.status(400).json({success:false,message:"Error in Finding Product By Id",err});
     }
   };
   
+  exports.updateProduct = async (req, res) => {
+    const { id } = req.params;
+    try {
+      const product=await Product.findByIdAndUpdate(id,req.body,{new:true})
+      product.discountPrice = Math.round(product.price*(1-product.discountPercentage/100))
+      const updatedProduct = await product.save();
+      res.status(200).json({success:true,message:"Updated Product Successfully",updatedProduct})
+    } catch (error) {
+      res.status(400).json({success:false,message:"Error in Updating Product",error});
+
+    }
+  }
