@@ -1,0 +1,11 @@
+//Product Recommendation In Node JS
+
+URL: https://voskan.host/2023/03/04/building-a-recommendation-system-with-node-js-and-mongodb/
+Alternative: Use Recombee npm package
+
+
+For ECM I use Content Based Filtering from cart item or purchase history
+
+// Schema for user
+
+for addresses we use [Mixed] Data type
