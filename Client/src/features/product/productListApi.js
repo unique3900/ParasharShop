@@ -10,6 +10,7 @@ export function fetchProductById(id) {
 export function fetchProductsByFilter(filter,sort) {
     // let queryString = 'category=smartphones ';
     // console.log("heueue",filter)
+
     let queryString = '';
     for (let key in filter) {
         let categoryValues = filter[key];
@@ -24,6 +25,8 @@ export function fetchProductsByFilter(filter,sort) {
     }
     console.log("ququq",queryString)  
     return axios.get(`http://localhost:8080/products?${queryString}`)    
+
+
 }
 export function createProduct(product) {
     console.log("Received New Product", product);

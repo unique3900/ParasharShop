@@ -29,11 +29,48 @@ export const ProductList = () => {
   const [sort, setSort] = useState({});
   const dispatch = useDispatch()
   const loggedInUser=useSelector(selectLoggedInUser)
-  const brands = useSelector(selectAllBrands);
-  const categories = useSelector(selectAllCategories);
+  // const brands = useSelector(selectAllBrands);
+  // const categories = useSelector(selectAllCategories);
   const products = useSelector(selectAllProducts);
 
+
+  const brands = [
+    {
+      
+        "value": "Apple",
+        "label": "Apple",
+        "checked": false
+      
+    },
+    {
+      
+      "value": "Apple",
+      "label": "Apple",
+      "checked": false
+    
+  },
+
+  ]
+  const categories = [
+    {
+      
+        "value": "Apple",
+        "label": "Apple",
+        "checked": false
+      
+    },
+    {
+      
+      "value": "Apple",
+      "label": "Apple",
+      "checked": false
+    
+  },
+
+  ]
   
+
+
 
   const handleFilters = (e, option, section) => {
     const userFilter = { ...filter}
@@ -83,6 +120,7 @@ export const ProductList = () => {
 
   useEffect(() => {
     dispatch(fetchProductsByFilterAsync({ filter, sort }))
+    // dispatch(fetchAllProductsAsync());
     dispatch(fetchBrandsAsync());
     dispatch(fetchCategoryAsync());
   }, [dispatch,filter,sort]);
@@ -364,6 +402,7 @@ function DesktopFilter({filters,open,handleFilters}) {
             </h3>
             <Disclosure.Panel className="pt-6">
               <div className="space-y-4">
+        
                 {section.options.map((option, optionIdx) => (
                   <div key={option.value} className="flex items-center">
                     <input

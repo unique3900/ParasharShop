@@ -16,4 +16,17 @@ const categoryschema = new Schema({
     },
 
 })
-exports.Category = new mongoose.model("Category", categoryschema);
+
+// We have used id instead of _id in frontend so create virtual
+const virtual = categoryschema.virtual('id');
+virtual.get(() => {
+    return this.id;
+})
+categoryschema.set('toJSON', {
+    virtuals: true,
+    versionKey: false,
+    transform: (doc,ret) => {
+        delete ret._id;
+    }
+})
+exports.Category =  mongoose.model("Category", categoryschema);

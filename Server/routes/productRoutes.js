@@ -6,6 +6,6 @@ const router = express.Router();
 router.post('/', createProduct)
     .get('/', fetchAllProducts)
     .get('/:id', fetchProductById)
-    .post('/:id',updateProduct)
+    .patch('/:id',updateProduct)
 
 exports.router = router;

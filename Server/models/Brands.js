@@ -16,4 +16,17 @@ const brandschema = new Schema({
     },
 
 })
-exports.Brand = new mongoose.model("Brand", brandschema);
+
+// We have used id instead of _id in frontend so create virtual
+const virtual = brandschema.virtual('id');
+virtual.get(() => {
+    return this.id;
+})
+brandschema.set('toJSON', {
+    virtuals: true,
+    versionKey: false,
+    transform: (doc,ret) => {
+        delete ret._id;
+    }
+})
+exports.Brand =  mongoose.model("Brand", brandschema);

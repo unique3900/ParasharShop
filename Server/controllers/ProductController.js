@@ -15,8 +15,6 @@ exports.createProduct = async (req, res) => {
 }
 
 exports.fetchAllProducts = async (req, res) => {
-
-
         // Condition:
         // 1. User might have entered sorting criteria to fetch
         // 2. User might have fetched all by category
@@ -29,8 +27,6 @@ exports.fetchAllProducts = async (req, res) => {
 
         let query = Product.find({});
         let totalProductsQuery = Product.find({});
-
-
         if (req.query.category) {
             query = query.find({ category: {$in:req.query.category.split(',')} });
             totalProductsQuery = totalProductsQuery.find({
@@ -55,10 +51,11 @@ exports.fetchAllProducts = async (req, res) => {
           }
         
           try {
-            const docs = await query.exec();
+            const products = await query.exec();
             res.set('X-Total-Count', totalDocs);
-            res.status(200).res.status(400).json({ success: true, message: "Successfully Fetched All Products", docs })
+            res.status(200).json({ success: true, message: "Successfully Fetched All Products", products })
           } catch (err) {
+            console.log(err)
             res.status(400).json({ success: false, message: "Error in Fetching All Products", err })
           }
 };
@@ -77,6 +74,9 @@ exports.fetchProductById = async (req, res) => {
   exports.updateProduct = async (req, res) => {
     const { id } = req.params;
     try {
+
+      //new:... used this because in return we will get latest document
+
       const product=await Product.findByIdAndUpdate(id,req.body,{new:true})
       product.discountPrice = Math.round(product.price*(1-product.discountPercentage/100))
       const updatedProduct = await product.save();
