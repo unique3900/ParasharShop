@@ -29,46 +29,9 @@ export const ProductList = () => {
   const [sort, setSort] = useState({});
   const dispatch = useDispatch()
   const loggedInUser=useSelector(selectLoggedInUser)
-  // const brands = useSelector(selectAllBrands);
-  // const categories = useSelector(selectAllCategories);
+  const brands = useSelector(selectAllBrands);
+  const categories = useSelector(selectAllCategories);
   const products = useSelector(selectAllProducts);
-
-
-  const brands = [
-    {
-      
-        "value": "Apple",
-        "label": "Apple",
-        "checked": false
-      
-    },
-    {
-      
-      "value": "Apple",
-      "label": "Apple",
-      "checked": false
-    
-  },
-
-  ]
-  const categories = [
-    {
-      
-        "value": "Apple",
-        "label": "Apple",
-        "checked": false
-      
-    },
-    {
-      
-      "value": "Apple",
-      "label": "Apple",
-      "checked": false
-    
-  },
-
-  ]
-  
 
 
 

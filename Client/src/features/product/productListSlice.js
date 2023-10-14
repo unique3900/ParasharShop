@@ -65,22 +65,38 @@ export const fetchProductsByFilterAsync = createAsyncThunk(
   async ({filter,sort}) => {
     const response = await fetchProductsByFilter(filter,sort);
   
-    // return response.data.products;
-    return response.data
+    // For NODE Js
+
+    return response.data.products;
+
+    // For JSON SERVER
+
+    // return response.data
   }
 );
 export const fetchBrandsAsync = createAsyncThunk(
   "products/fetchBrands",
   async () => {
-  const response = await fetchAllBrands();
-  return response.data;
+    const response = await fetchAllBrands();
+    
+    // For JSON Server
+    // return response.data;
+    
+    // For Node JS
+    return response.data.brands;
   }
 )
 export const fetchCategoryAsync = createAsyncThunk(
   "products/fetchCategory",
   async () => {
     const response = await fetchAllCategory();
-    return response.data;
+
+    // For JSON server
+    // return response.data;
+
+    // For Node JS
+
+    return response.data.categories;
   }
 )
 
