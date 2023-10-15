@@ -9,3 +9,5 @@ For ECM I use Content Based Filtering from cart item or purchase history
 // Schema for user
 
 for addresses we use [Mixed] Data type
+
+// Create a Order Model

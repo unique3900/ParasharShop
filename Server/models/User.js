@@ -1,52 +1,61 @@
-
 const mongoose = require('mongoose');
+
 const { Schema } = mongoose;
 
-const UserSchema = new Schema({
-    name: {
-        type: String,
-        required:true
-    },
+const userSchema = new Schema({
     email: {
         type: String,
-        required:true
-    },
-    role: {
-        type: String,
-        default:"buyer"
+        required: true,
+        index: true,
+        unique: true
     },
     password: {
         type: String,
         required:true
     },
-    addresses: {
-        type: [String],
-        default:[]
+    fullName: {
+        type: String,
+        required:true
+    },
+    gender: {
+        type: String,
+        required:true
     },
     phone: {
         type: Number,
-        min: [10, "Minimum length of phone number is 10"],
-        mas:[10,"Minimum length of phone number is 10"]
+        required:true  
+    },
+    addresses: {
+     type:[Schema.Types.Mixed]
+    },
+    role: {
+        type: String,
+        default:"buyer"
     },
     businessInfo: {
-        type: {},
+        type: Object,
         default: {
-            businessName: {
-                type: String,
-                default:""
-            },
-            businessAddress: {
-                type: String,
-                default:""
-            },
-            businessPassword: {
-                type: String,
-                default:""
-            }
+            "businessName": null,
+            "businessAddress": null,
+            "businessPassword":null
         }
+    }
+
+})
+
+
+// We have used id instead of _id in frontend so create virtual
+const virtual = userSchema.virtual('id');
+virtual.get(() => {
+    return this.id;
+})
+userSchema.set('toJSON', {
+    virtuals: true,
+    versionKey: false,
+    transform: (doc,ret) => {
+        delete ret._id;
     }
 })
 
 
-
-exports.User = new mongoose.model("User", UserSchema);
+exports.User = mongoose.model("User", userSchema);

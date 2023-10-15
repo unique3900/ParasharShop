@@ -7,6 +7,7 @@ const { LoginController } = require('./controllers/AuthController');
 const productRouter = require('./routes/productRoutes');
 const categoryRouter = require('./routes/categoryRoutes');
 const brandRouter = require('./routes/brandsRoute');
+const userRouter = require('./routes/userRoutes');
 const morgan = require('morgan');
 
 async function main() {
@@ -31,6 +32,7 @@ server.use(cors({
 
 
 // ================ Routes ==================
+server.use('/auth',userRouter.router);
 server.use('/products', productRouter.router);
 server.use('/category',categoryRouter.router );
 server.use('/brands', brandRouter.router);

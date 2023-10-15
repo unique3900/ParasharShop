@@ -9,9 +9,10 @@ const initialState = {
 
 
 export const createUserAsync = createAsyncThunk(
-  "auth/createUser",
+  "auth/register",
   async (data) => {
     const response = await createUser(data);
+    console.log(response)
     return response.data;
   }
 );
@@ -25,10 +26,11 @@ export const updateUserAsync = createAsyncThunk(
 );
 
 export const loginUserAsync = createAsyncThunk(
-  "auth/loginUser",
+  "auth/login",
   async (data) => {
     const response = await loginUser(data);
-    return response.data;
+   console.log(response.data.user)
+    return response.data.user;
   }
 )
 
@@ -64,6 +66,7 @@ export const authSlice = createSlice({
       })
       .addCase(createUserAsync.fulfilled, (state, action) => {
         state.status = "idle";
+        console.log(action.payload)
         // state.loggedInUser = action.payload;
       })
       .addCase(updateUserAsync.pending, (state) => {

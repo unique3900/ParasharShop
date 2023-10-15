@@ -93,13 +93,11 @@ const Register = () => {
             return
         }
         else {
-            dispatch(createUserAsync({email,password,address,fullName,phone,gender,addresses:[],role:'buyer',businessInfo:{}}))
+            dispatch(createUserAsync({email,password,fullName,phone,gender,role:'buyer'}))
             navigate('/');
         }
     }
-    useEffect(() => {
-      console.log(data)
-    }, []);
+
 
     return (
         <div className='flex flex-col h-screen justify-center items-center'>
