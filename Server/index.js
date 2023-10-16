@@ -8,6 +8,7 @@ const productRouter = require('./routes/productRoutes');
 const categoryRouter = require('./routes/categoryRoutes');
 const brandRouter = require('./routes/brandsRoute');
 const userRouter = require('./routes/userRoutes');
+const cartRouter = require('./routes/cartRoute');
 const morgan = require('morgan');
 
 async function main() {
@@ -36,6 +37,7 @@ server.use('/auth',userRouter.router);
 server.use('/products', productRouter.router);
 server.use('/category',categoryRouter.router );
 server.use('/brands', brandRouter.router);
+server.use('/cart', cartRouter.router);
 
 
 
