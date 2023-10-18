@@ -29,9 +29,18 @@ exports.LoginController = async (req, res) => {
 
 exports.RegisterController = async (req, res) => {
     try {
-        const hashedPassword = bcrypt.hashSync(req.body.password, 10);
+        const { email } = req.body;
+        const userExist = await User.findOne({ email});
+        if (userExist) {
+            console.log("Exist")
+            res.status(401).json({success:false,message:"User Already Exist"})
+        } else {
+            const hashedPassword = bcrypt.hashSync(req.body.password, 10);
         const users = await User.create({...req.body,password:hashedPassword});
+    
         res.json({success:true,message:"User Registration Successful",users})
+        }
+        
     } catch (error) {
         console.log(error)
         res.status(401).json({ success: false, message: "Error in Registering User", error })

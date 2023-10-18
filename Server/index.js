@@ -9,6 +9,7 @@ const categoryRouter = require('./routes/categoryRoutes');
 const brandRouter = require('./routes/brandsRoute');
 const userRouter = require('./routes/userRoutes');
 const cartRouter = require('./routes/cartRoute');
+const sellerRouter = require('./routes/sellerRoute');
 const morgan = require('morgan');
 
 async function main() {
@@ -38,6 +39,7 @@ server.use('/products', productRouter.router);
 server.use('/category',categoryRouter.router );
 server.use('/brands', brandRouter.router);
 server.use('/cart', cartRouter.router);
+server.use('/seller',sellerRouter.router );
 
 
 

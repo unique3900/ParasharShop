@@ -2,18 +2,25 @@ import { data } from 'autoprefixer';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-export function createUser(data) {
+export async function createUser(data) {
     console.log(data)
     return axios.post('http://localhost:8080/auth/register', {
        ...data
+    }).catch((err) => {
+        console.log(err)
+        toast.error(err.response.data.message)
     })
 }
-export function updateUser(users) {
+export async function updateUser(users) {
     console.log("Received",users)
-     return axios.patch(`http://localhost:8080/users/${users.id}`, users);
+     return axios.patch(`http://localhost:8080/users/${users.id}`, users).catch((err) => {
+        toast.error(err.response.data.message)
+    });
 }
 export async function loginUser(data) {
-   return axios.post('http://localhost:8080/auth/login',{...data});
+    return axios.post('http://localhost:8080/auth/login', { ...data }).catch((err) => {
+        toast.error(err.response.data.message)
+    })
 }
 
 export async function sellerLogin({data}) {
@@ -38,7 +45,12 @@ export async function sellerLogin({data}) {
     }
 }
 
+
 export function userLogout(user) {
+    return { data: 'success' };
+}
+
+export function changePassword(user) {
     return { data: 'success' };
 }
 
