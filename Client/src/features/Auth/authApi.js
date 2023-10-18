@@ -14,13 +14,11 @@ export function updateUser(users) {
 }
 export async function loginUser(data) {
    return axios.post('http://localhost:8080/auth/login',{...data});
-   
-    
 }
 
 export async function sellerLogin({data}) {
     // console.log("My data", data.user);
-    const getUser = await axios.get('http://localhost:8080/users?email=' + data.user.email);
+    const getUser = await axios.get('http://localhost:8080/auth?email=' + data.user.email);
     if (getUser.data.length>0) {
         if (getUser.data[0].businessInfo.businessPassword == data.password) {
             // console.log("Valid Password",getUser.data[0])

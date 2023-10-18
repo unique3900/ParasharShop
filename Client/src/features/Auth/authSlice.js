@@ -29,7 +29,6 @@ export const loginUserAsync = createAsyncThunk(
   "auth/login",
   async (data) => {
     const response = await loginUser(data);
-   console.log(response.data.user)
     return response.data.user;
   }
 )
@@ -38,9 +37,8 @@ export const loginSellerAsync = createAsyncThunk(
   "auth/loginSeller",
   async (data) => {
     const response = await sellerLogin(data);
-    return response.data;
-  }
-)
+    return response.data.user;
+  })
 export const logoutUserAsync = createAsyncThunk(
   "auth/logoutUser",
   async (data) => {
