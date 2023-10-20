@@ -19,9 +19,7 @@ export async function fetchOrderForSeller(id) {
 export async function updateOrder(data) {
   console.log("Received for Update",data);
   const product = await axios.get(`http://localhost:8080/orders/${data.order.id}`);
- 
 
-  
   const indxedProduct = product.data.items[data.index];
   indxedProduct.status = data.value;
   const updatedOrder = { ...data.order, items: product.data.items };

@@ -18,6 +18,8 @@ react-router-dom</br>
 Login </br>
 Signup</br>
 Sorting with category brand price rating..</br>
+Content Based Filtering Will Be Implemented For Recommendation..</br>
+Sorting with category brand price rating..</br>
 pagination</br>
 JWT</br>
 Redux Toolkit for global state management</br>
