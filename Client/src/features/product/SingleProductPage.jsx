@@ -147,7 +147,7 @@ const SingleProductPage = () => {
     
 
 
-    const handleCart = (e) => {
+    const handleCart = async(e) => {
         e.preventDefault();
         if (!loggedInUser) {
             toast.error("Login to Proceed")
@@ -159,8 +159,8 @@ const SingleProductPage = () => {
                 const newCartItem = { ...product,productId:product.id, quantity: 1, status:'Pending', user: loggedInUser.id};
                 //Fix for duplicate id in the cart
                 // delete newCartItem['id'];
-            dispatch(addToCartAsync(newCartItem))
-            dispatch(getCartByEmailAsync(loggedInUser.id))
+            await dispatch(addToCartAsync(newCartItem))
+            await dispatch(getCartByEmailAsync(loggedInUser.id))
             
         }
        

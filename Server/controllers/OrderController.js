@@ -9,7 +9,6 @@ exports.newOrderController = async (req, res) => {
         res.status(401).json({success:false,message:"Error Occured When Creating New Order"})
     }
 }
-
 exports.userOrderController = async (req, res) => {
     const { user } = req.params;
     try {

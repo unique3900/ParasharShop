@@ -40,6 +40,7 @@ const CheckoutPage = () => {
   
 
     // States
+    const [totalItems, setTotalItems] = useState(1);
     const [selectedState, setSelectedState] = useState("");
     const [selectedDeliveryAddress, setSelectedDeliveryAddress] = useState(null);
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('cash');
@@ -57,7 +58,7 @@ const CheckoutPage = () => {
     const [phoneRegErr, setPhoneRegerr] = useState(false);
     const [fullNameRegErr, setFullNameRegErr] = useState(false);
 
-
+   
     const user = useSelector(selectLoggedInUser);
     const items = useSelector(selectcartItems);
     const currentOrder = useSelector(selectCurrentOrder);
@@ -91,22 +92,27 @@ const CheckoutPage = () => {
     }
     
 
-    const totalItems = items.reduce((accumulator, object) => {
-        return object.quantity + accumulator;
-    }, 0);
+    // const totalItems = items.reduce((accumulator, object) => {
+    //     return object.quantity + accumulator;
+    // }, 0);
 
     const totalAmount= items.reduce((accumulator, object) => {
         return accumulator + discountedPrice(object) * object.quantity;
     }, 0)
 
-    const handleRemove = (id) => {
-        dispatch(removeFromCartAsync(id));
+    const handleRemove = async(id) => {
+        await dispatch(removeFromCartAsync(id));
+        await dispatch(getCartByEmailAsync(user.id))
     }
-    const handleQuantityChange = (e, items) => { // Existing items obj. spread then change its quantity
-        dispatch(updateCartAsync({
-            ... items,
-            quantity: + e.target.value
+
+    const handleQuantityChange = async(e, value,id) => { // Existing items obj. spread then change its quantity
+        console.log("Change",value,id)
+       await dispatch(updateCartAsync({
+            id,
+            quantity: value,
+           
         }))
+       await dispatch(getCartByEmailAsync(user.id))
     }
 
     const handleDeliveryAddress = (e) => {
@@ -160,7 +166,13 @@ const CheckoutPage = () => {
 
     }
 
-
+    useEffect(() => {
+        dispatch(getCartByEmailAsync(user.id))
+        const totalItems = items.reduce((accumulator, object) => {
+            return object.quantity + accumulator;
+        }, 0)
+        setTotalItems(totalItems)
+    }, [dispatch])
     
 
     return (
@@ -392,17 +404,17 @@ const CheckoutPage = () => {
                                         <div className="flow-root">
                                             <ul role="list" className="-my-6 divide-y divide-gray-200">
                                                 {
-                                                items.map((product) => (
+                                                items.map((data,index) => (
                                                     <li key={
-                                                            product.id
+                                                            index
                                                         }
                                                         className="flex py-6">
                                                         <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                                             <img src={
-                                                                    product.thumbnail
+                                                                    data.product.thumbnail
                                                                 }
                                                                 alt={
-                                                                    product.title
+                                                                    data.product.title
                                                                 }
                                                                 className="h-full w-full object-cover object-center"/>
                                                         </div>
@@ -412,20 +424,20 @@ const CheckoutPage = () => {
                                                                 <div className="flex justify-between text-base font-medium text-gray-900">
                                                                     <h3>
                                                                         <a href={
-                                                                            product.id
+                                                                            data.product.id
                                                                         }>
                                                                             {
-                                                                            product.title
+                                                                            data.product.title
                                                                         }</a>
                                                                     </h3>
                                                                     <p className="ml-4">
                                                                         NPR &nbsp; {
-                                                                        discountedPrice(product)
+                                                                        discountedPrice(data.product) * data.quantity
                                                                     }</p>
                                                                 </div>
                                                                 <p className="mt-1 text-sm text-gray-500">
                                                                     {
-                                                                    product.color
+                                                                    data.product.color
                                                                 }</p>
                                                             </div>
                                                             <div className="flex flex-1 items-end justify-between text-sm">
@@ -434,12 +446,12 @@ const CheckoutPage = () => {
                                                                     <select name=""
                                                                         onChange={
                                                                             (e) => {
-                                                                                handleQuantityChange(e, product);
+                                                                                handleQuantityChange(e,e.target.value,data.id);
                                                                             }
                                                                         }
                                                                         id=""
-                                                                        value={
-                                                                            product.quantity
+                                                                        defaultValue={
+                                                                            data.quantity
                                                                     }>
                                                                         <option value="1">1</option>
                                                                         <option value="2">2</option>
@@ -452,7 +464,7 @@ const CheckoutPage = () => {
                                                                     <button onClick={
                                                                             (e) => {
                                                                                 e.preventDefault();
-                                                                                handleRemove(product.id);
+                                                                                handleRemove(data.id);
                                                                             }
                                                                         }
                                                                         type="button"
@@ -473,8 +485,11 @@ const CheckoutPage = () => {
                                         <div className="flex justify-between text-base font-medium text-gray-900">
                                             <p>Subtotal</p>
                                             <p>Npr &nbsp; {
-                                               totalAmount
-                                            }</p>
+                            items.reduce((accumulator, object) => {
+                                console.log("Objecc",object.quantity)
+                                return accumulator + discountedPrice(object.product) * object.quantity
+                            }, 0)
+                        }</p>
                                         </div>
                                         <p className="mt-0.5 text-sm text-gray-500">Terms and Conditons Applied</p>
                                         <div className="mt-6">
