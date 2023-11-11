@@ -14,14 +14,16 @@ export const addToCartAsync = createAsyncThunk(
   "cart/addtoCart",
   async (items) => { 
     const response = await addToCart(items);
-    return response.data;
+    console.log("Response of Add to Cart",response)
+    return response.data.products;
   }
 );
 
 export const getCartByEmailAsync = createAsyncThunk(
   "cart/getCartByEmail",
-  async (email) => {
-    const response = await getCartByUserEmail(email);
+  async (id) => {
+    const response = await getCartByUserEmail(id);
+    console.log("Response of Cart",response)
     return response.data;
   }
 )
@@ -67,7 +69,8 @@ export const cartSlice = createSlice({
       })
       .addCase(addToCartAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.items.push(action.payload);
+        console.log("Payload",action.payload)
+        // state.items.push(action.payload);
         state.cartLoaded = true;
       }
     )
@@ -77,6 +80,8 @@ export const cartSlice = createSlice({
     .addCase(getCartByEmailAsync.fulfilled, (state, action) => {
       state.status = "idle";
       state.items = action.payload;
+      console.log("Cart Items",action.payload)
+      state.cartLoaded=true
 
     }
     )

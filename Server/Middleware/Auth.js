@@ -5,8 +5,8 @@ const { User } = require('../models/User');
 
 exports.isLoggedIn = async (req, res, next) => {
     try {
-        const user = req.body.email;
-        const userExist = await User.findOne({ email: user });
+        const user = req.params.id;
+        const userExist = await User.findOne({ id: user });
         if (userExist) {
             next();
         } else {

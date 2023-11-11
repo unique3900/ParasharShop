@@ -14,10 +14,11 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchProductByIdAsync, selectProductById } from './productListSlice';
-import { addToCartAsync, selectcartItems } from '../cart/cartSlice';
+import { addToCartAsync, getCartByEmailAsync, selectcartItems } from '../cart/cartSlice';
 import { selectLoggedInUser } from '../Auth/authSlice';
 import { discountedPrice } from '../../app/constants';
 import toast, { Toaster } from 'react-hot-toast';
+import { getCartByUserEmail } from '../cart/cartAPI';
 
 
 const products = {
@@ -155,20 +156,20 @@ const SingleProductPage = () => {
             // console.log(loggedInUser.email);
 
 
-                const newCartItem = { ...product, quantity: 1, status:'Pending', user: loggedInUser.email};
+                const newCartItem = { ...product,productId:product.id, quantity: 1, status:'Pending', user: loggedInUser.id};
                 //Fix for duplicate id in the cart
-                delete newCartItem['id'];
-                dispatch(addToCartAsync(newCartItem))
-           
-           
+                // delete newCartItem['id'];
+            dispatch(addToCartAsync(newCartItem))
+            dispatch(getCartByEmailAsync(loggedInUser.id))
             
         }
        
 
     }
     useEffect(() => {
-        console.log(params.id)
+        console.log(params.id,loggedInUser.id)
         dispatch(fetchProductByIdAsync(params.id))
+     
     }, [dispatch])
     
     return (

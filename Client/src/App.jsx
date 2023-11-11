@@ -48,11 +48,13 @@ const App = () => {
 
   useEffect(() => {
     if (!user) {
+      console.log("No User Logged In")
     return
     }
     else {
-      dispatch(getCartByEmailAsync(user.email));
-      dispatch(fetchLoggedInUserInfoAsync(user.id))
+      console.log(user.id)
+      dispatch(getCartByEmailAsync(user.id));
+      // dispatch(fetchLoggedInUserInfoAsync(user.id))
     }
       
   }, [dispatch,user])

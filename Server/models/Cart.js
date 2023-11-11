@@ -15,7 +15,7 @@ const cartScheme = new Schema({
     },
     quantity: {
         type: Number,
-        default:0
+        default:1
     },
     size: { type : Schema.Types.Mixed},
     color: { type : Schema.Types.Mixed},

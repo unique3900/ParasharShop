@@ -2,8 +2,8 @@ import { data } from 'autoprefixer';
 import axios from 'axios';
 
 export async function fetchLoggedInUserInfo(userId) {
-    const getUser =await axios.get(`http://localhost:8080/users?id=${userId}`)
-    return {data: getUser.data[0]}
+    return axios.get(`http://localhost:8080/users?id=${userId}`)
+    // return {data: getUser.data[0]}
 }
 
 export function fetchLoggedInUserOrders(userId) {

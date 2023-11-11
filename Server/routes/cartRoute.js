@@ -7,7 +7,7 @@ const { isLoggedIn } = require('../Middleware/Auth');
 const router = express.Router();
 
 
-router.get('/:id',isLoggedIn, fetchUserCart).post('/',isLoggedIn, addToCartController).delete('/:id',isLoggedIn, removeFromCartController).patch('/:id',isLoggedIn,updateCartController)
+router.get('/:id', fetchUserCart).post('/',addToCartController).delete('/:id', removeFromCartController).patch('/:id',updateCartController)
 
 
 exports.router = router;
