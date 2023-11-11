@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const orderSchema = new Schema({
     items: {
-        type: [Schema.Types.Mixed],
+        type:[mongoose.ObjectId],
         default:[]
     },
     selectedPaymentMethod: {
