@@ -2,27 +2,20 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const orderSchema = new Schema({
-    items: {
-        type: [Schema.Types.Mixed],
-        default:[]
-    },
-    selectedPaymentMethod: {
-        type: String,
-        required: true,
-        default: "cash",
-    },
-    selectedDeliveryAddress: {
+    orderDetail: {
         type: Object,
-        default: {
-            "fullName": null,
-            "email": null,
-            "phone":null,
-            "selectedState": null,
-            "selectedCity": null,
-            "selectedLocation":null,
-            "street":null,
-            "houseNumber": null,
-            "message": null
+        products: {
+            type: [mongoose.ObjectId],
+            ref:"Product"
+        },
+        selectedPaymentMethod: {
+            type: String,
+            required: true,
+            default: "cash",
+        },
+        selectedDeliveryAddress: {
+            type: Schema.Types.ObjectId,
+            ref:"Address"
         },
         user: {
             type: Schema.Types.ObjectId,
@@ -36,8 +29,9 @@ const orderSchema = new Schema({
         totalAmount: {
             type: Number,
             default:0
-        }
+        },
     }
+
 })
 
 // We have used id instead of _id in frontend so create virtual
