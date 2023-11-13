@@ -7,7 +7,6 @@ const { LoginController } = require('./controllers/AuthController');
 const productRouter = require('./routes/productRoutes');
 const categoryRouter = require('./routes/categoryRoutes');
 const brandRouter = require('./routes/brandsRoute');
-const addressRouter = require('./routes/addressRoute');
 const userRouter = require('./routes/userRoutes');
 const cartRouter = require('./routes/cartRoute');
 const sellerRouter = require('./routes/sellerRoute');
@@ -36,8 +35,7 @@ server.use(cors({
 
 
 // ================ Routes ==================
-server.use('/auth', userRouter.router);
-server.use('/address',addressRouter.router);
+server.use('/auth',userRouter.router);
 server.use('/products', productRouter.router);
 server.use('/category',categoryRouter.router );
 server.use('/brands', brandRouter.router);
