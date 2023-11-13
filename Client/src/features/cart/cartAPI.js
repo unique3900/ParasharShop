@@ -16,15 +16,9 @@ export function removeFromCart(id) {
   return axios.delete(`http://localhost:8080/cart/${id}`)
 }
 
-export async function resetCart(email) {
-  const dataByEmail = await axios.get(`http://localhost:8080/cart?user=${email}`);
-  console.log(dataByEmail.data)
-  const arr = dataByEmail.data;
-  arr.map((item) => {
-    console.log("Array", item.id);
-      axios.delete(`http://localhost:8080/cart/${item.id}`)
-  })
-  return {status:'success'}
+export async function resetCart(id) {
+  console.log("Resetting Cart id",id)
+  return axios.delete('http://localhost:8080/cart/', { id });
 
 }
 export function updateCart(items) {

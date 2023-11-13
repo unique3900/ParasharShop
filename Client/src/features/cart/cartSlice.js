@@ -23,8 +23,8 @@ export const getCartByEmailAsync = createAsyncThunk(
   "cart/getCartByEmail",
   async (id) => {
     const response = await getCartByUserEmail(id);
-    console.log("Response of Cart",response)
-    return response.data;
+    console.log("Response of Cart",response.data)
+    return response.data.data;
   }
 )
 
@@ -38,9 +38,10 @@ export const removeFromCartAsync = createAsyncThunk(
 
 export const resetCartAsync = createAsyncThunk(
   "cart/resetCart",
-  async (email) => {
-    const response = await resetCart(email);
-    return response.data;
+  async (id) => {
+    const response = await resetCart(id);
+    console.log("Response of Resetting",response)
+    return response.data.data;
   }
 )
 
@@ -98,7 +99,7 @@ export const cartSlice = createSlice({
       })
       .addCase(resetCartAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.items = [];
+        state.items.splice(0,state.items.length)
         state.cartLoaded = false;
       })
       .addCase(updateCartAsync.rejected, (state, action) => {

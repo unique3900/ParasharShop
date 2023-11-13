@@ -49,3 +49,14 @@ exports.updateCartController = async (req, res) => {
         res.status(401).json({ success: false, message: "Error Occured When Updating Cart" });
     }
 }
+
+exports.resetCartController = async (req, res) => {
+    try {
+        const { id } = req.body;
+        const data = await Cart.deleteMany({ user: id });
+        res.status(200).json({ success: true, message: "Cart Reset Successful", data });
+    } catch (error) {
+        console.log(error);
+        res.status(401).json({ success: false, message: "Error Occured when reseting Cart", error });
+    }
+}

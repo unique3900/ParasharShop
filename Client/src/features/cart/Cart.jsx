@@ -61,7 +61,7 @@ export default function Cart() {
     
     return (
         <> {
-            !items.length && <Navigate to={'/'} ></Navigate>
+            !items?.length && <Navigate to={'/'} ></Navigate>
             
         }
             
