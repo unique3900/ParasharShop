@@ -38,8 +38,8 @@ export const removeFromCartAsync = createAsyncThunk(
 
 export const resetCartAsync = createAsyncThunk(
   "cart/resetCart",
-  async (email) => {
-    const response = await resetCart(email);
+  async (id) => {
+    const response = await resetCart(id);
     return response.data;
   }
 )
@@ -80,7 +80,6 @@ export const cartSlice = createSlice({
     .addCase(getCartByEmailAsync.fulfilled, (state, action) => {
       state.status = "idle";
       state.items = action.payload;
-      console.log("Cart Items",action.payload)
       state.cartLoaded=true
 
     }

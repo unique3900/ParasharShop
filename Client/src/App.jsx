@@ -52,9 +52,7 @@ const App = () => {
     return
     }
     else {
-      console.log(user.id)
       dispatch(getCartByEmailAsync(user.id));
-      // dispatch(fetchLoggedInUserInfoAsync(user.id))
     }
       
   }, [dispatch,user])

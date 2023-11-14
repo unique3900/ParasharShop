@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getCartByEmailAsync,
   removeFromCartAsync,
+  resetCartAsync,
   selectcartItems,
   updateCartAsync,
 } from "../../features/cart/cartSlice";
@@ -18,7 +19,7 @@ import {
   newOrderAsync,
   selectCurrentOrder,
 } from "../../features/order/orderSlice";
-import { selectLoggedInUserInfo } from "../../features/user/userSlice";
+import { selectLoggedInUserInfo, selectLoggedInUserOrders } from "../../features/user/userSlice";
 import { discountedPrice } from "../../app/constants";
 import {
   addUserAddressAsync,
@@ -53,7 +54,7 @@ const CheckoutPage = () => {
   const items = useSelector(selectcartItems);
   const addresses = useSelector(selectUserAddress);
 
-  const currentOrder = useSelector(selectCurrentOrder);
+  const currentOrder = useSelector(selectLoggedInUserOrders);
 
   const validateEmail = (email) => {
     const emailRegEx = /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi;
@@ -178,7 +179,7 @@ const CheckoutPage = () => {
   // }
 
   //For Placing Order
-  const handleOrder = (e) => {
+  const handleOrder =async (e) => {
     e.preventDefault();
     if (!selectedDeliveryAddress || !selectedPaymentMethod) {
       alert("Please Select All Required Fields");
@@ -192,7 +193,8 @@ const CheckoutPage = () => {
         totalItems,
         totalAmount,
       };
-      dispatch(newOrderAsync(order));
+      await dispatch(newOrderAsync(order));
+      navigate(`/order-success/${currentOrder.length}`)
     }
   };
 
@@ -210,9 +212,7 @@ const CheckoutPage = () => {
     <>
       {" "}
       {!items.length || (!user && <Navigate to={"/"}></Navigate>)}
-      {currentOrder && (
-        <Navigate to={`/order-success/${currentOrder.id}`}></Navigate>
-      )}
+
       <div className="h-screen w-full flex flex-col ">
         <h1 className="text-5xl font-bold p-3 text-center">Checkout</h1>
         <div className="flex flex-col gap-3">

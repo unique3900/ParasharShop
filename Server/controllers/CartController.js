@@ -53,7 +53,8 @@ exports.updateCartController = async (req, res) => {
 exports.resetCartController = async (req, res) => {
     try {
         const { id } = req.body;
-        const data = await Cart.deleteMany({ user: id });
+        console.log("Replace id",id)
+        const data = await Cart.deleteMany({user:id});
         res.status(200).json({ success: true, message: "Cart Reset Successful", data });
     } catch (error) {
         console.log(error);
