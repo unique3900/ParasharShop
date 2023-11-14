@@ -124,8 +124,8 @@ const CheckoutPage = () => {
     ) {
       setErr(true);
     } else {
-        const data = {
-        user:user.id,
+      const data = {
+        user: user.id,
         fullName,
         email,
         phone,
@@ -183,17 +183,14 @@ const CheckoutPage = () => {
     if (!selectedDeliveryAddress || !selectedPaymentMethod) {
       alert("Please Select All Required Fields");
     } else {
-        console.log("Sellecttttt",selectedDeliveryAddress.user)
+      console.log("Sellecttttt", selectedDeliveryAddress.user);
       const order = {
-        orderDetail: {
-          products: [...items.map((data, index) => { return data.id })],
-          selectedPaymentMethod,
-          selectedDeliveryAddress: selectedDeliveryAddress.id,
-          user: user.id,
-          totalItems,
-          totalAmount
-        },
-
+        user: user.id,
+        products: items,
+        selectedPaymentMethod,
+        selectedDeliveryAddress: selectedDeliveryAddress.id,
+        totalItems,
+        totalAmount,
       };
       dispatch(newOrderAsync(order));
     }
@@ -568,7 +565,7 @@ const CheckoutPage = () => {
               </div>
             </section>
 
-            {addresses? (
+            {addresses ? (
               <section className="p-5 flex flex-col gap-2  ">
                 <h3 className="font-bold text-xl">Saved Addresses</h3>
                 <div className="flex p-7 flex-col gap-2 outline-black border-black">
@@ -579,7 +576,7 @@ const CheckoutPage = () => {
                     >
                       <input
                         value={index}
-                        onClick={()=>handleDeliveryAddress(index)}
+                        onClick={() => handleDeliveryAddress(index)}
                         type="radio"
                         name="address"
                         id=""
@@ -609,7 +606,9 @@ const CheckoutPage = () => {
                   ))}{" "}
                 </div>
               </section>
-            ):<p className="text-lg font-bold text-red-600">No Saved Address</p>}
+            ) : (
+              <p className="text-lg font-bold text-red-600">No Saved Address</p>
+            )}
 
             <section className="p-5 flex flex-col gap-2 shadow-lg">
               <h3 className="font-bold text-xl">Payment Method</h3>

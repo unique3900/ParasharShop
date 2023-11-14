@@ -42,10 +42,10 @@ export const categories = [
 export const dashOptions = [
     {
         id: 1,
-        name: 'my profile'
+        name: 'my-profile'
     }, {
         id: 2,
-        name: 'my orders'
+        name: 'my-orders'
     }
 
 ]
