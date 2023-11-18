@@ -6,7 +6,7 @@ import Homepage from './Components/Layout/Homepage'
 import { Route, Routes } from 'react-router-dom'
 import axios, { Axios } from 'axios'
 import TopNavbar from './Components/Layout/TopNavbar'
-import { Toaster } from 'react-hot-toast'
+import toast, { Toaster } from 'react-hot-toast'
 import NavBar from './features/Navbar/Navbar'
 import RegisterPage from './Components/Pages/RegisterPage'
 import LoginPage from './Components/Pages/LoginPage'
@@ -48,7 +48,7 @@ const App = () => {
 
   useEffect(() => {
     if (!user) {
-      console.log("No User Logged In")
+      toast.success("Logged in As Guest")
     return
     }
     else {

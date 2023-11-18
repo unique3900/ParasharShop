@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 export async function createUser(data) {
     console.log(data)
     return axios.post('http://localhost:8080/auth/register', {
-       ...data
+        ...data
     }).catch((err) => {
         console.log(err)
         toast.error(err.response.data.message)
@@ -25,26 +25,17 @@ export async function loginUser(data) {
     })
 }
 
-export async function sellerLogin({data}) {
-    // console.log("My data", data.user);
-    const getUser = await axios.get('http://localhost:8080/auth?email=' + data.user.email);
-    if (getUser.data.length>0) {
-        if (getUser.data[0].businessInfo.businessPassword == data.password) {
-            // console.log("Valid Password",getUser.data[0])
-            toast.success("Seller Validated!")
-            return {data:getUser.data[0]}
-        }
-        else {
-            // console.log("InValid Password")
-            toast.error("Invalid Password!")
-            return {data:null}
-        }
-    }
-    else {
-        // console.log("User Doesnot Exist")
-        toast.error("Seller Doesnot Exist!")
-        return {data:null}
-    }
+export async function sellerRegister(data) {
+    console.log("Invoked Seller Registration",{...data})
+    return axios.post('http://localhost:8080/seller/seller-register', { ...data }).then((res) => {
+        toast.success(res.data.message)
+    }).catch((err) => {
+        toast.error(err.response.data.message)
+    })
+}
+export async function sellerLogin(data) {
+    console.log("Invoked Seller Login",{...data})
+    return axios.post('http://localhost:8080/seller/seller-login',{...data})
 }
 
 

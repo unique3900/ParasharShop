@@ -8,7 +8,7 @@ const SellerChoosePage = () => {
   const seller = useSelector(selectLoggedInSeller);
   return (
     <>
-      {!user && <Navigate to={'/'} replace={true}></Navigate>}
+      {!user &&  <Navigate to={'/'} replace={true}></Navigate>}
       {seller&&<Navigate to={'/sellerOptions/seller-Dashboard'} replace={true}></Navigate>}
           <div className='h-screen flex flex-col items-center '>
         <h3 className="font-bold text-4xl p-5">Seller Options</h3>

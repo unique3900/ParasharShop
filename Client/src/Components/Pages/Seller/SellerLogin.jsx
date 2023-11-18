@@ -18,8 +18,8 @@ const SellerLogin = () => {
     const dispatch = useDispatch();
     const handleSubmit = (e) => {
         e.preventDefault();
-        const data = { user, password };
-        dispatch(loginSellerAsync({data}))
+        const data = { user:user.id, password };
+        dispatch(loginSellerAsync(data))
         
     }
 
