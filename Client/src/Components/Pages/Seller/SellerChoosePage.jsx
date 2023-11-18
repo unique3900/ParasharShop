@@ -1,11 +1,21 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, Navigate } from 'react-router-dom'
-import { selectLoggedInSeller, selectLoggedInUser } from '../../../features/Auth/authSlice';
+import { fetchLoggedInSellerAsync, selectLoggedInSeller, selectLoggedInUser } from '../../../features/Auth/authSlice';
 
 const SellerChoosePage = () => {
+  const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUser);
   const seller = useSelector(selectLoggedInSeller);
+
+  // useEffect(() => {
+  //   if (user) {
+  //     dispatch(fetchLoggedInSellerAsync(user?.id));
+  //   }
+    
+    
+  // }, [dispatch,user])
+  
   return (
     <>
       {!user &&  <Navigate to={'/'} replace={true}></Navigate>}

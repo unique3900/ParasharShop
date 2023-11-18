@@ -34,8 +34,10 @@ export async function sellerRegister(data) {
     })
 }
 export async function sellerLogin(data) {
-    console.log("Invoked Seller Login",{...data})
-    return axios.post('http://localhost:8080/seller/seller-login',{...data})
+    return axios.post('http://localhost:8080/seller/seller-login', { ...data })
+}
+export async function fetchSellerInfo(id) {
+    return axios.get(`http://localhost:8080/seller/${id}`);
 }
 
 

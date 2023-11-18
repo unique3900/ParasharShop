@@ -1,27 +1,29 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { ToastBar, Toaster, toast } from 'react-hot-toast';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginSellerAsync, selectLoggedInSeller, selectLoggedInUser } from '../../../features/Auth/authSlice';
+import { fetchLoggedInSellerAsync, loginSellerAsync, selectLoggedInSeller, selectLoggedInUser } from '../../../features/Auth/authSlice';
 const SellerLogin = () => {
 
     const user = useSelector(selectLoggedInUser);
     const seller = useSelector(selectLoggedInSeller);
     const [password, setPassword] = useState("");
-    
-    
-
     const [error, setError] = useState(false);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
-        const data = { user:user.id, password };
-        dispatch(loginSellerAsync(data))
-        
+        const data = { user:user.id,businessPassword: password };
+        await dispatch(loginSellerAsync(data))
+
     }
+    
+// useEffect(() => {
+//     dispatch(fetchLoggedInSellerAsync(user.id))
+// }, [])
+
 
     return (
         <>

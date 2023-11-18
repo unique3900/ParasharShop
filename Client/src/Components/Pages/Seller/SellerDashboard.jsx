@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
+    useDispatch,
     useSelector
 } from 'react-redux';
 import {
@@ -7,27 +8,34 @@ import {
     Navigate
 } from 'react-router-dom';
 import {
+    fetchLoggedInSellerAsync,
     selectLoggedInSeller,
     selectLoggedInUser
 } from '../../../features/Auth/authSlice';
+import { fetchLoggedInUserInfo } from '../../../features/user/userAPI';
 const SellerDashboard = () => {
+    const dispatch = useDispatch();
         const user = useSelector(selectLoggedInUser);
         const seller = useSelector(selectLoggedInSeller);
-        console.log(seller.businessInfo)
-        return (<> {
+
+    
+    // useEffect(() => {
+    //     dispatch(fetchLoggedInSellerAsync(user.id))
+    // }, [dispatch,user])
+    
+    return (<>
+        {/* {
             ! user && <Navigate to={'/sellerOptions'}></Navigate>
-        }
-            {
+        } */}
+            {/* {
             ! seller &&< Navigate to = {
                 '/sellerOptions'
             } >
-        </Navigate>}
+        </Navigate>} */}
 
         <div className='h-screen flex flex-col lg:justify-center items-center p-5'>
             <h1 className="text-center font-bold text-4xl p-5">Seller Dashboard</h1>
-            <p className='font-bold text-xl text-purple-600 text-center'>Welcome, {
-                seller.businessInfo.businessName
-            }</p>
+            <p className='font-bold text-xl text-purple-600 text-center'>Welcome,{seller.businessName }</p>
             <div className="grid grid-rows-1 lg:grid-cols-[1fr_2fr] w-full h-full gap-3">
 
                 <div className="flex flex-row h-fit lg:flex-col gap-2 text-sm flex-wrap">
