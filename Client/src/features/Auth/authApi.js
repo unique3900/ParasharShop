@@ -1,6 +1,8 @@
 import { data } from 'autoprefixer';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+
 
 export async function createUser(data) {
     console.log(data)
@@ -50,7 +52,14 @@ export function userLogout(user) {
     return { data: 'success' };
 }
 
-export function changePassword(user) {
-    return { data: 'success' };
+export function changePassword(data) {
+    console.log("Changing Password",{...data})
+    return axios.post('http://localhost:8080/auth/change-password', { ...data }).then((res) => {
+        toast.success(res.data.message)
+        
+        
+    }).catch((err) => {
+        toast.error(err.response.data.message)
+    })
 }
 

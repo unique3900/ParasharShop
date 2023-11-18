@@ -16,6 +16,7 @@ import {
     useNavigate
 } from 'react-router-dom';
 import {
+    changePasswordAsync,
     selectLoggedInUser
 } from '../../../features/Auth/authSlice';
 
@@ -23,11 +24,13 @@ import {
 const ChangePassword = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [oldPassword, setOldPassword] = useState("");
 
     const navigate = useNavigate();
     const [error, setError] = useState(false);
     const [emailregErr, setEmailRegErr] = useState();
     const [pwdRegErr, setPwdRegErr] = useState();
+    const [oldpwdRegErr, setoldPwdRegErr] = useState();
     const dispatch = useDispatch();
 
     const user = useSelector(selectLoggedInUser);
@@ -42,11 +45,19 @@ const ChangePassword = () => {
         if (! emailRegEx.test(email)) {
             setEmailRegErr(true);
         }
+        if (!oldPassword) {
+            setoldPwdRegErr(true)
+        }
         if (! passwordRegEx.test(password)) {
             setPwdRegErr(true);
         } else {
-            console.log("hello")
-
+            const data = {
+                password: oldPassword,
+                newPassword: password,
+                id:user.id
+            }
+            await dispatch(changePasswordAsync(data))
+            navigate('/')
         }
     }
     return (
@@ -69,23 +80,19 @@ const ChangePassword = () => {
 
                         <div className="inputBox flex flex-col gap-1">
                             <label htmlFor="Name">Old Password:</label>
-                            <input value={password}
+                            <input value={oldPassword}
                                 type="password"
                                 name='name'
                                 required
                                 className='outline-black border-b-2 px-2 py-2 rounded-md shadow-sm'
                                 onChange={
                                     (e) => {
-                                        setPassword(e.target.value)
+                                        setOldPassword(e.target.value)
                                     }
                                 }/> {
-                            error && !password ? (
-                                <p className="italic text-red-500">Password is Required*</p>
-                            ) : pwdRegErr ? (
-                                <p className="italic text-red-500">- at least 8 characters
-                                - must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number
-                                - Can contain special characters*</p>
-                            ) : ""
+                            error && !oldPassword ? (
+                                <p className="italic text-red-500">Old Password is Required*</p>
+                            ):""
                         } </div>
 
                         <div className="inputBox flex flex-col gap-1">
