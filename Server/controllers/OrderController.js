@@ -15,6 +15,7 @@ exports.userOrderController = async (req, res) => {
     try {
         
         const order = await Orders.find({ user: id }).populate("selectedDeliveryAddress")
+        console.log(order)
         res.status(200).json({success:true,message:"Orders Fetched Successfully",order})
     } catch (error) {
         console.log(error)

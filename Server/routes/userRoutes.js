@@ -7,5 +7,5 @@ const router = express.Router();
 router.post('/register', RegisterController)
     .post('/login', LoginController).post('/update',isLoggedIn, updateUserController).post('/change-password',isLoggedIn, changePasswordController).get('/getLoggedInUser', async (req, res) => {
         res.send("Hey");
-    }).get('/:email',getLoggedInDataController)
+    }).get('/:id',getLoggedInDataController)
 exports.router = router;

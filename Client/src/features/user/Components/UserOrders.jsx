@@ -18,6 +18,7 @@ const UserOrders = () => {
 
   useEffect(() => {
     dispatch(fetchLoggedInUserOrdersAsync(user.id));
+    console.log("User Orders",orders)
   }, [dispatch, user]);
 
   return (

@@ -11,7 +11,7 @@ const orderSchema = new Schema({
     type: Object,
   },
   selectedDeliveryAddress: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.ObjectId,
     ref: "Address",
   },
   selectedPaymentMethod: {

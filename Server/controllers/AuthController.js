@@ -80,8 +80,8 @@ exports.changePasswordController = async (req, res) => {
 
 exports.getLoggedInDataController = async (req, res) => {
     try {
-        const { email } = req.body;
-        const user = await User.findOne({ email });
+        const { id } = req.params;
+        const user = await User.findOne({ id });
         if (user) {
             res.status(200).json({success:true,message:"User Fetched Successfully",user})
         }

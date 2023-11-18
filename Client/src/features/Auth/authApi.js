@@ -13,7 +13,7 @@ export async function createUser(data) {
 }
 export async function updateUser(users) {
     console.log("Received",users)
-     return axios.patch(`http://localhost:8080/users/${users.id}`, users).catch((err) => {
+     return axios.patch(`http://localhost:8080/auth/${users.id}`, {users}).catch((err) => {
         toast.error(err.response.data.message)
     });
 }

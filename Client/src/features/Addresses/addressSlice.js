@@ -1,5 +1,5 @@
 import authSlice from "../Auth/authSlice";
-import { addUserAddress, fetchUserAddress } from "./addressApi";
+import { addUserAddress, deleteUserAddress, fetchUserAddress, updateUserAddress } from "./addressApi";
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
@@ -22,6 +22,22 @@ export const fetchUserAddressAsync = createAsyncThunk(
     "address/fetchUserAddress",
     async (id) => {
         const response = await fetchUserAddress(id);
+        return response.data.address;
+    }
+)
+export const deleteUserAddressAsync = createAsyncThunk(
+    "address/deleteUserAddress",
+    async (id) => {
+        const response = await deleteUserAddress(id);
+        return response.data.address;
+    }
+)
+export const updateUserAddressAsync = createAsyncThunk(
+    "address/updateUserAddress",
+    async (address) => {
+        console.log(address,"Received")
+        const response = await updateUserAddress(address);
+        // console.log("Updaye",response.data.address)
         return response.data.address;
     }
 )
@@ -49,7 +65,24 @@ export const addressSlice = createSlice({
                 state.status = "idle";
                 console.log("User Address Payload", action.payload);
                 state.addresses=action.payload;
-        })
+            })
+            .addCase(deleteUserAddressAsync.pending, (state) => {
+                state.status="loading"
+            })
+            .addCase(deleteUserAddressAsync.fulfilled, (state,action) => {
+                state.status = "idle";
+                console.log("Deleted Address Payload",action.payload)
+                // state.addresses.filter((e)=>state.addresses.id!==action.payload.id)
+            })
+            .addCase(updateUserAddressAsync.pending, (state) => {
+                state.status="loading"
+            })
+            .addCase(updateUserAddressAsync.fulfilled, (state, action) => {
+                state.status = "idle";
+                console.log("User Address Payload", action.payload);
+                
+            })
+            
     }
 })
 

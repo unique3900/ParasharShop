@@ -23,6 +23,7 @@ import {
     Link,
     Navigate
 } from 'react-router-dom';
+import { deleteUserAddressAsync, fetchUserAddressAsync, selectUserAddress, updateUserAddressAsync } from '../../features/Addresses/addressSlice';
 
 const UserProfilePage = () => {
 
@@ -30,8 +31,11 @@ const UserProfilePage = () => {
     const user = useSelector(selectLoggedInUser);
     const userInfo = useSelector(selectLoggedInUserInfo);
     const orders = useSelector(selectLoggedInUserOrders);
+    const addresses = useSelector(selectUserAddress);
 
-    const [editOption, setEditOption] = useState({})
+
+    const [editOption, setEditOption] = useState(false)
+    const [editId,setEditId]=useState("")
     const [selectedState, setSelectedState] = useState("");
     const [selectedDeliveryAddress, setSelectedDeliveryAddress] = useState(null);
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('cash');
@@ -77,40 +81,31 @@ const UserProfilePage = () => {
         }
     }
 
-    const handleDelete = (e, id) => {
-        e.preventDefault();
-        const newUser = {
-            ... user,
-            addresses: [... user.addresses]
-        };
-        newUser.addresses.splice(id, 1);
-        dispatch(updateUserAsync(newUser))
-        setEditOption({})
+    const handleDelete = async(e, id) => {
+        console.log(id)
+        await dispatch(deleteUserAddressAsync(id))
     }
 
     const editBtnHandler = (id) => {
         console.log(editOption)
-        setFullName(editOption.fullName);
-        setEmail(editOption.email);
-        setPhone(editOption.phone);
-        setselectedCity(editOption.selectedCity);
-        setSelectedState(editOption.selectedState);
-        setSelectedLocation(editOption.selectedLocation);
-        setStreet(editOption.street);
-        setHouseNumber(editOption?.houseNumber);
-        setMessage(editOption?.message);
+        setFullName(fullName);
+        setEmail(email);
+        setPhone(phone);
+        setselectedCity(selectedCity);
+        setSelectedState(selectedState);
+        setSelectedLocation(selectedLocation);
+        setStreet(street);
+        setHouseNumber(houseNumber);
+        setMessage(message);
     }
 
-    const handleedit = (id) => {
+    const handleedit = async() => {
         if (!fullName || !email || !phone || !selectedState || !selectedCity || !selectedLocation || !street) {
             setErr(true);
         }
         else {
-            const newUser = {
-                ... user,
-                addresses: [...user.addresses]
-            };
             const data = {
+                id:editId,
                 fullName,
                 email,
                 phone,
@@ -121,11 +116,11 @@ const UserProfilePage = () => {
                 houseNumber,
                 message
             };
-            newUser.addresses.splice(id, 1,data)
-            console.log("New New User",newUser.addresses)
-            dispatch(updateUserAsync(newUser))
-            
-            setEditOption({})
+            console.log(data)
+            await dispatch(updateUserAddressAsync(data))
+            fetchAddress(user.id)
+            setEditOption(false)
+            setFullName(""); setEmail(""); setPhone(""); setSelectedState(""); setSelectedLocation(""); setselectedCity("");setMessage("")
         }
     }
 
@@ -158,11 +153,14 @@ const UserProfilePage = () => {
 
         }
     }
+
+    const fetchAddress = async (id) => {
+       await dispatch(fetchUserAddressAsync(user.id))
+    }
     useEffect(() => {
-        dispatch(fetchLoggedInUserInfoAsync(user.id))
+        fetchAddress(user.id)
     }, [dispatch])
-
-
+    
     return (
         <>
             {
@@ -176,10 +174,10 @@ const UserProfilePage = () => {
                     <div className="flex flex-row justify-between items-center">
                         <div className="flex flex-col gap-2">
                             <h1 className="font-bold text-indigo-700 text-4xl">Name: {
-                                userInfo.fullName
+                                user.fullName
                             }</h1>
                             <h2 className="font-bold italic">Email: {
-                                userInfo.email
+                                user.email
                             }</h2>
                         </div>
                         <div className="">
@@ -191,11 +189,10 @@ const UserProfilePage = () => {
                     </div>
 
                     <p className="mt-4 font-bold underline">Saved Addresses</p>
-                    {
-                    userInfo.addresses.length < 1 ? <p className=' text-gray-500 text-center'>No Saved Address</p> : (
+                   
                         <div className="flex flex-col gap-5">
                             {
-                            userInfo.addresses.map((item, index) => (
+                            addresses?.map((item, index) => (
 
                                 <div key={index} className='w-full flex flex-col lg:flex-row justify-start lg:justify-between bg-yellow-100 shadow-lg gap-3 lg:items-center p-5'>
                                     <div className="w-full  flex flex-col  gap-2 "
@@ -228,8 +225,16 @@ const UserProfilePage = () => {
                                                 (e) => {
                                                     e.preventDefault();
                                                     
-                                                    setEditOption({...item,index});
-                                                    editBtnHandler(index);
+                                                    setEditOption(!editOption);
+                                                    setEditId(item.id)
+                                                    setEmail(item.email)
+                                                    setFullName(item.fullName)
+                                                    setPhone(item.phone)
+                                                    setSelectedLocation(item.selectedLocation)
+                                                    setHouseNumber(item.houseNumber)
+                                                    setStreet(item.street)
+                                                    setMessage(item.message)
+                                                    setSelectedState(item.selectedState)
                                                 }
                                             }
                                             className='px-3 py-2 bg-green-600 text-white font-bold rounded-full w-full'>Edit</button>
@@ -245,9 +250,12 @@ const UserProfilePage = () => {
                             ))
                         }
                             {
-                            editOption.email && (
-                                <form noValidate={true} action="" className="py-5">
-                                    <h1 className="font-bold text-3xl py-2 underline mb-1">Edit Personal Information</h1>
+                            editOption && (
+                                <form noValidate={true} action="#" onSubmit={(e) => {
+                                    e.preventDefault()
+                                    handleedit()
+                                }} className="py-5">
+                                    <h1 className="font-bold text-3xl py-2 underline mb-1">Edit Address Information</h1>
                                     <div className="grid grid-cols-2 gap-3 justify-between">
                                         <div className="flex flex-col gap-2">
                                             <label htmlFor="">Full Name</label>
@@ -439,23 +447,17 @@ const UserProfilePage = () => {
                                                     e.preventDefault();
                                                     setEditOption({})
                                         }} className='px-3 py-2 text-black font-bold mt-5 rounded-md shadow-sm' type="reset">Cancle</button>
-                                        <button onClick={
-                                                    (e) => {
-                                                    console.log(editOption.id)    
-                                                    handleedit(editOption.index);
-                                                   
-                                                }
-                                            }
+                                        <button type="submit" 
                                             className='px-3 py-2 bg-blue-700 text-white font-bold mt-5 rounded-md shadow-sm'
-                                            type="submit">Edit</button>
+                                            >Edit</button>
                                     </div>
 
                                 </form>
 
                             )
                         } </div>
-                    )
-                } </div>
+
+                </div>
 
 
             </div>

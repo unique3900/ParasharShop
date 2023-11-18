@@ -109,11 +109,11 @@ const CheckoutPage = () => {
     await dispatch(getCartByEmailAsync(user.id));
   };
 
-  const handleDeliveryAddress = (index) => {
-    setSelectedDeliveryAddress(addresses[index]);
+  const handleDeliveryAddress = async(index) => {
+   await setSelectedDeliveryAddress(addresses[index]);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     if (
       !fullName ||
       !email ||
@@ -138,7 +138,7 @@ const CheckoutPage = () => {
         message,
       };
 
-      dispatch(addUserAddressAsync(data));
+      await dispatch(addUserAddressAsync(data));
       setEmail("");
       setFullName("");
       setHouseNumber("");
