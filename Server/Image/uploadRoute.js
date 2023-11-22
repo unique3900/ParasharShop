@@ -1,11 +1,16 @@
 const express = require('express');
 const imageDownloader = require('image-downloader');
 const multer = require('multer');
-const fs=require('fs')
+const fs = require('fs')
+
 const router = express.Router();
+
+const server=express()
+
 
 // If Post -> /upload then upload by url and if / then upload local
 const photoMiddleware = multer({dest:'uploads/'});
+
 
 router.post('/', photoMiddleware.array('photos', 4), async (req, res) => {
     try {

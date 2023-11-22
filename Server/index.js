@@ -31,13 +31,14 @@ main().catch((err) => {
 // ================= Initialization =====================
 
 const server = express();
-
+server.use('/uploads',express.static("D:/Web Dev/MERN projects/ParasharShop/ParasharShop/Server/Image/uploads"))
 server.use(morgan('dev'))
 server.use(express.json());
 server.use(cors({
     origin: 'http://127.0.0.1:5173',
     credentials: true,
   }));
+
 
 
 // ================ Routes ==================
