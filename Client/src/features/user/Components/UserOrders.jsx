@@ -49,38 +49,38 @@ const UserOrders = () => {
                       </div>
 
                       <div className="ml-4 flex flex-1 flex-col">
-                        <div>
-                          <div className="flex justify-between text-base font-medium text-gray-900">
+                        <div className="">
+                          <div className="flex justify-between  text-base font-medium text-gray-900">
                             <h3>
                               <p> {orderItems.product.title}</p>
                             </h3>
-                            <div className="flex flex-col justify-center gap-2">
-                              <p className="ml-4">
+                            <div className="flex flex-col text-start gap-2">
+                              <p className="ml-4 text-start">
                                 NPR &nbsp;{" "}
                                 {discountedPrice(orderItems.product) *
                                   orderItems.quantity}
                               </p>
                               <p
                                 className={
-                                  orderItems.status == "Pending"
-                                    ? "ml-4 bg-indigo-600 text-white text-center"
-                                    : orderItems.status == "Cancelled"
-                                    ? "ml-4 bg-red-600 text-white text-center"
-                                    : orderItems.status == "Shipped"
-                                    ? "ml-4 bg-blue-600 text-white text-center"
-                                    : orderItems.status == "Delivered"
-                                    ? "ml-4 bg-green-600 text-white text-center"
+                                  orders.status == "Pending"
+                                    ? "px-2 ml-4 bg-indigo-600 text-white text-start"
+                                    : orders.status == "Cancelled"
+                                    ? "px-2 ml-4 bg-red-600 text-white text-start"
+                                    : orders.status == "Shipped"
+                                    ? "px-2 ml-4 bg-blue-600 text-white text-start"
+                                    : orders.status == "Delivered"
+                                    ? " ml-4 bg-green-600 text-white text-start"
                                     : ""
                                 }
                               >
                                 Status &nbsp; {orders.status}
                               </p>
-                              <p className="ml-4">
+                              <p className="ml-4 text-start">
                                 Payment Method : {orders.selectedPaymentMethod}
                               </p>
                             </div>
                           </div>
-                          <p className="mt-1 text-sm text-gray-500">
+                          <p className="-mt-8 text-sm text-gray-500">
                             Color: {
                               "RED"
                             }

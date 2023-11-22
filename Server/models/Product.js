@@ -53,8 +53,8 @@ const productSchema = new Schema({
         default:false
     },
     seller: {
-        // For Now String but later use ObjectId afer creating schema
-        type: String,
+        type: mongoose.ObjectId,
+        ref: "Seller",
         required:true
     }
 })
