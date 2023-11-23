@@ -70,7 +70,6 @@ const EditProduct = () => {
             const datas = { ...data };
             datas.id = params.id;
             datas.keywords =keywords;
-
             datas.images = [
               datas.image1,
               datas.image2,

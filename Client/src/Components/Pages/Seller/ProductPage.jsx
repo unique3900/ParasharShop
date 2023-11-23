@@ -75,6 +75,7 @@ const ProductPage = () => {
 
   
   const user = useSelector(selectLoggedInUser);
+  const seller=useSelector(selectLoggedInSeller)
     const brands = useSelector(selectAllBrands);
     const categories = useSelector(selectAllCategories);
     const products = useSelector(sellerProducts);
@@ -121,9 +122,9 @@ const ProductPage = () => {
         },
     ]
 
-    const handleDeleteProduct = (id) => {
-      dispatch(deleteProductAsync(id))
-      
+    const handleDeleteProduct = async(id) => {
+      await dispatch(deleteProductAsync(id))
+      await dispatch(fetchProductBySellerId(seller.id))
     }
 
   useEffect(() => {
@@ -134,7 +135,7 @@ const ProductPage = () => {
         }))
         dispatch(fetchBrandsAsync());
         dispatch(fetchCategoryAsync());
-  }, [dispatch, filter, sort]);
+  }, [dispatch, filter, sort,products]);
   
  
 
@@ -374,6 +375,7 @@ const ProductPage = () => {
                         <Link to={`edit-product/${item.id}`} className="relative w-full text-center bg-purple-800 text-white px-3 py-2 rounded-full">Edit</Link>
                   <button  onClick={(e) => {
                     e.preventDefault();
+                    console.log(item.id)
                     handleDeleteProduct(item.id)
                       }}  className="relative w-full text-center bg-red-700 text-white px-3 py-2 rounded-full">Delete</button>
                 </div>

@@ -41,7 +41,7 @@ export const deleteProductAsync = createAsyncThunk(
   async (id) => {
     const response = await deleteProduct(id);
     toast.success("Product Deleted Successfully");
-    return response.data;
+    return response.data.products;
   }
 )
 
@@ -136,8 +136,6 @@ export const productSlice = createSlice({
       })
       .addCase(deleteProductAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        const index = state.sellerProducts.findIndex(item => item.id === action.payload.id);
-        state.sellerProducts.splice(index, 1);
       })
       .addCase(fetchProductByIdAsync.pending, (state) => {
         state.status = "loading";

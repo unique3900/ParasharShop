@@ -85,3 +85,15 @@ exports.fetchSellerProducts = async (req, res) => {
     console.log(error)
   }
 }
+
+exports.deleteProducts = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const products=await Product.findByIdAndDelete(id,{new:true})
+    res.status(200).json({success:true,message:"Product Deleted Successfully",products})
+    
+  } catch (error) {
+    console.log(error);
+    res.status(401).json({success:false,message:"Unexpected Error Occured",error})
+  }
+}
