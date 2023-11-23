@@ -78,9 +78,6 @@ const ProductPage = () => {
     const brands = useSelector(selectAllBrands);
     const categories = useSelector(selectAllCategories);
     const products = useSelector(sellerProducts);
-
-
-
     const handleFilters = (e, option, section) => {
         const userFilter = {
             ...filter
@@ -111,8 +108,6 @@ const ProductPage = () => {
         setSort(userSort);
         console.log(option)
     }
-
-
 
     const filters = [
         {
@@ -349,7 +344,7 @@ const ProductPage = () => {
       return (
         <div className="grid grid-cols-2 justify-center lg:grid-cols-3 gap-3">
         {
-            products.slice(page*12-12,page*12).map((item, index) => (
+            products?.slice(page*12-12,page*12).map((item, index) => (
               <div key={index} className="relative flex flex-col gap-2 lg:items-stretch  justify-between px-3 py-4 lg:w-72 shadow-lg">
               <Link to={`/products/${item.id}`} className="flex items-center justify-center">
                   <img className='object-cover place-content-center h-56 max-h-60' src={item.thumbnail} alt="" />

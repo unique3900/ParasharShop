@@ -4,17 +4,16 @@ import { BiCartAdd } from 'react-icons/bi';
 import { AiOutlineHeart } from 'react-icons/ai';
 
 import toast, { Toaster } from 'react-hot-toast';
-
 import { Fragment } from 'react'
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { StarIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
 import Pagination from '../../Components/Layout/Pagination';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllProductsAsync, fetchBrandsAsync, fetchCategoryAsync, fetchProductsByFilterAsync, selectAllBrands, selectAllCategories, selectAllProducts } from './productListSlice';
+import { fetchAllProductsAsync, fetchBrandsAsync, fetchCategoryAsync, fetchProductBySellerIdAsync, fetchProductsByFilterAsync, selectAllBrands, selectAllCategories, selectAllProducts } from './productListSlice';
 import {  sortOptions } from '../../Data/data';
 import { Link } from 'react-router-dom';
-import { selectLoggedInUser } from '../Auth/authSlice';
+import { selectLoggedInSeller, selectLoggedInUser } from '../Auth/authSlice';
 
 
 function classNames(...classes) {
@@ -28,7 +27,8 @@ export const ProductList = () => {
   const [filter, setFilter] = useState({});
   const [sort, setSort] = useState({});
   const dispatch = useDispatch()
-  const loggedInUser=useSelector(selectLoggedInUser)
+  const loggedInUser = useSelector(selectLoggedInUser)
+  const loggedInSeller = useSelector(selectLoggedInSeller);
   const brands = useSelector(selectAllBrands);
   const categories = useSelector(selectAllCategories);
   const products = useSelector(selectAllProducts);
@@ -54,7 +54,6 @@ export const ProductList = () => {
     console.log("MyFilter",userFilter)
     setFilter(userFilter);
     setPage(1);
-   
   }
 
 
@@ -63,8 +62,6 @@ export const ProductList = () => {
     setSort(userSort);
     console.log(option)
   }
-
-
 
   const filters = [
     {
@@ -84,9 +81,13 @@ export const ProductList = () => {
   useEffect(() => {
     dispatch(fetchProductsByFilterAsync({ filter, sort }))
     // dispatch(fetchAllProductsAsync());
+    if (loggedInSeller) {
+      dispatch(fetchProductBySellerIdAsync(loggedInSeller.id))
+    }
+
     dispatch(fetchBrandsAsync());
     dispatch(fetchCategoryAsync());
-  }, [dispatch,filter,sort]);
+  }, [dispatch,filter,sort,loggedInSeller]);
 
 
   
@@ -186,7 +187,6 @@ export const ProductList = () => {
         </main>
       </div>
     </div>
-
     </div>
   )
 }

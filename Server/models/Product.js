@@ -1,8 +1,5 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-
-
-
 const productSchema = new Schema({
     title: {
         type: String,
@@ -28,15 +25,17 @@ const productSchema = new Schema({
     },
     rating: {
         type: Number,
-        min: [1, "Minimum Rating is 1"],
-        max: [5, "Maximul Rating is 5"],
         default:0
     },
     brand: {
+        // type:mongoose.ObjectId
+        // ref:'Brand',
         type: String,
         required:true
     },
     category: {
+        // type:mongoose.ObjectId,
+        // ref:'Category',
         type: String,
         required:true
     },
@@ -51,6 +50,10 @@ const productSchema = new Schema({
     deleted: {
         type: Boolean,
         default:false
+    },
+    keywords:{
+        type:[String],
+        required:true
     },
     seller: {
         type: mongoose.ObjectId,

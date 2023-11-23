@@ -116,6 +116,7 @@ export const authSlice = createSlice({
       })
       .addCase(fetchLoggedInSellerAsync.fulfilled, (state, action) => {
         state.status = "idle",
+          
           state.loggedInSeller=action.payload
       })
       .addCase(logoutUserAsync.pending, (state) => {

@@ -10,7 +10,6 @@ exports.createBrand = async (req, res) => {
         console.log(error);
     }
 }
-
 exports.fetchBrands = async (req, res) => {
     try {
         const brands = await Brand.find({});

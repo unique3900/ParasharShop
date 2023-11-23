@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
     filters
 } from '../../../Data/data'
@@ -15,11 +15,16 @@ import {
 } from '../../../features/Auth/authSlice'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { createProductAsync } from '../../../features/product/productListSlice';
+import { FaCheckCircle } from "react-icons/fa";
+import { IoIosClose } from "react-icons/io";
+
+
 
 const ProductForm = () => {
     const user = useSelector(selectLoggedInUser);
     const seller = useSelector(selectLoggedInSeller);
-
+    const [keywords,setKeywords] = useState([]);
+    const [keyword,setKeyword] = useState("");
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const {
@@ -33,7 +38,7 @@ const ProductForm = () => {
         <>
             {!user && <Navigate to={'/'} replace={true}></Navigate>}
             {!seller && <Navigate to={'/'} replace={true}></Navigate>}
-            <div className="h-screen  flex flex-col  items-center ">
+            <div className="h-screen   flex flex-col  items-center ">
                 <form noValidate
                     onSubmit={
                         handleSubmit((data) => {
@@ -41,6 +46,7 @@ const ProductForm = () => {
                                 ...data
                             };
                             product.images = [product.image1, product.image2, product.image3, product.thumbnail];
+                            product.keywords = keywords;
                             product.rating = 0;
                             product.seller = user.id;
                             delete product['image1'];
@@ -51,7 +57,7 @@ const ProductForm = () => {
                             navigate('/sellerOptions/seller-Dashboard/manage-products')
                         })
                     }
-                    className='mt-5 shadow-lg px-5 py-3 bg-white'>
+                    className='mt-5 w-3/4 shadow-lg px-5 py-3 bg-white'>
                     <div className="space-y-12">
                         <div className="border-b border-gray-900/10 pb-12">
                             <h2 className=" text-4xl font-bold leading-7 text-gray-900 text-center">New Product</h2>
@@ -73,6 +79,33 @@ const ProductForm = () => {
                                         <textarea id="description" {...register('description',{required:"Description is Required"})} rows="3" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
                                     </div>
                                     <p className="mt-3 text-sm leading-6 text-gray-600">Write a few sentences about Product.</p>
+                                </div>
+
+                                <div className="col-span-full">
+                                    <label htmlFor="about" className="block text-sm font-medium leading-6 text-gray-900">Product Keywords</label>
+                                    <div className="mt-2 relative">
+                                        <input type='text' value={keyword} onChange={(e) => { setKeyword(e.target.value); console.log(keyword) }} rows="3" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                        <FaCheckCircle size={20} className='absolute right-7 top-2 cursor-pointer text-green-700' onClick={() => {
+                                            setKeywords([...keywords, keyword])
+                                            setKeyword("")
+                                        }}/>
+                                    </div>
+                                    {
+                                        keywords.length <= 0 ? <p className="bg-[#b13333] w-fit text-white font-bold mt-4 py-2 px-3">Enter Some Keywords</p> : (
+                                            <div className="flex flex-row flex-wrap  gap-2 items-center mt-3">{
+                                                keywords.map((item,index) => (
+                                                    <p className='bg-[#7b2883] font-bold text-center px-3 py-2 text-white flex items-center justify-between' key={index}>{item} <span className='' onClick={()=>{
+                                                        setKeyword(keywords.splice(index,1))
+                                                    }}><IoIosClose className='text-white cursor-pointer text-2xl font-bold' size={28}/>
+                                                    </span></p>
+                                        ))
+                                            }
+                                           
+                                            </div>
+                                            
+                                     )
+                                    }
+                                   
                                 </div>
 
 
@@ -180,7 +213,6 @@ const ProductForm = () => {
                                         } </select>
                                     </div>
                                 </div>
-
 
                             </div>
                         </div>

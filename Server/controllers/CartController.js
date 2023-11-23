@@ -31,7 +31,7 @@ exports.addToCartController = async (req, res) => {
 exports.removeFromCartController = async (req, res) => {
     const { id } = req.params;
     try {
-        const cart = await Cart.findByIdAndDelete(id);
+        const cart = await Cart.findByIdAndDelete(id,{new:true});
         res.status(200).json({ success: true, message: "Item Removed From Cart",cart });
     } catch (error) {
         console.log(error)
@@ -42,7 +42,7 @@ exports.removeFromCartController = async (req, res) => {
 exports.updateCartController = async (req, res) => {
     const { id } = req.body;
     try {
-        const cart = await Cart.findByIdAndUpdate(id, {quantity:req.body.quantity});
+        const cart = await Cart.findByIdAndUpdate(id, {quantity:req.body.quantity},{new:true});
         res.status(200).json({ success: true, message: "Cart Updated Successfully", cart });
     } catch (error) {
         console.log(error);
@@ -54,7 +54,7 @@ exports.resetCartController = async (req, res) => {
     try {
         const { id } = req.body;
         console.log("Replace id",id)
-        const data = await Cart.deleteMany({user:id});
+        const data = await Cart.deleteMany({user:id},{new:true});
         res.status(200).json({ success: true, message: "Cart Reset Successful", data });
     } catch (error) {
         console.log(error);

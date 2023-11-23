@@ -31,6 +31,8 @@ main().catch((err) => {
 // ================= Initialization =====================
 
 const server = express();
+
+// Return Image When called http://localhost:8080/uploads/filename
 server.use('/uploads',express.static("D:/Web Dev/MERN projects/ParasharShop/ParasharShop/Server/Image/uploads"))
 server.use(morgan('dev'))
 server.use(express.json());
@@ -55,11 +57,6 @@ server.use('/upload', uploadRouter.router);
 
 // Handling Image Upload Operation Here
 // Seperate router has been created aswell
-
-
-
-
-
 const port = process.env.PORT;
 console.log(port)
 server.listen(port, () => {

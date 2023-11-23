@@ -43,7 +43,7 @@ export function deleteProduct(id) {
 }
 export function fetchProductBySellerId(id) {
     console.log("Received Seller Id", id);
-    return axios.get(`http://localhost:8080/products?seller=${id}`)
+    return axios.get(`http://localhost:8080/products/seller/${id}`)
 }
 
 export function fetchAllBrands() {
