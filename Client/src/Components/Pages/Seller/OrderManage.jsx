@@ -21,8 +21,6 @@ const OrderManage = () => {
     const seller = useSelector(selectLoggedInSeller);
     const sellerOrders = useSelector(selectSellerOrder);
     const dispatch = useDispatch();
-
-
     const [editable, setEditable] = useState(-1);
     const [page, setPage] = useState(1);
     const handleShow = (order) => {
@@ -60,12 +58,9 @@ const OrderManage = () => {
                                     {
                                     sellerOrders.slice(page*12-12,page*12).map((item, index) => (
                                         <tr key={
-                                                item.id
+                                                index
                                             }
                                             className="border-b border-gray-200 hover:bg-gray-100">
-
-
-                                           
                                             <td className="py-3 px-6 text-center whitespace-nowrap">
                                                 <div className="flex flex-col items-center justify-center">
 
@@ -75,89 +70,48 @@ const OrderManage = () => {
                                                     }</span>
                                                 </div>
                                                 </td>
-                                                
                                                 <td className="py-3 px-6 text-center  whitespace-nowrap">
                                                 <div className="flex flex-col items-center justify-center">
-
                                                     <span className="font-medium">
                                                         {
-                                                        item.totalItems
+                                                      item.products.length
                                                     }</span>
                                                 </div>
                                             </td>
-                                  
 
+                                            {item.products.map((data, ind) => (
+                                                 <div className='flex flex-col items-center justify-center'>
+                                                     <td className="py-3 px-6 text-center whitespace-nowrap">
+                                                       <div className="flex flex-col items-center justify-center">
+                                                            <img className='w-10 h-10'src={data.product.thumbnail} alt=""/>
+                                                               <span className="font-medium">
+                                                                    {data.product.title}
+                                                                    (Quantity: {data.quantity})
+                                                                 </span>
+                                                              </div>
+                                                          </td>
+                                              </div>
+                                            ))}
 
-
-                                   
-                                            {
-                                            item.items.map((prod) => (
-                                                <div key={
-                                                        prod.id
-                                                    }
-                                                    className='flex flex-col items-center justify-center'>
-
-
-                                                    <td className="py-3 px-6 text-center whitespace-nowrap">
-                                                        <div className="flex flex-col items-center justify-center">
-                                                            <img className='w-10 h-10'
-                                                                src={
-                                                                    prod.thumbnail
-                                                                }
-                                                                alt=""/>
-                                                            <span className="font-medium">
-                                                                {
-                                                                prod.title
-                                                            }
-                                                                (Quantity:{
-                                                                prod.quantity
-                                                            })
-                                                            </span>
-                                                        </div>
-                                                    </td>
-
-
-                                                </div>
-                                            ))
-                                        }
-
-
+                                            {}
+                                            
+                                
                                             <td className="py-3 px-6 text-center whitespace-nowrap">
                                                 <div className="flex flex-col items-center ">
 
                                                     <span className="font-medium text-xs">
-                                                        {
-                                                        item.selectedDeliveryAddress.fullName
-                                                    }</span>
+                                                        {item.selectedDeliveryAddress.fullName}</span>
                                                     <span className="font-medium text-xs">
-                                                        {
-                                                        item.selectedDeliveryAddress.email
-                                                    }</span>
+                                                    {item.selectedDeliveryAddress.email}</span>
                                                     <span className="font-medium text-xs">
-                                                        {
-                                                        item.selectedDeliveryAddress.phone
-                                                    }</span>
+                                                    {item.selectedDeliveryAddress.phone}</span>
                                                     <span className="font-medium text-xs">
-                                                        {
-                                                        item.selectedDeliveryAddress.selectedState
-                                                    }  &nbsp;
-                                                        {
-                                                        item.selectedDeliveryAddress.selectedCity
-
-                                                    } &nbsp;
-                                                        {
-                                                        item.selectedDeliveryAddress.selectedLocation
-
-                                                    } &nbsp;
-                                                        {
-                                                        item.selectedDeliveryAddress.street
-
-                                                        }&nbsp;
-                                                                                                            {
-                                                        item.selectedDeliveryAddress.houseNumber
-
-                                                    }</span>
-
+                                                    {item.selectedDeliveryAddress.selectedState}  &nbsp;
+                                                    {item.selectedDeliveryAddress.selectedCity} &nbsp;
+                                                    {item.selectedDeliveryAddress.selectedLocation} &nbsp;
+                                                    {item.selectedDeliveryAddress.street}&nbsp;
+                                                        {item.selectedDeliveryAddress.houseNumber}</span>
+                                                    <span className="bg-teal-500 px-3 py-2 mt-2 font-bold text-white">Payment:{item.selectedPaymentMethod }</span>
 
                                                 </div>
                                             </td>
@@ -165,39 +119,38 @@ const OrderManage = () => {
                                             <td className="py-3 px-6 text-center  whitespace-nowrap">
                                                 <div className="flex flex-col gap-5 items-center justify-center">
 
-                                                    {item.items.map((prod,index) => (
-                                                         <span key={index}  className="font-medium">
-                                                          {discountedPrice(prod)}
+                                                    
+                                                         <span  className="font-medium">
+                                                          {item.totalAmount}
                                                         </span>
-                                                    ))}
+                                                    
 
                                                 </div>
                                             </td>
 
-                                            {item.items.map((prod, index) => (
-                                                <td key={index} className="py-3 px-6 flex flex-col text-center  whitespace-nowrap">
+                                            
+                                                <td  className="py-3 px-6 flex flex-col text-center  whitespace-nowrap">
                                                                                             <div className="flex flex-col items-center justify-center">
                                             
-                                                                                                {
-                                                                                               seller.id==prod.seller &&  editable==item.id? (
-                                                                                                        <select defaultValue={prod.status} onChange={(e)=>handleEdit(e,item,index,item.id)} className='bg-purple-200 rounded-full text-xs text-purple-700'>
+                                                                                                
+                                                                                                        <select  className='bg-purple-200 rounded-full text-xs text-purple-700'>
                                                                                                         <option value="Pending">Pending</option>
                                                                                                         <option value="Shipped">Shipped</option>
                                                                                                         <option value="Delivered">Delivered</option>
                                                                                                         <option value="Cancelled">Cancelled</option>
                                                                                                    </select>
-                                                                                                    ) : <p className={ prod.status=="Pending"?"bg-purple-700 text-white p-1":prod.status=="Cancelled"? "bg-red-700 text-white p-1":prod.status=="Shipped"?"bg-indigo-700 text-white p-1":prod.status=="Delivered"?"bg-green-700 text-white p-1":"" }>{prod.status }</p>
-                                                                                                }
+                                                                                                   
+                                                                                              
                                             
                                                                                             </div>
                                                                                         </td>
-                                            ))}
+                                          
 
 
                                             <td className="py-3 px-6 text-center  whitespace-nowrap">
                                                 <div className="flex flex-row gap-2 items-center justify-center">
                                                         
-                                                    <AiOutlineEdit  onClick={() => { setEditable(item.id) }} className='w-6 h-6 cursor-pointer' />
+                                                    <AiOutlineEdit  className='w-6 h-6 cursor-pointer' />
                                                  
                                                 </div>
                                             </td>

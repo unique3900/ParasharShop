@@ -5,15 +5,7 @@ export function newOrder(order) {
   return axios.post(`http://localhost:8080/orders`,{...order})
 }
 export async function fetchOrderForSeller(id) {
-  const data = [];
-  const res = await axios.get(`http://localhost:8080/orders`);
-  const fetchData = res.data;
-  fetchData.map((itemss) => {
-    itemss.items.map((kk) => {
-      kk.seller==id&&data.push(itemss)
-  })
-  })
-  return {data};
+  return axios.get(`http://localhost:8080/orders/sellers/${id}`)
 
 }
 export async function updateOrder(data) {

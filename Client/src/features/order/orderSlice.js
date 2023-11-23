@@ -20,8 +20,8 @@ export const fetchOrderForSellerAsync = createAsyncThunk(
   "order/fetchOrderForSeller",
   async (id) => { 
     const response = await fetchOrderForSeller(id);
-    console.log(response.data)
-    return response.data;
+    console.log(response.data.order)
+    return response.data.order;
   }
 );
 export const updateOrderAsync = createAsyncThunk(

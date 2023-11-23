@@ -32,3 +32,13 @@ exports.updateOrderController = async (req, res) => {
         res.status(401).json({ success: false, message: "Error When Updating Order" });  
     }
 }
+exports.fetchSellerOrders = async (req, res) => {
+try {
+    const { id } = req.params;
+    const order = await Orders.find({}).populate("selectedDeliveryAddress")
+    res.status(201).json({success:false,message:"Seller Orders Fetched Successfully",order})
+} catch (error) {
+    res.status(401).json({success:false,message:"Unexpected Error Occured When Fetching Seller Order"})
+}
+
+}

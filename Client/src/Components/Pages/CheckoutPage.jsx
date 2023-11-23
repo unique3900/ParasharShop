@@ -33,6 +33,7 @@ const CheckoutPage = () => {
 
   // States
   const [totalItems, setTotalItems] = useState(1);
+  // const [totalAmount,setTotalAmount]=useState()
   const [selectedState, setSelectedState] = useState("");
   const [selectedDeliveryAddress, setSelectedDeliveryAddress] = useState(null);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("cash");
@@ -89,8 +90,11 @@ const CheckoutPage = () => {
   // }, 0);
 
   const totalAmount = items.reduce((accumulator, object) => {
-    return accumulator + discountedPrice(object) * object.quantity;
-  }, 0);
+    return (
+      accumulator +
+      discountedPrice(object.product) * object.quantity
+    );
+  }, 0)
 
   const handleRemove = async (id) => {
     await dispatch(removeFromCartAsync(id));
@@ -135,6 +139,7 @@ const CheckoutPage = () => {
         selectedLocation,
         street,
         houseNumber,
+        totalAmount,
         message,
       };
 
@@ -516,19 +521,14 @@ const CheckoutPage = () => {
                       </ul>
                     </div>
                   </div>
+                                    
 
                   <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                     <div className="flex justify-between text-base font-medium text-gray-900">
                       <p>Subtotal</p>
                       <p>
                         Npr &nbsp;{" "}
-                        {items.reduce((accumulator, object) => {
-                          console.log("Objecc", object.quantity);
-                          return (
-                            accumulator +
-                            discountedPrice(object.product) * object.quantity
-                          );
-                        }, 0)}
+                        {totalAmount}
                       </p>
                     </div>
                     <p className="mt-0.5 text-sm text-gray-500">
