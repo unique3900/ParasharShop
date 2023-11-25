@@ -51,7 +51,7 @@ const OrderManage = () => {
                 </thead>
 
                 <tbody className="text-gray-600 text-sm font-light">
-                  {sellerOrders?.map((item, index) => (
+                  {sellerOrders.slice(page * 4 - 4, page * 4).map((item, index) => (
                       <tr
                         key={index}
                         className="border-b border-gray-200 hover:bg-gray-100"
