@@ -42,7 +42,9 @@ export async function fetchSellerInfo(id) {
 
 
 export function userLogout(user) {
+    window.location.reload()
     return { data: 'success' };
+
 }
 
 export function changePassword(data) {

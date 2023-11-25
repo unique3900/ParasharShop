@@ -59,7 +59,6 @@ export const userSlice = createSlice({
       })
       .addCase(fetchLoggedInUserOrdersAsync.fulfilled, (state, action) => {
         state.status = "idle";
-
         state.userOrders = action.payload;
 
       })

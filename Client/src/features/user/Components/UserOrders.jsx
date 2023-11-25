@@ -16,10 +16,10 @@ const UserOrders = () => {
   const user = useSelector(selectLoggedInUser);
   const orders = useSelector(selectLoggedInUserOrders);
 
+  dispatch(fetchLoggedInUserOrdersAsync(user.id))
   useEffect(() => {
     dispatch(fetchLoggedInUserOrdersAsync(user.id));
-    console.log("User Orders",orders)
-  }, [dispatch, user]);
+  }, [dispatch]);
 
   return (
     <>
@@ -42,7 +42,7 @@ const UserOrders = () => {
                     <li key={i} className="flex py-6">
                       <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                         <img
-                          src={orderItems.product.thumbnail}
+                          src={orderItems?.product?.thumbnail}
                           alt={"abc"}
                           className="h-full w-full object-cover object-center"
                         />
@@ -52,23 +52,23 @@ const UserOrders = () => {
                         <div className="">
                           <div className="flex justify-between  text-base font-medium text-gray-900">
                             <h3>
-                              <p> {orderItems.product.title}</p>
+                              <p> {orderItems?.product?.title}</p>
                             </h3>
                             <div className="flex flex-col text-start gap-2">
                               <p className="ml-4 text-start">
                                 NPR &nbsp;{" "}
-                                {discountedPrice(orderItems.product) *
-                                  orderItems.quantity}
+                                {discountedPrice(orderItems?.product) *
+                                  orderItems?.quantity}
                               </p>
                               <p
                                 className={
-                                  orderItems.status == "Pending"
+                                  orderItems?.status == "Pending"
                                     ? "px-2 ml-4 bg-indigo-600 text-white text-start"
-                                    : orderItems.status == "Cancelled"
+                                    : orderItems?.status == "Cancelled"
                                     ? "px-2 ml-4 bg-red-600 text-white text-start"
-                                    : orderItems.status == "Shipped"
+                                    : orderItems?.status == "Shipped"
                                     ? "px-2 ml-4 bg-blue-600 text-white text-start"
-                                    : orderItems.status == "Delivered"
+                                    : orderItems?.status == "Delivered"
                                     ? " ml-4 bg-green-600 text-white text-start"
                                     : ""
                                 }
@@ -76,7 +76,7 @@ const UserOrders = () => {
                                 Status &nbsp; {orderItems.status}
                               </p>
                               <p className="ml-4 text-start">
-                                Payment Method : {orders.selectedPaymentMethod}
+                                Payment Method : {orders?.selectedPaymentMethod}
                               </p>
                             </div>
                           </div>
@@ -89,20 +89,20 @@ const UserOrders = () => {
                         <div className="flex flex-1 items-end justify-between text-sm">
                           <div className="flex flex-col jc items-start gap-1">
                             <p className="text-gray-500">
-                              Qty : {orderItems.quantity}
+                              Qty : {orderItems?.quantity}
                             </p>
                             <p className="text-gray-500">
                               Address:
-                              {orders.selectedDeliveryAddress.selectedState +" " +
-                                orders.selectedDeliveryAddress.selectedCity +" " +
-                                orders.selectedDeliveryAddress
-                                  .selectedLocation +" " +
-                                orders.selectedDeliveryAddress.street}
+                              {orders?.selectedDeliveryAddress?.selectedState +" " +
+                                orders?.selectedDeliveryAddress?.selectedCity +" " +
+                                orders?.selectedDeliveryAddress
+                                  ?.selectedLocation +" " +
+                                orders?.selectedDeliveryAddress?.street}
                             </p>
                             <p className="text-gray-500">
                               Receiver:{" "}
-                              {orders.selectedDeliveryAddress.fullName}(
-                              {orders.selectedDeliveryAddress.phone})
+                              {orders?.selectedDeliveryAddress?.fullName}(
+                              {orders?.selectedDeliveryAddress?.phone})
                             </p>
                           </div>
                         </div>

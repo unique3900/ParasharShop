@@ -28,8 +28,8 @@ export const updateOrderAsync = createAsyncThunk(
   "order/updateOrder",
   async (data) => { 
     const response = await updateOrder(data);
-    console.log(response.data)
-    return response.data;
+    console.log(response.data.order)
+    return response.data.order;
   }
 );
 export const orderSlice = createSlice({
@@ -64,8 +64,6 @@ export const orderSlice = createSlice({
     })
     .addCase(updateOrderAsync.fulfilled, (state, action) => {
       state.status = "idle";
-      const index = state.orders.findIndex(order => order.id === action.payload.id);
-      state.orders[index] = action.payload;
     })
   },
 });

@@ -10,25 +10,22 @@ import { discountedPrice } from "../../../app/constants";
 import { AiOutlineEdit, AiOutlineEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import Pagination, { MiniPagination } from "../../Layout/Pagination";
+
 const OrderManage = () => {
   const seller = useSelector(selectLoggedInSeller);
   const sellerOrders = useSelector(selectSellerOrder);
   const dispatch = useDispatch();
   const [editable, setEditable] = useState(-1);
   const [page, setPage] = useState(1);
-  const handleShow = (order) => {};
-  const handleEdit = (e, order, index, id) => {
-    const data = { value: e.target.value, index: index, id: id, order };
-    dispatch(updateOrderAsync(data));
-    setEditable(-1);
+  const handleShow = (order) => { };
+  
+  const handleEdit = (id,value,productId) => {
+    console.log(id, value, productId)
+    const data={id,value,productId}
+    dispatch(updateOrderAsync(data))
   };
   useEffect(() => {
     dispatch(fetchOrderForSellerAsync(seller.id));
-    sellerOrders.map((item) => {
-      item.products.map((orderItems, ind) => {
-        console.log(orderItems)
-      })
-    });
   }, [dispatch, editable]);
 
   return (
@@ -49,14 +46,12 @@ const OrderManage = () => {
                     <th className="py-3 px-6 text-center">Shipping</th>
                     <th className="py-3 px-6 text-center">Total Amount</th>
                     <th className="py-3 px-6 text-center">Status</th>
-                    <th className="py-3 px-6 text-center">Actions</th>
+                    {/* <th className="py-3 px-6 text-center">Actions</th> */}
                   </tr>
                 </thead>
 
                 <tbody className="text-gray-600 text-sm font-light">
-                  {sellerOrders
-                    .slice(page * 4 - 4, page * 4)
-                    .map((item, index) => (
+                  {sellerOrders?.map((item, index) => (
                       <tr
                         key={index}
                         className="border-b border-gray-200 hover:bg-gray-100"
@@ -147,15 +142,15 @@ const OrderManage = () => {
                                 <div className="flex flex-col items-center justify-center">
                                   <select
                                     className="bg-purple-200 rounded-full text-xs text-purple-700"
-                                    disabled={
-                                      data.product.seller == seller.id
-                                        ? false
-                                        : true
-                                    }
+                                    defaultValue={data.status}
+                                    onChange={(e) => {
+                                      e.preventDefault();
+                                      handleEdit(item.id,e.target.value,data.product.id)
+                                    }}
                                   >
-                                    <option value="Pending">Pending</option>
-                                    <option value="Shipped">Shipped</option>
-                                    <option value="Delivered">Delivered</option>
+                                    <option value="Pending" >Pending</option>
+                                    <option value="Shipped" >Shipped</option>
+                                    <option value="Delivered" >Delivered</option>
                                     <option value="Cancelled">Cancelled</option>
                                   </select>
                                 </div>
@@ -165,14 +160,14 @@ const OrderManage = () => {
                             </td>
                           ))}
 
-                          <td className="py-3 px-6 text-center  whitespace-nowrap">
+                          {/* <td className="py-3 px-6 text-center  whitespace-nowrap">
                             
                                 <div className="flex flex-row gap-2 items-center justify-center">
                                 <AiOutlineEdit className="w-6 h-6 cursor-pointer" />
                               </div>
                               
 
-                          </td>
+                          </td> */}
                         </>
                       </tr>
                     ))}
