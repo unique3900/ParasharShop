@@ -48,13 +48,13 @@ const ProductForm = () => {
                             product.images = [product.image1, product.image2, product.image3, product.thumbnail];
                             product.keywords = keywords;
                             product.rating = 0;
-                            product.seller = user.id;
+                            product.seller = seller.id;
                             delete product['image1'];
                             delete product['image2'];
                             delete product['image3'];
                             console.log(product)
                             dispatch(createProductAsync(product))
-                            navigate('/sellerOptions/seller-Dashboard/manage-products')
+                            navigate('/sellerOptions/seller-Dashboard')
                         })
                     }
                     className='mt-5 w-3/4 shadow-lg px-5 py-3 bg-white'>

@@ -128,14 +128,14 @@ const ProductPage = () => {
     }
 
   useEffect(() => {
-    dispatch(fetchProductBySellerIdAsync(user.id));
+    dispatch(fetchProductBySellerIdAsync(seller.id));
         dispatch(fetchProductsByFilterAsync({
             filter,
             sort
         }))
         dispatch(fetchBrandsAsync());
         dispatch(fetchCategoryAsync());
-  }, [dispatch, filter, sort,products]);
+  }, [dispatch, filter, sort]);
   
  
 

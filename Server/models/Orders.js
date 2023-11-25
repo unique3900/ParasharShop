@@ -26,11 +26,7 @@ const orderSchema = new Schema({
   totalAmount: {
     type: Number,
     default: 0,
-  },
-  status: {
-    type: String,
-    default: "Pending",
-  },
+  }
 });
 
 // We have used id instead of _id in frontend so create virtual

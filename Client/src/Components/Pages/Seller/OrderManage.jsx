@@ -24,6 +24,11 @@ const OrderManage = () => {
   };
   useEffect(() => {
     dispatch(fetchOrderForSellerAsync(seller.id));
+    sellerOrders.map((item) => {
+      item.products.map((orderItems, ind) => {
+        console.log(orderItems)
+      })
+    });
   }, [dispatch, editable]);
 
   return (
@@ -39,7 +44,7 @@ const OrderManage = () => {
                 <thead className="">
                   <tr className="bg-gray-200  text-gray-600 uppercase text-sm leading-normal ">
                     <th className="py-3 px-6 text-left">Order Id</th>
-                    <th className="py-3 px-6 text-left">Items</th>
+                    <th className="py-3 px-6 text-left">Items In This Order</th>
                     <th className="py-3 px-6 text-center">Product Detail</th>
                     <th className="py-3 px-6 text-center">Shipping</th>
                     <th className="py-3 px-6 text-center">Total Amount</th>
@@ -56,90 +61,121 @@ const OrderManage = () => {
                         key={index}
                         className="border-b border-gray-200 hover:bg-gray-100"
                       >
-                        <td className="py-3 px-6 text-center whitespace-nowrap">
-                          <div className="flex flex-col items-center justify-center">
-                            <span className="font-medium"># {item.id}</span>
-                          </div>
-                        </td>
-                        <td className="py-3 px-6 text-center  whitespace-nowrap">
-                          <div className="flex flex-col items-center justify-center">
-                            <span className="font-medium">
-                              {item.products.length}
-                            </span>
-                          </div>
-                        </td>
+                        <>
 
-                        {item.products.map((data, ind) => (
-                          <div className="flex flex-col items-center justify-center">
-                            <td className="py-3 px-6 text-center whitespace-nowrap">
-                              <div className="flex flex-col items-center justify-center">
-                                <img
-                                  className="w-10 h-10"
-                                  src={data.product.thumbnail}
-                                  alt=""
-                                />
-                                <span className="font-medium">
-                                  {data.product.title}
-                                  (Quantity: {data.quantity})
+                          <td className="py-3 px-6 text-center whitespace-nowrap">
+                            <div className="flex flex-col items-center justify-center">
+                              <span className="font-medium"># {index+1}</span>
+                            </div>
+                          </td>
+                          <td className="py-3 px-6 text-center  whitespace-nowrap">
+                            <div className="flex flex-col items-center justify-center">
+                              <span className="font-medium">
+                                {item.products.length}
+                              </span>
+                            </div>
+                          </td>
+
+                          {item.products.map((data, ind) => (
+                            <div className="flex flex-col items-center justify-center">
+                              <td className="py-3 px-6 text-center whitespace-nowrap">
+                                {data.seller == seller.id ? (
+                                  <div className="flex flex-col items-center justify-center">
+                                    <img
+                                      className="w-10 h-10"
+                                      src={data.product.thumbnail}
+                                      alt=""
+                                    />
+                                    <span className="font-medium">
+                                      {data.product.title}
+                                      (Quantity: {data.quantity})
+                                    </span>
+                                  </div>
+                                ) : (
+                                  <></>
+                                )}
+                              </td>
+                            </div>
+                          ))}
+                          <td className="py-3 px-6 text-center whitespace-nowrap">
+                            
+                                <div className="flex flex-col items-center ">
+                                <span className="font-medium text-xs">
+                                  {item.selectedDeliveryAddress.fullName}
+                                </span>
+                                <span className="font-medium text-xs">
+                                  {item.selectedDeliveryAddress.email}
+                                </span>
+                                <span className="font-medium text-xs">
+                                  {item.selectedDeliveryAddress.phone}
+                                </span>
+                                <span className="font-medium text-xs">
+                                  {item.selectedDeliveryAddress.selectedState}{" "}
+                                  &nbsp;
+                                  {item.selectedDeliveryAddress.selectedCity}{" "}
+                                  &nbsp;
+                                  {
+                                    item.selectedDeliveryAddress.selectedLocation
+                                  }{" "}
+                                  &nbsp;
+                                  {item.selectedDeliveryAddress.street}&nbsp;
+                                  {item.selectedDeliveryAddress.houseNumber}
+                                </span>
+                                <span className="bg-teal-500 px-3 py-2 mt-2 font-bold text-white">
+                                  Payment:{item.selectedPaymentMethod}
                                 </span>
                               </div>
+                              
+
+                          </td>
+
+                          <td className="py-3 px-6 text-center  whitespace-nowrap">
+                            
+                            
+                                <div className="flex flex-col gap-5 items-center justify-center">
+                                <span className="font-medium">
+                                  {item.totalAmount}
+                                </span>
+                              </div>
+                             
+                            
+
+                          </td>
+                          {item.products.map((data, ind) => (
+                            <td className="py-3 px-6 flex flex-col text-center  whitespace-nowrap">
+                              {data.seller == seller.id ? (
+                                <div className="flex flex-col items-center justify-center">
+                                  <select
+                                    className="bg-purple-200 rounded-full text-xs text-purple-700"
+                                    disabled={
+                                      data.product.seller == seller.id
+                                        ? false
+                                        : true
+                                    }
+                                  >
+                                    <option value="Pending">Pending</option>
+                                    <option value="Shipped">Shipped</option>
+                                    <option value="Delivered">Delivered</option>
+                                    <option value="Cancelled">Cancelled</option>
+                                  </select>
+                                </div>
+                              ) : (
+                                <></>
+                              )}
                             </td>
-                          </div>
-                        ))}
-                        <td className="py-3 px-6 text-center whitespace-nowrap">
-                          <div className="flex flex-col items-center ">
-                            <span className="font-medium text-xs">
-                              {item.selectedDeliveryAddress.fullName}
-                            </span>
-                            <span className="font-medium text-xs">
-                              {item.selectedDeliveryAddress.email}
-                            </span>
-                            <span className="font-medium text-xs">
-                              {item.selectedDeliveryAddress.phone}
-                            </span>
-                            <span className="font-medium text-xs">
-                              {item.selectedDeliveryAddress.selectedState}{" "}
-                              &nbsp;
-                              {item.selectedDeliveryAddress.selectedCity} &nbsp;
-                              {
-                                item.selectedDeliveryAddress.selectedLocation
-                              }{" "}
-                              &nbsp;
-                              {item.selectedDeliveryAddress.street}&nbsp;
-                              {item.selectedDeliveryAddress.houseNumber}
-                            </span>
-                            <span className="bg-teal-500 px-3 py-2 mt-2 font-bold text-white">
-                              Payment:{item.selectedPaymentMethod}
-                            </span>
-                          </div>
-                        </td>
+                          ))}
 
-                        <td className="py-3 px-6 text-center  whitespace-nowrap">
-                          <div className="flex flex-col gap-5 items-center justify-center">
-                            <span className="font-medium">
-                              {item.totalAmount}
-                            </span>
-                          </div>
-                        </td>
+                          <td className="py-3 px-6 text-center  whitespace-nowrap">
+                            
+                                <div className="flex flex-row gap-2 items-center justify-center">
+                                <AiOutlineEdit className="w-6 h-6 cursor-pointer" />
+                              </div>
+                              
 
-                        <td className="py-3 px-6 flex flex-col text-center  whitespace-nowrap">
-                          <div className="flex flex-col items-center justify-center">
-                            <select className="bg-purple-200 rounded-full text-xs text-purple-700">
-                              <option value="Pending">Pending</option>
-                              <option value="Shipped">Shipped</option>
-                              <option value="Delivered">Delivered</option>
-                              <option value="Cancelled">Cancelled</option>
-                            </select>
-                          </div>
-                        </td>
-
-                        <td className="py-3 px-6 text-center  whitespace-nowrap">
-                          <div className="flex flex-row gap-2 items-center justify-center">
-                            <AiOutlineEdit className="w-6 h-6 cursor-pointer" />
-                          </div>
-                        </td>
+                          </td>
+                        </>
                       </tr>
-                    ))}{" "}
+                    ))}
                 </tbody>
               </table>
             </div>

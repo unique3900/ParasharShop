@@ -186,6 +186,7 @@ const CheckoutPage = () => {
   //For Placing Order
   const handleOrder =async (e) => {
     e.preventDefault();
+  
     if (!selectedDeliveryAddress || !selectedPaymentMethod) {
       alert("Please Select All Required Fields");
     } else {

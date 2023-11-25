@@ -17,6 +17,14 @@ const cartScheme = new Schema({
         type: Number,
         default:1
     },
+    seller: {
+        type: mongoose.ObjectId,
+        ref:'Seller'
+    },
+    status: {
+        type: String,
+        default:false
+    },
     size: { type : Schema.Types.Mixed},
     color: { type : Schema.Types.Mixed},
 })

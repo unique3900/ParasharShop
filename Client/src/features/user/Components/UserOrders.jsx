@@ -62,18 +62,18 @@ const UserOrders = () => {
                               </p>
                               <p
                                 className={
-                                  orders.status == "Pending"
+                                  orderItems.status == "Pending"
                                     ? "px-2 ml-4 bg-indigo-600 text-white text-start"
-                                    : orders.status == "Cancelled"
+                                    : orderItems.status == "Cancelled"
                                     ? "px-2 ml-4 bg-red-600 text-white text-start"
-                                    : orders.status == "Shipped"
+                                    : orderItems.status == "Shipped"
                                     ? "px-2 ml-4 bg-blue-600 text-white text-start"
-                                    : orders.status == "Delivered"
+                                    : orderItems.status == "Delivered"
                                     ? " ml-4 bg-green-600 text-white text-start"
                                     : ""
                                 }
                               >
-                                Status &nbsp; {orders.status}
+                                Status &nbsp; {orderItems.status}
                               </p>
                               <p className="ml-4 text-start">
                                 Payment Method : {orders.selectedPaymentMethod}

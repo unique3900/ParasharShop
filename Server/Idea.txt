@@ -11,3 +11,77 @@ For ECM I use Content Based Filtering from cart item or purchase history
 for addresses we use [Mixed] Data type
 
 // Create a Order Model
+
+
+
+//Refactor Order Model
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
+
+const orderSchema = new Schema({
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  products: [
+    {
+      product: {
+        type: Schema.Types.ObjectId,
+        ref: 'Product', // Reference to another Mongoose model (replace 'Product' with your actual model name)
+        required: true,
+      },
+      quantity: {
+        type: Number,
+        required: true,
+      },
+      seller: {
+        type: Schema.Types.ObjectId,
+        ref: 'Seller', // Reference to another Mongoose model representing sellers
+        required: true,
+      },
+      status: {
+        type: String,
+        default: 'Pending',
+        enum: ['Pending', 'Shipped', 'Delivered'], // Example status options, modify as needed
+      }
+    }
+  ],
+  selectedDeliveryAddress: {
+    type: mongoose.ObjectId,
+    ref: "Address",
+  },
+  selectedPaymentMethod: {
+    type: String,
+    required: true,
+    default: "cash",
+  },
+  totalItems: {
+    type: Number,
+    default: 0,
+  },
+  totalAmount: {
+    type: Number,
+    default: 0,
+  }
+});
+
+// We have used id instead of _id in frontend so create virtual
+const virtual = orderSchema.virtual("id");
+virtual.get(() => {
+  return this.id;
+});
+orderSchema.set("toJSON", {
+  virtuals: true,
+  versionKey: false,
+  transform: (doc, ret) => {
+    delete ret._id;
+  },
+});
+
+exports.Orders = mongoose.model("Orders", orderSchema);
+
+//Order Of Seller
+const order = await Orders.find({'products.seller':id}).populate('products.product') // Populate the 'product' field in the 'products' array with the actual product details
+  .populate('products.seller') // Populate the 'seller' field in the 'products' array with the actual seller details
+  .populate('selectedDeliveryAddress.user')

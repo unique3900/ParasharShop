@@ -4,7 +4,7 @@ const { Cart } = require("../models/Cart");
 exports.fetchUserCart = async (req, res) => {
     try {
         const  id  = req.params.id;
-        console.log(id)
+        
         const data = await Cart.find({user:id}).populate("user").populate("product")
         res.status(200).json({ success: true, message: "User Cart Fetched Successfully", data:[...data] });
 
@@ -18,7 +18,7 @@ exports.fetchUserCart = async (req, res) => {
 exports.addToCartController = async (req, res) => {
     try {
         
-        const products = await Cart.create({ product:req.body.productId, user: req.body.user });
+        const products = await Cart.create({product:req.body.productId, user: req.body.user,quantity:req.body.quantity,seller:req.body.seller,status:req.body.status });
 
         res.status(200).json({ success: true, message: "Added to Cart Successfully", products });
         
