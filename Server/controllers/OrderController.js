@@ -44,3 +44,56 @@ try {
 }
 
 }
+
+
+exports.fetchTotalOrers = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const order = await Orders.aggregate([
+            {
+                $match: {
+                    'products.seller': id,
+                    createdAt: { $exists: true }
+                }
+
+            },
+            {
+                $group: {
+                    _id: {
+                        year: { $year: "$createdAt" },
+                        month: { $month: "$createdAt" }
+                    },
+                    count: { $sum: 1 }
+                }
+            },
+            {
+                $sort: {
+                    "_id.year": 1,
+                    "_id.month": 1
+                }
+            }
+        ])
+
+
+
+        const months = [];
+        const orders = [];
+        const year = new Date(Date.now()).getFullYear();
+        function getMonthName(monthNumber) {
+            const date = new Date(year, monthNumber - 1, 1); // Months are 0-indexed in JavaScript, so subtract 1
+            const monthName = date.toLocaleString('en-US', { month: 'long' });
+            return monthName;
+        }
+       
+        for (var i = 0; i < order.length; i++){
+            if (order[i]._id.year == year) {
+                months.push(getMonthName(order[i]._id.month) )
+                orders.push(order[i].count)
+            }
+        }
+        res.status(200).json({success:true,message:"Order Fetched Successfully",months,orders})
+    } catch (error) {
+        console.log(error);
+        res.status(401).json({success:false,message:"Error When Fetching Total Order"})
+    }
+}
