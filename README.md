@@ -34,5 +34,12 @@ Redux Toolkit for global state management</br>
   <li>Lama Dev</li>
 </ul>
 
+<h2>Preview Till Now</h2>
+<img src="./Client/public/preview/hero.png"/>
+<img src="./Client/public/preview/home.png"/>
+<img src="./Client/public/preview/cart.png"/>
+<img src="./Client/public/preview/orders.png"/>
+<img src="./Client/public/preview/sellerdash.png"/>
+
 
 

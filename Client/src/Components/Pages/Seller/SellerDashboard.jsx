@@ -34,7 +34,7 @@ const SellerDashboard = () => {
             } >
         </Navigate>} */}
 
-        <div className='h-screen flex flex-col lg:justify-center items-center p-5'>
+        <div className='h-screen flex flex-col lg:justify-center items-center p-5 mt-10'>
             <h1 className="text-center font-bold text-4xl p-5">Seller Dashboard</h1>
             <p className='font-bold text-xl text-purple-600 text-center'>Welcome,{seller.businessName }</p>
             <div className="grid grid-rows-1 lg:grid-cols-[1fr_2fr] w-full h-full gap-3">

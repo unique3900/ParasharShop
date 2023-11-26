@@ -52,7 +52,7 @@ const LineGraph = () => {
     const [labels, setLabels] = useState([]);
 
     const fetchMonthelyOrder = async() => {
-        const { data } = await axios.get(`http://localhost:8080/orders/sellers/total-orders/655eabdf79041f41bfcc13b9`);
+        const { data } = await axios.get(`http://localhost:8080/orders/sellers/total-orders/${seller.id}`);
         setLabels(data.months)
         setMonthelyOrder(data.orders)
     }
@@ -73,14 +73,14 @@ const LineGraph = () => {
         labels,
         datasets: [
           {
-            label: 'Sales',
+            label: 'Orders',
             data: monthelyOrder,
             borderColor: 'rgb(255, 99, 132)',
             backgroundColor: 'rgba(255, 99, 132, 0.5)',
           },
           {
             label: 'Products for Sale',
-            data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+            data: [10,3,5,6],
             borderColor: 'rgb(53, 162, 235)',
             backgroundColor: 'rgba(53, 162, 235, 0.5)',
           },
