@@ -348,7 +348,7 @@ const ProductPage = () => {
             products?.slice(page*12-12,page*12).map((item, index) => (
               <div key={index} className="relative flex flex-col gap-2 lg:items-stretch  justify-between px-3 py-4 lg:w-72 shadow-lg">
               <Link to={`/products/${item.id}`} className="flex items-center justify-center">
-                  <img className='object-cover place-content-center h-56 max-h-60' src={item.thumbnail} alt="" />
+                  <img className='object-cover place-content-center h-56 max-h-60' src={ `http://localhost:8080/uploads/${item.thumbnail}`} alt={item.thumbnail} />
                     </Link>
                     <AiOutlineHeart className='absolute top-0 right-1 fill-red-600 cursor-pointer w-8 h-8 text-red-500' onClick={()=>{
                       toast.success( `${item.title.slice(0,20)+'...'} Added to Wishlist` )

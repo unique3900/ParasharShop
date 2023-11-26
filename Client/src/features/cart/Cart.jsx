@@ -82,8 +82,10 @@ export default function Cart() {
                                         className="flex py-6">
                                      
                                     <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                        <img src={
-                                                data.product.thumbnail
+                                            <img
+
+                                                src={
+                                                `http://localhost:8080/uploads/${data.product.thumbnail}`
                                             }
                                             alt={
                                                 data.product.title

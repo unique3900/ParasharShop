@@ -78,7 +78,8 @@ const OrderManage = () => {
                                   <div className="flex flex-col items-center justify-center">
                                     <img
                                       className="w-10 h-10"
-                                      src={data.product.thumbnail}
+                                      src={ `http://localhost:8080/uploads/${data.product.thumbnail}`}
+                                  
                                       alt=""
                                     />
                                     <span className="font-medium">

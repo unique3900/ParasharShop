@@ -42,7 +42,7 @@ const UserOrders = () => {
                     <li key={i} className="flex py-6">
                       <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                         <img
-                          src={orderItems?.product?.thumbnail}
+                          src={`http://localhost:8080/uploads/${orderItems?.product?.thumbnail}` }
                           alt={"abc"}
                           className="h-full w-full object-cover object-center"
                         />

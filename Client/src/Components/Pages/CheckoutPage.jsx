@@ -458,7 +458,7 @@ const CheckoutPage = () => {
                           <li key={index} className="flex py-6">
                             <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                               <img
-                                src={data.product.thumbnail}
+                                src={ `http://localhost:8080/uploads/${data.product.thumbnail}`}
                                 alt={data.product.title}
                                 className="h-full w-full object-cover object-center"
                               />

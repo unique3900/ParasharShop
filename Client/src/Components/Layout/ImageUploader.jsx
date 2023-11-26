@@ -2,7 +2,7 @@ import React from 'react'
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { MdDeleteForever } from "react-icons/md";
 
-const ImageUploader = ({imageURL,setImageURL,addImageByUrl,handleImageDelete,uploadedImages}) => {
+const ImageUploader = ({imageURL,setImageURL,addImageByUrl,handleImageDelete,uploadedImages,addLocalImage}) => {
   return (
     <div>
                         <div className="mt-2 flex flex-row gap-3">
@@ -33,7 +33,8 @@ const ImageUploader = ({imageURL,setImageURL,addImageByUrl,handleImageDelete,upl
                       <input
                         type="file"
                         multiple
-                        accept="image/*"
+                      accept="image/*"
+                      onChange={addLocalImage}
                         className="hidden"
                       />
                       <AiOutlineCloudUpload />

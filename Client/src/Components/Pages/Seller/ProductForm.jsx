@@ -11,7 +11,6 @@ import { createProductAsync } from "../../../features/product/productListSlice";
 import { FaCheckCircle } from "react-icons/fa";
 import { IoIosClose } from "react-icons/io";
 
-
 import axios from "axios";
 import toast from "react-hot-toast";
 import ImageUploader from "../../Layout/ImageUploader";
@@ -43,11 +42,32 @@ const ProductForm = () => {
     } else {
       toast.error("Maximum 4 Uploads Allowed");
     }
-    };
-    
-    const handleImageDelete = (id) => {
-        setUploadedImages(uploadedImages.filter((item,index)=> index !== id))
+  };
+
+  const addLocalImage = async (e) => {
+    e.preventDefault();
+    if (uploadedImages.length < 4) {
+      const files = e.target.files;
+      const data = new FormData();
+      for (let i = 0; i < files.length; i++) {
+        data.append("photos", files[i]);
+      }
+
+      await axios
+        .post("http://localhost:8080/upload", data, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+        .then((response) => {
+          const { data } = response;
+          setUploadedImages((prev) => [...prev, data.uploadedFiles[0]]);
+        });
+    } else {
+      toast.error("Maximum 4 Uploads Allowed");
     }
+  };
+  const handleImageDelete = (id) => {
+    setUploadedImages(uploadedImages.filter((item, index) => index !== id));
+  };
   return (
     <>
       {!user && <Navigate to={"/"} replace={true}></Navigate>}
@@ -59,18 +79,11 @@ const ProductForm = () => {
             const product = {
               ...data,
             };
-            product.images = [
-              product.image1,
-              product.image2,
-              product.image3,
-              product.thumbnail,
-            ];
+            product.thumbnail = uploadedImages[0];
+            product.images = [...uploadedImages];
             product.keywords = keywords;
             product.rating = 0;
             product.seller = seller.id;
-            delete product["image1"];
-            delete product["image2"];
-            delete product["image3"];
             console.log(product);
             dispatch(createProductAsync(product));
             navigate("/sellerOptions/seller-Dashboard");
@@ -270,9 +283,14 @@ const ProductForm = () => {
                     Note: Your First Image Acts as Thumbnail
                   </p>
 
-                    <ImageUploader addImageByUrl={addImageByUrl} handleImageDelete={handleImageDelete} imageURL={imageURL} setImageURL={setImageURL} uploadedImages={uploadedImages} />
-
-                 
+                  <ImageUploader
+                    addImageByUrl={addImageByUrl}
+                    handleImageDelete={handleImageDelete}
+                    imageURL={imageURL}
+                    setImageURL={setImageURL}
+                    uploadedImages={uploadedImages}
+                    addLocalImage={addLocalImage}
+                  />
                 </div>
 
                 <div className="sm:col-span-3">
