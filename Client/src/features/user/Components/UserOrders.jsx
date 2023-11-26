@@ -16,7 +16,6 @@ const UserOrders = () => {
   const user = useSelector(selectLoggedInUser);
   const orders = useSelector(selectLoggedInUserOrders);
 
-  dispatch(fetchLoggedInUserOrdersAsync(user.id))
   useEffect(() => {
     dispatch(fetchLoggedInUserOrdersAsync(user.id));
   }, [dispatch]);
@@ -37,6 +36,9 @@ const UserOrders = () => {
                     <p className="p-5 text-3xl font-bold text-purple-700 ">
                       Order id: #{index}
                     </p>
+                    <p className="p-5 text-lg font-bold text-gray-600-700 underline">
+                     Order Placed: {orders.createdAt.slice(0,10)}
+                    </p>
                   </div>
                   {orders.products.map((orderItems, i) => (
                     <li key={i} className="flex py-6">
@@ -48,12 +50,16 @@ const UserOrders = () => {
                         />
                       </div>
 
+
                       <div className="ml-4 flex flex-1 flex-col">
+                        
                         <div className="">
                           <div className="flex justify-between  text-base font-medium text-gray-900">
                             <h3>
                               <p> {orderItems?.product?.title}</p>
                             </h3>
+
+
                             <div className="flex flex-col text-start gap-2">
                               <p className="ml-4 text-start">
                                 NPR &nbsp;{" "}

@@ -60,7 +60,7 @@ const productSchema = new Schema({
         ref: "Seller",
         required:true
     }
-})
+},{timestamps:true})
 
 
 // We have used id instead of _id in frontend so create virtual

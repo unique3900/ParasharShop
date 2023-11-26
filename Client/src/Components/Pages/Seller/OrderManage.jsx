@@ -26,7 +26,7 @@ const OrderManage = () => {
   };
   useEffect(() => {
     dispatch(fetchOrderForSellerAsync(seller.id));
-  }, [dispatch, editable]);
+  }, []);
 
   return (
     <>
@@ -41,6 +41,7 @@ const OrderManage = () => {
                 <thead className="">
                   <tr className="bg-gray-200  text-gray-600 uppercase text-sm leading-normal ">
                     <th className="py-3 px-6 text-left">Order Id</th>
+                    <th className="py-3 px-6 text-left">Order Placed</th>
                     <th className="py-3 px-6 text-left">Items In This Order</th>
                     <th className="py-3 px-6 text-center">Product Detail</th>
                     <th className="py-3 px-6 text-center">Shipping</th>
@@ -61,6 +62,11 @@ const OrderManage = () => {
                           <td className="py-3 px-6 text-center whitespace-nowrap">
                             <div className="flex flex-col items-center justify-center">
                               <span className="font-medium"># {index+1}</span>
+                            </div>
+                          </td>
+                          <td className="py-3 px-6 text-center whitespace-nowrap">
+                            <div className="flex flex-col items-center justify-center">
+                              <span className="font-medium">{item.createdAt.slice(0,10)}</span>
                             </div>
                           </td>
                           <td className="py-3 px-6 text-center  whitespace-nowrap">

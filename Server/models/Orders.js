@@ -27,7 +27,7 @@ const orderSchema = new Schema({
     type: Number,
     default: 0,
   }
-});
+},{timestamps:true});
 
 // We have used id instead of _id in frontend so create virtual
 const virtual = orderSchema.virtual("id");

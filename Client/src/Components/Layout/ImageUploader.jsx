@@ -1,6 +1,6 @@
 import React from 'react'
 import { AiOutlineCloudUpload } from "react-icons/ai";
-import { MdDeleteForever } from "react-icons/md";
+import { IoMdClose } from "react-icons/io";
 
 const ImageUploader = ({imageURL,setImageURL,addImageByUrl,handleImageDelete,uploadedImages,addLocalImage}) => {
   return (
@@ -8,7 +8,8 @@ const ImageUploader = ({imageURL,setImageURL,addImageByUrl,handleImageDelete,upl
                         <div className="mt-2 flex flex-row gap-3">
                     <input
                       value={imageURL}
-                      onChange={(e) => {
+          onChange={(e) => {
+                        e.preventDefault()
                         setImageURL(e.target.value);
                       }}
                       id="URL"
@@ -53,9 +54,9 @@ const ImageUploader = ({imageURL,setImageURL,addImageByUrl,handleImageDelete,upl
                             alt=""
                               />
                               <div className="absolute w-full h-full top-0 left-0 bg-black/40"></div>
-                              <MdDeleteForever onClick={() => {
+                              <IoMdClose onClick={() => {
                                   handleImageDelete(index)
-                          }}  size={50} className="cursor-pointer absolute bottom-5 right-3 text-white" />
+                          }}  size={35} className="cursor-pointer absolute top-5 border-2 border-white bg-white rounded-full right-3 text-black hover:text-purple-600" />
                         </div>
                       ))}
                     </div>
