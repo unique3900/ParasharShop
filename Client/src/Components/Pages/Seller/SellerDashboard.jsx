@@ -38,7 +38,7 @@ const SellerDashboard = () => {
             } >
         </Navigate>} */}
 
-        <div className='h-screen flex flex-col lg:justify-center items-center p-5 mt-10'>
+        <div className='h-screen flex flex-col lg:justify-center items-center p-5 mt-12 py-8'>
             
             <div className="grid grid-rows-1 lg:grid-cols-[1fr_2fr] w-full h-full gap-3">
 

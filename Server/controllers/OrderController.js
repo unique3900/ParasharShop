@@ -53,6 +53,7 @@ exports.fetchTotalOrers = async (req, res) => {
             {
                 $match: {
                     'products.seller': id,
+                    'products.product.seller': id,
                     createdAt: { $exists: true }
                 }
 

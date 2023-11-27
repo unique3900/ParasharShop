@@ -58,40 +58,46 @@ const LineGraph = () => {
     const seller = useSelector(selectLoggedInSeller);
 
     const [monthelyOrder, setMonthelyOrder] = useState([])
+    const [monthelyProduct, setMonthelyProduct] = useState([])
     const [labels, setLabels] = useState([]);
+    const [labels2, setLabels2] = useState([]);
 
     const fetchMonthelyOrder = async() => {
         const { data } = await axios.get(`http://localhost:8080/orders/sellers/total-orders/${seller.id}`);
         setLabels(data.months)
         setMonthelyOrder(data.orders)
-    }
+  }
+  
+  const fetchMonthelyProducts = async () => {
+    const {data}=await axios.get(`http://localhost:8080/products/seller/total-product/${seller.id}`)
+    setMonthelyProduct(data.products)
+    setLabels2(data.months)
+  }
 
     useEffect(() => {
-        fetchMonthelyOrder();
-        console.log(labels,monthelyOrder)
+      fetchMonthelyOrder();
+      fetchMonthelyProducts();
     }, [])
-    
-    
-
-    
-               
-            
-
-    
     const data = {
         labels,
         datasets: [
           {
             label: 'Orders',
             data: monthelyOrder,
+          
             borderColor: 'rgb(255, 99, 132)',
             backgroundColor: 'rgba(255, 99, 132, 0.5)',
           },
+        ],
+    };
+    const data2 = {
+        labels:labels2,
+        datasets: [
           {
-            label: 'Products for Sale',
-            data: [10,3,5,6],
-            borderColor: 'rgb(53, 162, 235)',
-            backgroundColor: 'rgba(53, 162, 235, 0.5)',
+            label: 'Products',
+            data: monthelyProduct,
+            borderColor: 'rgb(115, 99, 255)',
+            backgroundColor: 'rgba(172, 99, 255, 0.5)',
           },
         ],
     };
@@ -105,7 +111,11 @@ const LineGraph = () => {
 //       console.log("mm",months)
 //   }, [])
   return (
-    <Line  options={options} data={data} />
+    <div className='flex flex-col justify-center w-full'>
+      <Line className='w-[10%]'  options={options} data={data} />
+      <Line className='w-[10%]' options={options} data={data2} />
+    </div>
+    
   )
 }
 
