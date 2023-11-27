@@ -13,8 +13,12 @@ import {
 import faker from 'faker';
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
-import { selectLoggedInSeller } from '../../features/Auth/authSlice';
+import { fetchLoggedInSellerAsync, selectLoggedInSeller, selectLoggedInUser } from '../../features/Auth/authSlice';
 import 'chartjs-plugin-zoom';
+import { fetchMonthelyOrderAsync, selectMonthelyOrder, selectOrderMonths } from '../../features/order/orderSlice';
+import { fetchLoggedInUserInfo } from '../../features/user/userAPI';
+import { fetchMonthelyProductsAync, selectLabels, selectMonthelyProduct } from '../../features/product/productListSlice';
+
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -23,8 +27,7 @@ import 'chartjs-plugin-zoom';
     Title,
     Tooltip,
     Legend
-);
-  
+); 
 export const options = {
     responsive: true,
     plugins: {
@@ -37,7 +40,7 @@ export const options = {
         },
         zoom: {
             enabled: true,
-            mode: 'x',
+            mode: 'y',
           },
           pan: {
             enabled: true,
@@ -45,75 +48,57 @@ export const options = {
           },
     },
   };
-
-
-
-
-
-
-
-
 const LineGraph = () => {
-
+  const user = useSelector(selectLoggedInUser);
+  const dispatch = useDispatch();
     const seller = useSelector(selectLoggedInSeller);
+  const monthelyOrder = useSelector(selectMonthelyOrder);
+  const monthelyProducts = useSelector(selectMonthelyProduct)
+  const orderMonths=useSelector(selectOrderMonths)
+  const labels = useSelector(selectLabels);
+    const [monthelyProduct,setMonthelyProduct] = useState([]);
+    const [orderMonthely,setOrderMonthely] = useState([]);
 
-    const [monthelyOrder, setMonthelyOrder] = useState([])
-    const [monthelyProduct, setMonthelyProduct] = useState([])
-    const [labels, setLabels] = useState([]);
-    const [labels2, setLabels2] = useState([]);
-
-    const fetchMonthelyOrder = async() => {
-        const { data } = await axios.get(`http://localhost:8080/orders/sellers/total-orders/${seller.id}`);
-        setLabels(data.months)
-        setMonthelyOrder(data.orders)
+  const fetchMonthelyOrder = async () => {
+console.log(monthelyProducts)
+    const newArray = [];
+    console.log(labels)
+    for (let index = 0; index < labels.length; index++){
+      if (labels.includes(orderMonths[index])) {
+    
+       const ind = labels.indexOf(orderMonths[index])
+      console.log(index, orderMonths[index])
+       orderMonths[index] ? newArray[ind] = monthelyProducts[index] : newArray[index] = 0;
+      }
+    }
+     setOrderMonthely(newArray)
+    console.log(monthelyProducts)
   }
-  
-  const fetchMonthelyProducts = async () => {
-    const {data}=await axios.get(`http://localhost:8080/products/seller/total-product/${seller.id}`)
-    setMonthelyProduct(data.products)
-    setLabels2(data.months)
-  }
-
-    useEffect(() => {
-      fetchMonthelyOrder();
-      fetchMonthelyProducts();
-    }, [])
     const data = {
         labels,
         datasets: [
           {
             label: 'Orders',
-            data: monthelyOrder,
-          
+            data: orderMonthely,
             borderColor: 'rgb(255, 99, 132)',
             backgroundColor: 'rgba(255, 99, 132, 0.5)',
           },
-        ],
-    };
-    const data2 = {
-        labels:labels2,
-        datasets: [
           {
             label: 'Products',
-            data: monthelyProduct,
+            data: monthelyProducts,
             borderColor: 'rgb(115, 99, 255)',
             backgroundColor: 'rgba(172, 99, 255, 0.5)',
           },
         ],
     };
-    
-
-    
-  
-//   useEffect(() => {
-//   fetchMonthlyOrder()
-//       console.log(monthelyOrder)
-//       console.log("mm",months)
-//   }, [])
+  useEffect(() => {
+    dispatch(fetchMonthelyOrderAsync(seller?.id))
+    fetchMonthelyOrder();
+    dispatch(fetchMonthelyProductsAync(seller?.id))
+  }, [dispatch])
   return (
     <div className='flex flex-col justify-center w-full'>
       <Line className='w-[10%]'  options={options} data={data} />
-      <Line className='w-[10%]' options={options} data={data2} />
     </div>
     
   )

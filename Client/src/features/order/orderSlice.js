@@ -1,11 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchOrderForSeller, newOrder, updateOrder} from "./orderApi";
+import { fetchMonthelyOrder, fetchOrderForSeller, newOrder, updateOrder} from "./orderApi";
 
 const initialState = {
   status: "idle",
   orders: [],
   Currentorder: null,
-  sellerOrder:[],
+  sellerOrder: [],
+  monthelyOrder: [],
+  orderMonths:[]
 };
 
 
@@ -32,6 +34,14 @@ export const updateOrderAsync = createAsyncThunk(
     return response.data.order;
   }
 );
+
+export const fetchMonthelyOrderAsync = createAsyncThunk(
+  "order/seller/fetchMonthelyOrder",
+  async (id)=>{
+    const response=await fetchMonthelyOrder(id)
+    return response.data;
+  }
+)
 export const orderSlice = createSlice({
   name: "order",
   initialState,
@@ -65,6 +75,14 @@ export const orderSlice = createSlice({
     .addCase(updateOrderAsync.fulfilled, (state, action) => {
       state.status = "idle";
     })
+      .addCase(fetchMonthelyOrderAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchMonthelyOrderAsync.fulfilled, (state, action) => {
+      state.status='idle'
+        state.monthelyOrder = action.payload.orders;
+        state.orderMonths = action.payload.months
+    })
   },
 });
 
@@ -73,4 +91,6 @@ export const { resetOrder } = orderSlice.actions;
 export const selectOrders = (state) => state.order.orders;
 export const selectCurrentOrder = (state) => state.order.Currentorder;
 export const selectSellerOrder = (state) => state.order.sellerOrder;
+export const selectMonthelyOrder=(state) => state.order.monthelyOrder
+export const selectOrderMonths=(state) => state.order.orderMonths
 export default orderSlice.reducer;

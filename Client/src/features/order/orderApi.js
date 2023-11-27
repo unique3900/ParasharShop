@@ -11,3 +11,6 @@ export async function fetchOrderForSeller(id) {
 export async function updateOrder(data) {
   return axios.patch(`http://localhost:8080/orders/sellers/${data.id}`,{...data})
 }
+export async function fetchMonthelyOrder(id) {
+  return  axios.get(`http://localhost:8080/orders/sellers/total-orders/${id}`);
+}

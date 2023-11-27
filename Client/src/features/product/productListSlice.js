@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createProduct, deleteProduct, fetchAllBrands, fetchAllCategory, fetchAllProducts, fetchProductById, fetchProductBySellerId, fetchProductsByFilter, updateProduct } from "./productListApi";
+import { createProduct, deleteProduct, fetchAllBrands, fetchAllCategory, fetchAllProducts, fetchMonthelyProducts, fetchProductById, fetchProductBySellerId, fetchProductsByFilter, updateProduct } from "./productListApi";
 import toast from "react-hot-toast";
 
 const initialState = {
@@ -9,6 +9,8 @@ const initialState = {
   categories:[],
   count:1,
   status: "idle",
+  labels: [], //Months to print in chart
+  monthelyProducts: [],
   selectedProduct: null,
 };
 
@@ -100,6 +102,14 @@ export const fetchCategoryAsync = createAsyncThunk(
   }
 )
 
+export const fetchMonthelyProductsAync = createAsyncThunk(
+  'products/fetchMonthelyProducts',
+  async (id) => {
+    const response = await fetchMonthelyProducts(id);
+    return response.data;
+  }
+)
+
 export const productSlice = createSlice({
   name: 'product',
   initialState,
@@ -172,6 +182,15 @@ export const productSlice = createSlice({
       .addCase(fetchCategoryAsync.fulfilled, (state, action) => {
         state.status = "idle",
         state.categories = action.payload;
+      })
+      .addCase(fetchMonthelyProductsAync.pending, (state) => {
+        state.status = 'loading'
+      })
+      .addCase(fetchMonthelyProductsAync.fulfilled, (state, action) => {
+        state.status = 'idle',
+            console.log(action.payload)
+          state.monthelyProducts = action.payload.products;
+          state.labels = action.payload.months;
     })
   },
 });
@@ -183,4 +202,6 @@ export const selectAllBrands = (state) => state.product.brands;
 export const selectAllCategories = (state) => state.product.categories;
 export const selectProductById = (state) => state.product.selectedProduct;
 export const sellerProducts=(state)=>state.product.sellerProducts
+export const selectMonthelyProduct = (state) => state.product.monthelyProducts;
+export const selectLabels = (state) => state.product.labels;
 export default productSlice.reducer;

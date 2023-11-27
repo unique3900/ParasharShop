@@ -52,3 +52,7 @@ export function fetchAllBrands() {
 export function fetchAllCategory() {
     return axios.get('http://localhost:8080/category')
 }
+
+export function fetchMonthelyProducts(id) {
+    return axios.get(`http://localhost:8080/products/seller/total-product/${id}`)
+}
