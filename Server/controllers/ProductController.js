@@ -1,6 +1,7 @@
 const express = require('express');
 const { Product } = require('../models/Product');
 const app = express();
+const mongoose=require('mongoose')
 exports.createProduct = async (req, res) => {
     try {
         const product = await Product.create(req.body);
@@ -95,5 +96,56 @@ exports.deleteProducts = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(401).json({success:false,message:"Unexpected Error Occured",error})
+  }
+}
+
+exports.fetchTotalProducts = async (req, res) => {
+  try {
+    const { seller } = req.params;
+    
+    const product= await Product.aggregate([
+        {
+            $match: {
+                'seller': new mongoose.Types.ObjectId(seller),
+                createdAt: { $exists: true }
+            }
+
+        },
+        {
+            $group: {
+                _id: {
+                    year: { $year: "$createdAt" },
+                    month: { $month: "$createdAt" }
+                },
+                count: { $sum: 1 }
+            }
+        },
+        {
+            $sort: {
+                "_id.year": 1,
+                "_id.month": 1
+            }
+        }
+    ])
+    const months = [];
+    const products = [];
+    const year = new Date(Date.now()).getFullYear();
+    function getMonthName(monthNumber) {
+        const date = new Date(year, monthNumber - 1, 1);
+        const monthName = date.toLocaleString('en-US', { month: 'long' });
+        return monthName;
+    }
+   
+    for (var i = 0; i < product.length; i++){
+
+        if (product[i]._id.year == year) {
+            months.push(getMonthName(product[i]._id.month) )
+            products.push(product[i].count)
+        }
+    }
+    res.status(200).json({success:true,message:"Products Fetched Successfully",months,products})
+  } catch (error) {
+    console.log(error)
+    res.status(401).json({success:false,message:"Error Occured When Fetching Total Products"})
   }
 }

@@ -14,6 +14,7 @@ import faker from 'faker';
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoggedInSeller } from '../../features/Auth/authSlice';
+import 'chartjs-plugin-zoom';
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -33,7 +34,15 @@ export const options = {
       title: {
         display: true,
         text: 'Your Yearly Chart',
-      },
+        },
+        zoom: {
+            enabled: true,
+            mode: 'x',
+          },
+          pan: {
+            enabled: true,
+            mode: 'x',
+          },
     },
   };
 
@@ -96,7 +105,7 @@ const LineGraph = () => {
 //       console.log("mm",months)
 //   }, [])
   return (
-<Line options={options} data={data} />
+    <Line  options={options} data={data} />
   )
 }
 
