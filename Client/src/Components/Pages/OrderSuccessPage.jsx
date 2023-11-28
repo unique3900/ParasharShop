@@ -4,12 +4,28 @@ import { Link, useParams } from 'react-router-dom';
 import { selectLoggedInUser } from '../../features/Auth/authSlice';
 import { resetCartAsync } from '../../features/cart/cartSlice';
 import { resetOrder } from '../../features/order/orderSlice';
+import emailjs from '@emailjs/browser';
 
 const OrderSuccessPage = () => {
     const params = useParams();
     const dispatch = useDispatch();
     const user = useSelector(selectLoggedInUser);
-    const email = user.email;
+   
+    const user_name = user.fullName;
+
+    const templatevariables = {
+        to_name: user_name,
+        from_name:"Parashar Shop",
+        message: "You Have Received a New Order, Visit your Dashboard to View Detail!"
+    }
+    emailjs.send(import.meta.env.VITE_EMAIL_SERVICE_ID, import.meta.env.VITE_EMAIL_TEMPLATE, templatevariables,import.meta.env.VITE_EMAIL_PUBLIC_KEY).then(function (response) {
+        console.log("Success!",response.status, response.text)
+    }).catch(function (error) {
+        console.log('FAILED...', error);
+    })
+
+   
+
     useEffect(() => {
         dispatch(resetCartAsync(user.id));
         dispatch(resetOrder())
