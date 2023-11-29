@@ -13,6 +13,7 @@ const cartRouter = require('./routes/cartRoute');
 const sellerRouter = require('./routes/sellerRoute');
 const orderRouter = require('./routes/orderRoutes');
 const uploadRouter = require('./Image/uploadRoute');
+const recommendRouter=require('./routes/recommendRoute')
 const morgan = require('morgan');
 const multer = require('multer');
 const fs = require('fs');
@@ -53,6 +54,7 @@ server.use('/cart', cartRouter.router);
 server.use('/seller',sellerRouter.router );
 server.use('/orders', orderRouter.router);
 server.use('/upload', uploadRouter.router);
+server.use('/recommend', recommendRouter.router);
 
 
 // Handling Image Upload Operation Here
