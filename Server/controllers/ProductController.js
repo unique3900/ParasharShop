@@ -1,151 +1,255 @@
-const express = require('express');
-const { Product } = require('../models/Product');
+const express = require("express");
+const { Product } = require("../models/Product");
 const app = express();
-const mongoose=require('mongoose')
+const mongoose = require("mongoose");
 exports.createProduct = async (req, res) => {
-    try {
-        const product = await Product.create(req.body);
-        res.status(201).json({ success: true, message: "Product Created Successfully",product });
-    } catch (error) {
-      console.log(error)
-        res.status(400).json({ success: false, message: "Error in Product Creation", error })
-    }
-}
+  try {
+    const product = await Product.create(req.body);
+    res
+      .status(201)
+      .json({
+        success: true,
+        message: "Product Created Successfully",
+        product,
+      });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(400)
+      .json({ success: false, message: "Error in Product Creation", error });
+  }
+};
 
 exports.fetchAllProducts = async (req, res) => {
-        // Condition:
-        // 1. User might have entered sorting criteria to fetch
-        // 2. User might have fetched all by category
-        // 3. User might have fetched all by brand
-        // 3. We fetch all acc. to pagination
-        // 5. Simply we may have to print all products in the homepage
+  // Condition:
+  // 1. User might have entered sorting criteria to fetch
+  // 2. User might have fetched all by category
+  // 3. User might have fetched all by brand
+  // 3. We fetch all acc. to pagination
+  // 5. Simply we may have to print all products in the homepage
 
-        // So, get query string and then start fetch
-        let query = Product.find({});
-        let totalProductsQuery = Product.find({});
-        if (req.query.category) {
-            query = query.find({ category: {$in:req.query.category.split(',')} });
-            totalProductsQuery = totalProductsQuery.find({
-              category: {$in:req.query.category.split(',')},
-            });
-          }
-          if (req.query.brand) {
-            query = query.find({ brand: {$in:req.query.brand.split(',')} });
-            totalProductsQuery = totalProductsQuery.find({ brand: {$in:req.query.brand.split(',') }});
-          }
-          if (req.query._sort && req.query._order) {
-            query = query.sort({ [req.query._sort]: req.query._order });
-          }
-          const totalDocs = await totalProductsQuery.count().exec();
-          console.log({ totalDocs });
-          if (req.query._page && req.query._limit) {
-            const pageSize = req.query._limit;
-            const page = req.query._page;
-            query = query.skip(pageSize * (page - 1)).limit(pageSize);
-          }
-          try {
-            const products = await query.exec();
-            res.set('X-Total-Count', totalDocs);
-            res.status(200).json({ success: true, message: "Successfully Fetched All Products", products })
-          } catch (err) {
-            console.log(err)
-            res.status(400).json({ success: false, message: "Error in Fetching All Products", err })
-          }
+  // So, get query string and then start fetch
+  let query = Product.find({});
+  let totalProductsQuery = Product.find({});
+  if (req.query.category) {
+    query = query.find({ category: { $in: req.query.category.split(",") } });
+    totalProductsQuery = totalProductsQuery.find({
+      category: { $in: req.query.category.split(",") },
+    });
+  }
+  if (req.query.brand) {
+    query = query.find({ brand: { $in: req.query.brand.split(",") } });
+    totalProductsQuery = totalProductsQuery.find({
+      brand: { $in: req.query.brand.split(",") },
+    });
+  }
+  if (req.query._sort && req.query._order) {
+    query = query.sort({ [req.query._sort]: req.query._order });
+  }
+  const totalDocs = await totalProductsQuery.count().exec();
+  console.log({ totalDocs });
+  if (req.query._page && req.query._limit) {
+    const pageSize = req.query._limit;
+    const page = req.query._page;
+    query = query.skip(pageSize * (page - 1)).limit(pageSize);
+  }
+  try {
+    const products = await query.exec();
+    res.set("X-Total-Count", totalDocs);
+    res
+      .status(200)
+      .json({
+        success: true,
+        message: "Successfully Fetched All Products",
+        products,
+      });
+  } catch (err) {
+    console.log(err);
+    res
+      .status(400)
+      .json({ success: false, message: "Error in Fetching All Products", err });
+  }
 };
 exports.fetchProductById = async (req, res) => {
   const { id } = req.params;
   try {
-      const product = await Product.findById(id);
-      res.status(200).json(product);
-    } catch (err) {
-      res.status(400).json({success:false,message:"Error in Finding Product By Id",err});
-    }
-  };
-  
-  exports.updateProduct = async (req, res) => {
-    const { id } = req.params;
-    try {
-      //new:... used this because in return we will get latest document
-      const product=await Product.findByIdAndUpdate(id,req.body,{new:true})
-      product.discountPrice = Math.round(product.price*(1-product.discountPercentage/100))
-      const updatedProduct = await product.save();
-      res.status(200).json({success:true,message:"Updated Product Successfully",updatedProduct})
-    } catch (error) {
-      res.status(400).json({success:false,message:"Error in Updating Product",error});
+    const product = await Product.findById(id);
+    res.status(200).json(product);
+  } catch (err) {
+    res
+      .status(400)
+      .json({ success: false, message: "Error in Finding Product By Id", err });
+  }
+};
 
-    }
-}
-  
+exports.updateProduct = async (req, res) => {
+  const { id } = req.params;
+  try {
+    //new:... used this because in return we will get latest document
+    const product = await Product.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+    product.discountPrice = Math.round(
+      product.price * (1 - product.discountPercentage / 100)
+    );
+    const updatedProduct = await product.save();
+    res
+      .status(200)
+      .json({
+        success: true,
+        message: "Updated Product Successfully",
+        updatedProduct,
+      });
+  } catch (error) {
+    res
+      .status(400)
+      .json({ success: false, message: "Error in Updating Product", error });
+  }
+};
+
 exports.fetchSellerProducts = async (req, res) => {
   try {
     const { seller } = req.params;
     const products = await Product.find({ seller });
-    res.status(200).json({success:true,message:"Seller Products Fetched Successfully",products})
+    res
+      .status(200)
+      .json({
+        success: true,
+        message: "Seller Products Fetched Successfully",
+        products,
+      });
   } catch (error) {
-    res.status(401).json({success:false,message:"Unexpected Error Occured When Fetching Seller Products"})
-    console.log(error)
+    res
+      .status(401)
+      .json({
+        success: false,
+        message: "Unexpected Error Occured When Fetching Seller Products",
+      });
+    console.log(error);
   }
-}
+};
 
 exports.deleteProducts = async (req, res) => {
   try {
     const { id } = req.params;
-    const products=await Product.findByIdAndDelete(id,{new:true})
-    res.status(200).json({success:true,message:"Product Deleted Successfully",products})
-    
+    const products = await Product.findByIdAndDelete(id, { new: true });
+    res
+      .status(200)
+      .json({
+        success: true,
+        message: "Product Deleted Successfully",
+        products,
+      });
   } catch (error) {
     console.log(error);
-    res.status(401).json({success:false,message:"Unexpected Error Occured",error})
+    res
+      .status(401)
+      .json({ success: false, message: "Unexpected Error Occured", error });
   }
-}
+};
+exports.searchProduct = async (req, res) => {
+  try {
+    const targetTitle = req.query.targetTitle;
+    const products = await Product.find({});
+
+    const productHashTable = {};
+    products.forEach((product) => {
+      const key = product.title.toLowerCase(); // Convert titles to lowercase for case-insensitive search
+      productHashTable[key] = product;
+    });
+    // Function to perform hash-based search and push matching products to an array
+    function searchProductsByTitle(targetTitle) {
+      const lowerTargetTitle = targetTitle.toLowerCase();
+      const matchingProducts = [];
+
+      //Object.keys(productHashTable) is used to get an array of keys (product titles) from the hash table.
+      //The for each key in ... loop then iterates over each title (key) in the array.
+
+      Object.keys(productHashTable).forEach((key) => {
+        if (key.includes(lowerTargetTitle)) {
+          matchingProducts.push(productHashTable[key]);
+        }
+      });
+
+      return matchingProducts;
+    }
+
+    const foundProducts = searchProductsByTitle(targetTitle);
+
+    if (foundProducts.length > 0) {
+      console.log(`Products with title including '${targetTitle}':`);
+      foundProducts.forEach((product) => console.log(product));
+    } else {
+      console.log(`No products found with title including '${targetTitle}'.`);
+    }
+  } catch (error) {
+    res
+      .status(401)
+      .json({
+        success: false,
+        message: "Unexpected Error Occured When Searching Product",
+      });
+    console.log(error);
+  }
+};
 
 exports.fetchTotalProducts = async (req, res) => {
   try {
     const { seller } = req.params;
-    
-    const product= await Product.aggregate([
-        {
-            $match: {
-                'seller': new mongoose.Types.ObjectId(seller),
-                createdAt: { $exists: true }
-            }
 
+    const product = await Product.aggregate([
+      {
+        $match: {
+          seller: new mongoose.Types.ObjectId(seller),
+          createdAt: { $exists: true },
         },
-        {
-            $group: {
-                _id: {
-                    year: { $year: "$createdAt" },
-                    month: { $month: "$createdAt" }
-                },
-                count: { $sum: 1 }
-            }
+      },
+      {
+        $group: {
+          _id: {
+            year: { $year: "$createdAt" },
+            month: { $month: "$createdAt" },
+          },
+          count: { $sum: 1 },
         },
-        {
-            $sort: {
-                "_id.year": 1,
-                "_id.month": 1
-            }
-        }
-    ])
+      },
+      {
+        $sort: {
+          "_id.year": 1,
+          "_id.month": 1,
+        },
+      },
+    ]);
     const months = [];
     const products = [];
     const year = new Date(Date.now()).getFullYear();
     function getMonthName(monthNumber) {
-        const date = new Date(year, monthNumber - 1, 1);
-        const monthName = date.toLocaleString('en-US', { month: 'long' });
-        return monthName;
+      const date = new Date(year, monthNumber - 1, 1);
+      const monthName = date.toLocaleString("en-US", { month: "long" });
+      return monthName;
     }
-   
-    for (var i = 0; i < product.length; i++){
 
-        if (product[i]._id.year == year) {
-            months.push(getMonthName(product[i]._id.month) )
-            products.push(product[i].count)
-        }
+    for (var i = 0; i < product.length; i++) {
+      if (product[i]._id.year == year) {
+        months.push(getMonthName(product[i]._id.month));
+        products.push(product[i].count);
+      }
     }
-    res.status(200).json({success:true,message:"Products Fetched Successfully",months,products})
+    res
+      .status(200)
+      .json({
+        success: true,
+        message: "Products Fetched Successfully",
+        months,
+        products,
+      });
   } catch (error) {
-    console.log(error)
-    res.status(401).json({success:false,message:"Error Occured When Fetching Total Products"})
+    console.log(error);
+    res
+      .status(401)
+      .json({
+        success: false,
+        message: "Error Occured When Fetching Total Products",
+      });
   }
-}
+};
