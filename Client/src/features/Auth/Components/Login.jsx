@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, {
+    useEffect,
     useState
 } from 'react'
 import {
@@ -16,6 +17,7 @@ import {
     useNavigate
 } from 'react-router-dom';
 import {
+    checkUserAsync,
     loginUserAsync,
     selectLoggedInUser
 } from '../authSlice';
@@ -48,13 +50,21 @@ const Login = () => {
             setPwdRegErr(true);
         } else {
          dispatch(loginUserAsync({
-                email,
+                username:email,
                 password
          }))
            
 
         }
     }
+
+
+
+    useEffect(() => {
+        dispatch(checkUserAsync);
+
+    }, [])
+    
     return (
 
         <div className='flex flex-col h-screen justify-center items-center'>
@@ -63,7 +73,6 @@ const Login = () => {
             user && <Navigate to={'/'}
                 replace={true}/>
         }
-            <Toaster/>
             <div className=" grid mt-0 grid-flow-row gap-3 lg:grid-flow-col items-center align-middle lg:grid-cols-2 w-full lg:w-fit   p-6 round-xl shadow-md shadow-slate-400 overflow-x-auto no-scrollbar">
                 <div className="hidden lg:flex relative justify-center place-content-center">
                     <img className='lg:w-full lg:h-[500px] h-60'

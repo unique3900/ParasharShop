@@ -4,26 +4,11 @@ const bcrypt = require('bcrypt');
 const app = express();
 
 exports.LoginController = async (req, res) => {
-    const { email, password } = req.body;
-    if (!email || !password) {
-        res.status(401).json({success:false,message:"Email and Password is Required"})
-    }
-    else {
-        const user = await User.findOne({ email });
-        if (!user) {
-            res.status(401).json({success:false,message:"User Doesnot Exist"})
-        }
-        else {
-            
-            if ( bcrypt.compareSync(password,user.password)) {
-                res.status(200).json({success:true,message:"User Authenticated",user})
-            }
-            else {
-                res.status(401).json({success:false,message:"Invalid Password"}) 
-            }
-        }
+    res.status(200).json({ success: true, user: req.user });
+}
 
-    }
+exports.CheckUser = async (req, res) => {
+    res.json(req.user);
 }
 
 

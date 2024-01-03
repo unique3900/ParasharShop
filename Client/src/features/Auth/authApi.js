@@ -25,6 +25,11 @@ export async function loginUser(data) {
     })
 }
 
+export async function checkUser() {
+    return axios.get('http://localhost:8080/auth/check-user').catch((err) => {
+        toast.error("Server didnot respond ! Try Again ")
+    })
+}
 export async function sellerRegister(data) {
     console.log("Invoked Seller Registration",{...data})
     return axios.post('http://localhost:8080/seller/seller-register', { ...data }).then((res) => {
