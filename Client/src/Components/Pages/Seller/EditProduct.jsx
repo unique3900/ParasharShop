@@ -16,9 +16,10 @@ import {
 import { data } from "autoprefixer";
 import { FaCheckCircle } from "react-icons/fa";
 import { IoIosClose } from "react-icons/io";
+import { selectLoggedInUserInfo } from "../../../features/user/userSlice";
 
 const EditProduct = () => {
-  const user = useSelector(selectLoggedInUser);
+  const user = useSelector(selectLoggedInUserInfo);
   const seller = useSelector(selectLoggedInSeller);
   const params = useParams();
   const navigate = useNavigate();

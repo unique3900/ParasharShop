@@ -9,9 +9,10 @@ import {
   selectLoggedInUser,
   updateUserAsync,
 } from "../../../features/Auth/authSlice";
+import { selectLoggedInUserInfo } from "../../../features/user/userSlice";
 
 const SellerRegister = () => {
-  const user = useSelector(selectLoggedInUser);
+  const user = useSelector(selectLoggedInUserInfo);
   const seller = useSelector(selectLoggedInSeller);
   const [businessName, setBusinessName] = useState("");
   const [businessAddress, setBusinessAddress] = useState("");

@@ -15,13 +15,14 @@ import {
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createUserAsync, selectLoggedInUser } from '../authSlice';
+import { selectLoggedInUserInfo } from '../../user/userSlice';
 
 
 const Register = () => {
 
         
 
-    const data=useSelector(selectLoggedInUser)
+    const data=useSelector(selectLoggedInUserInfo)
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");

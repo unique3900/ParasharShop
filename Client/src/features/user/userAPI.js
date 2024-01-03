@@ -1,13 +1,13 @@
 import { data } from 'autoprefixer';
 import axios from 'axios';
 
-export async function fetchLoggedInUserInfo(id) {
-    return axios.get(`http://localhost:8080/auth/${id}`)
+export async function fetchLoggedInUserInfo() {
+    return axios.get(`http://localhost:8080/auth/own`)
     // return {data: getUser.data[0]}
 }
 
-export function fetchLoggedInUserOrders(id) {
-    return axios.get(`http://localhost:8080/orders/${id}`)
+export function fetchLoggedInUserOrders() {
+    return axios.get(`http://localhost:8080/orders/own`)
 }
 
 export function updateUserInfo(users) {

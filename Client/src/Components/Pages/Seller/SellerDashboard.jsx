@@ -14,9 +14,10 @@ import {
 } from '../../../features/Auth/authSlice';
 import { fetchLoggedInUserInfo } from '../../../features/user/userAPI';
 import LineGraph from '../../Layout/LineGraph';
+import { selectLoggedInUserInfo } from '../../../features/user/userSlice';
 const SellerDashboard = () => {
     const dispatch = useDispatch();
-        const user = useSelector(selectLoggedInUser);
+        const user = useSelector(selectLoggedInUserInfo);
         const seller = useSelector(selectLoggedInSeller);
 
     

@@ -7,7 +7,8 @@ const app = express();
 
 const SECRETKEY = "SECRET";
 exports.LoginController = async (req, res) => {
-    res.status(200).json({ success: true, user: req.user });
+    res.cookie('jwt',req.user.token,{expires: new Date(Date.now()+3600000),httpOnly:true})
+    res.status(200).json({ success: true, user: req.user});
 }
 
 exports.CheckUser = async (req, res) => {
@@ -26,7 +27,8 @@ exports.RegisterController = async (req, res) => {
             const hashedPassword = bcrypt.hashSync(req.body.password, 10);
             const users = await User.create({ ...req.body, password: hashedPassword });
             const token=jwt.sign(sanitizeUser(users),SECRETKEY)
-        res.json({success:true,message:"User Registration Successful",users: token})
+            res.json({ success: true, message: "User Registration Successful", users: token })
+            res.cookie('jwt',token,{expires: new Date(Date.now()+3600000),httpOnly:true})
         }
         
     } catch (error) {
@@ -68,7 +70,7 @@ exports.changePasswordController = async (req, res) => {
 
 exports.getLoggedInDataController = async (req, res) => {
     try {
-        const { id } = req.params;
+        const id  = req.user.id;
         const user = await User.findOne({ id });
         if (user) {
             res.status(200).json({success:true,message:"User Fetched Successfully",user})

@@ -62,6 +62,7 @@ import {
 } from '../../../Data/data';
 import { fetchAllBrands, fetchProductBySellerId } from '../../../features/product/productListApi';
 import { selectLoggedInSeller, selectLoggedInUser } from '../../../features/Auth/authSlice';
+import { selectLoggedInUserInfo } from '../../../features/user/userSlice';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -74,7 +75,7 @@ const ProductPage = () => {
     const dispatch = useDispatch()
 
   
-  const user = useSelector(selectLoggedInUser);
+  const user = useSelector(selectLoggedInUserInfo);
   const seller=useSelector(selectLoggedInSeller)
     const brands = useSelector(selectAllBrands);
     const categories = useSelector(selectAllCategories);

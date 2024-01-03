@@ -2,9 +2,8 @@ const { Cart } = require("../models/Cart");
 
 
 exports.fetchUserCart = async (req, res) => {
-    try {
-        const  id  = req.params.id;
-        
+    const  id  = req.user.id;
+    try {        
         const data = await Cart.find({user:id}).populate("user").populate("product")
         res.status(200).json({ success: true, message: "User Cart Fetched Successfully", data:[...data] });
 
@@ -18,7 +17,7 @@ exports.fetchUserCart = async (req, res) => {
 exports.addToCartController = async (req, res) => {
     try {
         
-        const products = await Cart.create({product:req.body.productId, user: req.body.user,quantity:req.body.quantity,seller:req.body.seller,status:req.body.status });
+        const products = await Cart.create({product:req.body.productId, user: req.user.id,quantity:req.body.quantity,seller:req.body.seller,status:req.body.status });
 
         res.status(200).json({ success: true, message: "Added to Cart Successfully", products });
         
@@ -52,8 +51,8 @@ exports.updateCartController = async (req, res) => {
 
 exports.resetCartController = async (req, res) => {
     try {
-        const { id } = req.body;
-        console.log("Replace id",id)
+        const { id } = req.user;
+        // console.log("Replace id",id)
         const data = await Cart.deleteMany({user:id},{new:true});
         res.status(200).json({ success: true, message: "Cart Reset Successful", data });
     } catch (error) {

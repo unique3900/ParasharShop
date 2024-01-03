@@ -14,6 +14,7 @@ import { fetchAllProductsAsync, fetchBrandsAsync, fetchCategoryAsync, fetchProdu
 import {  sortOptions } from '../../Data/data';
 import { Link } from 'react-router-dom';
 import { selectLoggedInSeller, selectLoggedInUser } from '../Auth/authSlice';
+import { selectLoggedInUserInfo } from '../user/userSlice';
 
 
 function classNames(...classes) {
@@ -27,7 +28,7 @@ export const ProductList = () => {
   const [filter, setFilter] = useState({});
   const [sort, setSort] = useState({});
   const dispatch = useDispatch()
-  const loggedInUser = useSelector(selectLoggedInUser)
+  const loggedInUser = useSelector(selectLoggedInUserInfo)
   const loggedInSeller = useSelector(selectLoggedInSeller);
   const brands = useSelector(selectAllBrands);
   const categories = useSelector(selectAllCategories);

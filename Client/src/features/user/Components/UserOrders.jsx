@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchLoggedInUserOrdersAsync,
+  selectLoggedInUserInfo,
   selectLoggedInUserOrders,
 } from "../userSlice";
 import { selectLoggedInUser } from "../../Auth/authSlice";
@@ -13,11 +14,11 @@ import {
 } from "../../product/productListSlice";
 const UserOrders = () => {
   const dispatch = useDispatch();
-  const user = useSelector(selectLoggedInUser);
+  const user = useSelector(selectLoggedInUserInfo);
   const orders = useSelector(selectLoggedInUserOrders);
 
   useEffect(() => {
-    dispatch(fetchLoggedInUserOrdersAsync(user.id));
+    dispatch(fetchLoggedInUserOrdersAsync());
   }, [dispatch]);
 
   return (

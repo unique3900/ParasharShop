@@ -11,7 +11,7 @@ exports.newOrderController = async (req, res) => {
     }
 }
 exports.userOrderController = async (req, res) => {
-    const { id } = req.params;
+    const id = req.user.id;
     try {
         const order = await Orders.find({ user: id }).populate("selectedDeliveryAddress")
         console.log(order)

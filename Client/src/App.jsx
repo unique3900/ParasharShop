@@ -43,8 +43,8 @@ axios.defaults.withCredentials = true;
 const App = () => {
   
   const dispatch = useDispatch(); 
-  const user = useSelector(selectLoggedInUser);
-  const userInfo = useSelector(selectLoggedInUserInfo);
+  const user = useSelector(selectLoggedInUserInfo);
+
 
   useEffect(() => {
     if (!user) {
@@ -52,7 +52,9 @@ const App = () => {
     return
     }
     else {
-      dispatch(getCartByEmailAsync(user.id));
+      dispatch(fetchLoggedInUserInfoAsync());
+      dispatch(getCartByEmailAsync());
+
     }
       
   }, [dispatch,user])

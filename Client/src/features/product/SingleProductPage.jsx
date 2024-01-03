@@ -154,7 +154,7 @@ const SingleProductPage = () => {
         }
         else {
             // console.log(loggedInUser.email);
-                const newCartItem = { ...product,productId:product.id, quantity: 1, status:'Pending', user: loggedInUser.id,seller:product.seller};
+                const newCartItem = { ...product,productId:product.id, quantity: 1, status:'Pending',seller:product.seller};
                 //Fix for duplicate id in the cart
                 // delete newCartItem['id'];
             await dispatch(addToCartAsync(newCartItem))

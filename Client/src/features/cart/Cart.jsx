@@ -26,11 +26,12 @@ import {
 } from './cartSlice';
 import { discountedPrice } from '../../app/constants'
 import { selectLoggedInUser } from '../Auth/authSlice'
+import { selectLoggedInUserInfo } from '../user/userSlice'
 export default function Cart() {
     const [open, setOpen] = useState(true);
     
     const items = useSelector(selectcartItems);
-    const user = useSelector(selectLoggedInUser);
+    const user = useSelector(selectLoggedInUserInfo);
     const dispatch = useDispatch();
 
     const [totalItems, setTotalItems] = useState(1);
@@ -39,7 +40,7 @@ export default function Cart() {
 
     const handleRemove = async(id) => {
         await dispatch(removeFromCartAsync(id));
-        await dispatch(getCartByEmailAsync(user.id))
+        await dispatch(getCartByEmailAsync())
     }
 
     const handleQuantityChange = async(e, value,id) => { // Existing items obj. spread then change its quantity
@@ -49,10 +50,11 @@ export default function Cart() {
             quantity: value,
            
         }))
-       await dispatch(getCartByEmailAsync(user.id))
+       await dispatch(getCartByEmailAsync())
     }
     useEffect(() => {
-        dispatch(getCartByEmailAsync(user.id))
+        
+        dispatch(getCartByEmailAsync())
         const totalItems = items.reduce((accumulator, object) => {
             return object.quantity + accumulator;
         }, 0)

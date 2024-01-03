@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { changePassword, checkUser, createUser, fetchSellerInfo, loginUser, sellerLogin, sellerRegister, updateUser, userLogout } from "./authApi";
 
 const initialState = {
-  loggedInUser: null,
+  loggedInUserToken: null,
   loggedInSeller:null,
   status: "idle",
 };
@@ -102,14 +102,14 @@ export const authSlice = createSlice({
       .addCase(updateUserAsync.fulfilled, (state, action) => {
         state.status = "idle";
         console.log("Payload Received",action.payload)
-        state.loggedInUser= action.payload;
+        state.loggedInUserToken= action.payload;
       })
       .addCase(loginUserAsync.pending, (state) => {
         state.status = "loading";
       })
       .addCase(loginUserAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.loggedInUser = action.payload;
+        state.loggedInUserToken = action.payload;
       })
       .addCase(loginSellerAsync.pending, (state) => {
         state.status = "loading";
@@ -123,7 +123,7 @@ export const authSlice = createSlice({
       })
       .addCase(checkUserAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.loggedInUser = action.payload;
+        state.loggedInUserToken = action.payload;
       })
       .addCase(fetchLoggedInSellerAsync.pending, (state) => {
         state.status="loading"
@@ -138,7 +138,7 @@ export const authSlice = createSlice({
       })
       .addCase(logoutUserAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.loggedInUser = null;
+        state.loggedInUserToken = null;
         state.loggedInSeller = null;
       });
     
@@ -147,7 +147,7 @@ export const authSlice = createSlice({
 
 export const {  } = authSlice.actions;
 
-export const selectLoggedInUser = (state) => state.auth.loggedInUser;
+export const selectLoggedInUser = (state) => state.auth.loggedInUserToken;
 export const selectLoggedInSeller = (state) => state.auth.loggedInSeller;
 
 

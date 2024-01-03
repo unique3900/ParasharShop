@@ -81,11 +81,12 @@ opts.secretOrKey = SECRETKEY;
 // ================ Routes ==================
 server.use("/auth", userRouter.router);
 server.use("/address", addressRouter.router);
-server.use("/products",isAuth(), productRouter.router);
+server.use("/products", productRouter.router);
 server.use("/category", categoryRouter.router);
 server.use("/brands", brandRouter.router);
 server.use("/cart", cartRouter.router);
 server.use("/seller", sellerRouter.router);
+server.use("/user", userRouter.router);
 server.use("/orders", orderRouter.router);
 server.use("/upload", uploadRouter.router);
 server.use("/recommend", recommendRouter.router);
@@ -103,7 +104,7 @@ passport.use('local',
         else {
             if ( bcrypt.compareSync(password,user.password)) {
                 const token=jwt.sign(sanitizeUser(user),SECRETKEY)
-                done(null,token)
+                done(null,{token})
             }
             else {
                 done(null,false,{message:"Invalid Password"}) 

@@ -7,18 +7,17 @@ export function addToCart(items) {
   console.log("lulululuul", items)
   return axios.post(`http://localhost:8080/cart`,{...items})
 }
-export async function getCartByUserEmail(id) {
-  console.log("Fetching Cart of"+id)
-  const response=await axios.get(`http://localhost:8080/cart/${id}`);
+export async function getCartByUserEmail() {
+  const response=await axios.get(`http://localhost:8080/cart/`);
   return response.data;
 }
 export function removeFromCart(id) {
   return axios.delete(`http://localhost:8080/cart/${id}`)
 }
 
-export async function resetCart(id) {
-  console.log("Reppppp",id)
-return axios.post(`http://localhost:8080/cart/reset`,{id})
+export async function resetCart() {
+
+return axios.post(`http://localhost:8080/cart/reset`)
 
 }
 export function updateCart(items) {
