@@ -7,7 +7,7 @@ const passport = require('passport');
 
 const router = express.Router();
 router.post('/register', RegisterController)
-    .post('/login', passport.authenticate('local'),LoginController).get('/check-user',CheckUser).post('/update', updateUserController).post('/change-password', changePasswordController).get('/getLoggedInUser', async (req, res) => {
+    .post('/login', passport.authenticate('local'),LoginController).get('/check-user',passport.authenticate('jwt'), CheckUser).post('/update', updateUserController).post('/change-password', changePasswordController).get('/getLoggedInUser', async (req, res) => {
         res.send("Hey");
     }).get('/:id',getLoggedInDataController)
 exports.router = router;

@@ -1,14 +1,17 @@
 const express = require('express');
 const { User } = require('../models/User');
 const bcrypt = require('bcrypt');
+const { sanitizeUser } = require('../Middleware/Auth');
+const jwt = require('jsonwebtoken');
 const app = express();
 
+const SECRETKEY = "SECRET";
 exports.LoginController = async (req, res) => {
     res.status(200).json({ success: true, user: req.user });
 }
 
 exports.CheckUser = async (req, res) => {
-    res.json(req.user);
+    res.json({success:'true',user:req.user});
 }
 
 
@@ -21,9 +24,9 @@ exports.RegisterController = async (req, res) => {
             res.status(401).json({success:false,message:"User Already Exist"})
         } else {
             const hashedPassword = bcrypt.hashSync(req.body.password, 10);
-        const users = await User.create({...req.body,password:hashedPassword});
-    
-        res.json({success:true,message:"User Registration Successful",users})
+            const users = await User.create({ ...req.body, password: hashedPassword });
+            const token=jwt.sign(sanitizeUser(users),SECRETKEY)
+        res.json({success:true,message:"User Registration Successful",users: token})
         }
         
     } catch (error) {

@@ -6,6 +6,9 @@ const session = require("express-session");
 const passport = require("passport");
 const bcrypt = require('bcrypt');
 const LocalStrategy = require('passport-local').Strategy;
+const jwt = require('jsonwebtoken');
+const JwtStrategy = require('passport-jwt').Strategy;
+const ExtractJwt = require('passport-jwt').ExtractJwt;
 
 
 const { createProduct } = require("./controllers/ProductController");
@@ -25,6 +28,10 @@ const multer = require("multer");
 const fs = require("fs");
 const imageDownloader = require("image-downloader");
 const { User } = require("./models/User");
+const { sanitizeUser, isAuth } = require("./Middleware/Auth");
+
+const SECRETKEY = "SECRET";
+
 
 async function main() {
   await mongoose.connect("mongodb://localhost:27017/ParasharShop");
@@ -66,10 +73,15 @@ server.use(
 
 server.use(passport.authenticate("session"));
 
+// JWT Options
+var opts = {}
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.secretOrKey = SECRETKEY;
+
 // ================ Routes ==================
 server.use("/auth", userRouter.router);
 server.use("/address", addressRouter.router);
-server.use("/products", productRouter.router);
+server.use("/products",isAuth(), productRouter.router);
 server.use("/category", categoryRouter.router);
 server.use("/brands", brandRouter.router);
 server.use("/cart", cartRouter.router);
@@ -79,27 +91,46 @@ server.use("/upload", uploadRouter.router);
 server.use("/recommend", recommendRouter.router);
 
 // Passport JS Local Strategy Setup
-passport.use(
-  new LocalStrategy(async function (username, password, done) {
-    // By defult username is there so we need to find by email
+
+passport.use('local',
+  new LocalStrategy({usernameField:'email'},async function (email, password, done) {
+   
     try {
-        const user = await User.findOne({ email:username });
+        const user = await User.findOne({ email});
         if (!user) {
             done(null, false,{message:"User Doesnot Exist"});
         }
         else {
             if ( bcrypt.compareSync(password,user.password)) {
-                done(null,user)
+                const token=jwt.sign(sanitizeUser(user),SECRETKEY)
+                done(null,token)
             }
             else {
                 done(null,false,{message:"Invalid Password"}) 
             }
     }
     } catch (error) {
-        done(err)
+        done(error)
     }
   })
 );
+
+// Passport JS JWT Strategy Setup
+
+passport.use('jwt', new JwtStrategy(opts, async function (jwt_payload, done) {
+    try {
+        const user = await User.findOne({ id: jwt_payload.sub });
+            if (user) {
+                return done(null, sanitizeUser(user) ); //This calls serializer
+            } else {
+                return done(null, false);
+                // or you could create a new account
+            }
+    } catch (error) {
+       return done(error,false);
+    }
+    
+}));
 
 // This creates session variable req.user on being called from callbacks
 passport.serializeUser(function (user, cb) {
@@ -115,14 +146,7 @@ passport.deserializeUser(function (user, cb) {
   });
 });
 
-function isAuth(req,res,next) {
-    if (req.user) {
-        next();
-    }
-    else {
-        res.send(401)
-    }
-}
+
 // Handling Image Upload Operation Here
 // Seperate router has been created aswell
 const port = process.env.PORT;

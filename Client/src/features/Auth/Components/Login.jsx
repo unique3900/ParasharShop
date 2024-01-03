@@ -50,7 +50,7 @@ const Login = () => {
             setPwdRegErr(true);
         } else {
          dispatch(loginUserAsync({
-                username:email,
+                email,
                 password
          }))
            
