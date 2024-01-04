@@ -1,11 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchLoggedInUserInfo, fetchLoggedInUserOrders, updateUserInfo} from "./userAPI";
+import { fetchLoggedInUserInfo, fetchLoggedInUserOrders, logoutUser, updateUserInfo} from "./userAPI";
 
 const initialState = {
   userInfo: [],
   userOrders:[],
   status: 'idle',
-  
 };
 
 export const fetchLoggedInUserInfoAsync = createAsyncThunk(
@@ -33,6 +32,14 @@ export const updateuserInfoAsync=createAsyncThunk(
   }
 )
 
+export const logoutUserAsync = createAsyncThunk(
+  "user/logout",
+  async () => {
+    document.cookie = `${'jwt'}= ''; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    const response = await logoutUser();
+    return response.data;
+  }
+)
 
 export const userSlice = createSlice({
   name: "user",
@@ -61,13 +68,20 @@ export const userSlice = createSlice({
         state.userOrders = action.payload;
 
       })
-      .addCase(updateuserInfoAsync.rejected, (state, action) => {
+      .addCase(updateuserInfoAsync.pending, (state, action) => {
         state.status = "loading";
       })
       .addCase(updateuserInfoAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.userOrders = action.payload;
-      });
+      })
+      .addCase(logoutUserAsync.pending, (state) => {
+      state.status="loading"
+      })
+      .addCase(logoutUserAsync.fulfilled, (state, action) => {
+          state.status = "idle",
+          state.userInfo = action.payload;
+    })
     
   },
 });

@@ -15,10 +15,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchProductByIdAsync, selectProductById } from './productListSlice';
 import { addToCartAsync, getCartByEmailAsync, selectcartItems } from '../cart/cartSlice';
-import { selectLoggedInUser } from '../Auth/authSlice';
 import { discountedPrice } from '../../app/constants';
 import toast, { Toaster } from 'react-hot-toast';
 import { getCartByUserEmail } from '../cart/cartAPI';
+import { selectLoggedInUserInfo } from '../user/userSlice';
 
 
 const products = {
@@ -142,7 +142,7 @@ const SingleProductPage = () => {
     const params = useParams();
     const dispatch = useDispatch();
     const product = useSelector(selectProductById);
-    const loggedInUser=useSelector(selectLoggedInUser)
+    const loggedInUser=useSelector(selectLoggedInUserInfo)
     const cart = useSelector(selectcartItems);
     
 
@@ -158,7 +158,7 @@ const SingleProductPage = () => {
                 //Fix for duplicate id in the cart
                 // delete newCartItem['id'];
             await dispatch(addToCartAsync(newCartItem))
-            await dispatch(getCartByEmailAsync(loggedInUser.id))
+            
             
         }
        

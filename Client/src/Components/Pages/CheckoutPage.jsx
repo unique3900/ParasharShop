@@ -11,7 +11,6 @@ import {
 } from "../../features/cart/cartSlice";
 import { citiesData } from "../../Data/data";
 import {
-  selectLoggedInUser,
   updateUserAsync,
 } from "../../features/Auth/authSlice";
 import { newOrder } from "../../features/order/orderApi";
@@ -51,7 +50,7 @@ const CheckoutPage = () => {
   const [phoneRegErr, setPhoneRegerr] = useState(false);
   const [fullNameRegErr, setFullNameRegErr] = useState(false);
 
-  const user = useSelector(selectLoggedInUser);
+  const user = useSelector(selectLoggedInUserInfo);
   const items = useSelector(selectcartItems);
   const addresses = useSelector(selectUserAddress);
 
@@ -98,7 +97,7 @@ const CheckoutPage = () => {
 
   const handleRemove = async (id) => {
     await dispatch(removeFromCartAsync(id));
-    await dispatch(getCartByEmailAsync(user.id));
+    
   };
 
   const handleQuantityChange = async (e, value, id) => {
@@ -110,7 +109,7 @@ const CheckoutPage = () => {
         quantity: value,
       })
     );
-    await dispatch(getCartByEmailAsync(user.id));
+    // await dispatch(getCartByEmailAsync(user.id));
   };
 
   const handleDeliveryAddress = async(index) => {
@@ -205,7 +204,6 @@ const CheckoutPage = () => {
   };
 
   useEffect(() => {
-    dispatch(getCartByEmailAsync(user.id));
     dispatch(fetchUserAddressAsync(user.id));
 
     const totalItems = items.reduce((accumulator, object) => {

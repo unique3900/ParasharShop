@@ -5,7 +5,6 @@ const initialState = {
   value: 0,
   status: "idle",
   items: [],
-
   cartLoaded:false
 };
 
@@ -40,7 +39,7 @@ export const resetCartAsync = createAsyncThunk(
   "cart/resetCart",
   async () => {
     const response = await resetCart();
-    return response.data;
+    return response.cart;
   }
 )
 
@@ -97,7 +96,7 @@ export const cartSlice = createSlice({
       })
       .addCase(resetCartAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.items = [];
+        state.items = action.payload;
         state.cartLoaded = false;
       })
       .addCase(updateCartAsync.rejected, (state, action) => {

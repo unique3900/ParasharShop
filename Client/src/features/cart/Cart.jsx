@@ -25,13 +25,15 @@ import {
     updateCartAsync
 } from './cartSlice';
 import { discountedPrice } from '../../app/constants'
-import { selectLoggedInUser } from '../Auth/authSlice'
 import { selectLoggedInUserInfo } from '../user/userSlice'
+import { selectLoggedInUserToken } from '../Auth/authSlice'
 export default function Cart() {
     const [open, setOpen] = useState(true);
     
     const items = useSelector(selectcartItems);
     const user = useSelector(selectLoggedInUserInfo);
+    const userToken=useSelector(selectLoggedInUserToken);
+
     const dispatch = useDispatch();
 
     const [totalItems, setTotalItems] = useState(1);
@@ -40,7 +42,6 @@ export default function Cart() {
 
     const handleRemove = async(id) => {
         await dispatch(removeFromCartAsync(id));
-        await dispatch(getCartByEmailAsync())
     }
 
     const handleQuantityChange = async(e, value,id) => { // Existing items obj. spread then change its quantity
@@ -50,7 +51,7 @@ export default function Cart() {
             quantity: value,
            
         }))
-       await dispatch(getCartByEmailAsync())
+       
     }
     useEffect(() => {
         
@@ -63,7 +64,7 @@ export default function Cart() {
     
     return (
         <> {
-            !items.length && <Navigate to={'/'} ></Navigate>
+            !items.length || !userToken && <Navigate to={'/'} ></Navigate>
             
         }
             

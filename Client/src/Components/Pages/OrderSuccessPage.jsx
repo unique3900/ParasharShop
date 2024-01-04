@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { selectLoggedInUser } from '../../features/Auth/authSlice';
 import { resetCartAsync } from '../../features/cart/cartSlice';
 import { resetOrder } from '../../features/order/orderSlice';
 import emailjs from '@emailjs/browser';
+import { selectLoggedInUserInfo } from '../../features/user/userSlice';
 
 const OrderSuccessPage = () => {
     const params = useParams();
     const dispatch = useDispatch();
-    const user = useSelector(selectLoggedInUser);
+    const user = useSelector(selectLoggedInUserInfo);
    
     const user_name = user.fullName;
 

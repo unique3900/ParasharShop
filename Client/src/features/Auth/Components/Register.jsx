@@ -14,7 +14,7 @@ import {
     useNavigate
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { createUserAsync, selectLoggedInUser } from '../authSlice';
+import { createUserAsync } from '../authSlice';
 import { selectLoggedInUserInfo } from '../../user/userSlice';
 
 

@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, Navigate } from 'react-router-dom'
-import { fetchLoggedInSellerAsync, selectLoggedInSeller, selectLoggedInUser } from '../../../features/Auth/authSlice';
+import { fetchLoggedInSellerAsync, selectLoggedInSeller } from '../../../features/Auth/authSlice';
+import { selectLoggedInUserInfo } from '../../../features/user/userSlice';
 
 const SellerChoosePage = () => {
   const dispatch = useDispatch();
-  const user = useSelector(selectLoggedInUser);
+  const user = useSelector(selectLoggedInUserInfo);
   const seller = useSelector(selectLoggedInSeller);
 
   // useEffect(() => {

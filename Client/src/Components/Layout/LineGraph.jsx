@@ -13,11 +13,12 @@ import {
 import faker from 'faker';
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
-import { fetchLoggedInSellerAsync, selectLoggedInSeller, selectLoggedInUser } from '../../features/Auth/authSlice';
+import { fetchLoggedInSellerAsync, selectLoggedInSeller } from '../../features/Auth/authSlice';
 import 'chartjs-plugin-zoom';
 import { fetchMonthelyOrderAsync, selectMonthelyOrder, selectOrderMonths } from '../../features/order/orderSlice';
 import { fetchLoggedInUserInfo } from '../../features/user/userAPI';
 import { fetchMonthelyProductsAync, selectLabels, selectMonthelyProduct } from '../../features/product/productListSlice';
+import { selectLoggedInUserInfo } from '../../features/user/userSlice';
 
   ChartJS.register(
     CategoryScale,
@@ -49,7 +50,7 @@ export const options = {
     },
   };
 const LineGraph = () => {
-  const user = useSelector(selectLoggedInUser);
+  const user = useSelector(selectLoggedInUserInfo);
   const dispatch = useDispatch();
     const seller = useSelector(selectLoggedInSeller);
   const monthelyOrder = useSelector(selectMonthelyOrder);

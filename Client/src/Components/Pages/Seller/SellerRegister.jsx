@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     registerSellerAsync,
   selectLoggedInSeller,
-  selectLoggedInUser,
   updateUserAsync,
 } from "../../../features/Auth/authSlice";
 import { selectLoggedInUserInfo } from "../../../features/user/userSlice";

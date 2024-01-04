@@ -45,14 +45,12 @@ export async function fetchSellerInfo(id) {
     return axios.get(`/seller/${id}`);
 }
 
-
-export function userLogout(user) {
-    window.location.reload()
-    return { data: 'success' };
-
+export async function handleRemoveToken() {
+    document.cookie = 'jwt' + '=; Path=/;  Domain=' + location.host + '; Expires=Thu, 01 Jan 1970 00:00:01 GMT; SameSite=None; Secure'
+    return { token: null };
 }
 
-export function changePassword(data) {
+export async function  changePassword(data) {
     console.log("Changing Password",{...data})
     return axios.post('/auth/change-password', { ...data }).then((res) => {
         toast.success(res.data.message)

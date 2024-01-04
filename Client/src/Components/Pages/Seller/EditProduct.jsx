@@ -3,8 +3,7 @@ import { filters } from "../../../Data/data";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  selectLoggedInSeller,
-  selectLoggedInUser,
+  selectLoggedInSeller
 } from "../../../features/Auth/authSlice";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import {

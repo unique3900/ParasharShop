@@ -61,7 +61,7 @@ import {
     sortOptions
 } from '../../../Data/data';
 import { fetchAllBrands, fetchProductBySellerId } from '../../../features/product/productListApi';
-import { selectLoggedInSeller, selectLoggedInUser } from '../../../features/Auth/authSlice';
+import { selectLoggedInSeller } from '../../../features/Auth/authSlice';
 import { selectLoggedInUserInfo } from '../../../features/user/userSlice';
 
 function classNames(...classes) {

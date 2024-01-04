@@ -9,8 +9,7 @@ import {
 } from 'react-router-dom';
 import {
     fetchLoggedInSellerAsync,
-    selectLoggedInSeller,
-    selectLoggedInUser
+    selectLoggedInSeller
 } from '../../../features/Auth/authSlice';
 import { fetchLoggedInUserInfo } from '../../../features/user/userAPI';
 import LineGraph from '../../Layout/LineGraph';

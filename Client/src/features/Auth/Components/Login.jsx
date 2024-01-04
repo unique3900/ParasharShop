@@ -19,8 +19,10 @@ import {
 import {
     checkUserAsync,
     loginUserAsync,
-    selectLoggedInUser
+    selectLoggedInUserToken,
 } from '../authSlice';
+import { selectLoggedInUserInfo } from '../../user/userSlice';
+import { getCartByEmailAsync } from '../../cart/cartSlice';
 
 
 const Login = () => {
@@ -34,7 +36,8 @@ const Login = () => {
     const [pwdRegErr, setPwdRegErr] = useState();
     const dispatch = useDispatch();
 
-    const user = useSelector(selectLoggedInUser);
+    const user = useSelector(selectLoggedInUserInfo);
+    const userToken = useSelector(selectLoggedInUserToken);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -53,6 +56,7 @@ const Login = () => {
                 email,
                 password
          }))
+         dispatch(getCartByEmailAsync());
            
 
         }
@@ -70,7 +74,7 @@ const Login = () => {
         <div className='flex flex-col h-screen justify-center items-center'>
             <Toaster/>
             {
-            user && <Navigate to={'/'}
+            userToken && <Navigate to={'/'}
                 replace={true}/>
         }
             <div className=" grid mt-0 grid-flow-row gap-3 lg:grid-flow-col items-center align-middle lg:grid-cols-2 w-full lg:w-fit   p-6 round-xl shadow-md shadow-slate-400 overflow-x-auto no-scrollbar">

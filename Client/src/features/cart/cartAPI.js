@@ -17,7 +17,7 @@ export function removeFromCart(id) {
 
 export async function resetCart() {
 
-return axios.post(`/cart/reset`)
+return {cart:null}
 
 }
 export function updateCart(items) {

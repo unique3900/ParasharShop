@@ -5,7 +5,6 @@ import {
   selectLoggedInUserInfo,
   selectLoggedInUserOrders,
 } from "../userSlice";
-import { selectLoggedInUser } from "../../Auth/authSlice";
 import { Link, Navigate } from "react-router-dom";
 import { discountedPrice } from "../../../app/constants";
 import {

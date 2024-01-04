@@ -16,8 +16,7 @@ import {
     selectLoggedInUserOrders,
     updateuserInfoAsync
 } from '../../features/user/userSlice';
-import {
-    selectLoggedInUser, updateUserAsync
+import { updateUserAsync
 } from '../../features/Auth/authSlice';
 import {
     Link,
@@ -159,7 +158,7 @@ const UserProfilePage = () => {
     }
     useEffect(() => {
         dispatch(fetchUserAddressAsync())
-        fetchLoggedInUserInfoAsync()
+      
     }, [dispatch])
     
     return (

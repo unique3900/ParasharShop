@@ -17,7 +17,6 @@ import Cart from './features/cart/Cart'
 import SingleProductPage from './features/product/SingleProductPage'
 import { useDispatch, useSelector } from 'react-redux'
 import { useSelect } from '@material-tailwind/react'
-import { selectLoggedInUser } from './features/Auth/authSlice'
 import { getCartByEmailAsync, selectcartItems } from './features/cart/cartSlice'
 import Error404NotFound from './Components/Pages/404NotFound'
 import OrderSuccessPage from './Components/Pages/OrderSuccessPage'
@@ -36,6 +35,7 @@ import ProductPage from './Components/Pages/Seller/ProductPage'
 import ProductForm from './Components/Pages/Seller/ProductForm'
 import EditProduct from './Components/Pages/Seller/EditProduct'
 import AdminOrder from './features/order/AdminOrder'
+import { selectLoggedInUserToken } from './features/Auth/authSlice'
 
 
 axios.defaults.baseURL = 'http://127.0.0.1:8080';
@@ -44,18 +44,18 @@ const App = () => {
   
   const dispatch = useDispatch(); 
   const user = useSelector(selectLoggedInUserInfo);
-
+  const userToken = useSelector(selectLoggedInUserToken);
+  dispatch(getCartByEmailAsync())
   useEffect(() => {
-    if (!user) {
+    if (!userToken) {
       toast.success("Logged in As Guest")
       return
     }
-    else {
-      dispatch(getCartByEmailAsync());
     
-    }
-      
-  }, [dispatch,user])
+  }, [dispatch, user])
+  
+
+  
   
   axios.defaults.baseURL = 'http://127.0.0.1:8080';
 axios.defaults.withCredentials = true;

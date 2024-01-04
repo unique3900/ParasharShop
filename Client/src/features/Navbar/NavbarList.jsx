@@ -33,9 +33,9 @@ import {
 import {
     useSelector
 } from 'react-redux';
-import {
-    selectLoggedInUser
-} from '../Auth/authSlice';
+import { selectLoggedInUserInfo } from '../user/userSlice';
+import { selectLoggedInUserToken } from '../Auth/authSlice';
+
 
 
 const NavbarList = ({
@@ -43,8 +43,9 @@ const NavbarList = ({
 }) => {
     const [category, setCategory] = useState("");
     const [dashoptions, setdashoptions] = useState("");
+    const user = useSelector(selectLoggedInUserInfo);
+    const userToken = useSelector(selectLoggedInUserToken);
 
-    const user = useSelector(selectLoggedInUser);
     return (
         <> {
             navState == false && (
@@ -59,7 +60,7 @@ const NavbarList = ({
 
         
 
-                    {user && (
+                    {userToken && (
                                         <div className="flex flex-row items-center gap-2">
                                         <BiSolidUserCircle className='w-8 h-5'/>
                 
@@ -104,7 +105,7 @@ const NavbarList = ({
     
 
                     {
-                    ! user ? (
+                    !userToken ? (
                         <>
                             <div className="flex flex-row items-center gap-2">
                                 <BiSolidKey className='w-8 h-5'/>

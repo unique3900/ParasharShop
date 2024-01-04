@@ -3,10 +3,11 @@ import axios from 'axios';
 import { ToastBar, Toaster, toast } from 'react-hot-toast';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchLoggedInSellerAsync, loginSellerAsync, selectLoggedInSeller, selectLoggedInUser } from '../../../features/Auth/authSlice';
+import { fetchLoggedInSellerAsync, loginSellerAsync, selectLoggedInSeller } from '../../../features/Auth/authSlice';
+import { selectLoggedInUserInfo } from '../../../features/user/userSlice';
 const SellerLogin = () => {
 
-    const user = useSelector(selectLoggedInUser);
+    const user = useSelector(selectLoggedInUserInfo);
     const seller = useSelector(selectLoggedInSeller);
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);

@@ -3,8 +3,7 @@ import { filters } from "../../../Data/data";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  selectLoggedInSeller,
-  selectLoggedInUser,
+  selectLoggedInSeller
 } from "../../../features/Auth/authSlice";
 import { Navigate, useNavigate } from "react-router-dom";
 import { createProductAsync } from "../../../features/product/productListSlice";
@@ -14,9 +13,10 @@ import { IoIosClose } from "react-icons/io";
 import axios from "axios";
 import toast from "react-hot-toast";
 import ImageUploader from "../../Layout/ImageUploader";
+import { selectLoggedInUserInfo } from "../../../features/user/userSlice";
 
 const ProductForm = () => {
-  const user = useSelector(selectLoggedInUser);
+  const user = useSelector(selectLoggedInUserInfo);
   const seller = useSelector(selectLoggedInSeller);
   const [imageURL, setImageURL] = useState("");
   const [uploadedImages, setUploadedImages] = useState([]);

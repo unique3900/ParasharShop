@@ -16,9 +16,9 @@ import {
     useNavigate
 } from 'react-router-dom';
 import {
-    changePasswordAsync,
-    selectLoggedInUser
+    changePasswordAsync
 } from '../../../features/Auth/authSlice';
+import { selectLoggedInUserInfo } from '../../../features/user/userSlice';
 
 
 const ChangePassword = () => {
@@ -33,7 +33,7 @@ const ChangePassword = () => {
     const [oldpwdRegErr, setoldPwdRegErr] = useState();
     const dispatch = useDispatch();
 
-    const user = useSelector(selectLoggedInUser);
+    const user = useSelector(selectLoggedInUserInfo);
 
     const handleSubmit = async (e) => {
         e.preventDefault();

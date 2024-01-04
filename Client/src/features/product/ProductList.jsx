@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllProductsAsync, fetchBrandsAsync, fetchCategoryAsync, fetchProductBySellerIdAsync, fetchProductsByFilterAsync, selectAllBrands, selectAllCategories, selectAllProducts } from './productListSlice';
 import {  sortOptions } from '../../Data/data';
 import { Link } from 'react-router-dom';
-import { selectLoggedInSeller, selectLoggedInUser } from '../Auth/authSlice';
+import { selectLoggedInSeller } from '../Auth/authSlice';
 import { selectLoggedInUserInfo } from '../user/userSlice';
 
 

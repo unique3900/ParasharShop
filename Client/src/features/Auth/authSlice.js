@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { changePassword, checkUser, createUser, fetchSellerInfo, loginUser, sellerLogin, sellerRegister, updateUser, userLogout } from "./authApi";
+import { changePassword, checkUser, createUser, fetchSellerInfo, handleRemoveToken, loginUser, sellerLogin, sellerRegister, updateUser } from "./authApi";
 
 const initialState = {
   loggedInUserToken: null,
@@ -16,6 +16,14 @@ export const createUserAsync = createAsyncThunk(
     return response.data;
   }
 );
+export const removeTokenAsync = createAsyncThunk(
+  "auth/removeToken",
+  async () => {
+    document.cookie = `${'jwt'}= ''; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    const response = await handleRemoveToken();
+    return response.token;
+  }
+)
 
 export const updateUserAsync = createAsyncThunk(
   "auth/updateUser",
@@ -63,13 +71,6 @@ export const fetchLoggedInSellerAsync = createAsyncThunk(
   
 )
 
-export const logoutUserAsync = createAsyncThunk(
-  "auth/logoutUser",
-  async (data) => {
-    const response = await userLogout(data);
-    return response.data;
-  }
-)
 export const changePasswordAsync = createAsyncThunk(
   "auth/change-password",
   async (data) => {
@@ -77,6 +78,7 @@ export const changePasswordAsync = createAsyncThunk(
     return response.data.user;
   }
 )
+
 
 export const authSlice = createSlice({
   name: "users",
@@ -133,21 +135,21 @@ export const authSlice = createSlice({
           
           state.loggedInSeller=action.payload
       })
-      .addCase(logoutUserAsync.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(logoutUserAsync.fulfilled, (state, action) => {
-        state.status = "idle";
-        state.loggedInUserToken = null;
-        state.loggedInSeller = null;
-      });
+      .addCase(removeTokenAsync.pending, (state) => {
+        state.status = "loading"
+        
+    })
+      .addCase(removeTokenAsync.fulfilled, (state, action) => {
+        state.status = "idle",
+          state.loggedInUserToken = action.payload;
+    })
     
   },
 });
 
 export const {  } = authSlice.actions;
 
-export const selectLoggedInUser = (state) => state.auth.loggedInUserToken;
+export const selectLoggedInUserToken = (state) => state.auth.loggedInUserToken;
 export const selectLoggedInSeller = (state) => state.auth.loggedInSeller;
 
 
