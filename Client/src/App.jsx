@@ -52,6 +52,7 @@ const App = () => {
     }
     else {
       dispatch(getCartByEmailAsync());
+    
     }
       
   }, [dispatch,user])

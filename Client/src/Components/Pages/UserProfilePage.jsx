@@ -154,10 +154,11 @@ const UserProfilePage = () => {
     }
 
     const fetchAddress = async () => {
-       await dispatch(fetchUserAddressAsync())
+        await dispatch(fetchUserAddressAsync())
+        await dispatch(fetchLoggedInUserInfoAsync());
     }
     useEffect(() => {
-        fetchAddress()
+        dispatch(fetchUserAddressAsync())
         fetchLoggedInUserInfoAsync()
     }, [dispatch])
     

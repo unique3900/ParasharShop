@@ -2,8 +2,9 @@ const { Orders } = require("../models/Orders");
 const { Product } = require("../models/Product")
 
 exports.newOrderController = async (req, res) => {
+    const { id } = req.user;
     try {
-        const order = await Orders.create({...req.body });
+        const order = await Orders.create({...req.body,user:id });
         res.status(200).json({ success: true, message: "Order Placed Successfully",order });
     } catch (error) {
         console.log(error)
@@ -11,7 +12,7 @@ exports.newOrderController = async (req, res) => {
     }
 }
 exports.userOrderController = async (req, res) => {
-    const id = req.user.id;
+    const {id} = req.user;
     try {
         const order = await Orders.find({ user: id }).populate("selectedDeliveryAddress")
         console.log(order)

@@ -99,13 +99,15 @@ passport.use('local',
   new LocalStrategy({usernameField:'email'},async function (email, password, done) {
    
     try {
-        const user = await User.findOne({ email});
+        const user = await User.findOne({email});
         if (!user) {
             done(null, false,{message:"User Doesnot Exist"});
         }
         else {
             if ( bcrypt.compareSync(password,user.password)) {
-                const token=jwt.sign(sanitizeUser(user),SECRETKEY)
+              const token = jwt.sign(sanitizeUser(user), SECRETKEY)
+              console.log(token)
+              console.log(user)
                 done(null,{token})
             }
             else {
@@ -122,7 +124,7 @@ passport.use('local',
 
 passport.use('jwt', new JwtStrategy(opts, async function (jwt_payload, done) {
     try {
-        const user = await User.findOne({ id: jwt_payload.sub });
+        const user = await User.findById(jwt_payload.id );
             if (user) {
                 return done(null, user ); //This calls serializer
             } else {

@@ -3,7 +3,7 @@ const { getSellerInfo, registerSeller, loginSeller } = require('../controllers/S
 const { isSeller } = require('../Middleware/Auth');
 
 const router = express.Router();
-
-router.get('/:id', getSellerInfo).post('/seller-register', registerSeller).post('/seller-login',loginSeller);
+const passport=require('passport');
+router.get('/:id',passport.authenticate('jwt'), getSellerInfo).post('/seller-register',passport.authenticate('jwt'), registerSeller).post('/seller-login',passport.authenticate('jwt'),loginSeller);
 
 exports.router = router;

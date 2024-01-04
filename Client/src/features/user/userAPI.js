@@ -2,7 +2,7 @@ import { data } from 'autoprefixer';
 import axios from 'axios';
 
 export async function fetchLoggedInUserInfo() {
-    return axios.get(`/auth/own`)
+    return axios.get(`/user/check-user`)
     // return {data: getUser.data[0]}
 }
 

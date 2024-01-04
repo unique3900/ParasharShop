@@ -28,9 +28,10 @@ exports.RegisterController = async (req, res) => {
         } else {
             const hashedPassword = bcrypt.hashSync(req.body.password, 10);
             const users = await User.create({ ...req.body, password: hashedPassword });
-            const token=jwt.sign(sanitizeUser(users),SECRETKEY)
+            const token = jwt.sign(sanitizeUser(users), SECRETKEY)
+
             res.json({ success: true, message: "User Registration Successful", users: token })
-            res.cookie('jwt',token,{expires: new Date(Date.now()+3600000),httpOnly:true})
+  
         }
         
     } catch (error) {
@@ -40,7 +41,7 @@ exports.RegisterController = async (req, res) => {
 }
 
 exports.updateUserController = async (req, res) => {
-    const { id } = req.body;
+    const { id } = req.user;
     try {
         const user = await User.findByIdAndUpdate(id,{...req.body},{new:true})
         res.status(200).json({success:true,message:"User Updated Successfully",user})
@@ -52,7 +53,8 @@ exports.updateUserController = async (req, res) => {
 }
 exports.changePasswordController = async (req, res) => {
     try {
-        const { password, newPassword,id } = req.body;
+        const { id } = req.user;
+        const { password, newPassword } = req.body;
         const query = await User.findById(id);
         const pwdCompare = bcrypt.compareSync(password,query.password);
         if (pwdCompare) {
