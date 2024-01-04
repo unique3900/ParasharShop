@@ -5,9 +5,9 @@ const { isLoggedIn } = require('../Middleware/Auth');
 
 
 const router = express.Router();
+const passport = require('passport');
 
-
-router.get('/', fetchUserCart).post('/',addToCartController).delete('/:id', removeFromCartController).patch('/:id',updateCartController).post('/reset',resetCartController)
+router.get('/',passport.authenticate('jwt'), fetchUserCart).post('/',passport.authenticate('jwt'), addToCartController).delete('/:id', removeFromCartController).patch('/:id',updateCartController).post('/reset',resetCartController)
 
 
 exports.router = router;

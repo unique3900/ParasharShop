@@ -45,20 +45,19 @@ const App = () => {
   const dispatch = useDispatch(); 
   const user = useSelector(selectLoggedInUserInfo);
 
-
   useEffect(() => {
     if (!user) {
       toast.success("Logged in As Guest")
-    return
+      return
     }
     else {
-      dispatch(fetchLoggedInUserInfoAsync());
       dispatch(getCartByEmailAsync());
-
     }
       
   }, [dispatch,user])
   
+  axios.defaults.baseURL = 'http://127.0.0.1:8080';
+axios.defaults.withCredentials = true;
   return (
     <div>
 

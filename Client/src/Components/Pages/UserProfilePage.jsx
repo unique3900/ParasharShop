@@ -28,8 +28,7 @@ import { deleteUserAddressAsync, fetchUserAddressAsync, selectUserAddress, updat
 const UserProfilePage = () => {
 
     const dispatch = useDispatch();
-    const user = useSelector(selectLoggedInUser);
-    const userInfo = useSelector(selectLoggedInUserInfo);
+    const user = useSelector(selectLoggedInUserInfo);
     const orders = useSelector(selectLoggedInUserOrders);
     const addresses = useSelector(selectUserAddress);
 
@@ -118,7 +117,7 @@ const UserProfilePage = () => {
             };
             console.log(data)
             await dispatch(updateUserAddressAsync(data))
-            fetchAddress(user.id)
+            fetchAddress()
             setEditOption(false)
             setFullName(""); setEmail(""); setPhone(""); setSelectedState(""); setSelectedLocation(""); setselectedCity("");setMessage("")
         }
@@ -154,11 +153,12 @@ const UserProfilePage = () => {
         }
     }
 
-    const fetchAddress = async (id) => {
-       await dispatch(fetchUserAddressAsync(user.id))
+    const fetchAddress = async () => {
+       await dispatch(fetchUserAddressAsync())
     }
     useEffect(() => {
-        fetchAddress(user.id)
+        fetchAddress()
+        fetchLoggedInUserInfoAsync()
     }, [dispatch])
     
     return (

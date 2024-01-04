@@ -2,10 +2,10 @@ import axios from 'axios';
 
 
 export function fetchAllProducts() {
-    return axios.get('http://localhost:8080/products')    
+    return axios.get('/products')    
 }
 export function fetchProductById(id) {
-    return axios.get(`http://localhost:8080/products/${id}`)
+    return axios.get(`/products/${id}`)
 }
 export function fetchProductsByFilter(filter,sort) {
     // let queryString = 'category=smartphones ';
@@ -24,35 +24,35 @@ export function fetchProductsByFilter(filter,sort) {
         queryString += `${key}=${sort[key]}&`
     }
     console.log("ququq",queryString)  
-    return axios.get(`http://localhost:8080/products?${queryString}`)    
+    return axios.get(`/products?${queryString}`)    
 
 
 }
 export function createProduct(product) {
     console.log("Received New Product", product);
-    return axios.post(`http://localhost:8080/products`, { ...product })
+    return axios.post(`/products`, { ...product })
    
 }
 export function updateProduct(data) {
     console.log("Received New Product", data);
-    return axios.patch(`http://localhost:8080/products/${data.id}`, {...data})
+    return axios.patch(`/products/${data.id}`, {...data})
 }
 export function deleteProduct(id) {
     console.log("Received Delete Id", id);
-    return axios.delete(`http://localhost:8080/products/${id}`)
+    return axios.delete(`/products/${id}`)
 }
 export function fetchProductBySellerId(id) {
     console.log("Received Seller Id", id);
-    return axios.get(`http://localhost:8080/products/seller/${id}`)
+    return axios.get(`/products/seller/${id}`)
 }
 
 export function fetchAllBrands() {
-    return axios.get('http://localhost:8080/brands')
+    return axios.get('/brands')
 }
 export function fetchAllCategory() {
-    return axios.get('http://localhost:8080/category')
+    return axios.get('/category')
 }
 
 export function fetchMonthelyProducts(id) {
-    return axios.get(`http://localhost:8080/products/seller/total-product/${id}`)
+    return axios.get(`/products/seller/total-product/${id}`)
 }

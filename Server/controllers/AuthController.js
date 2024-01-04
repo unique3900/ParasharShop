@@ -7,8 +7,10 @@ const app = express();
 
 const SECRETKEY = "SECRET";
 exports.LoginController = async (req, res) => {
-    res.cookie('jwt',req.user.token,{expires: new Date(Date.now()+3600000),httpOnly:true})
-    res.status(200).json({ success: true, user: req.user});
+    console.log(req.user.token)
+    res.cookie('jwt', req.user.token).status(200).json({ success: true, user: req.user });
+    
+
 }
 
 exports.CheckUser = async (req, res) => {
@@ -70,7 +72,7 @@ exports.changePasswordController = async (req, res) => {
 
 exports.getLoggedInDataController = async (req, res) => {
     try {
-        const id  = req.user.id;
+        const { id } = req.user;
         const user = await User.findOne({ id });
         if (user) {
             res.status(200).json({success:true,message:"User Fetched Successfully",user})

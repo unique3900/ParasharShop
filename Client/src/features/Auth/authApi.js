@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 export async function createUser(data) {
     console.log(data)
-    return axios.post('http://localhost:8080/auth/register', {
+    return axios.post('/auth/register', {
         ...data
     }).catch((err) => {
         console.log(err)
@@ -15,34 +15,34 @@ export async function createUser(data) {
 }
 export async function updateUser(users) {
     console.log("Received",users)
-     return axios.patch(`http://localhost:8080/auth/${users.id}`, {users}).catch((err) => {
+     return axios.patch(`/auth/${users.id}`, {users}).catch((err) => {
         toast.error(err.response.data.message)
     });
 }
 export async function loginUser(data) {
-    return axios.post('http://localhost:8080/auth/login', { ...data }).catch((err) => {
+    return axios.post('/auth/login', { ...data }).catch((err) => {
         toast.error(err.response.data.message)
     })
 }
 
 export async function checkUser() {
-    return axios.get('http://localhost:8080/auth/check-user').catch((err) => {
+    return axios.get('/auth/check-user').catch((err) => {
         toast.error("Server didnot respond ! Try Again ")
     })
 }
 export async function sellerRegister(data) {
     console.log("Invoked Seller Registration",{...data})
-    return axios.post('http://localhost:8080/seller/seller-register', { ...data }).then((res) => {
+    return axios.post('/seller/seller-register', { ...data }).then((res) => {
         toast.success(res.data.message)
     }).catch((err) => {
         toast.error(err.response.data.message)
     })
 }
 export async function sellerLogin(data) {
-    return axios.post('http://localhost:8080/seller/seller-login', { ...data })
+    return axios.post('/seller/seller-login', { ...data })
 }
 export async function fetchSellerInfo(id) {
-    return axios.get(`http://localhost:8080/seller/${id}`);
+    return axios.get(`/seller/${id}`);
 }
 
 
@@ -54,7 +54,7 @@ export function userLogout(user) {
 
 export function changePassword(data) {
     console.log("Changing Password",{...data})
-    return axios.post('http://localhost:8080/auth/change-password', { ...data }).then((res) => {
+    return axios.post('/auth/change-password', { ...data }).then((res) => {
         toast.success(res.data.message)
         
         

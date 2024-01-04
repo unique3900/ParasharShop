@@ -5,21 +5,21 @@ import toast from "react-hot-toast";
 // A mock function to mimic making an async request for data
 export function addToCart(items) {
   console.log("lulululuul", items)
-  return axios.post(`http://localhost:8080/cart`,{...items})
+  return axios.post(`/cart`,{...items})
 }
 export async function getCartByUserEmail() {
-  const response=await axios.get(`http://localhost:8080/cart/`);
+  const response=await axios.get(`/cart/`);
   return response.data;
 }
 export function removeFromCart(id) {
-  return axios.delete(`http://localhost:8080/cart/${id}`)
+  return axios.delete(`/cart/${id}`)
 }
 
 export async function resetCart() {
 
-return axios.post(`http://localhost:8080/cart/reset`)
+return axios.post(`/cart/reset`)
 
 }
 export function updateCart(items) {
-  return axios.patch(`http://localhost:8080/cart/${items.id}`,{...items})
+  return axios.patch(`/cart/${items.id}`,{...items})
 }

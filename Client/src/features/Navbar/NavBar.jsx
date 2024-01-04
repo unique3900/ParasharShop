@@ -5,13 +5,17 @@ import { AiOutlineShoppingCart,AiTwotoneHeart ,AiOutlineHeart} from 'react-icons
 import NavbarList from './NavbarList';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { useDispatch, useSelector } from 'react-redux';
-import {  selectcartItems } from '../cart/cartSlice';
+import {  getCartByEmailAsync, selectcartItems } from '../cart/cartSlice';
 import { selectLoggedInUser } from '../Auth/authSlice';
 const NavBar = () => {
   const [navState, setnavState] = useState(false);
 
   const dispatch = useDispatch();
-  const cartItems = useSelector(selectcartItems)
+  const cartItems = useSelector(selectcartItems);
+  
+  useEffect(() => {
+    dispatch(getCartByEmailAsync())
+  }, [])
   
   return (
     <div className='flex flex-col w-full px-10 py-5 lg:py-0 gap-2'>
@@ -34,7 +38,7 @@ const NavBar = () => {
 
                 <Link to={'/cart'}><AiOutlineShoppingCart className=' cursor-pointer w-10 h-10' /></Link>  
                 
-          {cartItems.length>0?<p className="absolute  bg-red-600 text-white rounded-[100%] px-2 top-0 -right-1">{cartItems.length}</p>:"" }
+          {<p className="absolute  bg-red-600 text-white rounded-[100%] px-2 top-0 -right-1">{cartItems.length}</p> }
                 
          
         </div>

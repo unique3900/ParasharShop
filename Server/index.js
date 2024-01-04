@@ -9,7 +9,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const jwt = require('jsonwebtoken');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
-
+const cookieParser = require('cookie-parser');
 
 const { createProduct } = require("./controllers/ProductController");
 const { LoginController } = require("./controllers/AuthController");
@@ -28,10 +28,9 @@ const multer = require("multer");
 const fs = require("fs");
 const imageDownloader = require("image-downloader");
 const { User } = require("./models/User");
-const { sanitizeUser, isAuth } = require("./Middleware/Auth");
+const { sanitizeUser, isAuth, CookieExtractor } = require("./Middleware/Auth");
 
 const SECRETKEY = "SECRET";
-
 
 async function main() {
   await mongoose.connect("mongodb://localhost:27017/ParasharShop");
@@ -53,14 +52,17 @@ server.use(
     "D:/Web Dev/MERN projects/ParasharShop/ParasharShop/Server/Image/uploads"
   )
 );
+
+server.use(cors({
+  origin: 'http://127.0.0.1:5173',
+  credentials: true,
+}));
+
+// server.use(express.static('dist'));
 server.use(morgan("dev"));
-server.use(express.json());
-server.use(
-  cors({
-    origin: "http://127.0.0.1:5173",
-    credentials: true,
-  })
-);
+server.use(cookieParser());
+server.use(express.json({ limit: 52428800 }));
+
 
 // Passport Js Setup
 server.use(
@@ -75,7 +77,7 @@ server.use(passport.authenticate("session"));
 
 // JWT Options
 var opts = {}
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.jwtFromRequest = CookieExtractor;
 opts.secretOrKey = SECRETKEY;
 
 // ================ Routes ==================
@@ -122,7 +124,7 @@ passport.use('jwt', new JwtStrategy(opts, async function (jwt_payload, done) {
     try {
         const user = await User.findOne({ id: jwt_payload.sub });
             if (user) {
-                return done(null, sanitizeUser(user) ); //This calls serializer
+                return done(null, user ); //This calls serializer
             } else {
                 return done(null, false);
                 // or you could create a new account

@@ -76,8 +76,7 @@ export default function Cart() {
                     <div className="flow-root">
                         <ul role="list" className="-my-6 divide-y divide-gray-200">
                             {
-                                items.map((data,index) => (
-                                
+                               items && items.map((data,index) => (
                                 <li key={
                                         index
                                     }

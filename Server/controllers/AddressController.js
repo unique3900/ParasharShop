@@ -11,7 +11,7 @@ exports.addUserAddressController = async (req, res) => {
 }
 exports.fetchUserAddressesController = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { id } = req.user;
         const address = await Address.find({user:id}).populate("user");
         res.status(200).json({ success: true, message: "Addresses Fetched Successfully", address });
 

@@ -20,8 +20,8 @@ export const addUserAddressAsync = createAsyncThunk(
 
 export const fetchUserAddressAsync = createAsyncThunk(
     "address/fetchUserAddress",
-    async (id) => {
-        const response = await fetchUserAddress(id);
+    async () => {
+        const response = await fetchUserAddress();
         return response.data.address;
     }
 )
