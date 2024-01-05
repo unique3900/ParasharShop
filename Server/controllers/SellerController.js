@@ -21,6 +21,7 @@ exports.registerSeller = async (req, res) => {
 exports.loginSeller = async (req, res) => {
     try {
         const { id } = req.user;
+        console.log(id)
         const seller = await Seller.findOne({user:id}).populate("user");
         if (!seller) {
             res.status(401).json({success:false,message:"Seller Doesnot Exist"})

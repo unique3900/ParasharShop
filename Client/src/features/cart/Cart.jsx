@@ -1,7 +1,7 @@
 import {
     Fragment,
     useEffect,
-    useState
+    useState,
 } from 'react'
 import {
     Dialog,
@@ -27,13 +27,13 @@ import {
 import { discountedPrice } from '../../app/constants'
 import { selectLoggedInUserInfo } from '../user/userSlice'
 import { selectLoggedInUserToken } from '../Auth/authSlice'
+
 export default function Cart() {
     const [open, setOpen] = useState(true);
-    
+   
     const items = useSelector(selectcartItems);
     const user = useSelector(selectLoggedInUserInfo);
     const userToken=useSelector(selectLoggedInUserToken);
-
     const dispatch = useDispatch();
 
     const [totalItems, setTotalItems] = useState(1);
@@ -42,6 +42,7 @@ export default function Cart() {
 
     const handleRemove = async(id) => {
         await dispatch(removeFromCartAsync(id));
+        await dispatch(getCartByEmailAsync());
     }
 
     const handleQuantityChange = async(e, value,id) => { // Existing items obj. spread then change its quantity
@@ -54,18 +55,16 @@ export default function Cart() {
        
     }
     useEffect(() => {
-        
         dispatch(getCartByEmailAsync())
         const totalItems = items.reduce((accumulator, object) => {
             return object.quantity + accumulator;
         }, 0)
         setTotalItems(totalItems)
-    }, [dispatch])
+    }, [dispatch, totalItems])
     
     return (
         <> {
-            !items.length || !userToken && <Navigate to={'/'} ></Navigate>
-            
+            totalItems<=0 && <Navigate to={'/'} ></Navigate> 
         }
             
             <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>

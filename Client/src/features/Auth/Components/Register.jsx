@@ -14,7 +14,7 @@ import {
     useNavigate
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { createUserAsync } from '../authSlice';
+import { createUserAsync, selectLoggedInUserToken } from '../authSlice';
 import { selectLoggedInUserInfo } from '../../user/userSlice';
 
 
@@ -22,7 +22,7 @@ const Register = () => {
 
         
 
-    const data=useSelector(selectLoggedInUserInfo)
+
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -41,7 +41,8 @@ const Register = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const user=useSelector(selectLoggedInUser)
+    const user = useSelector(selectLoggedInUserInfo);
+    const userToken = useSelector(selectLoggedInUserToken);
 
     const validateEmail = (email) => {
         const emailRegEx = /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi
@@ -102,7 +103,7 @@ const Register = () => {
 
     return (
         <div className='flex flex-col h-screen justify-center items-center'>
-            {user && <Navigate to={'/'} replace={true} />}
+            {userToken && <Navigate to={'/'} replace={true} />}
             <Toaster/>
             <div className=" grid mt-0 grid-flow-row gap-3 lg:grid-flow-col items-center align-middle lg:grid-cols-2 w-full lg:w-fit   p-6 round-xl shadow-md shadow-slate-400 overflow-x-auto no-scrollbar">
                 <div className="hidden lg:flex relative justify-center place-content-center">

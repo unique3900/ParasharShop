@@ -16,7 +16,7 @@ import {
     selectLoggedInUserOrders,
     updateuserInfoAsync
 } from '../../features/user/userSlice';
-import { updateUserAsync
+import { selectLoggedInUserToken, updateUserAsync
 } from '../../features/Auth/authSlice';
 import {
     Link,
@@ -28,6 +28,7 @@ const UserProfilePage = () => {
 
     const dispatch = useDispatch();
     const user = useSelector(selectLoggedInUserInfo);
+    const userToken = useSelector(selectLoggedInUserToken);
     const orders = useSelector(selectLoggedInUserOrders);
     const addresses = useSelector(selectUserAddress);
 
@@ -158,13 +159,13 @@ const UserProfilePage = () => {
     }
     useEffect(() => {
         dispatch(fetchUserAddressAsync())
-      
+        dispatch(fetchLoggedInUserInfoAsync())
     }, [dispatch])
     
     return (
         <>
             {
-            ! user && <Navigate to={'/login'}
+            ! userToken && <Navigate to={'/login'}
                 replace={true}></Navigate>
         }
 

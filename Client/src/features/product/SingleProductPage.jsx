@@ -158,7 +158,7 @@ const SingleProductPage = () => {
                 //Fix for duplicate id in the cart
                 // delete newCartItem['id'];
             await dispatch(addToCartAsync(newCartItem))
-            
+            await dispatch(getCartByEmailAsync());
             
         }
        
