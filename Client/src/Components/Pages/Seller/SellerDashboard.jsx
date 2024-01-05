@@ -20,9 +20,9 @@ const SellerDashboard = () => {
         const seller = useSelector(selectLoggedInSeller);
 
     
-    // useEffect(() => {
-    //     dispatch(fetchLoggedInSellerAsync(user.id))
-    // }, [dispatch,user])
+    useEffect(() => {
+        dispatch(fetchLoggedInSellerAsync())
+    }, [dispatch,user])
     
     return (<>
         {/* {

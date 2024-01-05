@@ -28,7 +28,7 @@ const UserProfilePage = () => {
 
     const dispatch = useDispatch();
     const user = useSelector(selectLoggedInUserInfo);
-    const userToken = useSelector(selectLoggedInUserToken);
+    const userToken=useSelector(selectLoggedInUserToken)
     const orders = useSelector(selectLoggedInUserOrders);
     const addresses = useSelector(selectUserAddress);
 
@@ -159,7 +159,7 @@ const UserProfilePage = () => {
     }
     useEffect(() => {
         dispatch(fetchUserAddressAsync())
-        dispatch(fetchLoggedInUserInfoAsync())
+        dispatch(fetchLoggedInUserInfoAsync());
     }, [dispatch])
     
     return (
@@ -200,24 +200,24 @@ const UserProfilePage = () => {
                                         key={index}>
                                         <label className='font-bold' htmlFor="">AddressLine {index}</label>
                                         <p className="">Address: {
-                                            item.selectedState
+                                            item?.selectedState
                                         }&nbsp; {
-                                            item.selectedCity
+                                            item?.selectedCity
                                         }&nbsp; {
-                                            item.selectedLocation
+                                            item?.selectedLocation
                                         } </p>
                                         <p className="">Street/House No. : {
-                                            item.street
+                                            item?.street
                                         }&nbsp; {
-                                            item.houseNumber ? item.houseNumber : ""
+                                            item?.houseNumber ? item?.houseNumber : ""
                                         }</p>
                                         <p className="">Message:{
-                                            item.message ? item.message : ""
+                                            item?.message ? item?.message : ""
                                         }</p>
                                         <p className="">Receiver: {
-                                            item.fullName
+                                            item?.fullName
                                         }({
-                                            item.phone + '/' + item.email
+                                            item?.phone + '/' + item?.email
                                         })</p>
                                     </div>
 

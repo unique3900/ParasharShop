@@ -9,8 +9,6 @@ const initialState = {
   monthelyOrder: [],
   orderMonths:[]
 };
-
-
 export const newOrderAsync = createAsyncThunk(
   "order/newOrder",
   async (order) => { 
@@ -40,6 +38,13 @@ export const fetchMonthelyOrderAsync = createAsyncThunk(
   async (id)=>{
     const response=await fetchMonthelyOrder(id)
     return response.data;
+  }
+)
+
+export const resetSellerOrderAsync = createAsyncThunk(
+  "order/seller/reset",
+  async () => {
+    return 'reset';
   }
 )
 export const orderSlice = createSlice({
@@ -82,6 +87,17 @@ export const orderSlice = createSlice({
       state.status='idle'
         state.monthelyOrder = action.payload.orders;
         state.orderMonths = action.payload.months
+      })
+      .addCase(resetSellerOrderAsync.pending, (state) => {
+      state.status="loading"
+      })
+      .addCase(resetSellerOrderAsync.fulfilled, (state, action) => {
+        state.status = "idle",
+          state.orders = []
+          state.monthelyOrder = [],
+          state.Currentorder = [],
+          state.orderMonths = [];
+          state.sellerOrder=[]
     })
   },
 });

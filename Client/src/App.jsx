@@ -51,7 +51,7 @@ const App = () => {
       toast.success("Logged in As Guest")
       return
     }
-    
+    dispatch(fetchLoggedInUserInfoAsync())
   }, [dispatch, user])
   
 
@@ -79,9 +79,9 @@ axios.defaults.withCredentials = true;
         } />
         <Route path='/checkout' element={<Protected><CheckoutPage/></Protected> } />
         <Route path='/products/:id' element={<SingleProductPage/>} />
-        <Route path='/sellerOptions' element={<SellerChoosePage/>} />
+        <Route path='/sellerOptions' element={<Protected><SellerChoosePage/></Protected> } />
         <Route path='/sellerOptions/sellerRegister' element={<SellerRegister/> } />
-        <Route path='/sellerOptions/sellerLogin' element={<SellerLogin/>} />
+        <Route path='/sellerOptions/sellerLogin' element={<Protected><SellerLogin/></Protected>} />
         <Route path='/order-success/:id' element={<OrderSuccessPage></OrderSuccessPage>} />
         <Route path='/sellerOptions/seller-Dashboard' element={<ProtectedSeller><SellerDashboard/></ProtectedSeller>} />
         <Route path='/sellerOptions/seller-Dashboard/manage-products' element={<ProtectedSeller><ProductPage/></ProtectedSeller>} />

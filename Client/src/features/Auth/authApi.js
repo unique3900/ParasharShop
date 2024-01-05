@@ -31,19 +31,25 @@ export async function checkUser() {
     })
 }
 export async function sellerRegister(data) {
+
     console.log("Invoked Seller Registration",{...data})
     return axios.post('/seller/seller-register', { ...data }).then((res) => {
-        toast.success(res.data.message)
+        toast.success(res.data.message);
+
     }).catch((err) => {
         toast.error(err.response.data.message)
     })
 }
 export async function sellerLogin(data) {
-    return axios.post('/seller/seller-login', { ...data })
+    return axios.post('/seller/seller-login', { ...data }).catch((err) => {
+        console.log(err)
+    })
 }
-export async function fetchSellerInfo(id) {
-    return axios.get(`/seller/${id}`);
+
+export async function fetchSellerInfo() {
+    return axios.get(`/seller/own`);
 }
+
 
 export async function handleRemoveToken() {
     document.cookie = 'jwt' + '=; Path=/;  Domain=' + location.host + '; Expires=Thu, 01 Jan 1970 00:00:01 GMT; SameSite=None; Secure'

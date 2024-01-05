@@ -153,12 +153,19 @@ const SingleProductPage = () => {
             toast.error("Login to Proceed")
         }
         else {
-            // console.log(loggedInUser.email);
+            const isProductInCart = cart.some((item,index) => item.product.id === product.id);
+            console.log(isProductInCart,cart,product.id)
+            if (isProductInCart) {
+                toast.success("This product is already in cart")
+            }
+            else {
                 const newCartItem = { ...product,productId:product.id, quantity: 1, status:'Pending',seller:product.seller};
                 //Fix for duplicate id in the cart
                 // delete newCartItem['id'];
             await dispatch(addToCartAsync(newCartItem))
             await dispatch(getCartByEmailAsync());
+            }
+            
             
         }
        

@@ -26,9 +26,7 @@ exports.loginSeller = async (req, res) => {
         if (!seller) {
             res.status(401).json({success:false,message:"Seller Doesnot Exist"})
         } else {
-
             const passwordCheck = await bcrypt.compareSync( req.body.businessPassword,seller.businessPassword);
-
             if (!passwordCheck) {
                 res.status(401).json({ success: false, message: "Invalid Seller Password" });
             } else {
@@ -43,7 +41,7 @@ exports.loginSeller = async (req, res) => {
 
 exports.getSellerInfo = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { id } = req.user;
         const seller = await Seller.findOne({user:id}).populate("user");
         res.status(200).json({success:true,message:"Seller Fetched Successfully!",seller})
     } catch (error) {

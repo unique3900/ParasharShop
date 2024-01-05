@@ -7,6 +7,7 @@ const initialState = {
   status: "idle",
 };
 
+const resetAuth = () => initialState;
 
 export const createUserAsync = createAsyncThunk(
   "auth/register",
@@ -20,6 +21,7 @@ export const removeTokenAsync = createAsyncThunk(
   "auth/removeToken",
   async () => {
     document.cookie = `${'jwt'}= ''; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    resetAuth();
     const response = await handleRemoveToken();
     return response.token;
   }
@@ -65,7 +67,7 @@ export const loginSellerAsync = createAsyncThunk(
 export const fetchLoggedInSellerAsync = createAsyncThunk(
   "auth/fetchLoggedInSeller",
   async(id)=> {
-    const response = await fetchSellerInfo(id);
+    const response = await fetchSellerInfo();
     return response.data.seller;
   }
   

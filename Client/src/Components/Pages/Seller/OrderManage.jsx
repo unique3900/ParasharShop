@@ -21,7 +21,7 @@ const OrderManage = () => {
   
   const handleEdit = (id,value,productId) => {
     console.log(id, value, productId)
-    const data={id,value,productId}
+    const data = { id, value, productId }
     dispatch(updateOrderAsync(data))
   };
   useEffect(() => {

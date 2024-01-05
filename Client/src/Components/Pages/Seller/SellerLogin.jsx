@@ -3,17 +3,20 @@ import axios from 'axios';
 import { ToastBar, Toaster, toast } from 'react-hot-toast';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchLoggedInSellerAsync, loginSellerAsync, selectLoggedInSeller } from '../../../features/Auth/authSlice';
+import { fetchLoggedInSellerAsync, loginSellerAsync, selectLoggedInSeller, selectLoggedInUserToken } from '../../../features/Auth/authSlice';
 import { selectLoggedInUserInfo } from '../../../features/user/userSlice';
 const SellerLogin = () => {
 
     const user = useSelector(selectLoggedInUserInfo);
+    const userToken = useSelector(selectLoggedInUserToken);
     const seller = useSelector(selectLoggedInSeller);
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    
     const handleSubmit = async(e) => {
         e.preventDefault();
         const data = {businessPassword: password };
@@ -28,8 +31,8 @@ const SellerLogin = () => {
 
     return (
         <>
-            {!user && <Navigate to={'/'} replace={true}></Navigate>}
-            {seller&&<Navigate to={'/sellerOptions/seller-Dashboard'} replace={true}></Navigate>}
+            {!userToken && <Navigate to={'/'} replace={true}></Navigate>}
+            {seller &&<Navigate to={'/sellerOptions/seller-Dashboard'} replace={true}></Navigate>}
                     <div className='flex flex-col h-screen justify-center items-center'>
             <Toaster/>
             <div className=" grid mt-0 grid-flow-row gap-3 lg:grid-flow-col items-center align-middle lg:grid-cols-2 w-full lg:w-fit   p-6 round-xl shadow-md shadow-slate-400 overflow-x-auto no-scrollbar">

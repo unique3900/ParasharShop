@@ -25,7 +25,7 @@ exports.userOrderController = async (req, res) => {
 
 exports.updateOrderSellerSideController = async (req, res) => {
     const { id } = req.params;
-    console.log(req.body.productId)
+    console.log(req.body.value);
     try {
         const order=await Orders.findOneAndUpdate({ _id:id,'products.product.id': req.body.productId},{ $set: { 'products.$.status': req.body.value } },{new:true}).populate("selectedDeliveryAddress")
         res.status(201).json({success:true,message:"Order Status Updated Successfully",order})

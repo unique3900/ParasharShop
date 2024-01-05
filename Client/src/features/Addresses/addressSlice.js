@@ -9,6 +9,8 @@ const initialState = {
     selectedAddress:null
 }
 
+
+
 export const addUserAddressAsync = createAsyncThunk(
     "address/addUserAddress",
     async (address) => {
@@ -39,6 +41,13 @@ export const updateUserAddressAsync = createAsyncThunk(
         const response = await updateUserAddress(address);
         // console.log("Updaye",response.data.address)
         return response.data.address;
+    }
+)
+
+export const resetAddressAsync = createAsyncThunk(
+    "address/reset",
+    async () => {
+        return 'reset';
     }
 )
 
@@ -82,6 +91,13 @@ export const addressSlice = createSlice({
                 console.log("User Address Payload", action.payload);
                 
             })
+            .addCase(resetAddressAsync.pending, (state) => {
+                state.status = "loading"
+        })
+            .addCase(resetAddressAsync.fulfilled, (state, action) => {
+                state.status = "idle",
+                    state.addresses = [null];
+        })
             
     }
 })

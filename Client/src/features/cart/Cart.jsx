@@ -56,7 +56,7 @@ export default function Cart() {
     }
     useEffect(() => {
         dispatch(getCartByEmailAsync())
-        const totalItems = items.reduce((accumulator, object) => {
+        const totalItems = items?.reduce((accumulator, object) => {
             return object.quantity + accumulator;
         }, 0)
         setTotalItems(totalItems)
