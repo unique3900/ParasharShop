@@ -174,7 +174,6 @@ const SingleProductPage = () => {
     useEffect(() => {
         console.log(params.id,loggedInUser.id)
         dispatch(fetchProductByIdAsync(params.id))
-     
     }, [dispatch])
     
     return (

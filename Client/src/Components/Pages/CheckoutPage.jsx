@@ -585,20 +585,20 @@ const CheckoutPage = () => {
                           AddressLine {index}
                         </label>
                         <p className="">
-                          Address: {item.selectedState}&nbsp;
-                          {item.selectedCity}&nbsp;
-                          {item.selectedLocation}{" "}
+                          Address: {item?.selectedState}&nbsp;
+                          {item?.selectedCity}&nbsp;
+                          {item?.selectedLocation}{" "}
                         </p>
                         <p className="">
-                          Street/House No. : {item.street}&nbsp;
-                          {item.houseNumber ? item.houseNumber : ""}
+                          Street/House No. : {item?.street}&nbsp;
+                          {item?.houseNumber ? item?.houseNumber : ""}
                         </p>
                         <p className="">
-                          Message:{item.message ? item.message : ""}
+                          Message:{item?.message ? item?.message : ""}
                         </p>
                         <p className="">
-                          Receiver: {item.fullName}(
-                          {item.phone + "/" + item.email})
+                          Receiver: {item?.fullName}(
+                          {item?.phone + "/" + item?.email})
                         </p>
                       </div>
                     </div>
