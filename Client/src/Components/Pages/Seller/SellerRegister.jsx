@@ -6,12 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     registerSellerAsync,
   selectLoggedInSeller,
+  selectLoggedInUserToken,
   updateUserAsync,
 } from "../../../features/Auth/authSlice";
 import { selectLoggedInUserInfo } from "../../../features/user/userSlice";
 
 const SellerRegister = () => {
   const user = useSelector(selectLoggedInUserInfo);
+  const userToken = useSelector(selectLoggedInUserToken);
   const seller = useSelector(selectLoggedInSeller);
   const [businessName, setBusinessName] = useState("");
   const [businessAddress, setBusinessAddress] = useState("");
@@ -30,7 +32,6 @@ const SellerRegister = () => {
   const handleSubmit =async (e) => {
     e.preventDefault();
       const data = {
-          user:user.id,
           businessName,
           businessAddress,
           businessPassword: password
@@ -46,7 +47,7 @@ const SellerRegister = () => {
 
   return (
     <>
-      {!user && <Navigate to={"/"} replace={true}></Navigate>}
+      {!userToken && <Navigate to={"/"} replace={true}></Navigate>}
       {seller && (
         <Navigate
           to={"/sellerOptions/seller-Dashboard"}

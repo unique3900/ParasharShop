@@ -42,7 +42,7 @@ export async function sellerRegister(data) {
 }
 export async function sellerLogin(data) {
     return axios.post('/seller/seller-login', { ...data }).catch((err) => {
-        console.log(err)
+        toast.error(err.response.data.message)
     })
 }
 

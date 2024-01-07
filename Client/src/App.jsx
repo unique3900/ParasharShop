@@ -80,7 +80,7 @@ axios.defaults.withCredentials = true;
         <Route path='/checkout' element={<Protected><CheckoutPage/></Protected> } />
         <Route path='/products/:id' element={<SingleProductPage/>} />
         <Route path='/sellerOptions' element={<Protected><SellerChoosePage/></Protected> } />
-        <Route path='/sellerOptions/sellerRegister' element={<SellerRegister/> } />
+        <Route path='/sellerOptions/sellerRegister' element={<Protected><SellerRegister/></Protected> } />
         <Route path='/sellerOptions/sellerLogin' element={<Protected><SellerLogin/></Protected>} />
         <Route path='/order-success/:id' element={<OrderSuccessPage></OrderSuccessPage>} />
         <Route path='/sellerOptions/seller-Dashboard' element={<ProtectedSeller><SellerDashboard/></ProtectedSeller>} />

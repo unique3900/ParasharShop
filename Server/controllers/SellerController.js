@@ -3,13 +3,13 @@ const bcrypt = require('bcrypt');
 
 exports.registerSeller = async (req, res) => {
     try {
-        const { user } = req.body;
-        const sellerExist = await Seller.findOne({ user})
+        const { id } = req.user;
+        const sellerExist = await Seller.findOne({ user:id})
         if (sellerExist) {
             res.status(401).json({ success: false, message: "Seller Accoun already Exist Under this ID" });
         } else {
             const hashedPassword = await bcrypt.hashSync(req.body.businessPassword, 10);
-            const seller = await (await Seller.create({...req.body,businessPassword:hashedPassword})).populate("user")
+            const seller = await (await Seller.create({user:id,...req.body,businessPassword:hashedPassword})).populate("user")
             res.status(200).json({ success: true, message: "Seller Registered Successfully", seller });
         }
     } catch (error) {

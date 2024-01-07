@@ -144,6 +144,7 @@ export const authSlice = createSlice({
       .addCase(removeTokenAsync.fulfilled, (state, action) => {
         state.status = "idle",
           state.loggedInUserToken = action.payload;
+        state.loggedInSeller = null;
     })
     
   },
