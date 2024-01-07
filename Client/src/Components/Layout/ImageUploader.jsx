@@ -4,7 +4,7 @@ import { IoMdClose } from "react-icons/io";
 
 const ImageUploader = ({imageURL,setImageURL,addImageByUrl,handleImageDelete,uploadedImages,addLocalImage}) => {
   return (
-    <div>
+    <form onSubmit={(e)=>e.preventDefault()}>
                         <div className="mt-2 flex flex-row gap-3">
                     <input
                       value={imageURL}
@@ -61,7 +61,7 @@ const ImageUploader = ({imageURL,setImageURL,addImageByUrl,handleImageDelete,upl
                       ))}
                     </div>
                   )}
-      </div>
+      </form>
       
 
 

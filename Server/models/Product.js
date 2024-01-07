@@ -1,5 +1,24 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+
+const optionSchema = new mongoose.Schema({
+    option: {
+      type: String,
+      required: true,
+    },
+});
+  
+const featureSchema = new mongoose.Schema({
+    title: {
+      type: String,
+      required: true,
+    },
+    options: {
+        type: [String],
+        required:true
+    },
+  });
+
 const productSchema = new Schema({
     title: {
         type: String,
@@ -60,18 +79,7 @@ const productSchema = new Schema({
         ref: "Seller",
         required:true
     },
-    features: {
-        title: {
-            type: String,
-            required:true
-        },
-        options: [{
-            option: {
-                type: String,
-                required:true
-            }
-        }]
-    }
+    features: [featureSchema],
 },{timestamps:true})
 
 

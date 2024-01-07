@@ -14,6 +14,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import ImageUploader from "../../Layout/ImageUploader";
 import { selectLoggedInUserInfo } from "../../../features/user/userSlice";
+import ProductFormFeatures from "./ProductFormFeatures";
 
 const ProductForm = () => {
   const user = useSelector(selectLoggedInUserInfo);
@@ -22,6 +23,13 @@ const ProductForm = () => {
   const [uploadedImages, setUploadedImages] = useState([]);
   const [keywords, setKeywords] = useState([]);
   const [keyword, setKeyword] = useState("");
+  const [feature1Title, setFeature1Title] = useState("");
+  const [feature1Option, setFeature1Option] = useState("");
+  const [feature1, setFeature1] = useState([]);
+  const [feature2Title, setFeature2Title] = useState("");
+  const [feature2Option, setFeature2Option] = useState("");
+  const [feature2, setFeature2] = useState([]);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
@@ -92,6 +100,7 @@ const ProductForm = () => {
             product.keywords = keywords;
             product.rating = 0;
             product.seller = seller.id;
+            product.features =[{title:feature1Title,options:[...feature1]},{title:feature2Title,options:[...feature2]}]
             console.log(product);
             dispatch(createProductAsync(product));
             navigate("/sellerOptions/seller-Dashboard");
@@ -223,6 +232,9 @@ const ProductForm = () => {
                     </div>
                   )}
                 </div>
+
+                {/* Product Form Features Adder */}
+                <ProductFormFeatures feature1Title={feature1Title} feature1={feature1} feature2Title={feature2Title} feature2={feature2} setFeature1Title={setFeature1Title} setFeature2Title={setFeature2Title} setFeature1={setFeature1} setFeature2={setFeature2} feature1Option={feature1Option} setFeature1Option={setFeature1Option} feature2Option={feature2Option} setFeature2Option={setFeature2Option} register={register} />
 
                 <div className="sm:col-span-2">
                   <label
