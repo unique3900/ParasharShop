@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createProduct, deleteProduct, fetchAllBrands, fetchAllCategory, fetchAllProducts, fetchMonthelyProducts, fetchProductById, fetchProductBySellerId, fetchProductsByFilter, updateProduct } from "./productListApi";
+import { createProduct, deleteProduct, fetchAllBrands, fetchAllCategory, fetchAllProducts, fetchMonthelyProducts, fetchProductById, fetchProductBySellerId, fetchProductsByFilter, searchProduct, updateProduct } from "./productListApi";
 import toast from "react-hot-toast";
 
 const initialState = {
@@ -76,6 +76,15 @@ export const fetchProductsByFilterAsync = createAsyncThunk(
     // return response.data
   }
 );
+
+export const searchProductAsync = createAsyncThunk(
+  'products/search',
+  async (searchQuery) => {
+    const response = await searchProduct(searchQuery);
+    console.log("Searching success",response.data.products)
+    return response.data.products;
+  }
+)
 export const fetchBrandsAsync = createAsyncThunk(
   "products/fetchBrands",
   async () => {
@@ -125,7 +134,7 @@ export const productSlice = createSlice({
       })
       .addCase(fetchAllProductsAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.products=action.payload ;
+        state.products=action.payload;
       })
       .addCase(createProductAsync.pending, (state) => {
         state.status = "loading";
@@ -163,6 +172,15 @@ export const productSlice = createSlice({
       })
       .addCase(fetchProductsByFilterAsync.pending, (state) => {
         state.status = "loading";
+      })
+      .addCase(searchProductAsync.pending,  (state) => {
+        state.status = 'loading';
+        console.log("Loadingg")
+      })
+      .addCase(searchProductAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.products = action.payload;
+
       })
       .addCase(fetchProductsByFilterAsync.fulfilled, (state, action) => {
         state.status = "idle";

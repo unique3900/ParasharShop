@@ -52,7 +52,7 @@ export const ProductList = () => {
       const index = userFilter[section.id].findIndex(ex => ex===option.value);
       userFilter[section.id].splice(index, 1);
     }
-    console.log("MyFilter",userFilter)
+    // console.log("MyFilter",userFilter)
     setFilter(userFilter);
     setPage(1);
   }
@@ -61,7 +61,7 @@ export const ProductList = () => {
   const handleSort = (e, option) => {
     const userSort={ _sort: option.sort,_order:option.order }
     setSort(userSort);
-    console.log(option)
+    // console.log(option)
   }
 
   const filters = [
@@ -85,13 +85,10 @@ export const ProductList = () => {
     if (loggedInSeller) {
       dispatch(fetchProductBySellerIdAsync(loggedInSeller.id))
     }
-
     dispatch(fetchBrandsAsync());
     dispatch(fetchCategoryAsync());
-  }, [dispatch,filter,sort,loggedInSeller]);
+  }, []);
 
-
-  
   return (
     <div className=''>
          <div className="bg-white">
@@ -101,7 +98,7 @@ export const ProductList = () => {
           filters={filters}
           />
 
-        <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <main id='ProductList' className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900">New Arrivals</h1>
 
@@ -128,7 +125,7 @@ export const ProductList = () => {
                 >
                   <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
-                      {sortOptions.map((option) => (
+                      {sortOptions?.map((option) => (
                         <Menu.Item key={option.name}>
                           {({ active }) => (
                             <p
@@ -176,10 +173,10 @@ export const ProductList = () => {
               {/* Product grid */}
                 <div className="lg:col-span-3">
                 <Toaster />
-        <h3 className="text-4xl font-bold text-center">Latest Products</h3>
+        <h3 id='latestProduct' className="text-4xl font-bold text-center">Latest Products</h3>
 
                   <ProductGrid products={products} page={page} filters={filters} />
-          <Pagination page={Math.ceil(page) } setPage={setPage} totalPage={Math.floor(products.length)} />
+          <Pagination page={Math.ceil(page) } setPage={setPage} totalPage={Math.floor(products?.length)} />
                 
                 
                 </div>
@@ -236,7 +233,7 @@ function MobileFilter({mobileFiltersOpen,Fragment,setMobileFiltersOpen,handleFil
               <h3 className="sr-only">Categories</h3>
 
 
-              {filters.map((section) => (
+              {filters?.map((section) => (
                 <Disclosure as="div" key={section.id} className="border-t border-gray-200 px-4 py-6">
                   {({ open }) => (
                     <>
@@ -254,7 +251,7 @@ function MobileFilter({mobileFiltersOpen,Fragment,setMobileFiltersOpen,handleFil
                       </h3>
                       <Disclosure.Panel className="pt-6">
                         <div className="space-y-6">
-                          {section.options.map((option, optionIdx) => (
+                          {section.options?.map((option, optionIdx) => (
                             <div key={option.value} className="flex items-center">
                               <input
                                 id={`filter-mobile-${section.id}-${optionIdx}`}
@@ -292,13 +289,13 @@ function ProductGrid({products,page,filters}) {
   return (
     <div className="grid grid-cols-2 justify-center lg:grid-cols-3 gap-3">
     {
-        products.slice(page*12-12,page*12).map((item, index) => (
+        products?.slice(page*12-12,page*12)?.map((item, index) => (
           <div key={index} className="relative flex flex-col gap-2 lg:items-stretch  justify-between px-3 py-4 lg:w-72 shadow-lg">
           <Link to={`/products/${item.id}`} className="flex items-center justify-center">
               <img className='object-cover place-content-center h-56 max-h-60' src={`http://localhost:8080/uploads/${ item.thumbnail}`} alt={ item.thumbnail} />
                 </Link>
                 <AiOutlineHeart className='absolute top-0 right-1 fill-red-600 cursor-pointer w-8 h-8 text-red-500' onClick={()=>{
-                  toast.success( `${item.title.slice(0,20)+'...'} Added to Wishlist` )
+                  toast.success( `${item.title?.slice(0,20)+'...'} Added to Wishlist` )
                 }}/>
           <div className="">
                     <h2 className=" text-xl text-purple-700 ">{item.title }</h2>
@@ -353,7 +350,7 @@ function DesktopFilter({filters,open,handleFilters}) {
     <form className="hidden lg:block">
     <h3 className="sr-only">Categories</h3>
 
-    {filters.map((section) => (
+    {filters?.map((section) => (
       <Disclosure as="div" key={section.id} className="border-b border-gray-200 py-6">
         {({ open }) => (
           <>
@@ -372,7 +369,7 @@ function DesktopFilter({filters,open,handleFilters}) {
             <Disclosure.Panel className="pt-6">
               <div className="space-y-4">
         
-                {section.options.map((option, optionIdx) => (
+                {section.options?.map((option, optionIdx) => (
                   <div key={option.value} className="flex items-center">
                     <input
                       id={`filter-${section.id}-${optionIdx}`}

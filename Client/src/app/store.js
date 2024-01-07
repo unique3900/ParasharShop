@@ -6,6 +6,7 @@ import orderReducer from '../features/order/orderSlice';
 import userReducer from '../features/user/userSlice';
 import addressReducer from '../features/Addresses/addressSlice';
 
+import thunk from 'redux-thunk';
 export const store = configureStore({
   reducer: {
     product: productReducer,
@@ -15,4 +16,5 @@ export const store = configureStore({
     user: userReducer,
     address:addressReducer
   },
+  middleware: [thunk]
 });

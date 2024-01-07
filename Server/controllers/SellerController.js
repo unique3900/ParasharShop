@@ -6,7 +6,7 @@ exports.registerSeller = async (req, res) => {
         const { id } = req.user;
         const sellerExist = await Seller.findOne({ user:id})
         if (sellerExist) {
-            res.status(401).json({ success: false, message: "Seller Accoun already Exist Under this ID" });
+            res.status(401).json({ success: false, message: "Seller Account already Exist Under this ID" });
         } else {
             const hashedPassword = await bcrypt.hashSync(req.body.businessPassword, 10);
             const seller = await (await Seller.create({user:id,...req.body,businessPassword:hashedPassword})).populate("user")

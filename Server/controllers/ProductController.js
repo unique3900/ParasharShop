@@ -43,6 +43,7 @@ exports.fetchAllProducts = async (req, res) => {
       brand: { $in: req.query.brand.split(",") },
     });
   }
+
   if (req.query._sort && req.query._order) {
     query = query.sort({ [req.query._sort]: req.query._order });
   }
@@ -149,47 +150,24 @@ exports.deleteProducts = async (req, res) => {
 };
 exports.searchProduct = async (req, res) => {
   try {
-    const targetTitle = req.query.targetTitle;
-    const products = await Product.find({});
-
-    const productHashTable = {};
-    products.forEach((product) => {
-      const key = product.title.toLowerCase(); // Convert titles to lowercase for case-insensitive search
-      productHashTable[key] = product;
-    });
-    // Function to perform hash-based search and push matching products to an array
-    function searchProductsByTitle(targetTitle) {
-      const lowerTargetTitle = targetTitle.toLowerCase();
-      const matchingProducts = [];
-
-      //Object.keys(productHashTable) is used to get an array of keys (product titles) from the hash table.
-      //The for each key in ... loop then iterates over each title (key) in the array.
-
-      Object.keys(productHashTable).forEach((key) => {
-        if (key.includes(lowerTargetTitle)) {
-          matchingProducts.push(productHashTable[key]);
-        }
+    const { keyword } = req.query;
+    let products = [];
+    if (keyword.length > 0) {
+       products = await Product.find({
+        $or: [
+          { title: { $regex: keyword, $options: 'i' } },
+          { description: { $regex: keyword, $options: 'i' } }
+        ]
       });
-
-      return matchingProducts;
     }
-
-    const foundProducts = searchProductsByTitle(targetTitle);
-
-    if (foundProducts.length > 0) {
-      console.log(`Products with title including '${targetTitle}':`);
-      foundProducts.forEach((product) => console.log(product));
-    } else {
-      console.log(`No products found with title including '${targetTitle}'.`);
+    else {
+      products = await Product.find({});
     }
+   
+    res.status(200).json({ success: true, message: "Products Searching Successful", products });
   } catch (error) {
-    res
-      .status(401)
-      .json({
-        success: false,
-        message: "Unexpected Error Occured When Searching Product",
-      });
-    console.log(error);
+    console.log(error)
+    res.status(401).json({success:false,message:"Unexpected Error Occured When Searching Products"})
   }
 };
 

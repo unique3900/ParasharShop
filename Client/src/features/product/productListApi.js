@@ -7,6 +7,10 @@ export function fetchAllProducts() {
 export function fetchProductById(id) {
     return axios.get(`/products/${id}`)
 }
+export function searchProduct(searchQuery) {
+    const queryString = `keyword=${searchQuery}&`;
+    return axios.get(`/products/search?${queryString}`);
+}
 export function fetchProductsByFilter(filter,sort) {
     // let queryString = 'category=smartphones ';
     // console.log("heueue",filter)
