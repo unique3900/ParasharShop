@@ -52,7 +52,7 @@ const App = () => {
       return
     }
     dispatch(fetchLoggedInUserInfoAsync())
-  }, [dispatch, user])
+  }, [])
   
 
   
@@ -60,7 +60,7 @@ const App = () => {
   axios.defaults.baseURL = 'http://127.0.0.1:8080';
 axios.defaults.withCredentials = true;
   return (
-    <div>
+    <div className='scroll-smooth'>
 
       <TopNavbar/>
       <NavBar/>

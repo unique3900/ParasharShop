@@ -60,7 +60,7 @@ export default function Cart() {
             return object.quantity + accumulator;
         }, 0)
         setTotalItems(totalItems)
-    }, [dispatch, totalItems])
+    }, [])
     
     return (
         <> {

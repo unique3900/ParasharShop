@@ -19,6 +19,7 @@ import { discountedPrice } from '../../app/constants';
 import toast, { Toaster } from 'react-hot-toast';
 import { getCartByUserEmail } from '../cart/cartAPI';
 import { selectLoggedInUserInfo } from '../user/userSlice';
+import { selectLoggedInUserToken } from '../Auth/authSlice';
 
 
 const products = {
@@ -142,6 +143,7 @@ const SingleProductPage = () => {
     const params = useParams();
     const dispatch = useDispatch();
     const product = useSelector(selectProductById);
+    const userToken = useSelector(selectLoggedInUserToken);
     const loggedInUser=useSelector(selectLoggedInUserInfo)
     const cart = useSelector(selectcartItems);
     
@@ -149,7 +151,7 @@ const SingleProductPage = () => {
 
     const handleCart = async(e) => {
         e.preventDefault();
-        if (!loggedInUser) {
+        if (!userToken) {
             toast.error("Login to Proceed")
         }
         else {

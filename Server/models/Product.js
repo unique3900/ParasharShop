@@ -59,6 +59,18 @@ const productSchema = new Schema({
         type: mongoose.ObjectId,
         ref: "Seller",
         required:true
+    },
+    features: {
+        title: {
+            type: String,
+            required:true
+        },
+        options: [{
+            option: {
+                type: String,
+                required:true
+            }
+        }]
     }
 },{timestamps:true})
 
