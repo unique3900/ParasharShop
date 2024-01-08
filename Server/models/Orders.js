@@ -1,5 +1,22 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+const optionSchema = new mongoose.Schema({
+  option: {
+    type: String,
+    required: true,
+  },
+});
+
+const featureSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  option: {
+      type: String,
+      required:true
+  },
+});
 
 const orderSchema = new Schema({
   user: {
@@ -26,7 +43,8 @@ const orderSchema = new Schema({
   totalAmount: {
     type: Number,
     default: 0,
-  }
+  },
+  features: [featureSchema]
 },{timestamps:true});
 
 // We have used id instead of _id in frontend so create virtual

@@ -1,6 +1,23 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
+const optionSchema = new mongoose.Schema({
+    option: {
+      type: String,
+      required: true,
+    },
+});
+  
+const featureSchema = new mongoose.Schema({
+    title: {
+      type: String,
+      required: true,
+    },
+    option: {
+        type: String,
+        required:true
+    },
+  });
 
 const cartScheme = new Schema({
     product: {
@@ -25,8 +42,7 @@ const cartScheme = new Schema({
         type: String,
         default:false
     },
-    size: { type : Schema.Types.Mixed},
-    color: { type : Schema.Types.Mixed},
+    features: [featureSchema]
 })
 
 // We have used id instead of _id in frontend so create virtual

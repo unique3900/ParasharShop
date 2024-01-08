@@ -18,7 +18,7 @@ exports.fetchUserCart = async (req, res) => {
 exports.addToCartController = async (req, res) => {
     const { id } = req.user;
     try {
-        const products = await Cart.create({product:req.body.productId, user: id,quantity:req.body.quantity,seller:req.body.seller,status:req.body.status });
+        const products = await Cart.create({product:req.body.productId, user: id,quantity:req.body.quantity,seller:req.body.seller,status:req.body.status,features:req.body.features });
         res.status(200).json({ success: true, message: "Added to Cart Successfully", products });
     } catch (error) {
         console.log(error)

@@ -21,116 +21,11 @@ import { getCartByUserEmail } from '../cart/cartAPI';
 import { selectLoggedInUserInfo } from '../user/userSlice';
 import { selectLoggedInUserToken } from '../Auth/authSlice';
 
-
-const products = {
-    name: 'Basic Tee 6-Pack',
-    price: '$192',
-    href: '#',
-    breadcrumbs: [
-        {
-            id: 1,
-            name: 'Men',
-            href: '#'
-        }, {
-            id: 2,
-            name: 'Clothing',
-            href: '#'
-        },
-    ],
-    images: [
-        {
-            src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg',
-            alt: 'Two each of gray, white, and black shirts laying flat.'
-        }, {
-            src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg',
-            alt: 'Model wearing plain black basic tee.'
-        }, {
-            src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg',
-            alt: 'Model wearing plain gray basic tee.'
-        }, {
-            src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-featured-product-shot.jpg',
-            alt: 'Model wearing plain white basic tee.'
-        },
-    ],
-    colors: [
-        {
-            name: 'White',
-            class: 'bg-white',
-            selectedClass: 'ring-gray-400'
-        }, {
-            name: 'Gray',
-            class: 'bg-gray-200',
-            selectedClass: 'ring-gray-400'
-        }, {
-            name: 'Black',
-            class: 'bg-gray-900',
-            selectedClass: 'ring-gray-900'
-        },
-    ],
-
-    description: 'The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: "Black". Need to add an extra pop of color to your outfit? Our white tee has you covered.',
-    highlights: [
-        'Hand cut and sewn locally', 'Dyed with our proprietary colors', 'Pre-washed & pre-shrunk', 'Ultra-soft 100% cotton',
-    ],
-    details: 'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.'
-}
-
-const colors= [
-    {
-        name: 'White',
-        class: 'bg-white',
-        selectedClass: 'ring-gray-400'
-    }, {
-        name: 'Gray',
-        class: 'bg-gray-200',
-        selectedClass: 'ring-gray-400'
-    }, {
-        name: 'Black',
-        class: 'bg-gray-900',
-        selectedClass: 'ring-gray-900'
-    },
-]
-const reviews = {
-    href: '#',
-    average: 4,
-    totalCount: 117
-}
 const  highlights= [
     'Hand cut and sewn locally',
     'Dyed with our proprietary colors',
     'Pre-washed & pre-shrunk',
     'Ultra-soft 100% cotton',
-]
-  
-const sizes= [
-    {
-        name: 'XXS',
-        inStock: false
-    },
-    {
-        name: 'XS',
-        inStock: true
-    },
-    {
-        name: 'S',
-        inStock: true
-    },
-    {
-        name: 'M',
-        inStock: true
-    }, {
-        name: 'L',
-        inStock: true
-    }, {
-        name: 'XL',
-        inStock: true
-    }, {
-        name: '2XL',
-        inStock: true
-    }, {
-        name: '3XL',
-        inStock: true
-    },
 ]
 
 function classNames(...classes) {
@@ -140,14 +35,16 @@ function classNames(...classes) {
 const SingleProductPage = () => {
     const [selectedColor, setSelectedColor] = useState();
     const [selectedSize, setSelectedSize] = useState();
+
     const params = useParams();
     const dispatch = useDispatch();
     const product = useSelector(selectProductById);
     const userToken = useSelector(selectLoggedInUserToken);
-    const loggedInUser=useSelector(selectLoggedInUserInfo)
-    const cart = useSelector(selectcartItems);
-    
+    const loggedInUser = useSelector(selectLoggedInUserInfo)
+    const [feature1, setFeature1] = useState({title:'',option:''});
+    const [feature2, setFeature2] = useState({title:'',option:''});
 
+    const cart = useSelector(selectcartItems);
 
     const handleCart = async(e) => {
         e.preventDefault();
@@ -160,8 +57,11 @@ const SingleProductPage = () => {
             if (isProductInCart) {
                 toast.success("This product is already in cart")
             }
+            if (!feature1.title || !feature2.title) {
+                toast.error("Please Select Product Features")
+            }
             else {
-                const newCartItem = { ...product,productId:product.id, quantity: 1, status:'Pending',seller:product.seller};
+                const newCartItem = { ...product,productId:product.id, quantity: 1, status:'Pending',seller:product.seller,features:[feature1,feature2]};
                 //Fix for duplicate id in the cart
                 // delete newCartItem['id'];
             await dispatch(addToCartAsync(newCartItem))
@@ -310,112 +210,51 @@ const SingleProductPage = () => {
                            
                         </div>
                     </div>
+                            {/* Features Selection */}
+                            <form className='mt-10 flex flex-col gap-4' onSubmit={(e)=>e.preventDefault()}>
+                                {/* 1. Feature 1 */}
+                                <div className="w-full border-2 rounded-md border-black/30  px-3 py-2">
+                                    <h3 className="capitalize">{product.features[0].title}</h3>
+                                    <div className="mt-5 flex flex-wrap whitespace-nowrap gap-2 items-center">
 
-                    <form className="mt-10">
-                        {/* Colors */}
-                        <div>
-                            <h3 className="text-sm font-medium text-gray-900">Color</h3>
+                                        {product.features[0].options.map((item, index) => (
+                                            <button key={index}  className={`border-2 border-slate-500 capitalize cursor-pointer px-3 py-4 w-32 hover:bg-violet-600 hover:text-white duration-200 ${feature1.option==item?'bg-violet-600 text-white':'bg-transparent text-black'}`} value={item}  onClick={(e)=>{
+                                                setFeature1({title:product.features[0].title,option:e.target.value})
+                                            }}>{item}</button>
+                                        
+                                        ))}
+                                    </div>
+                                    
+                                </div>
 
-                            <RadioGroup value={selectedColor}
-                                onChange={setSelectedColor}
-                                className="mt-4">
-                                <RadioGroup.Label className="sr-only">Choose a color</RadioGroup.Label>
-                                <div className="flex items-center space-x-3">
-                                    {
-                                    colors.map((color) => (
-                                        <RadioGroup.Option key={
-                                                color.name
-                                            }
-                                            value={color}
-                                            className={
-                                                ({
-                                                    active,
-                                                    checked
-                                                }) => classNames(color.selectedClass, active && checked ? 'ring ring-offset-1' : '', !active && checked ? 'ring-2' : '', 'relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none')
-                                        }>
-                                            <RadioGroup.Label as="span" className="sr-only">
-                                                {
-                                                color.name
-                                            } </RadioGroup.Label>
-                                            <span aria-hidden="true"
-                                                className={
-                                                    classNames(color.class, 'h-8 w-8 rounded-full border border-black border-opacity-10')
-                                                }/>
-                                        </RadioGroup.Option>
-                                    ))
-                                } </div>
-                            </RadioGroup>
-                        </div>
+                                {/* 1. Feature 2 */}
+                                <div className="w-full border-2 rounded-md border-black/30 px-3 py-2">
+                                    <h3 className="capitalize">{product.features[1].title}</h3>
+                                    <div className="mt-5 flex flex-wrap whitespace-nowrap gap-2 items-center">
 
-                        {/* Sizes */}
-                        <div className="mt-10">
-                            <div className="flex items-center justify-between">
-                                <h3 className="text-sm font-medium text-gray-900">Size</h3>
-                            </div>
+                                        {product.features[1].options.map((item, index) => (
+                                            <button key={index} className={`border-2 border-slate-500 cursor-pointer px-3 py-4 w-32 hover:bg-violet-600 hover:text-white duration-200 capitalize ${feature2.option===item?'bg-violet-600 text-white':'bg-transparent text-black'}`} value={item} onClick={(e)=>{
+                                                setFeature2({title:product.features[1].title,option:e.target.value})
+                                            }}>{item}</button>
+                                        
+                                        ))}
+                                    </div>
+                                    
+                                </div>
 
-                            <RadioGroup value={selectedSize} onChange={setSelectedSize} className="mt-4">
-                  <RadioGroup.Label className="sr-only">Choose a size</RadioGroup.Label>
-                  <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-                    {sizes.map ((size) => (
-                      <RadioGroup.Option
-                        key={size.name}
-                        value={size}
-                        disabled={!size.inStock}
-                        className={({ active }) =>
-                          classNames(
-                            size.inStock
-                              ? 'cursor-pointer bg-white text-gray-900 shadow-sm'
-                              : 'cursor-not-allowed bg-gray-50 text-gray-200',
-                            active ? 'ring-2 ring-indigo-500' : '',
-                            'group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6'
-                          )
-                        }
-                      >
-                        {({ active, checked }) => (
-                          <>
-                            <RadioGroup.Label as="span">{size.name}</RadioGroup.Label>
-                            {size.inStock ? (
-                              <span
-                                className={classNames(
-                                  active ? 'border' : 'border-2',
-                                  checked ? 'border-indigo-500' : 'border-transparent',
-                                  'pointer-events-none absolute -inset-px rounded-md'
-                                )}
-                                aria-hidden="true"
-                              />
-                            ) : (
-                              <span
-                                aria-hidden="true"
-                                className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200"
-                              >
-                                <svg
-                                  className="absolute inset-0 h-full w-full stroke-2 text-gray-200"
-                                  viewBox="0 0 100 100"
-                                  preserveAspectRatio="none"
-                                  stroke="currentColor"
-                                >
-                                  <line x1={0} y1={100} x2={100} y2={0} vectorEffect="non-scaling-stroke" />
-                                </svg>
-                              </span>
-                            )}
-                          </>
-                        )}
-                      </RadioGroup.Option>
-                    ))}
-                  </div>
-                </RadioGroup>
-                        </div>
-
-                                {
-                                    product.stock > 0 ?
-                                    <button onClick={(e) => {
+                                <button onClick={(e) => {
                                         handleCart(e);
                             }} type="submit" className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                                 Add to Cart
-                            </button>:<p className='text-red-600 font-bold text-center text-2xl p-3'>Out Of Stock</p>
-                                }
-                               
+                            </button>
+                                
+                                
                     </form>
+                            
+
+
+
+
                 </div>
 
                 <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
