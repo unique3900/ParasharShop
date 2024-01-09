@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const express = require('express');
-
-const passport = require('passport');
-const { createNewWishList, deleteWishList } = require('../controllers/WishlistController');
+const { createNewWishList, deleteWishList, resetWishlistController } = require('../controllers/WishlistController');
 
 const router = express.Router();
+const passport = require('passport');
 
-router.post('/', passport.authenticate('jwt'), createNewWishList).delete('/:id', deleteWishList);
+
+router.get('/').post('/', passport.authenticate('jwt'), createNewWishList).post('/reset',resetWishlistController).delete('/:id', deleteWishList);
+exports.router = router;

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {  getCartByEmailAsync, selectcartItems } from '../cart/cartSlice';
 import { selectLoggedInUserInfo } from '../user/userSlice';
 import { selectLoggedInUserToken } from '../Auth/authSlice';
+import { fetchUserWishlistAsync } from '../WishList/wishlistSlice';
 
 const NavBar = () => {
   const [navState, setnavState] = useState(false);
@@ -18,7 +19,8 @@ const NavBar = () => {
   const userToken = useSelector(selectLoggedInUserToken);
   
 useEffect(() => {
-  dispatch(getCartByEmailAsync())
+  dispatch(getCartByEmailAsync());
+  dispatch(fetchUserWishlistAsync());
 }, [dispatch,user])
 
 

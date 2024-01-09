@@ -36,7 +36,9 @@ import ProductForm from './Components/Pages/Seller/ProductForm'
 import EditProduct from './Components/Pages/Seller/EditProduct'
 import AdminOrder from './features/order/AdminOrder'
 import { selectLoggedInUserToken } from './features/Auth/authSlice'
-import WishList from './Components/Pages/WishList'
+import WishList from './features/WishList/Components/WishList'
+import { fetchUserWishlistAsync } from './features/WishList/wishlistSlice'
+
 
 
 axios.defaults.baseURL = 'http://127.0.0.1:8080';
@@ -46,13 +48,17 @@ const App = () => {
   const dispatch = useDispatch(); 
   const user = useSelector(selectLoggedInUserInfo);
   const userToken = useSelector(selectLoggedInUserToken);
-  dispatch(getCartByEmailAsync())
+
+
+
   useEffect(() => {
     if (!userToken) {
       toast.success("Logged in As Guest")
       return
     }
-    dispatch(fetchLoggedInUserInfoAsync())
+    dispatch(fetchLoggedInUserInfoAsync());
+    dispatch(getCartByEmailAsync());
+    dispatch(fetchUserWishlistAsync());
   }, [])
   
 

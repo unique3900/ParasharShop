@@ -23,6 +23,8 @@ const sellerRouter = require("./routes/sellerRoute");
 const orderRouter = require("./routes/orderRoutes");
 const uploadRouter = require("./Image/uploadRoute");
 const recommendRouter = require("./routes/recommendRoute");
+const wishlistRouter = require("./routes/wishListRoute");
+
 const morgan = require("morgan");
 const multer = require("multer");
 const fs = require("fs");
@@ -92,7 +94,7 @@ server.use("/user", userRouter.router);
 server.use("/orders", orderRouter.router);
 server.use("/upload", uploadRouter.router);
 server.use("/recommend", recommendRouter.router);
-server.use("/wishlist", recommendRouter.router);
+server.use("/wishlist", wishlistRouter.router);
 
 // Passport JS Local Strategy Setup
 

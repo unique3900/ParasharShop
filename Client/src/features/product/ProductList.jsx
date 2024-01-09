@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useTransition } from 'react'
 
 import { BiCartAdd } from 'react-icons/bi';
 import { AiOutlineHeart } from 'react-icons/ai';
+import { GoHeartFill } from "react-icons/go";
 
 import toast, { Toaster } from 'react-hot-toast';
 import { Fragment } from 'react'
@@ -13,8 +14,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllProductsAsync, fetchBrandsAsync, fetchCategoryAsync, fetchProductBySellerIdAsync, fetchProductsByFilterAsync, selectAllBrands, selectAllCategories, selectAllProducts } from './productListSlice';
 import {  sortOptions } from '../../Data/data';
 import { Link } from 'react-router-dom';
-import { selectLoggedInSeller } from '../Auth/authSlice';
+import { selectLoggedInSeller, selectLoggedInUserToken } from '../Auth/authSlice';
 import { selectLoggedInUserInfo } from '../user/userSlice';
+import { addToWishlistAsync, selectUserWishList } from '../WishList/wishlistSlice';
 
 
 function classNames(...classes) {
@@ -33,6 +35,8 @@ export const ProductList = () => {
   const brands = useSelector(selectAllBrands);
   const categories = useSelector(selectAllCategories);
   const products = useSelector(selectAllProducts);
+  const wishlist = useSelector(selectUserWishList);
+  const userToken = useSelector(selectLoggedInUserToken);
 
 
 
@@ -57,6 +61,20 @@ export const ProductList = () => {
     setPage(1);
   }
 
+  const handleAddToWishlist = (id) => {
+    console.log(wishlist)
+    const isIteminWishlist = wishlist.some((item,index) => item.product.id === id);
+    if (!userToken) {
+      toast.error("Login to Proceed");
+      return
+    }
+    if (isIteminWishlist){
+      toast.success("Product Already in Wishlist");
+      return;
+    }
+
+    dispatch(addToWishlistAsync(id));
+  }
 
   const handleSort = (e, option) => {
     const userSort={ _sort: option.sort,_order:option.order }
@@ -85,9 +103,10 @@ export const ProductList = () => {
     if (loggedInSeller) {
       dispatch(fetchProductBySellerIdAsync(loggedInSeller.id))
     }
+
     dispatch(fetchBrandsAsync());
     dispatch(fetchCategoryAsync());
-  }, []);
+  }, [wishlist]);
 
   return (
     <div className=''>
@@ -175,7 +194,7 @@ export const ProductList = () => {
                 <Toaster />
         <h3 id='latestProduct' className="text-4xl font-bold text-center">Latest Products</h3>
 
-                  <ProductGrid products={products} page={page} filters={filters} />
+                  <ProductGrid products={products} page={page} filters={filters} wishlist={wishlist} handleAddToWishlist={handleAddToWishlist} />
           <Pagination page={Math.ceil(page) } setPage={setPage} totalPage={Math.floor(products?.length)} />
                 
                 
@@ -285,7 +304,7 @@ function MobileFilter({mobileFiltersOpen,Fragment,setMobileFiltersOpen,handleFil
   )
 }
 
-function ProductGrid({products,page,filters}) {
+function ProductGrid({products,page,filters,wishlist,handleAddToWishlist}) {
   return (
     <div className="grid grid-cols-2 justify-center lg:grid-cols-3 gap-3">
     {
@@ -293,10 +312,18 @@ function ProductGrid({products,page,filters}) {
           <div key={index} className="relative flex flex-col gap-2 lg:items-stretch  justify-between px-3 py-4 lg:w-72 shadow-lg">
           <Link to={`/products/${item.id}`} className="flex items-center justify-center">
               <img className='object-cover place-content-center h-56 max-h-60' src={`http://localhost:8080/uploads/${ item.thumbnail}`} alt={ item.thumbnail} />
-                </Link>
-                <AiOutlineHeart className='absolute top-0 right-1 fill-red-600 cursor-pointer w-8 h-8 text-red-500' onClick={()=>{
-                  toast.success( `${item.title?.slice(0,20)+'...'} Added to Wishlist` )
-                }}/>
+            </Link>
+            {
+              !wishlist.includes((items) => items.product.id === item.id) ? (
+                <AiOutlineHeart className='absolute top-0 right-1  fill-red-600 cursor-pointer w-8 h-8 text-red-500' onClick={()=>{
+                  handleAddToWishlist(item.id)
+            }} />
+              ) : (
+               <GoHeartFill className='absolute top-0 right-1  fill-red-600 cursor-pointer w-8 h-8 text-red-500'/> 
+              )
+            }
+
+            
           <div className="">
                     <h2 className=" text-xl text-purple-700 ">{item.title }</h2>
             </div>

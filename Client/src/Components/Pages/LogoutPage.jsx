@@ -7,6 +7,7 @@ import { logoutUserAsync, selectLoggedInUserInfo } from '../../features/user/use
 import { removeTokenAsync } from '../../features/Auth/authSlice';
 import { resetAddressAsync } from '../../features/Addresses/addressSlice';
 import { resetSellerOrderAsync } from '../../features/order/orderSlice';
+import { resetWishListAsync } from '../../features/WishList/wishlistSlice';
 
 const LogoutPage = () => {
     const user = useSelector(selectLoggedInUserInfo);
@@ -18,7 +19,8 @@ const LogoutPage = () => {
       dispatch(resetCartAsync());
       dispatch(removeTokenAsync());
       dispatch(resetAddressAsync());
-      dispatch(resetSellerOrderAsync())
+      dispatch(resetSellerOrderAsync());
+      dispatch(resetWishListAsync());
         toast(<p className="flex items-center justify-center gap-2"> <img className='max-h-4' src='/img/success.png'></img> Logged Out of System</p>);
         navigate('/login');
       }, [dispatch])
