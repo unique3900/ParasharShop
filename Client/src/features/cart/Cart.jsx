@@ -32,6 +32,7 @@ export default function Cart() {
     const [open, setOpen] = useState(true);
    
     const items = useSelector(selectcartItems);
+    console.log(items)
     const user = useSelector(selectLoggedInUserInfo);
     const userToken=useSelector(selectLoggedInUserToken);
     const dispatch = useDispatch();
@@ -131,6 +132,14 @@ export default function Cart() {
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
                                                 </select>
+                                               </div>
+                                               <div className="flex gap-2 items-center">
+                                                   {
+                                                       data.features.map((item, index) => (
+                                                           <p className="text-sm capitalize" key={index}><span className='font-bold'>{item.title}: </span>{item.option}</p>
+                                                       ))
+                                                   }
+                                                   
                                             </div>
 
 

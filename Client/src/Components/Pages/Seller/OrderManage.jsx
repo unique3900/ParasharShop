@@ -92,6 +92,13 @@ const OrderManage = () => {
                                       {data.product.title}
                                       (Quantity: {data.quantity})
                                     </span>
+                                    {data.features.map((item, index) => (
+                                      <p key={index} className="text-sm text-black capitalize">
+                                        <span className="font-bold">{item.title}: </span>
+                                      {item.option}
+                                    </p>
+                                    ))}
+                                    
                                   </div>
                                 ) : (
                                   <></>

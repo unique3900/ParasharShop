@@ -10,15 +10,16 @@ import {
   updateCartAsync,
 } from "../../features/cart/cartSlice";
 import { citiesData } from "../../Data/data";
-import {
-  updateUserAsync,
-} from "../../features/Auth/authSlice";
+import { updateUserAsync } from "../../features/Auth/authSlice";
 import { newOrder } from "../../features/order/orderApi";
 import {
   newOrderAsync,
   selectCurrentOrder,
 } from "../../features/order/orderSlice";
-import { selectLoggedInUserInfo, selectLoggedInUserOrders } from "../../features/user/userSlice";
+import {
+  selectLoggedInUserInfo,
+  selectLoggedInUserOrders,
+} from "../../features/user/userSlice";
 import { discountedPrice } from "../../app/constants";
 import {
   addUserAddressAsync,
@@ -89,15 +90,11 @@ const CheckoutPage = () => {
   // }, 0);
 
   const totalAmount = items.reduce((accumulator, object) => {
-    return (
-      accumulator +
-      discountedPrice(object.product) * object.quantity
-    );
-  }, 0)
+    return accumulator + discountedPrice(object.product) * object.quantity;
+  }, 0);
 
   const handleRemove = async (id) => {
     await dispatch(removeFromCartAsync(id));
-    
   };
 
   const handleQuantityChange = async (e, value, id) => {
@@ -112,11 +109,11 @@ const CheckoutPage = () => {
     // await dispatch(getCartByEmailAsync(user.id));
   };
 
-  const handleDeliveryAddress = async(index) => {
-   await setSelectedDeliveryAddress(addresses[index]);
+  const handleDeliveryAddress = async (index) => {
+    await setSelectedDeliveryAddress(addresses[index]);
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     if (
       !fullName ||
       !email ||
@@ -142,6 +139,7 @@ const CheckoutPage = () => {
         message,
       };
 
+      console.log(data)
       await dispatch(addUserAddressAsync(data));
       setEmail("");
       setFullName("");
@@ -183,9 +181,9 @@ const CheckoutPage = () => {
   // }
 
   //For Placing Order
-  const handleOrder =async (e) => {
+  const handleOrder = async (e) => {
     e.preventDefault();
-  
+
     if (!selectedDeliveryAddress || !selectedPaymentMethod) {
       alert("Please Select All Required Fields");
     } else {
@@ -199,7 +197,7 @@ const CheckoutPage = () => {
         totalAmount,
       };
       await dispatch(newOrderAsync(order));
-      navigate(`/order-success/${currentOrder.length}`)
+      navigate(`/order-success/${currentOrder.length}`);
     }
   };
 
@@ -216,7 +214,6 @@ const CheckoutPage = () => {
     <>
       {" "}
       {!items.length || (!user && <Navigate to={"/"}></Navigate>)}
-
       <div className="h-screen w-full flex flex-col ">
         <h1 className="text-5xl font-bold p-3 text-center">Checkout</h1>
         <div className="flex flex-col gap-3">
@@ -456,20 +453,22 @@ const CheckoutPage = () => {
                           <li key={index} className="flex py-6">
                             <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                               <img
-                                src={ `http://localhost:8080/uploads/${data.product.thumbnail}`}
+                                src={`http://localhost:8080/uploads/${data.product.thumbnail}`}
                                 alt={data.product.title}
                                 className="h-full w-full object-cover object-center"
                               />
+
                             </div>
 
                             <div className="ml-4 flex flex-1 flex-col">
                               <div>
-                                <div className="flex justify-between text-base font-medium text-gray-900">
+                                <div className="w-full  flex justify-center gap-4 text-base font-medium text-gray-900">
                                   <h3>
                                     <a href={data.product.id}>
                                       {data.product.title}
                                     </a>
                                   </h3>
+                                  
                                   <p className="ml-4">
                                     NPR &nbsp;{" "}
                                     {discountedPrice(data.product) *
@@ -480,9 +479,20 @@ const CheckoutPage = () => {
                                   {data.product.color}
                                 </p>
                               </div>
-                              <div className="flex flex-1 items-end justify-between text-sm">
-                                <div className="flex items-center gap-2">
-                                  <p className="text-gray-500">Qty</p>
+                              <div className="flex flex-1 mt-4 gap-4 text-sm">
+                              <div className="flex justify-center  gap-2 items-center">
+                                    {data.features.map((option, ind) => (
+                                                                <p className="capitalize z-10 text-sm">
+                                                                <span className="font-bold">{option.title}: </span>
+                                                                {option.option}
+                                                              </p>
+                                    ))}
+
+                      </div>
+                              </div>
+                              <div className="flex flex-1 mt-4 gap-4 items-end justify-between text-sm">
+                                <div className="flex items-center">
+                                  <p className="text-gray-500 mr-2">Qty</p>
                                   <select
                                     name=""
                                     onChange={(e) => {
@@ -520,15 +530,12 @@ const CheckoutPage = () => {
                       </ul>
                     </div>
                   </div>
-                                    
 
                   <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                     <div className="flex justify-between text-base font-medium text-gray-900">
                       <p>Subtotal</p>
-                      <p>
-                        Npr &nbsp;{" "}
-                        {totalAmount}
-                      </p>
+                      <p>Npr &nbsp; {totalAmount}</p>
+
                     </div>
                     <p className="mt-0.5 text-sm text-gray-500">
                       Terms and Conditons Applied

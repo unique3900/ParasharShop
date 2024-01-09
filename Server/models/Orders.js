@@ -43,8 +43,7 @@ const orderSchema = new Schema({
   totalAmount: {
     type: Number,
     default: 0,
-  },
-  features: [featureSchema]
+  }
 },{timestamps:true});
 
 // We have used id instead of _id in frontend so create virtual

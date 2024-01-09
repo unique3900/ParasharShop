@@ -30,17 +30,17 @@ const UserOrders = () => {
         <div className="mt-8 p-10">
           <div className="flow-root">
             <ul role="list" className="-my-6 divide-y divide-gray-200">
-              {orders.map((orders, index) => (
+              {orders.map((data, index) => (
                 <div key={index}>
                   <div className="flex flex-row items-center justify-between">
                     <p className="p-5 text-3xl font-bold text-purple-700 ">
                       Order id: #{index}
                     </p>
                     <p className="p-5 text-lg font-bold text-gray-600-700 underline">
-                     Order Placed: {orders.createdAt.slice(0,10)}
+                     Order Placed: {data.createdAt.slice(0,10)}
                     </p>
                   </div>
-                  {orders.products.map((orderItems, i) => (
+                  {data.products.map((orderItems, i) => (
                     <li key={i} className="flex py-6">
                       <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                         <img
@@ -58,6 +58,13 @@ const UserOrders = () => {
                             <h3>
                               <p> {orderItems?.product?.title}</p>
                             </h3>
+                            <h5>
+                              {orderItems.features.map((item, index) => (
+                                
+                                <p className="text-sm capitalize" key={index}><span className="font-bold">{item.title}: </span>{item.option} {console.log(item)}</p>
+                              ))}
+                              
+                            </h5>
 
 
                             <div className="flex flex-col text-start gap-2">
@@ -82,7 +89,7 @@ const UserOrders = () => {
                                 Status &nbsp; {orderItems.status}
                               </p>
                               <p className="ml-4 text-start">
-                                Payment Method : {orders?.selectedPaymentMethod}
+                                Payment Method : {data?.selectedPaymentMethod}
                               </p>
                             </div>
                           </div>
@@ -99,16 +106,16 @@ const UserOrders = () => {
                             </p>
                             <p className="text-gray-500">
                               Address:
-                              {orders?.selectedDeliveryAddress?.selectedState +" " +
-                                orders?.selectedDeliveryAddress?.selectedCity +" " +
-                                orders?.selectedDeliveryAddress
+                              {data?.selectedDeliveryAddress?.selectedState +" " +
+                                data?.selectedDeliveryAddress?.selectedCity +" " +
+                                data?.selectedDeliveryAddress
                                   ?.selectedLocation +" " +
-                                orders?.selectedDeliveryAddress?.street}
+                                  data?.selectedDeliveryAddress?.street}
                             </p>
                             <p className="text-gray-500">
                               Receiver:{" "}
-                              {orders?.selectedDeliveryAddress?.fullName}(
-                              {orders?.selectedDeliveryAddress?.phone})
+                              {data?.selectedDeliveryAddress?.fullName}(
+                              {data?.selectedDeliveryAddress?.phone})
                             </p>
                           </div>
                         </div>

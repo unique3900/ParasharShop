@@ -55,7 +55,8 @@ const SingleProductPage = () => {
             const isProductInCart = cart.some((item,index) => item.product.id === product.id);
             console.log(isProductInCart,cart,product.id)
             if (isProductInCart) {
-                toast.success("This product is already in cart")
+                toast.success("This product is already in cart");
+                return
             }
             if (!feature1.title || !feature2.title) {
                 toast.error("Please Select Product Features")
@@ -211,11 +212,11 @@ const SingleProductPage = () => {
                         </div>
                     </div>
                             {/* Features Selection */}
-                            <form className='mt-10 flex flex-col gap-4' onSubmit={(e)=>e.preventDefault()}>
+                            <form className='mt-10 flex flex-col items-center justify-center gap-4' onSubmit={(e)=>e.preventDefault()}>
                                 {/* 1. Feature 1 */}
                                 <div className="w-full border-2 rounded-md border-black/30  px-3 py-2">
                                     <h3 className="capitalize">{product.features[0].title}</h3>
-                                    <div className="mt-5 flex flex-wrap whitespace-nowrap gap-2 items-center">
+                                    <div className="mt-5 flex flex-wrap whitespace-nowrap justify-center gap-2 items-center">
 
                                         {product.features[0].options.map((item, index) => (
                                             <button key={index}  className={`border-2 border-slate-500 capitalize cursor-pointer px-3 py-4 w-32 hover:bg-violet-600 hover:text-white duration-200 ${feature1.option==item?'bg-violet-600 text-white':'bg-transparent text-black'}`} value={item}  onClick={(e)=>{
@@ -230,7 +231,7 @@ const SingleProductPage = () => {
                                 {/* 1. Feature 2 */}
                                 <div className="w-full border-2 rounded-md border-black/30 px-3 py-2">
                                     <h3 className="capitalize">{product.features[1].title}</h3>
-                                    <div className="mt-5 flex flex-wrap whitespace-nowrap gap-2 items-center">
+                                    <div className="mt-5 flex flex-wrap whitespace-nowrap justify-center gap-2 items-center">
 
                                         {product.features[1].options.map((item, index) => (
                                             <button key={index} className={`border-2 border-slate-500 cursor-pointer px-3 py-4 w-32 hover:bg-violet-600 hover:text-white duration-200 capitalize ${feature2.option===item?'bg-violet-600 text-white':'bg-transparent text-black'}`} value={item} onClick={(e)=>{
