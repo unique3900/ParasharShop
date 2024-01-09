@@ -36,6 +36,7 @@ import ProductForm from './Components/Pages/Seller/ProductForm'
 import EditProduct from './Components/Pages/Seller/EditProduct'
 import AdminOrder from './features/order/AdminOrder'
 import { selectLoggedInUserToken } from './features/Auth/authSlice'
+import WishList from './Components/Pages/WishList'
 
 
 axios.defaults.baseURL = 'http://127.0.0.1:8080';
@@ -90,7 +91,9 @@ axios.defaults.withCredentials = true;
         <Route path='/my-orders' element={<Protected><UserOrders /></Protected>} />
         <Route path='/sellerOptions/seller-Dashboard/manage-orders' element={<ProtectedSeller><AdminOrder/></ProtectedSeller>} />
 
-        <Route path='/my-profile' element={<UserInfo/>} />
+        <Route path='/my-profile' element={<UserInfo />} />
+        <Route path='/wishlist' element={<Protected><WishList /></Protected> } />
+        
         <Route path='*' element={<Error404NotFound></Error404NotFound>} />
       </Routes>
     </div>

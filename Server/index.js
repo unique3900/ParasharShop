@@ -92,6 +92,7 @@ server.use("/user", userRouter.router);
 server.use("/orders", orderRouter.router);
 server.use("/upload", uploadRouter.router);
 server.use("/recommend", recommendRouter.router);
+server.use("/wishlist", recommendRouter.router);
 
 // Passport JS Local Strategy Setup
 

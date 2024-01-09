@@ -222,10 +222,8 @@ const SingleProductPage = () => {
                                             <button key={index}  className={`border-2 border-slate-500 capitalize cursor-pointer px-3 py-4 w-32 hover:bg-violet-600 hover:text-white duration-200 ${feature1.option==item?'bg-violet-600 text-white':'bg-transparent text-black'}`} value={item}  onClick={(e)=>{
                                                 setFeature1({title:product.features[0].title,option:e.target.value})
                                             }}>{item}</button>
-                                        
                                         ))}
                                     </div>
-                                    
                                 </div>
 
                                 {/* 1. Feature 2 */}
