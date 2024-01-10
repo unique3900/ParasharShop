@@ -37,11 +37,6 @@ const productSchema = new Schema({
         min: [1, "Discount Percentage Should be More than 1"],
         max: [100, "Discount Percentage Should be Less than 100"]
     },
-    stock: {
-        type: Number,
-        min: [1, "Discount Percentage Should be More than 1"],
-        required:true
-    },
     rating: {
         type: Number,
         default:0
@@ -78,6 +73,10 @@ const productSchema = new Schema({
         type: mongoose.ObjectId,
         ref: "Seller",
         required:true
+    },
+    highlights: {
+        type: [String],
+        required:true,
     },
     features: [featureSchema],
 },{timestamps:true})

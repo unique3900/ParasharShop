@@ -133,7 +133,8 @@ exports.fetchSellerProducts = async (req, res) => {
 exports.deleteProducts = async (req, res) => {
   try {
     const { id } = req.params;
-    const products = await Product.findByIdAndDelete(id, { new: true });
+    const deleteOp = await Product.findByIdAndDelete(id, { new: true });
+    const products = await Product.find({ seller: req.body.seller });
     res
       .status(200)
       .json({

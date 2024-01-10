@@ -2,7 +2,6 @@ import React, {
     useEffect,
     useState
 } from 'react'
-
 import {
     BiCartAdd
 } from 'react-icons/bi';
@@ -54,7 +53,8 @@ import {
 } from '../../../features/product/productListSlice';
 
 import {
-    Link
+  Link,
+  useNavigate
 } from 'react-router-dom';
 import Pagination from '../../Layout/Pagination';
 import {
@@ -79,7 +79,8 @@ const ProductPage = () => {
   const seller=useSelector(selectLoggedInSeller)
     const brands = useSelector(selectAllBrands);
     const categories = useSelector(selectAllCategories);
-    const products = useSelector(sellerProducts);
+  const products = useSelector(sellerProducts);
+  const navigate = useNavigate();
     const handleFilters = (e, option, section) => {
         const userFilter = {
             ...filter
@@ -125,18 +126,19 @@ const ProductPage = () => {
 
     const handleDeleteProduct = async(id) => {
       await dispatch(deleteProductAsync(id))
-      await dispatch(fetchProductBySellerId(seller.id))
+      await dispatch(fetchProductBySellerId(seller.id));
+
     }
 
-  useEffect(() => {
-    dispatch(fetchProductBySellerIdAsync(seller.id));
-        dispatch(fetchProductsByFilterAsync({
-            filter,
-            sort
-        }))
-        dispatch(fetchBrandsAsync());
-        dispatch(fetchCategoryAsync());
-  }, [dispatch, filter, sort]);
+    useEffect(() => {
+      dispatch(fetchProductBySellerIdAsync(seller.id));
+          dispatch(fetchProductsByFilterAsync({
+              filter,
+              sort
+          }))
+          dispatch(fetchBrandsAsync());
+          dispatch(fetchCategoryAsync());
+    }, [dispatch, filter, sort]);
   
  
 
@@ -144,7 +146,8 @@ const ProductPage = () => {
 
     return (
         <div className=''>
-             <div className="bg-white">
+        <div className="bg-white">
+          <Toaster/>
           <div>
             {/* Mobile filter dialog */}
               <MobileFilter setMobileFiltersOpen={setMobileFiltersOpen} handleFilters={handleFilters} Fragment={Fragment} mobileFiltersOpen={mobileFiltersOpen}

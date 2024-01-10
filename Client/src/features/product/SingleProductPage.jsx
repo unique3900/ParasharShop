@@ -68,15 +68,14 @@ const SingleProductPage = () => {
             await dispatch(addToCartAsync(newCartItem))
             await dispatch(getCartByEmailAsync());
             }
-            
-            
         }
        
 
     }
     useEffect(() => {
         console.log(params.id,loggedInUser.id)
-        dispatch(fetchProductByIdAsync(params.id))
+        dispatch(fetchProductByIdAsync(params.id));
+        console.log(product.highlights)
     }, [dispatch])
     
     return (
@@ -275,25 +274,14 @@ const SingleProductPage = () => {
                         <div className="mt-4">
                             <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
                                 {
-                              highlights.map((highlight) => (
-                                    <li key={highlight}
+                              product?.highlights.map((highlight,index) => (
+                                    <li key={index}
                                         className="text-gray-400">
                                         <span className="text-gray-600">
                                             {highlight}</span>
                                     </li>
                                 ))
                             } </ul>
-                        </div>
-                    </div>
-
-                    <div className="mt-10">
-                        <h2 className="text-sm font-medium text-gray-900">Details</h2>
-
-                        <div className="mt-4 space-y-6">
-                            <p className="text-sm text-gray-600">
-                                {
-                                product.description
-                            }</p>
                         </div>
                     </div>
                 </div>

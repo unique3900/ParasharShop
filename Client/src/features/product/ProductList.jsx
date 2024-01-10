@@ -16,7 +16,7 @@ import {  sortOptions } from '../../Data/data';
 import { Link } from 'react-router-dom';
 import { selectLoggedInSeller, selectLoggedInUserToken } from '../Auth/authSlice';
 import { selectLoggedInUserInfo } from '../user/userSlice';
-import { addToWishlistAsync, selectUserWishList } from '../WishList/wishlistSlice';
+import { addToWishlistAsync, fetchUserWishlistAsync, selectUserWishList } from '../WishList/wishlistSlice';
 
 
 function classNames(...classes) {
@@ -106,6 +106,7 @@ export const ProductList = () => {
 
     dispatch(fetchBrandsAsync());
     dispatch(fetchCategoryAsync());
+    dispatch(fetchUserWishlistAsync())
   }, [wishlist]);
 
   return (
@@ -314,12 +315,11 @@ function ProductGrid({products,page,filters,wishlist,handleAddToWishlist}) {
               <img className='object-cover place-content-center h-56 max-h-60' src={`http://localhost:8080/uploads/${ item.thumbnail}`} alt={ item.thumbnail} />
             </Link>
             {
-              !wishlist.includes((items) => items.product.id === item.id) ? (
+            
+              wishlist.map((items,ind)=>{return items.product.id == item.id }) && (
                 <AiOutlineHeart className='absolute top-0 right-1  fill-red-600 cursor-pointer w-8 h-8 text-red-500' onClick={()=>{
                   handleAddToWishlist(item.id)
             }} />
-              ) : (
-               <GoHeartFill className='absolute top-0 right-1  fill-red-600 cursor-pointer w-8 h-8 text-red-500'/> 
               )
             }
 

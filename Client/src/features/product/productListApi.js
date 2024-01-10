@@ -1,5 +1,6 @@
 import axios from 'axios';
-
+import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 export function fetchAllProducts() {
     return axios.get('/products')    
@@ -42,8 +43,13 @@ export function updateProduct(data) {
     return axios.patch(`/products/${data.id}`, {...data})
 }
 export function deleteProduct(id) {
-    console.log("Received Delete Id", id);
-    return axios.delete(`/products/${id}`)
+    const navigate = useNavigate();
+    return axios.delete(`/products/${id}`).then((res) => {
+        toast.success("Product Deleted Successfully")
+        navigate("/sellerOptions/seller-Dashboard");
+    }).catch((err) => {
+        toast.error("Unable to Delete Product")
+    })
 }
 export function fetchProductBySellerId(id) {
     console.log("Received Seller Id", id);
