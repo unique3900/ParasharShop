@@ -30,7 +30,9 @@ exports.createNewWishList = async (req,res) => {
 exports.deleteWishList = async (req, res) => {
     try {
         const { id } = req.params;
-        const wishlist = await Wishlist.findByIdAndDelete(id, { new: true });
+        const { id: user } = req.user;
+        const deleteOp = await Wishlist.findByIdAndDelete(id).populate("user").populate("product");
+        const wishlist=await Wishlist.find({user}).populate("user").populate("product")
         res.status(200).json({ success: true, message: "Wishlist Deleted Successfully", wishlist });
     } catch (error) {
         res.status(400).json({ success: false, message: "Unexpected Error Occured When Deleting Wishlist" });

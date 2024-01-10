@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {  getCartByEmailAsync, selectcartItems } from '../cart/cartSlice';
 import { selectLoggedInUserInfo } from '../user/userSlice';
 import { selectLoggedInUserToken } from '../Auth/authSlice';
-import { fetchUserWishlistAsync } from '../WishList/wishlistSlice';
+import { fetchUserWishlistAsync, selectUserWishList } from '../WishList/wishlistSlice';
 
 const NavBar = () => {
   const [navState, setnavState] = useState(false);
@@ -17,6 +17,7 @@ const NavBar = () => {
   const cartItems = useSelector(selectcartItems);
   const user = useSelector(selectLoggedInUserInfo);
   const userToken = useSelector(selectLoggedInUserToken);
+  const wishlist = useSelector(selectUserWishList);
   
 useEffect(() => {
   dispatch(getCartByEmailAsync());
@@ -53,7 +54,7 @@ useEffect(() => {
         </div>
         <div className="relative ">
                 <Link to={'/wishlist'}><AiOutlineHeart className=' cursor-pointer w-10 h-10 fill-red-600' /></Link>  
-                <p className= "absolute  bg-red-600 text-white rounded-[100%] px-2 top-0 -right-1">2</p>
+          {userToken && <p className="absolute  bg-red-600 text-white rounded-[100%] px-2 top-0 -right-1">{wishlist?.length }</p>}  
               </div>
 
           </div>

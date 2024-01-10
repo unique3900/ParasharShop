@@ -7,7 +7,7 @@ export const fetchUserWishlist =  () => {
     return axios.get('/wishlist');
 }
 export const deleteWishlist =  (id) => {
-    return axios.delete(`/wishlist/:${id}`);
+    return axios.delete(`/wishlist/${id}`);
 }
 export const resetWishlist = () => {
     return axios.post('/wishlist/reset');

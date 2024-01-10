@@ -25,9 +25,9 @@ export const fetchUserWishlistAsync = createAsyncThunk(
 export const deleteWishlistAsync = createAsyncThunk(
     'wishlist/deleteWishlist',
     async (id) => {
-        const response = await deleteWishlist(id);
-        
-        return response.data.wishlist;
+      const response = await deleteWishlist(id);
+      console.log(response.data.wishlist)
+       return response.data.wishlist;
     }
 )
 export const resetWishListAsync = createAsyncThunk(
