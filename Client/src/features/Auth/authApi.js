@@ -3,6 +3,24 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
+export function checkIfUser() {
+    const cookies = document.cookie.split(';');
+
+    console.log(cookies)
+  // Iterate over the cookies
+  for (const cookie of cookies) {
+    // Split each cookie into its name and value
+    const [cookieName, cookieValue] = cookie.trim().split('=');
+
+
+    // Check if the current cookie is the one with the specified name ('jwt')
+    if (cookieName === 'jwt') {
+      // Return the decoded value of the 'jwt' cookie
+      return {token:decodeURIComponent(cookieValue)} 
+    }
+  }
+    
+}
 
 export async function createUser(data) {
     console.log(data)

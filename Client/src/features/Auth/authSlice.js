@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { changePassword, checkUser, createUser, fetchSellerInfo, handleRemoveToken, loginUser, sellerLogin, sellerRegister, updateUser } from "./authApi";
+import { changePassword, checkIfUser, checkUser, createUser, fetchSellerInfo, handleRemoveToken, loginUser, sellerLogin, sellerRegister, updateUser } from "./authApi";
 
 const initialState = {
   loggedInUserToken: null,
@@ -7,7 +7,16 @@ const initialState = {
   status: "idle",
 };
 
+
 const resetAuth = () => initialState;
+
+export const checkIfUserAsync = createAsyncThunk(
+  'auth/check-if-user',
+  async () => {
+    const response =  checkIfUser();
+    return response.token;
+  }
+)
 
 export const createUserAsync = createAsyncThunk(
   "auth/register",
@@ -94,6 +103,13 @@ export const authSlice = createSlice({
  
   extraReducers: (builder) => {
     builder
+      .addCase(checkIfUserAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(checkIfUserAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.loggedInUserToken = action.payload;
+      })
       .addCase(createUserAsync.pending, (state) => {
         state.status = "loading";
       })

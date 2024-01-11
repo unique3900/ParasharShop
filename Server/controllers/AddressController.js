@@ -1,8 +1,9 @@
 const {Address}=require("../models/Address");
 
 exports.addUserAddressController = async (req, res) => {
+    const { id } = req.user;
     try {
-        const address = await Address.create(req.body);
+        const address = await Address.create({...req.body,user:id});
         res.status(200).json({success:true,message:"Address Saved Successfully",address})
     } catch (error) {
         console.log(error)

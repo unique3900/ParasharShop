@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams,Navigate } from 'react-router-dom';
 import { resetCartAsync } from '../../features/cart/cartSlice';
 import { resetOrder } from '../../features/order/orderSlice';
 import emailjs from '@emailjs/browser';

@@ -17,6 +17,7 @@ import {
     useNavigate
 } from 'react-router-dom';
 import {
+    checkIfUserAsync,
     checkUserAsync,
     loginUserAsync,
     selectLoggedInUserToken,
@@ -65,6 +66,7 @@ const Login = () => {
 
 
     useEffect(() => {
+        dispatch(checkIfUserAsync());
         dispatch(checkUserAsync);
 
     }, [])
