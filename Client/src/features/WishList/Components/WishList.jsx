@@ -5,10 +5,7 @@ import { Card, Typography } from "@material-tailwind/react";
 import { selectLoggedInUserToken } from '../../Auth/authSlice';
 import { deleteWishlistAsync, fetchUserWishlistAsync, selectUserWishList } from '../wishlistSlice';
 import { discountedPrice } from '../../../app/constants';
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { FaRegEye } from "react-icons/fa";
-import { Link } from 'react-router-dom';
-
+ 
 const TABLE_HEAD = ["S.N", "Item", "Product","Price", "Option"];
 
 const WishList = () => {
@@ -52,8 +49,8 @@ const WishList = () => {
                     </thead>
                     <tbody>
                       {wishlist?.map((item, index) => (
-                        <tr key={index} className="even:bg-indigo-600/10 ">
-                          <td className="p-4 flex items-center">
+                        <tr key={index} className="even:bg-indigo-600/10">
+                          <td className="p-4">
                             <Typography variant="small" color="blue-gray" className="font-normal">
                               {index+1}
                             </Typography>
@@ -68,16 +65,15 @@ const WishList = () => {
                             {item.product.title}
                             </Typography>
                           </td>
-                          <td className="p-4 ">
+                          <td className="p-4">
                             <Typography variant="small" color="blue-gray" className="font-bold text-lg">
                             <del className='text-red-600'>{item.product.price}</del> {discountedPrice(item.product)}
                             </Typography>
                           </td>
-                          <td className="p-4 flex justify-center items-center gap-2 h-24 ">
-                           <Link to={`/products/${item.product.id}`}><FaRegEye size={28} className='cursor-pointer text-green-600'/></Link>
-                           <RiDeleteBin6Line size={28 } className='cursor-pointer text-red-600' onClick={() => {
+                          <td className="p-4">
+                            <button className='px-3 py-2 rounded-md cursor-pointer bg-red-600 text-white' onClick={() => {
                               handleRemoveWishlist(item.id)
-                            }}/> 
+                            }}>Remove</button>
                           </td>
                         </tr>
                       ))}
