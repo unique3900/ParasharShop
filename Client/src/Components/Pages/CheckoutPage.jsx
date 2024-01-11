@@ -13,6 +13,7 @@ import { citiesData } from "../../Data/data";
 import { updateUserAsync } from "../../features/Auth/authSlice";
 import { newOrder } from "../../features/order/orderApi";
 import {
+  makeCardPaymentAsync,
   newOrderAsync,
   selectCurrentOrder,
 } from "../../features/order/orderSlice";
@@ -196,8 +197,16 @@ const CheckoutPage = () => {
         totalItems,
         totalAmount,
       };
-      await dispatch(newOrderAsync(order));
-      navigate(`/order-success/${currentOrder.length}`);
+      
+
+      if (selectedPaymentMethod == "cash") {
+        navigate(`/order-success/${currentOrder.length}`);
+        await dispatch(newOrderAsync(order));
+      } else if(selectedPaymentMethod == "card") {
+        navigate(`/card-payment`);
+        dispatch(makeCardPaymentAsync(order))
+      }
+      
     }
   };
 

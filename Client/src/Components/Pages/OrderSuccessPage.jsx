@@ -18,11 +18,12 @@ const OrderSuccessPage = () => {
         from_name:"Parashar Shop",
         message: "You Have Received a New Order, Visit your Dashboard to View Detail!"
     }
-    emailjs.send(import.meta.env.VITE_EMAIL_SERVICE_ID, import.meta.env.VITE_EMAIL_TEMPLATE, templatevariables,import.meta.env.VITE_EMAIL_PUBLIC_KEY).then(function (response) {
-        console.log("Success!",response.status, response.text)
-    }).catch(function (error) {
-        console.log('FAILED...', error);
-    })
+    
+    // emailjs.send(import.meta.env.VITE_EMAIL_SERVICE_ID, import.meta.env.VITE_EMAIL_TEMPLATE, templatevariables,import.meta.env.VITE_EMAIL_PUBLIC_KEY).then(function (response) {
+    //     console.log("Success!",response.status, response.text)
+    // }).catch(function (error) {
+    //     console.log('FAILED...', error);
+    // })
 
    
 

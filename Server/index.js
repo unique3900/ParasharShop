@@ -10,6 +10,7 @@ const jwt = require('jsonwebtoken');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const cookieParser = require('cookie-parser');
+const stripe = require("stripe")(process.env.STRIPE_KEY);
 
 const { createProduct } = require("./controllers/ProductController");
 const { LoginController } = require("./controllers/AuthController");
@@ -152,6 +153,35 @@ passport.deserializeUser(function (user, cb) {
   process.nextTick(function () {
     return cb(null, user);
   });
+});
+
+
+// Stripe Payment Setup
+
+
+
+server.post("/create-payment-intent", async (req, res) => {
+  
+  try {
+    const { totalAmount } = req.body;
+
+  console.log(totalAmount)
+  // Create a PaymentIntent with the order amount and currency
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: totalAmount*100,
+    currency: "usd",
+    automatic_payment_methods: {
+      enabled: true,
+    },
+  });
+
+  res.send({
+    clientSecret: paymentIntent.client_secret,
+  });
+  } catch (error) {
+    console.log(error)
+  }
+  
 });
 
 

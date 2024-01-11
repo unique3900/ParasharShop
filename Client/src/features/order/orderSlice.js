@@ -16,6 +16,14 @@ export const newOrderAsync = createAsyncThunk(
     return response.data;
   }
 );
+//When user proceeds with card then we need to set the current order
+export const makeCardPaymentAsync = createAsyncThunk(
+  'order/card-payment',
+  async (order) => {
+    console.log(order);
+    return order;
+  }
+)
 export const fetchOrderForSellerAsync = createAsyncThunk(
   "order/fetchOrderForSeller",
   async (id) => { 
@@ -98,6 +106,13 @@ export const orderSlice = createSlice({
           state.Currentorder = [],
           state.orderMonths = [];
           state.sellerOrder=[]
+      })
+      .addCase(makeCardPaymentAsync.pending, (state) => {
+      state.status="loading"
+      })
+      .addCase(makeCardPaymentAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.Currentorder = action.payload;
     })
   },
 });
