@@ -75,7 +75,7 @@ const SingleProductPage = () => {
     useEffect(() => {
         console.log(params.id,loggedInUser.id)
         dispatch(fetchProductByIdAsync(params.id));
-        console.log(product.highlights)
+        console.log(product?.highlights)
     }, [dispatch])
     
     return (
