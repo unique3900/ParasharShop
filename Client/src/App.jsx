@@ -96,7 +96,6 @@ axios.defaults.withCredentials = true;
         <Route path='/sellerOptions/seller-Dashboard/manage-products/edit-product/:id' element={<ProtectedSeller><EditProduct/></ProtectedSeller>} />
         <Route path='/sellerOptions/seller-Dashboard/manage-products/add-product' element={<ProtectedSeller><ProductForm/></ProtectedSeller>} />
         <Route path='/my-orders' element={<Protected><UserOrders /></Protected>} />
-        <Route path='/card-payment' element={<Protected><CardPayment /></Protected>} />
         <Route path='/sellerOptions/seller-Dashboard/manage-orders' element={<ProtectedSeller><AdminOrder/></ProtectedSeller>} />
 
         <Route path='/my-profile' element={<UserInfo />} />

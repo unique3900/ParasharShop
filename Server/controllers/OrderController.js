@@ -1,5 +1,17 @@
 const { Orders } = require("../models/Orders");
 const { Product } = require("../models/Product")
+const dotenv = require('dotenv').config();
+
+const braintree = require('braintree');
+
+// Braintree Payment Gateway
+var gateway = new braintree.BraintreeGateway({
+    environment:  braintree.Environment.Sandbox,
+    merchantId: process.env.BRAINTREE_MERCHANT_ID,
+    publicKey: process.env.BRAINTREE_PUBLIC_KEY,
+    privateKey:process.env.BRAINTREE_PRIVATE_KEY,
+  });
+
 
 exports.newOrderController = async (req, res) => {
     const { id } = req.user;
@@ -45,7 +57,6 @@ try {
 }
 
 }
-
 
 exports.fetchTotalOrers = async (req, res) => {
     try {
@@ -97,5 +108,53 @@ exports.fetchTotalOrers = async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(401).json({success:false,message:"Error When Fetching Total Order"})
+    }
+}
+
+
+
+
+// Payment Gateway api
+exports.braintreeTokenController = async (req, res) => {
+    try {
+        // As given by their documentation
+        // Token mathi ko var gateway bata aaucha
+        gateway.clientToken.generate({}, function (err, response){
+            if (err) {
+                res.json({err})
+            }
+            else {
+                res.json({response})
+            }
+        })
+    } catch (error) {
+        
+        console.log(error)
+    }
+}
+
+exports.braintreePaymentController = async (req, res) => {
+    const { id } = req.user;
+    try {
+        const {totalAmount,order} = req.body;
+        let newTransaction = gateway.transaction.sale({
+            amount: totalAmount * 100,
+            paymentMethodNonce: nonce,
+            options: {
+              submitForSettlement: true,
+            },
+        },
+        async function(err, response) {
+            if (response) {
+                const order = await Orders.create({...req.body,user:id });
+                 res.status(200).json({ success: true, message: "Order Placed Successfully",order });
+            }
+            else {
+                res.json({ success: false, message:"Error When Placing Order Via Card",err });
+            }
+        }
+        )
+    } catch (error) {
+        console.log(error)
     }
 }

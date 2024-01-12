@@ -11,9 +11,11 @@ import {
   fetchProductByIdAsync,
   selectProductById,
 } from "../../product/productListSlice";
+import { selectLoggedInUserToken } from "../../Auth/authSlice";
 const UserOrders = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUserInfo);
+  const userToken = useSelector(selectLoggedInUserToken);
   const orders = useSelector(selectLoggedInUserOrders);
 
   useEffect(() => {
@@ -23,14 +25,14 @@ const UserOrders = () => {
   return (
     <>
       {" "}
-      {!user && <Navigate to={"/login"} replace={true}></Navigate>}
+      {!userToken && <Navigate to={"/login"} replace={true}></Navigate>}
       {!orders && <Navigate to={"/"} replace={true}></Navigate>}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-5">
         <h3 className="text-4xl font-bold text-center">Your Orders</h3>
         <div className="mt-8 p-10">
           <div className="flow-root">
             <ul role="list" className="-my-6 divide-y divide-gray-200">
-              {orders.map((data, index) => (
+              {orders?.map((data, index) => (
                 <div key={index}>
                   <div className="flex flex-row items-center justify-between">
                     <p className="p-5 text-3xl font-bold text-purple-700 ">
@@ -40,7 +42,7 @@ const UserOrders = () => {
                      Order Placed: {data.createdAt.slice(0,10)}
                     </p>
                   </div>
-                  {data.products.map((orderItems, i) => (
+                  {data?.products?.map((orderItems, i) => (
                     <li key={i} className="flex py-6">
                       <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                         <img

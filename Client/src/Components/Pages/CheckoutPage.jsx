@@ -199,13 +199,10 @@ const CheckoutPage = () => {
       };
       
 
-      if (selectedPaymentMethod == "cash") {
-        navigate(`/order-success/${currentOrder.length}`);
-        await dispatch(newOrderAsync(order));
-      } else if(selectedPaymentMethod == "card") {
-        navigate(`/card-payment`);
-        dispatch(makeCardPaymentAsync(order))
-      }
+      await dispatch(newOrderAsync(order));
+        navigate(`/order-success/${currentOrder?.length}`);
+    
+     
       
     }
   };
@@ -659,8 +656,10 @@ const CheckoutPage = () => {
                     Card
                   </label>
                 </div>
+             
               </div>
             </section>
+
           </div>
         </div>
       </div>

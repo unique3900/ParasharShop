@@ -21,12 +21,6 @@ import { getCartByUserEmail } from '../cart/cartAPI';
 import { selectLoggedInUserInfo } from '../user/userSlice';
 import { selectLoggedInUserToken } from '../Auth/authSlice';
 
-const  highlights= [
-    'Hand cut and sewn locally',
-    'Dyed with our proprietary colors',
-    'Pre-washed & pre-shrunk',
-    'Ultra-soft 100% cotton',
-]
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -75,8 +69,7 @@ const SingleProductPage = () => {
     useEffect(() => {
         console.log(params.id,loggedInUser.id)
         dispatch(fetchProductByIdAsync(params.id));
-        console.log(product.highlights)
-    }, [dispatch])
+    }, [])
     
     return (
         <div className="bg-white">
