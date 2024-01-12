@@ -27,6 +27,7 @@ import {
   fetchUserAddressAsync,
   selectUserAddress,
 } from "../../features/Addresses/addressSlice";
+import CardPayment from "./CardPayment";
 
 const CheckoutPage = () => {
   const dispatch = useDispatch();
@@ -656,6 +657,9 @@ const CheckoutPage = () => {
                     Card
                   </label>
                 </div>
+                {selectedPaymentMethod == "card" && (
+                  <CardPayment/>
+                )}
              
               </div>
             </section>

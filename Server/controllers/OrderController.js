@@ -128,7 +128,6 @@ exports.braintreeTokenController = async (req, res) => {
             }
         })
     } catch (error) {
-        
         console.log(error)
     }
 }
@@ -136,7 +135,7 @@ exports.braintreeTokenController = async (req, res) => {
 exports.braintreePaymentController = async (req, res) => {
     const { id } = req.user;
     try {
-        const {totalAmount,order} = req.body;
+        const {totalAmount,orderData} = req.body;
         let newTransaction = gateway.transaction.sale({
             amount: totalAmount * 100,
             paymentMethodNonce: nonce,
@@ -146,15 +145,16 @@ exports.braintreePaymentController = async (req, res) => {
         },
         async function(err, response) {
             if (response) {
-                const order = await Orders.create({...req.body,user:id });
+                const order = await Orders.create({...req.body.orderData,user:id });
                  res.status(200).json({ success: true, message: "Order Placed Successfully",order });
             }
             else {
-                res.json({ success: false, message:"Error When Placing Order Via Card",err });
+                res.status(301).json({ success: false, message:"Error When Placing Order Via Card",err });
             }
         }
         )
     } catch (error) {
         console.log(error)
+        res.status(401).json({success:false,message:"Unexpected error occured when processing card payment",error})
     }
 }
