@@ -9,11 +9,10 @@ import {
   selectcartItems,
   updateCartAsync,
 } from "../../features/cart/cartSlice";
-import { citiesData } from "../../Data/data";
+import { citiesData, products } from "../../Data/data";
 import { updateUserAsync } from "../../features/Auth/authSlice";
 import { newOrder } from "../../features/order/orderApi";
 import {
-  makeCardPaymentAsync,
   newOrderAsync,
   selectCurrentOrder,
 } from "../../features/order/orderSlice";
@@ -547,17 +546,20 @@ const CheckoutPage = () => {
                     <p className="mt-0.5 text-sm text-gray-500">
                       Terms and Conditons Applied
                     </p>
-                    <div className="mt-6">
-                      <button
-                        onClick={(e) => {
-                          handleOrder(e);
-                          e.preventDefault();
-                        }}
-                        className="flex w-full items-center justify-center rounded-md border border-transparent bg-purple-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
-                      >
-                        Place Order
-                      </button>
-                    </div>
+                    {selectedPaymentMethod !== 'card' ? (
+                                          <div className="mt-6">
+                                          <button
+                                            onClick={(e) => {
+                                              handleOrder(e);
+                                              e.preventDefault();
+                                            }}
+                                            className="flex w-full items-center justify-center rounded-md border border-transparent bg-purple-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                                          >
+                                            Place Order
+                                          </button>
+                                        </div>
+                    ):""}
+
                     <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                       <p>
                         or
@@ -654,11 +656,11 @@ const CheckoutPage = () => {
                     id=""
                   />
                   <label htmlFor="" className="font-bold">
-                    Card
+                    Online Payment
                   </label>
                 </div>
                 {selectedPaymentMethod == "card" && (
-                  <CardPayment/>
+                  <CardPayment totalAmount={totalAmount} totalItems={totalItems} products={items} selectedPaymentMethod={selectedPaymentMethod } selectedDeliveryAddress={selectedDeliveryAddress?.id} />
                 )}
              
               </div>

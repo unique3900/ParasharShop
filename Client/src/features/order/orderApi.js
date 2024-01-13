@@ -4,6 +4,10 @@ export function newOrder(order) {
   console.log("new order",order)
   return axios.post(`/orders`,{...order})
 }
+
+export function orderByCard(order) {
+  return axios.post(`/orders/braintree/payment`,{...order})
+}
 export async function fetchOrderForSeller(id) {
   return axios.get(`/orders/sellers/${id}`)
 

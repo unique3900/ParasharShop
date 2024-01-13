@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchMonthelyOrder, fetchOrderForSeller, newOrder, updateOrder} from "./orderApi";
+import { fetchMonthelyOrder, fetchOrderForSeller, newOrder, orderByCard, updateOrder} from "./orderApi";
 
 const initialState = {
   status: "idle",
@@ -17,11 +17,11 @@ export const newOrderAsync = createAsyncThunk(
   }
 );
 //When user proceeds with card then we need to set the current order
-export const makeCardPaymentAsync = createAsyncThunk(
+export const orderByCardAsync = createAsyncThunk(
   'order/card-payment',
   async (order) => {
-    console.log(order);
-    return order;
+    const response = await orderByCard(order);
+    return response.data.order;
   }
 )
 export const fetchOrderForSellerAsync = createAsyncThunk(
@@ -107,11 +107,12 @@ export const orderSlice = createSlice({
           state.orderMonths = [];
           state.sellerOrder=[]
       })
-      .addCase(makeCardPaymentAsync.pending, (state) => {
+      .addCase(orderByCardAsync.pending, (state) => {
       state.status="loading"
       })
-      .addCase(makeCardPaymentAsync.fulfilled, (state, action) => {
+      .addCase(orderByCardAsync.fulfilled, (state, action) => {
         state.status = "idle";
+        state.orders.push(action.payload);
         state.Currentorder = action.payload;
     })
   },

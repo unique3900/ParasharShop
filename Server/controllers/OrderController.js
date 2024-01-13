@@ -135,17 +135,18 @@ exports.braintreeTokenController = async (req, res) => {
 exports.braintreePaymentController = async (req, res) => {
     const { id } = req.user;
     try {
-        const {totalAmount,orderData} = req.body;
+        const { totalAmount } = req.body;
+
         let newTransaction = gateway.transaction.sale({
             amount: totalAmount * 100,
-            paymentMethodNonce: nonce,
+            // paymentMethodNonce: nonce,
             options: {
               submitForSettlement: true,
             },
         },
         async function(err, response) {
             if (response) {
-                const order = await Orders.create({...req.body.orderData,user:id });
+                const order = await Orders.create({...req.body,user:id });
                  res.status(200).json({ success: true, message: "Order Placed Successfully",order });
             }
             else {

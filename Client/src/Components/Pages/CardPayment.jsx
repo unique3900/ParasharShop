@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import DropIn from "braintree-web-drop-in-react";
 import axios from "axios";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { orderByCardAsync, selectCurrentOrder } from "../../features/order/orderSlice";
+import { useDispatch, useSelector } from "react-redux";
 
-const CardPayment = () => {
+const CardPayment = ({totalAmount,totalItems,products,selectedPaymentMethod,selectedDeliveryAddress}) => {
   const [clientToken, setClientToken] = useState("");
   const [instance, setInstance] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const currentOrder  = useSelector(selectCurrentOrder);
 
   const getToken = async () => {
     try {
@@ -15,7 +21,26 @@ const CardPayment = () => {
     }
   };
 
-  const handleOrder = () => {
+  const handleOrder = async() => {
+    try {
+      if (!selectedDeliveryAddress || !selectedPaymentMethod) {
+        alert("Please Select All Required Fields");
+      } else {
+        console.log("Sellecttttt", selectedDeliveryAddress.user);
+        const order = {
+          products,
+          selectedPaymentMethod,
+          selectedDeliveryAddress,
+          totalItems,
+          totalAmount,
+        }
+
+        await dispatch(orderByCardAsync(order));
+        navigate(`/order-success/${currentOrder?.length}`);
+      }
+    } catch (error) {
+      console.log(error)
+    }
     
   }
 
@@ -36,8 +61,8 @@ const CardPayment = () => {
         }}
         onInstance={instance => setInstance(instance)}
       />
-      <button onClick={handleOrder} className="bg-indigo-600 px-3 py-2 text-white text-center cursor-pointer">
-        Buy
+      <button onClick={handleOrder} className="bg-purple-600 w-full rounded-md px-8 py-3 text-white text-center cursor-pointer">
+        Place Order
       </button>
         
         
