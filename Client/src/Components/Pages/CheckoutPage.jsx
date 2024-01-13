@@ -107,7 +107,8 @@ const CheckoutPage = () => {
         quantity: value,
       })
     );
-    // await dispatch(getCartByEmailAsync(user.id));
+   await dispatch(getCartByEmailAsync())
+
   };
 
   const handleDeliveryAddress = async (index) => {

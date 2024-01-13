@@ -52,7 +52,8 @@ export default function Cart() {
             id,
             quantity: value,
            
-        }))
+       }))
+    await dispatch(getCartByEmailAsync())
        
     }
     useEffect(() => {
@@ -61,7 +62,7 @@ export default function Cart() {
             return object.quantity + accumulator;
         }, 0)
         setTotalItems(totalItems)
-    }, [])
+    }, [dispatch,totalItems])
     
     return (
         <> {
@@ -170,7 +171,7 @@ export default function Cart() {
                         <p>Npr &nbsp; {
                             items.reduce((accumulator, object) => {
                                 console.log("Objecc",object.quantity)
-                                return accumulator + discountedPrice(object.product) * object.quantity
+                                return accumulator + discountedPrice(object?.product) * object.quantity
                             }, 0)
                         }</p>
                     </div>

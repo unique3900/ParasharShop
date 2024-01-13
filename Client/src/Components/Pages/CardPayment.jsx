@@ -27,8 +27,10 @@ const CardPayment = ({totalAmount,totalItems,products,selectedPaymentMethod,sele
         alert("Please Select All Required Fields");
       } else {
         console.log("Sellecttttt", selectedDeliveryAddress.user);
+        const { nonce } = await instance?.requestPaymentMethod();
         const order = {
           products,
+          nonce,
           selectedPaymentMethod,
           selectedDeliveryAddress,
           totalItems,

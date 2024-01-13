@@ -135,11 +135,11 @@ exports.braintreeTokenController = async (req, res) => {
 exports.braintreePaymentController = async (req, res) => {
     const { id } = req.user;
     try {
-        const { totalAmount } = req.body;
+        const { totalAmount,nonce } = req.body;
 
         let newTransaction = gateway.transaction.sale({
             amount: totalAmount * 100,
-            // paymentMethodNonce: nonce,
+            paymentMethodNonce: nonce,
             options: {
               submitForSettlement: true,
             },

@@ -41,7 +41,7 @@ const OrderSuccessPage = () => {
               <div className="flex flex-col items-center gap-4">
                     <img className='max-h-40 w-28' src="/img/success.png" alt="" />
                   <h3 className="text-center font-bold text-5xl text-indigo-700">Thank You!</h3>
-                  <p className="text-3xl font-bold">Order Successfully Placed with Order Number <span className='font-bold text-purple-700 cursor-pointer'>#{params.id}</span> </p>
+                  <p className="text-3xl font-bold">Order Successfully Placed </p>
               <Link to={'/'} className='px-3 py-2 bg-purple-700 text-white font-bold cursor-pointer text-center rounded-lg'>Continue Shopping</Link>
               <Link to={'/my-orders'} className='px-3 py-2 bg-indigo-700 text-white font-bold cursor-pointer text-center rounded-lg'>My Orders</Link>
               </div>
