@@ -91,9 +91,21 @@ exports.fetchProductById = async (req, res) => {
 
 exports.updateProduct = async (req, res) => {
   const { id } = req.params;
+  const { highlights } = req.body;
+  var highlightArray = [];
+
+  if (typeof (highlights) == "string") {
+    const newHighlights = highlights?.split(',')?.filter(Boolean);
+    highlightArray = newHighlights;
+  }
+  else {
+    highlightArray = highlights; 
+  }
+  // Split input by commas and remove leading/trailing whitespaces
+  
   try {
     //new:... used this because in return we will get latest document
-    const product = await Product.findByIdAndUpdate(id, req.body, {
+    const product = await Product.findByIdAndUpdate(id, {...req.body,highlights:highlightArray}, {
       new: true,
     });
     product.discountPrice = Math.round(

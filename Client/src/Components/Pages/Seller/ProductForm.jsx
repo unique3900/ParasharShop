@@ -95,30 +95,38 @@ const ProductForm = () => {
       <div className="h-screen   flex flex-col  items-center ">
         <form
           noValidate
-          onSubmit={handleSubmit((data) => {
-            const product = {
-              ...data,
-            };
+          onKeyDown={(e) => {
+            if (e.key == "Enter") {
+              e.preventDefault()
+            }
+           return
+          }}
           
-            if (keywords.length <= 0) {
-              toast.error("Enter Keywords")
-              return
-            }
-            if (uploadedImages.length < 4) {
-              toast.error("Please Upload at least 4 images")
-              return
-            }
-            product.thumbnail = uploadedImages[0];
-            product.images = [...uploadedImages];
-            product.keywords = keywords;
-            product.rating = 0;
-            product.seller = seller.id;
-            product.features =[{title:feature1Title,options:[...feature1]},{title:feature2Title,options:[...feature2]}]
-            product.highlights = highlightInput;
-            console.log(product);
-            dispatch(createProductAsync(product));
-            navigate("/sellerOptions/seller-Dashboard");
-          })}
+          onSubmit={handleSubmit((data) => {
+              const product = {
+                ...data,
+              };
+            
+              if (keywords.length <= 0) {
+                toast.error("Enter Keywords")
+                return
+              }
+              if (uploadedImages.length < 4) {
+                toast.error("Please Upload at least 4 images")
+                return
+              }
+              product.thumbnail = uploadedImages[0];
+              product.images = [...uploadedImages];
+              product.keywords = keywords;
+              product.rating = 0;
+              product.seller = seller.id;
+              product.features =[{title:feature1Title,options:[...feature1]},{title:feature2Title,options:[...feature2]}]
+              product.highlights = highlightInput;
+              console.log(product);
+              dispatch(createProductAsync(product));
+              navigate("/sellerOptions/seller-Dashboard");
+            })
+          }
           className="mt-5 w-3/4 shadow-lg px-5 py-3 bg-white"
         >
           <div className="space-y-12">
@@ -389,8 +397,10 @@ const ProductForm = () => {
             </button>
             <button
               type="submit"
-              onClick={() => {
-                handleAddHighLight()
+              onClick={(event) => {
+                if (event.key === 'Enter') {
+                  event.preventDefault(); // Prevents the default Enter key behavior
+                }
               }}
               className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
