@@ -87,18 +87,7 @@ const ProductForm = () => {
     setHighlightInput(e.target.value);
   }
 
-  const handleAddHighLight = () => {
-    // Split input by commas and remove leading/trailing whitespaces
-    const newHighlights = highlightInput.split(',').map(highlight => highlight.trim());
 
-       // Remove empty strings from the array
-    const filteredHighlights = newHighlights.filter(highlight => highlight !== '');
-    
-    setHighlights([...highlights, ...filteredHighlights]);
-
-    console.log(highlights)
-    setHighlightInput("");
-  }
   return (
     <>
       {!user && <Navigate to={"/"} replace={true}></Navigate>}
@@ -110,7 +99,7 @@ const ProductForm = () => {
             const product = {
               ...data,
             };
-            handleAddHighLight();
+          
             if (keywords.length <= 0) {
               toast.error("Enter Keywords")
               return
@@ -125,7 +114,7 @@ const ProductForm = () => {
             product.rating = 0;
             product.seller = seller.id;
             product.features =[{title:feature1Title,options:[...feature1]},{title:feature2Title,options:[...feature2]}]
-            product.highlights = highlights;
+            product.highlights = highlightInput;
             console.log(product);
             dispatch(createProductAsync(product));
             navigate("/sellerOptions/seller-Dashboard");

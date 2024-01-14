@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import DropIn from "braintree-web-drop-in-react";
 import axios from "axios";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import toast, { Toaster } from 'react-hot-toast'
+
 import { orderByCardAsync, selectCurrentOrder } from "../../features/order/orderSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -24,7 +26,7 @@ const CardPayment = ({totalAmount,totalItems,products,selectedPaymentMethod,sele
   const handleOrder = async() => {
     try {
       if (!selectedDeliveryAddress || !selectedPaymentMethod) {
-        alert("Please Select All Required Fields");
+        toast.error("Please Select All Required Fields");
       } else {
         console.log("Sellecttttt", selectedDeliveryAddress.user);
         const { nonce } = await instance?.requestPaymentMethod();
@@ -52,6 +54,7 @@ const CardPayment = ({totalAmount,totalItems,products,selectedPaymentMethod,sele
 
   return (
     <div className="w-full ">
+      <Toaster/>
       {clientToken && (
         <>
               <DropIn

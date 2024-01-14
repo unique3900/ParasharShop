@@ -4,7 +4,13 @@ const app = express();
 const mongoose = require("mongoose");
 exports.createProduct = async (req, res) => {
   try {
-    const product = await Product.create(req.body);
+    const { highlights } = req.body;
+    console.log(highlights)
+    var highlightArray = [];
+      // Split input by commas and remove leading/trailing whitespaces
+    const newHighlights = highlights.split(',').filter(Boolean);
+         // Remove empty strings from the array
+    const product = await Product.create({...req.body,highlights:newHighlights});
     res
       .status(201)
       .json({

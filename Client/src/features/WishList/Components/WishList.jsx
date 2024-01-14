@@ -5,7 +5,9 @@ import { Card, Typography } from "@material-tailwind/react";
 import { selectLoggedInUserToken } from '../../Auth/authSlice';
 import { deleteWishlistAsync, fetchUserWishlistAsync, selectUserWishList } from '../wishlistSlice';
 import { discountedPrice } from '../../../app/constants';
- 
+import { IoEyeOutline, IoTrashBinOutline  } from "react-icons/io5";
+import { Link } from 'react-router-dom';
+
 const TABLE_HEAD = ["S.N", "Item", "Product","Price", "Option"];
 
 const WishList = () => {
@@ -70,10 +72,11 @@ const WishList = () => {
                             <del className='text-red-600'>{item.product.price}</del> {discountedPrice(item.product)}
                             </Typography>
                           </td>
-                          <td className="p-4">
-                            <button className='px-3 py-2 rounded-md cursor-pointer bg-red-600 text-white' onClick={() => {
-                              handleRemoveWishlist(item.id)
-                            }}>Remove</button>
+                          <td className="p-4 flex items-center gap-4 h-24">
+                            <IoTrashBinOutline size={28} className='text-red-600 cursor-pointer'  onClick={() => {
+                              handleRemoveWishlist(item.product.title)
+                            }}/>
+                            <Link to={`/products/${item.product.id}`}><IoEyeOutline size={28} className='text-green-600'/></Link>
                           </td>
                         </tr>
                       ))}

@@ -44,8 +44,7 @@ const productSchema = new Schema({
     brand: {
         // type:mongoose.ObjectId
         // ref:'Brand',
-        type: String,
-        required:true
+        type: String
     },
     category: {
         // type:mongoose.ObjectId,

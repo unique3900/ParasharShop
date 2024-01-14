@@ -42,14 +42,8 @@ export function updateProduct(data) {
     console.log("Received New Product", data);
     return axios.patch(`/products/${data.id}`, {...data})
 }
-export function deleteProduct(id) {
-    const navigate = useNavigate();
-    return axios.delete(`/products/${id}`).then((res) => {
-        toast.success("Product Deleted Successfully")
-        navigate("/sellerOptions/seller-Dashboard");
-    }).catch((err) => {
-        toast.error("Unable to Delete Product")
-    })
+export async function deleteProduct(id) {
+    return axios.delete(`/products/${id}`);
 }
 export function fetchProductBySellerId(id) {
     console.log("Received Seller Id", id);

@@ -27,6 +27,8 @@ import {
   selectUserAddress,
 } from "../../features/Addresses/addressSlice";
 import CardPayment from "./CardPayment";
+import toast, { Toaster } from 'react-hot-toast'
+
 
 const CheckoutPage = () => {
   const dispatch = useDispatch();
@@ -187,7 +189,7 @@ const CheckoutPage = () => {
     e.preventDefault();
 
     if (!selectedDeliveryAddress || !selectedPaymentMethod) {
-      alert("Please Select All Required Fields");
+      toast.error("Please Select All Required Fields");
     } else {
       console.log("Sellecttttt", selectedDeliveryAddress.user);
       const order = {
@@ -219,7 +221,7 @@ const CheckoutPage = () => {
 
   return (
     <>
-      {" "}
+      <Toaster/>
       {!items.length || (!user && <Navigate to={"/"}></Navigate>)}
       <div className="h-screen w-full flex flex-col ">
         <h1 className="text-5xl font-bold p-3 text-center">Checkout</h1>
