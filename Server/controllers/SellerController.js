@@ -49,3 +49,23 @@ exports.getSellerInfo = async (req, res) => {
         res.status(401).json({success:false,message:"Unexpected Error Occured When Retrieving Seller Information"})
     }
 }
+
+exports.sellerPasswordChange = async () => {
+    try {
+        const {seller, OldPassword, newPassword } = req.body;
+        const sellerExist = await Seller.findById(seller);
+        if (!sellerExist) {
+            res.status(300).json({ success: false, message: "Seller Doesnot Exist" });
+        }
+        if (sellerExist.businessPassword !== OldPassword) {
+            res.status(300).json({ success: false, message: "Old Password Doesnot Match" });
+        }
+        else {
+            const seller = await Seller.findByIdAndUpdate(seller, { businessPassword: newPassword });
+            res.status(200).json({success:true,message:"Password Updated Successfully",seller})
+        }
+    } catch (error) {
+        res.status(400).json({success:false,message:"Unexpected Error Occured When Changing Seller Password"})
+        console.log(error)
+    }
+}
