@@ -39,6 +39,7 @@ import { selectLoggedInUserToken } from './features/Auth/authSlice'
 import WishList from './features/WishList/Components/WishList'
 import { fetchUserWishlistAsync } from './features/WishList/wishlistSlice'
 import CardPayment from './Components/Pages/CardPayment'
+import PasswordChange from './Components/Pages/Seller/PasswordChange'
 
 
 
@@ -93,6 +94,7 @@ axios.defaults.withCredentials = true;
         <Route path='/order-success/:id' element={<OrderSuccessPage></OrderSuccessPage>} />
         <Route path='/sellerOptions/seller-Dashboard' element={<ProtectedSeller><SellerDashboard/></ProtectedSeller>} />
         <Route path='/sellerOptions/seller-Dashboard/manage-products' element={<ProtectedSeller><ProductPage/></ProtectedSeller>} />
+        <Route path='/sellerOptions/seller-Dashboard/change-password' element={<ProtectedSeller><PasswordChange/></ProtectedSeller>} />
         <Route path='/sellerOptions/seller-Dashboard/manage-products/edit-product/:id' element={<ProtectedSeller><EditProduct/></ProtectedSeller>} />
         <Route path='/sellerOptions/seller-Dashboard/manage-products/add-product' element={<ProtectedSeller><ProductForm/></ProtectedSeller>} />
         <Route path='/my-orders' element={<Protected><UserOrders /></Protected>} />

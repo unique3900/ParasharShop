@@ -78,8 +78,14 @@ export async function  changePassword(data) {
     console.log("Changing Password",{...data})
     return axios.post('/auth/change-password', { ...data }).then((res) => {
         toast.success(res.data.message)
-        
-        
+    }).catch((err) => {
+        toast.error(err.response.data.message)
+    })
+}
+
+export async function changeSellerPassword(data) {
+    return axios.post('/seller/change-password', { ...data }).then((res) => {
+        toast.success(res.data.message)
     }).catch((err) => {
         toast.error(err.response.data.message)
     })

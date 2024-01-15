@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { changePassword, checkIfUser, checkUser, createUser, fetchSellerInfo, handleRemoveToken, loginUser, sellerLogin, sellerRegister, updateUser } from "./authApi";
+import { changePassword, changeSellerPassword, checkIfUser, checkUser, createUser, fetchSellerInfo, handleRemoveToken, loginUser, sellerLogin, sellerRegister, updateUser } from "./authApi";
 
 const initialState = {
   loggedInUserToken: null,
@@ -35,7 +35,6 @@ export const removeTokenAsync = createAsyncThunk(
     return response.token;
   }
 )
-
 export const updateUserAsync = createAsyncThunk(
   "auth/updateUser",
   async (update) => {
@@ -87,6 +86,14 @@ export const changePasswordAsync = createAsyncThunk(
   async (data) => {
     const response = await changePassword(data);
     return response.data.user;
+  }
+)
+
+export const changeSellerPasswordAsync = createAsyncThunk(
+  "seller/change-password",
+  async (data) => {
+    const response = await changeSellerPassword(data);
+    return response.data.seller;
   }
 )
 
@@ -150,8 +157,19 @@ export const authSlice = createSlice({
       })
       .addCase(fetchLoggedInSellerAsync.fulfilled, (state, action) => {
         state.status = "idle",
-          
-          state.loggedInSeller=action.payload
+        state.loggedInSeller=action.payload
+      })
+      .addCase(changePasswordAsync.pending, (state) => {
+        state.status="loading"
+      })
+      .addCase(changePasswordAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+      })
+      .addCase(changeSellerPasswordAsync.pending, (state) => {
+        state.status="loading"
+      })
+      .addCase(changeSellerPasswordAsync.fulfilled, (state, action) => {
+        state.status = "idle";
       })
       .addCase(removeTokenAsync.pending, (state) => {
         state.status = "loading"

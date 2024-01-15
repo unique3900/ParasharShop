@@ -50,19 +50,18 @@ exports.getSellerInfo = async (req, res) => {
     }
 }
 
-exports.sellerPasswordChange = async () => {
+exports.sellerPasswordChange = async (req,res) => {
     try {
-        const {seller, OldPassword, newPassword } = req.body;
-        const sellerExist = await Seller.findById(seller);
-        if (!sellerExist) {
-            res.status(300).json({ success: false, message: "Seller Doesnot Exist" });
-        }
-        if (sellerExist.businessPassword !== OldPassword) {
-            res.status(300).json({ success: false, message: "Old Password Doesnot Match" });
+        const {seller, oldPassword, newPassword } = req.body;
+        const query = await Seller.findById(seller);
+        const pwdCompare = bcrypt.compareSync(oldPassword,query.businessPassword);
+        if (pwdCompare) {
+            const hashedPassword=bcrypt.hashSync(newPassword, 10)
+            const sellerUpdate = await Seller.findByIdAndUpdate(seller, { businessPassword: hashedPassword  });
+        res.status(200).json({success:true,message:"Password Changed Successfully",seller:sellerUpdate})
         }
         else {
-            const seller = await Seller.findByIdAndUpdate(seller, { businessPassword: newPassword });
-            res.status(200).json({success:true,message:"Password Updated Successfully",seller})
+            res.status(401).json({success:false,message:"Invalid Old Password"}) 
         }
     } catch (error) {
         res.status(400).json({success:false,message:"Unexpected Error Occured When Changing Seller Password"})
