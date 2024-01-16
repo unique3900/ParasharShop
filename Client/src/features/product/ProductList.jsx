@@ -45,10 +45,11 @@ export const ProductList = () => {
     if (e.target.checked) {
       if (userFilter[section.id]) {
         userFilter[section.id].push(option.value);
-        setPage(1);
+        // setPage(1);
       }
       else {
         userFilter[section.id] = [option.value];
+        // dispatch(fetchProductsByFilterAsync({ filter, sort }))
       }
     }
     else {
@@ -56,7 +57,7 @@ export const ProductList = () => {
       const index = userFilter[section.id].findIndex(ex => ex===option.value);
       userFilter[section.id].splice(index, 1);
     }
-    // console.log("MyFilter",userFilter)
+    
     setFilter(userFilter);
     setPage(1);
   }
@@ -90,11 +91,20 @@ export const ProductList = () => {
     },
   ]
 
-
+  const handlePage = (page) => {
+    
+    setPage(page);
+  };
 
   useEffect(() => {
-    dispatch(fetchProductsByFilterAsync({ filter, sort }))
-    // dispatch(fetchAllProductsAsync());
+    dispatch(fetchProductsByFilterAsync({ filter, sort, page }));
+  }, [dispatch, filter, sort, page]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [products, sort]);
+
+  useEffect(() => {
     if (loggedInSeller) {
       dispatch(fetchProductBySellerIdAsync(loggedInSeller.id))
     }
@@ -102,7 +112,8 @@ export const ProductList = () => {
     dispatch(fetchBrandsAsync());
     dispatch(fetchCategoryAsync());
     dispatch(fetchUserWishlistAsync())
-  }, [wishlist]);
+  }, [wishlist,sort,dispatch]);
+
 
   return (
     <div className=''>
@@ -118,7 +129,7 @@ export const ProductList = () => {
             <h1 className="text-4xl font-bold tracking-tight text-gray-900">New Arrivals</h1>
 
             <div className="flex items-center">
-              <Menu as="div" className="relative inline-block text-left">
+            <Menu as="div" className="relative inline-block text-left">
                 <div>
                   <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
                     Sort
@@ -329,7 +340,7 @@ function ProductGrid({products,page,filters,wishlist,handleAddToWishlist}) {
             </div>
             <div className="flex flex-row gap-1 items-center">
               <StarIcon className='w-6 h-6'/>
-              <p className="text-gray-600 italic">{item.rating/item.totalRatings }</p>
+              <p className="text-gray-600 italic">{item.rating>0?item.rating/item.totalRatings:0 }</p>
             </div>
             <div className="flex flex-row justify-between items-center">
               {item.discountPercentage ? (

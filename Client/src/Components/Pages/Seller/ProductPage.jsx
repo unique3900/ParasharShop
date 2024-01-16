@@ -356,7 +356,7 @@ const navigate = useNavigate();
               </div>
               <div className="flex flex-row gap-1 items-center">
                 <StarIcon className='w-6 h-6'/>
-                <p className="text-gray-600 italic">{item.rating }</p>
+                <p className="text-gray-600 italic">{item.rating>0?item.rating/item.totalRatings:0 }</p>
               </div>
               <div className="flex flex-row justify-between items-center">
                 {item.discountPercentage ? (
