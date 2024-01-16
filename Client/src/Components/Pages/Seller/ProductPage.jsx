@@ -113,11 +113,7 @@ const navigate = useNavigate();
   }
 
   const filters = [
-      {
-          id: 'brand',
-          name: 'Brands',
-          options: brands
-      }, {
+ {
           id: 'category',
           name: 'Category',
           options: categories
