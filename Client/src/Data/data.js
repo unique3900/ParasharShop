@@ -56,7 +56,7 @@ export const sortOptions = [
         name: 'Best Rating',
         href: '#',
         sort: 'rating',
-        order: 'desc',
+        order: 'asc',
         current: false
     }, {
         name: 'Price: Low to High',
