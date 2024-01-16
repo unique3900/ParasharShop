@@ -15,7 +15,6 @@ export const addUserAddressAsync = createAsyncThunk(
     "address/addUserAddress",
     async (address) => {
         const response = await addUserAddress(address);
-        
         return response.data.address;
     }
 )
@@ -37,9 +36,7 @@ export const deleteUserAddressAsync = createAsyncThunk(
 export const updateUserAddressAsync = createAsyncThunk(
     "address/updateUserAddress",
     async (address) => {
-        console.log(address,"Received")
         const response = await updateUserAddress(address);
-        // console.log("Updaye",response.data.address)
         return response.data.address;
     }
 )
@@ -80,15 +77,15 @@ export const addressSlice = createSlice({
             })
             .addCase(deleteUserAddressAsync.fulfilled, (state,action) => {
                 state.status = "idle";
-                console.log("Deleted Address Payload",action.payload)
-                // state.addresses.filter((e)=>state.addresses.id!==action.payload.id)
+                // state.addresses = action.payload;
+                
             })
             .addCase(updateUserAddressAsync.pending, (state) => {
                 state.status="loading"
             })
             .addCase(updateUserAddressAsync.fulfilled, (state, action) => {
                 state.status = "idle";
-                console.log("User Address Payload", action.payload);
+                // state.addresses = action.payload;
                 
             })
             .addCase(resetAddressAsync.pending, (state) => {

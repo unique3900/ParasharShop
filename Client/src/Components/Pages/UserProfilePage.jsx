@@ -82,7 +82,8 @@ const UserProfilePage = () => {
 
     const handleDelete = async(e, id) => {
         console.log(id)
-        await dispatch(deleteUserAddressAsync(id))
+        await dispatch(deleteUserAddressAsync(id));
+        await dispatch(fetchUserAddressAsync());
     }
 
     const editBtnHandler = (id) => {
@@ -116,8 +117,8 @@ const UserProfilePage = () => {
                 message
             };
             console.log(data)
-            await dispatch(updateUserAddressAsync(data))
-            fetchAddress()
+            await dispatch(updateUserAddressAsync(data));
+            await dispatch(fetchUserAddressAsync());
             setEditOption(false)
             setFullName(""); setEmail(""); setPhone(""); setSelectedState(""); setSelectedLocation(""); setselectedCity("");setMessage("")
         }
