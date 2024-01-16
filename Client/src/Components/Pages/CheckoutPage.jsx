@@ -145,6 +145,7 @@ const CheckoutPage = () => {
 
       console.log(data)
       await dispatch(addUserAddressAsync(data));
+      await dispatch(fetchUserAddressAsync())
       setEmail("");
       setFullName("");
       setHouseNumber("");

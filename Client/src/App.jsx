@@ -46,7 +46,6 @@ import PasswordChange from './Components/Pages/Seller/PasswordChange'
 axios.defaults.baseURL = 'http://127.0.0.1:8080';
 axios.defaults.withCredentials = true;
 const App = () => {
-  
   const dispatch = useDispatch(); 
   const user = useSelector(selectLoggedInUserInfo);
   const userToken = useSelector(selectLoggedInUserToken);
@@ -84,7 +83,6 @@ axios.defaults.withCredentials = true;
           <Protected>
               <CartPage />
           </Protected>
-          
         } />
         <Route path='/checkout' element={<Protected><CheckoutPage/></Protected> } />
         <Route path='/products/:id' element={<SingleProductPage/>} />

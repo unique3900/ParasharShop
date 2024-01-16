@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchMonthelyOrder, fetchOrderForSeller, newOrder, orderByCard, updateOrder} from "./orderApi";
+import { fetchMonthelyOrder, fetchOrderForSeller, newOrder, orderByCard, updateOrder, updateRatingStatus} from "./orderApi";
 
 const initialState = {
   status: "idle",
@@ -37,6 +37,14 @@ export const updateOrderAsync = createAsyncThunk(
   async (data) => { 
     const response = await updateOrder(data);
     console.log(response.data.order)
+    return response.data.order;
+  }
+);
+export const updateRatingStatusAsync = createAsyncThunk(
+  "order/rating-status",
+  async (data) => { 
+    const response = await updateRatingStatus(data);
+    console.log(response)
     return response.data.order;
   }
 );
@@ -88,6 +96,12 @@ export const orderSlice = createSlice({
     .addCase(updateOrderAsync.fulfilled, (state, action) => {
       state.status = "idle";
     })
+      .addCase(updateRatingStatusAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(updateRatingStatusAsync.fulfilled, (state,action) => {
+        state.status = "idle";
+      })
       .addCase(fetchMonthelyOrderAsync.pending, (state) => {
         state.status = 'loading';
       })

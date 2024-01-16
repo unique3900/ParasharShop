@@ -42,6 +42,10 @@ const cartScheme = new Schema({
         type: String,
         default:false
     },
+    rated: {
+        type: Boolean,
+        default:false
+    },
     features: [featureSchema]
 })
 

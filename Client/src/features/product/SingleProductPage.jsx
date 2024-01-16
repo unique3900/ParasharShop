@@ -56,6 +56,7 @@ const SingleProductPage = () => {
           productId: product.id,
           quantity: 1,
           status: "Pending",
+          rated:false,
           seller: product.seller,
           features: [feature1, feature2],
         };
@@ -175,7 +176,7 @@ const SingleProductPage = () => {
                       <StarIcon
                         key={rating}
                         className={classNames(
-                          product.rating ? "text-gray-900" : "text-gray-200",
+                          product.rating>rating ? "text-gray-900" : "text-gray-200",
                           "h-5 w-5 flex-shrink-0"
                         )}
                         aria-hidden="true"

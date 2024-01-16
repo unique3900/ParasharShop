@@ -41,6 +41,10 @@ const productSchema = new Schema({
         type: Number,
         default:0
     },
+    totalRatings: {
+        type: Number,
+        default:0
+    },
     brand: {
         // type:mongoose.ObjectId
         // ref:'Brand',

@@ -15,6 +15,10 @@ export async function fetchOrderForSeller(id) {
 export async function updateOrder(data) {
   return axios.patch(`/orders/sellers/${data.id}`,{...data})
 }
+export async function updateRatingStatus(data) {
+  console.log(data)
+  return axios.patch(`/orders/rating-status/${data.id}`,{...data})
+}
 export async function fetchMonthelyOrder(id) {
   return  axios.get(`/orders/sellers/total-orders/${id}`);
 }

@@ -12,11 +12,16 @@ import {
   selectProductById,
 } from "../../product/productListSlice";
 import { selectLoggedInUserToken } from "../../Auth/authSlice";
+import RatingForm from "../../../Components/Pages/RatingForm";
 const UserOrders = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUserInfo);
   const userToken = useSelector(selectLoggedInUserToken);
   const orders = useSelector(selectLoggedInUserOrders);
+
+  const [userRating, setUserRating] = useState(0);
+
+
 
   useEffect(() => {
     dispatch(fetchLoggedInUserOrdersAsync());
@@ -69,7 +74,7 @@ const UserOrders = () => {
                             </h5>
 
 
-                            <div className="flex flex-col text-start gap-2">
+                            <div className="flex flex-col text-start items-center gap-2">
                               <p className="ml-4 text-start">
                                 NPR &nbsp;{" "}
                                 {discountedPrice(orderItems?.product) *
@@ -93,6 +98,11 @@ const UserOrders = () => {
                               <p className="ml-4 text-start">
                                 Payment Method : {data?.selectedPaymentMethod}
                               </p>
+                           
+                              
+                              {orderItems.status == "Delivered" && orderItems.rated==false ? (
+                                <RatingForm id={orders[index]?.id} productId={orderItems?.product?.id} userRating={userRating} setUserRating={setUserRating} />
+                              ):""}
                             </div>
                           </div>
                           <p className="-mt-8 text-sm text-gray-500">
