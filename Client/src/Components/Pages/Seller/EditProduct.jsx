@@ -142,7 +142,10 @@ const EditProduct = () => {
               const product = {
                 ...data,
               };
-            
+              if (product.description.length < 200 || product.description.length > 300) {
+                toast.error("Product Description Should be Between 100 and 200 Words")
+                return
+              }
               if (keywords.length <= 0) {
                 toast.error("Enter Keywords")
                 return
