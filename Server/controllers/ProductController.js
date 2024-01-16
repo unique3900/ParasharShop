@@ -148,6 +148,23 @@ exports.fetchSellerProducts = async (req, res) => {
   }
 };
 
+exports.updateProductRating = async (req, res) => {
+  try {
+    const { id } = req.user;
+    console.log(req.body)
+    const { productId, rating } = req.body;
+
+    console.log(req.body)
+    const productExist = await Product.findById(productId);
+    const updatedRating = productExist.rating + rating;
+
+    const products = await Product.findByIdAndUpdate({_id:productId}, { totalRatings: productExist.totalRatings + 1, rating: updatedRating });
+    res.status(200).json({success:true,message:"Rating Updated Successfully",products})
+  } catch (error) {
+    console.log(error)
+    res.status(400).json({success:false,message:"Error When Updating Product Rating Status"})
+  }
+}
 exports.deleteProducts = async (req, res) => {
   try {
     const { id } = req.params;

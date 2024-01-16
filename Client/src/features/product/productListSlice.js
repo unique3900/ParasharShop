@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createProduct, deleteProduct, fetchAllBrands, fetchAllCategory, fetchAllProducts, fetchMonthelyProducts, fetchProductById, fetchProductBySellerId, fetchProductsByFilter, searchProduct, updateProduct } from "./productListApi";
+import { createProduct, deleteProduct, fetchAllBrands, fetchAllCategory, fetchAllProducts, fetchMonthelyProducts, fetchProductById, fetchProductBySellerId, fetchProductsByFilter, searchProduct, updateProduct, updateProductRating } from "./productListApi";
 import toast from "react-hot-toast";
 
 const initialState = {
@@ -36,6 +36,13 @@ export const updateProductAsync = createAsyncThunk(
     const response = await updateProduct(data);
     toast.success("Product Updated Successfully");
     return response.data;
+  }
+)
+export const updateProductRatingAsync = createAsyncThunk(
+  'products/updateProductRating',
+  async (data) => {
+    const response = await updateProductRating(data);
+    return response.data.products;
   }
 )
 export const deleteProductAsync = createAsyncThunk(
@@ -148,6 +155,12 @@ export const productSlice = createSlice({
       .addCase(updateProductAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.products = action.payload;
+      })
+      .addCase(updateProductRatingAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(updateProductRatingAsync.fulfilled, (state, action) => {
+        state.status = "idle";
       })
       .addCase(deleteProductAsync.pending, (state) => {
         state.status = "loading";

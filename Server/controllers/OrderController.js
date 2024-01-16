@@ -30,7 +30,7 @@ exports.userOrderController = async (req, res) => {
         // console.log(order)
         res.status(200).json({success:true,message:"Orders Fetched Successfully",order})
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         res.status(401).json({success:false,message:"Error Occured When Fetching User Order"})
     }
 }
@@ -52,7 +52,6 @@ exports.updateRatingStatusController = async (req, res) => {
     console.log(req.body)
     try {
         const order=await Orders.findOneAndUpdate({ _id:id,'products.product.id': req.body.productId},{ $set: { 'products.$.rated': req.body.value } },{new:true}).populate("selectedDeliveryAddress")
-        console.log(order)
         res.status(201).json({success:true,message:"Rating Status Updated Successfully",order})
     } catch (error) {
         console.log(error)

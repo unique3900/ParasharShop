@@ -38,6 +38,9 @@ export function createProduct(product) {
     return axios.post(`/products`, { ...product })
    
 }
+export function updateProductRating(data) {
+    return axios.post('/products/rating',{...data})
+}
 export function updateProduct(data) {
     console.log("Received New Product", data);
     return axios.patch(`/products/${data.id}`, {...data})
