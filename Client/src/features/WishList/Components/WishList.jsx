@@ -74,7 +74,7 @@ const WishList = () => {
                           </td>
                           <td className="p-4 flex items-center gap-4 h-24">
                             <IoTrashBinOutline size={28} className='text-red-600 cursor-pointer'  onClick={() => {
-                              handleRemoveWishlist(item.product.title)
+                              handleRemoveWishlist(item.id)
                             }}/>
                             <Link to={`/products/${item.product.id}`}><IoEyeOutline size={28} className='text-green-600'/></Link>
                           </td>

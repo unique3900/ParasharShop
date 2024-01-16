@@ -9,6 +9,7 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import {
   createProductAsync,
   fetchProductByIdAsync,
+  selectAllCategories,
   selectProductById,
   updateProductAsync,
 } from "../../../features/product/productListSlice";
@@ -41,6 +42,7 @@ const EditProduct = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const selectedProduct = useSelector(selectProductById);
+  const categories = useSelector(selectAllCategories);
   const {
     register,
     handleSubmit,
@@ -372,22 +374,7 @@ const EditProduct = () => {
                     Brand
                   </label>
                   <div className="mt-2">
-                    <select
-                      id="brand"
-                      {...register("brand", { required: "Brand is Required" })}
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                    >
-                      <option value="">--Select Brand--</option>
-                      {filters.map(
-                        (item, index) =>
-                          item.name == "Brands" &&
-                          item.options.map((brand, index) => (
-                            <option key={index} value={brand.value}>
-                              {brand.label}
-                            </option>
-                          ))
-                      )}{" "}
-                    </select>
+                    <input type="text" {...register("brand", { required: "Brand is Required" })}/>
                   </div>
                 </div>
                 <div className="sm:col-span-3">
@@ -406,14 +393,11 @@ const EditProduct = () => {
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                     >
                       <option value="">--Select Category--</option>
-                      {filters.map(
+                      {categories.map(
                         (item, index) =>
-                          item.name == "Category" &&
-                          item.options.map((cat, index) => (
-                            <option key={index} value={cat.value}>
-                              {cat.label}
+                            <option key={index} value={item.value}>
+                              {item.label}
                             </option>
-                          ))
                       )}{" "}
                     </select>
                   </div>

@@ -132,7 +132,7 @@ const navigate = useNavigate();
             filter,
             sort
         }))
-        dispatch(fetchBrandsAsync());
+        // dispatch(fetchBrandsAsync());
         dispatch(fetchCategoryAsync());
   }, [dispatch, filter, sort]);
 
@@ -350,9 +350,7 @@ const navigate = useNavigate();
             <Link to={`/products/${item.id}`} className="flex items-center justify-center">
                 <img className='object-cover place-content-center h-56 max-h-60' src={ `http://localhost:8080/uploads/${item.thumbnail}`} alt={item.thumbnail} />
                   </Link>
-                  <AiOutlineHeart className='absolute top-0 right-1 fill-red-600 cursor-pointer w-8 h-8 text-red-500' onClick={()=>{
-                    toast.success( `${item.title.slice(0,20)+'...'} Added to Wishlist` )
-                  }}/>
+                  
             <div className="">
                       <h2 className=" text-xl text-purple-700 ">{item.title }</h2>
               </div>
