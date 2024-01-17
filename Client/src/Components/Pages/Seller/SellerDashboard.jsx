@@ -45,7 +45,7 @@ const SellerDashboard = () => {
                     <Link to={'manage-orders'} className='bg-blue-700 text-white font-bold text-center px-3 py-2'>Manage Orders</Link>
                     <Link to={'change-password'} className='bg-green-700 text-white font-bold text-center px-3 py-2'>Change Business Password</Link>
                 </div>
-                <div className="h-full flex flex-col items-center justify-center shadow-lg w-full">
+                <div className="h-full flex flex-col items-center justify-center  w-full">
                     <div className="grid grid-rows-1 lg:grid-cols-[2fr_2fr_2fr] justify-between gap-10 p-10">
                         <div className="flex flex-col shadow-md p-10 bg-pink-400 items-center ">
                             <h4 className="text-lg">Total Products</h4>
@@ -62,7 +62,7 @@ const SellerDashboard = () => {
                             <p className="font-bold text-xl">20</p>
                         </div>
                     </div>
-                    <div className="mt-10 w-full h-full flex justify-center">
+                    <div className="mt-10 w-full  flex justify-center">
                 <LineGraph/>
             </div>
                 </div>

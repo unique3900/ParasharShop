@@ -317,7 +317,7 @@ function ProductGrid({products,page,filters,wishlist,handleAddToWishlist}) {
           <Link to={`/products/${item.id}`} className="flex items-center justify-center">
               <img className='object-cover place-content-center h-56 max-h-60' src={`http://localhost:8080/uploads/${ item.thumbnail}`} alt={ item.thumbnail} />
             </Link>
-            <p className=' bg-red-600 px-3 py-2 w-fit text-white '>{item.category}</p>
+            <p className=' bg-red-600 px-3 py-2 w-fit capitalize text-white '>{item.category}</p>
             {
             
               wishlist.map((items, ind) => { return items.product.id == item.id }) && (

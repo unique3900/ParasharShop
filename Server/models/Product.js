@@ -34,7 +34,8 @@ const productSchema = new Schema({
     },
     discountPercentage: {
         type: Number,
-        min: [1, "Discount Percentage Should be More than 1"],
+        default:0,
+        min: [0, "Discount Percentage Should be More than 1"],
         max: [100, "Discount Percentage Should be Less than 100"]
     },
     rating: {

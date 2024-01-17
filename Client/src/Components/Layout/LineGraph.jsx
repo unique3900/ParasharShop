@@ -57,11 +57,14 @@ const LineGraph = () => {
   const monthelyProducts = useSelector(selectMonthelyProduct)
   const orderMonths=useSelector(selectOrderMonths)
   const labels = useSelector(selectLabels);
+
+  console.log(monthelyOrder,monthelyProducts)
+
     const [monthelyProduct,setMonthelyProduct] = useState([]);
     const [orderMonthely,setOrderMonthely] = useState([]);
 
   const fetchMonthelyOrder = async () => {
-console.log(monthelyProducts)
+
     const newArray = [];
     console.log(labels)
     for (let index = 0; index < labels.length; index++){
@@ -72,15 +75,16 @@ console.log(monthelyProducts)
        orderMonths[index] ? newArray[ind] = monthelyProducts[index] : newArray[index] = 0;
       }
     }
-     setOrderMonthely(newArray)
-    console.log(monthelyProducts)
+    setOrderMonthely(newArray)
+    console.log(orderMonthely)
+    // console.log(monthelyProducts)
   }
     const data = {
         labels,
         datasets: [
           {
             label: 'Orders',
-            data: orderMonthely,
+            data: monthelyOrder,
             borderColor: 'rgb(255, 99, 132)',
             backgroundColor: 'rgba(255, 99, 132, 0.5)',
           },
@@ -91,14 +95,14 @@ console.log(monthelyProducts)
             backgroundColor: 'rgba(172, 99, 255, 0.5)',
           },
         ],
-    };
+  };
+  
   useEffect(() => {
     dispatch(fetchMonthelyOrderAsync(seller?.id))
-    fetchMonthelyOrder();
     dispatch(fetchMonthelyProductsAync(seller?.id))
   }, [dispatch])
   return (
-    <div className='flex flex-col justify-center w-full'>
+    <div className='flex flex-col justify-center w-full '>
       <Line className='w-[10%]'  options={options} data={data} />
     </div>
     

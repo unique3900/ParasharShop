@@ -107,9 +107,9 @@ const ProductPage = () => {
     dispatch(fetchProductsByFilterAsync({ filter, sort, page }));
   }, [dispatch, filter, sort, page]);
 
-  useEffect(() => {
-    setPage(1);
-  }, [products, sort]);
+  // useEffect(() => {
+  //   setPage(1);
+  // }, [products, sort]);
 
   useEffect(() => {
     if (seller) {
@@ -175,7 +175,7 @@ const ProductPage = () => {
 
 function ProductGrid({ products, page, filters, handleDeleteProduct }) {
   return (
-    <div className="w-full grid grid-cols-2 lg:grid-cols-3 justify-center gap-2">
+    <div className="w-full grid grid-cols-2 lg:grid-cols-4  gap-2">
       {products?.slice(page * 12 - 12, page * 12).map((item, index) => (
         <div
           key={index}

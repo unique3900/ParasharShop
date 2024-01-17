@@ -28,7 +28,7 @@ useEffect(() => {
 
   
   return (
-    <div className='flex flex-col  w-full px-10 py-5 lg:py-0 gap-2 '>
+    <div className='flex flex-col  w-full px-10 py-5 lg:py-0 gap-2  z-40'>
           {/* Top part of Navbar Logo,search and cart*/}
       
           <div className=" flex px-5 max-h-36 flex-row items-center justify-between gap-5">
