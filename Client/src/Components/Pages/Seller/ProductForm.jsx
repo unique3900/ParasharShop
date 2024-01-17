@@ -110,8 +110,8 @@ const ProductForm = () => {
                 ...data,
             };
            
-            if (product.description.length < 200 || product.description.length > 300) {
-              toast.error("Product Description Should be Between 100 and 200 Words")
+            if (product.description.length < 300 || product.description.length > 500) {
+              toast.error("Product Description Should be Between 300 and 500 Words")
               return
             }
               if (keywords.length <= 0) {

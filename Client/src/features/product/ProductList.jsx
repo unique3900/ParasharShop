@@ -100,9 +100,6 @@ export const ProductList = () => {
     dispatch(fetchProductsByFilterAsync({ filter, sort, page }));
   }, [dispatch, filter, sort, page]);
 
-  useEffect(() => {
-    setPage(1);
-  }, [products, sort]);
 
   useEffect(() => {
     if (loggedInSeller) {
