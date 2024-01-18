@@ -50,9 +50,7 @@ const Login = () => {
         if (! emailRegEx.test(email)) {
             setEmailRegErr(true);
         }
-        if (! passwordRegEx.test(password)) {
-            setPwdRegErr(true);
-        } else {
+        else {
          dispatch(loginUserAsync({
                 email,
                 password
@@ -128,10 +126,6 @@ const Login = () => {
                                 }/> {
                             error && !password ? (
                                 <p className="italic text-red-500">Password is Required*</p>
-                            ) : pwdRegErr ? (
-                                <p className="italic text-red-500">- at least 8 characters
-                                    - must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number
-                                    - Can contain special characters*</p>
                             ) : ""
                         } </div>
 
