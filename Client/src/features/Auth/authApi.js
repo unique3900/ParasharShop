@@ -28,6 +28,7 @@ export async function createUser(data) {
         ...data
     }).catch((err) => {
         console.log(err)
+
         toast.error(err.response.data.message)
     })
 }
@@ -39,14 +40,13 @@ export async function updateUser(users) {
 }
 export async function loginUser(data) {
     return axios.post('/auth/login', { ...data }).catch((err) => {
-        toast.error(err.response.data.message)
+       
+        toast.error(err.response.data)
     })
 }
 
 export async function checkUser() {
-    return axios.get('/auth/check-user').catch((err) => {
-        toast.error("Server didnot respond ! Try Again ")
-    })
+    return axios.get('/auth/check-user')
 }
 export async function sellerRegister(data) {
 
@@ -55,7 +55,7 @@ export async function sellerRegister(data) {
         toast.success(res.data.message);
 
     }).catch((err) => {
-        toast.error(err.response.data.message)
+        toast.error(err.response.data)
     })
 }
 export async function sellerLogin(data) {

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     FaSearch
 } from 'react-icons/fa';
-import { fetchAllProductsAsync, searchProductAsync } from '../product/productListSlice';
+import { fetchAllProductsAsync, fetchProductsByFilterAsync, searchProductAsync } from '../product/productListSlice';
 import { useNavigate} from 'react-router-dom';
 const NavSearchBox = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -21,10 +21,10 @@ const NavSearchBox = () => {
         window.scrollBy(0, 750);
         setLoader(false);
       }, 1500);
-      
-     
     }
-
+    else {
+      dispatch(fetchProductsByFilterAsync({}))
+    }
   }
   return (
     <form className='relative px-2 lg:w-full h-auto  lg:flex items-center' onSubmit={handleSearch}>

@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 exports.createProduct = async (req, res) => {
   try {
     const { highlights } = req.body;
-    console.log(highlights)
+    // console.log(highlights)
     var highlightArray = [];
       // Split input by commas and remove leading/trailing whitespaces
     const newHighlights = highlights.split(',').filter(Boolean);
@@ -54,7 +54,7 @@ exports.fetchAllProducts = async (req, res) => {
     query = query.sort({ [req.query._sort]: req.query._order });
   }
   const totalDocs = await totalProductsQuery.count().exec();
-  console.log({ totalDocs });
+  // console.log({ totalDocs });
   if (req.query._page && req.query._limit) {
     const pageSize = req.query._limit;
     const page = req.query._page;
@@ -151,10 +151,10 @@ exports.fetchSellerProducts = async (req, res) => {
 exports.updateProductRating = async (req, res) => {
   try {
     const { id } = req.user;
-    console.log(req.body)
+    // console.log(req.body)
     const { productId, rating } = req.body;
 
-    console.log(req.body)
+    // console.log(req.body)
     const productExist = await Product.findById(productId);
     const updatedRating = productExist.rating + rating;
 

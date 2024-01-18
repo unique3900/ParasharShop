@@ -67,7 +67,7 @@ const Login = () => {
 
     useEffect(() => {
         dispatch(checkIfUserAsync());
-        dispatch(checkUserAsync);
+        dispatch(checkUserAsync());
 
     }, [])
     

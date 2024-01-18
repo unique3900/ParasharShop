@@ -63,3 +63,7 @@ export function fetchAllCategory() {
 export function fetchMonthelyProducts(id) {
     return axios.get(`/products/seller/total-product/${id}`)
 }
+
+export function fetchProductRecommendation(id) {
+    return axios.get(`/recommend/${id}`);
+}

@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createProduct, deleteProduct, fetchAllBrands, fetchAllCategory, fetchAllProducts, fetchMonthelyProducts, fetchProductById, fetchProductBySellerId, fetchProductsByFilter, searchProduct, updateProduct, updateProductRating } from "./productListApi";
+import { createProduct, deleteProduct, fetchAllBrands, fetchAllCategory, fetchAllProducts, fetchMonthelyProducts, fetchProductById, fetchProductBySellerId, fetchProductRecommendation, fetchProductsByFilter, searchProduct, updateProduct, updateProductRating } from "./productListApi";
 import toast from "react-hot-toast";
 
 const initialState = {
   products: [],
-  sellerProducts:[],
+  sellerProducts: [],
+  recommendations:[],
   brands: [],
   categories:[],
   count:1,
@@ -125,6 +126,14 @@ export const fetchMonthelyProductsAync = createAsyncThunk(
   }
 )
 
+export const fetchProductRecommendationAsync = createAsyncThunk(
+  'product/recommend',
+  async (id) => {
+    const response = await fetchProductRecommendation(id);
+    return response.data.recommendation;
+  }
+)
+
 export const productSlice = createSlice({
   name: 'product',
   initialState,
@@ -221,6 +230,13 @@ export const productSlice = createSlice({
             console.log(action.payload)
           state.monthelyProducts = action.payload.products;
           state.labels = action.payload.months;
+      })
+      .addCase(fetchProductRecommendationAsync.pending, (state) => {
+      state.status="loading"
+      })
+      .addCase(fetchProductRecommendationAsync.fulfilled, (state, action) => {
+        state.status = "idle",
+        state.recommendations=action.payload;
     })
   },
 });
@@ -230,6 +246,7 @@ export const {increament } = productSlice.actions;
 export const selectAllProducts = (state) => state.product.products;
 export const selectAllBrands = (state) => state.product.brands;
 export const selectAllCategories = (state) => state.product.categories;
+export const selectProductRecommendation = (state) => state.product.recommendations;
 export const selectProductById = (state) => state.product.selectedProduct;
 export const sellerProducts=(state)=>state.product.sellerProducts
 export const selectMonthelyProduct = (state) => state.product.monthelyProducts;

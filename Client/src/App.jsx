@@ -35,7 +35,7 @@ import ProductPage from './Components/Pages/Seller/ProductPage'
 import ProductForm from './Components/Pages/Seller/ProductForm'
 import EditProduct from './Components/Pages/Seller/EditProduct'
 import AdminOrder from './features/order/AdminOrder'
-import { selectLoggedInUserToken } from './features/Auth/authSlice'
+import { checkIfUserAsync, checkUserAsync, selectLoggedInUserToken } from './features/Auth/authSlice'
 import WishList from './features/WishList/Components/WishList'
 import { fetchUserWishlistAsync } from './features/WishList/wishlistSlice'
 import CardPayment from './Components/Pages/CardPayment'
@@ -53,17 +53,23 @@ const App = () => {
 
 
   useEffect(() => {
-    if (!userToken) {
-      toast.success("Logged in As Guest")
-      return
-    }
+
     dispatch(fetchLoggedInUserInfoAsync());
     dispatch(getCartByEmailAsync());
     dispatch(fetchUserWishlistAsync());
+
+    // if (!userToken) {
+    //   toast.success("Logged in As Guest")
+    //   return
+    // }
   }, [])
   
 
-  
+  useEffect(() => {
+    dispatch(checkIfUserAsync());
+    dispatch(checkUserAsync());
+
+}, [])
   
   axios.defaults.baseURL = 'http://127.0.0.1:8080';
 axios.defaults.withCredentials = true;

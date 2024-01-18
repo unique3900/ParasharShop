@@ -16,6 +16,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { getCartByUserEmail } from "../cart/cartAPI";
 import { selectLoggedInUserInfo } from "../user/userSlice";
 import { selectLoggedInUserToken } from "../Auth/authSlice";
+import RecommendationPage from "../../Components/Pages/RecommendationPage";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -70,7 +71,7 @@ const SingleProductPage = () => {
   useEffect(() => {
     console.log(params.id, loggedInUser.id);
     dispatch(fetchProductByIdAsync(params.id));
-  }, []);
+  }, [params.id]);
 
   return (
     <div className="bg-white">
@@ -292,8 +293,10 @@ const SingleProductPage = () => {
               </div>
             </div>
           </div>
+          <RecommendationPage id={product.id}/>
         </div>
       ) : null}
+   
     </div>
   );
 };
