@@ -28,18 +28,7 @@ const userSchema = new Schema({
     addresses: {
      type:[Schema.Types.Mixed]
     },
-    role: {
-        type: String,
-        default:"buyer"
-    },
-    businessInfo: {
-        type: Object,
-        default: {
-            "businessName": null,
-            "businessAddress": null,
-            "businessPassword":null
-        }
-    }
+
 
 })
 

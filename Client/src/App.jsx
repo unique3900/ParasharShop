@@ -68,14 +68,12 @@ const App = () => {
   useEffect(() => {
     dispatch(checkIfUserAsync());
     dispatch(checkUserAsync());
-
 }, [])
   
   axios.defaults.baseURL = 'http://127.0.0.1:8080';
 axios.defaults.withCredentials = true;
   return (
     <div className='scroll-smooth'>
-
       <TopNavbar/>
       <NavBar/>
       <Toaster/>

@@ -58,7 +58,7 @@ const LineGraph = () => {
   const orderMonths=useSelector(selectOrderMonths)
   const labels = useSelector(selectLabels);
 
-  console.log(monthelyOrder,monthelyProducts)
+  // console.log(monthelyOrder,monthelyProducts)
 
     const [monthelyProduct,setMonthelyProduct] = useState([]);
     const [orderMonthely,setOrderMonthely] = useState([]);
@@ -71,12 +71,12 @@ const LineGraph = () => {
       if (labels.includes(orderMonths[index])) {
     
        const ind = labels.indexOf(orderMonths[index])
-      console.log(index, orderMonths[index])
+      // console.log(index, orderMonths[index])
        orderMonths[index] ? newArray[ind] = monthelyProducts[index] : newArray[index] = 0;
       }
     }
     setOrderMonthely(newArray)
-    console.log(orderMonthely)
+    // console.log(orderMonthely)
     // console.log(monthelyProducts)
   }
     const data = {

@@ -45,7 +45,7 @@ const OrderManage = () => {
                     <th className="py-3 px-6 text-left">Items In This Order</th>
                     <th className="py-3 px-6 text-center">Product Detail</th>
                     <th className="py-3 px-6 text-center">Shipping</th>
-                    <th className="py-3 px-6 text-center">Total Amount</th>
+                    <th className="py-3 px-6 text-center">Order Total</th>
                     <th className="py-3 px-6 text-center">Status</th>
                     {/* <th className="py-3 px-6 text-center">Actions</th> */}
                   </tr>

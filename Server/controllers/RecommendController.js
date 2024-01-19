@@ -1,4 +1,5 @@
 const { Product } = require("../models/Product")
+
 const similarityCalculator = (item1, item2) => {
     const commonFeatures=item1.keywords.filter(keyword=> item2.keywords.includes(keyword))
     return commonFeatures.length/Math.sqrt(item1.keywords.length * item2.keywords.length)

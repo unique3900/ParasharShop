@@ -23,6 +23,7 @@ const NavSearchBox = () => {
       }, 1500);
     }
     else {
+      window.location.reload()
       dispatch(fetchProductsByFilterAsync({}))
     }
   }
