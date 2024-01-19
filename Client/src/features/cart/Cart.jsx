@@ -12,7 +12,8 @@ import {
 } from '@heroicons/react/24/outline'
 import {
     Link,
-    Navigate
+    Navigate,
+    useNavigate
 } from 'react-router-dom'
 import {
     useDispatch,
@@ -30,20 +31,21 @@ import { selectLoggedInUserToken } from '../Auth/authSlice'
 
 export default function Cart() {
     const [open, setOpen] = useState(true);
-   
+   const navigate=useNavigate()
     const items = useSelector(selectcartItems);
     console.log(items)
     const user = useSelector(selectLoggedInUserInfo);
     const userToken=useSelector(selectLoggedInUserToken);
     const dispatch = useDispatch();
 
-    const [totalItems, setTotalItems] = useState(1);
+    // const [totalItems, setTotalItems] = useState(0);
     console.log("Cart Page",{items})
 
 
     const handleRemove = async(id) => {
         await dispatch(removeFromCartAsync(id));
         await dispatch(getCartByEmailAsync());
+
     }
 
     const handleQuantityChange = async(e, value,id) => { // Existing items obj. spread then change its quantity
@@ -56,13 +58,17 @@ export default function Cart() {
     await dispatch(getCartByEmailAsync())
        
     }
-    useEffect(() => {
-        dispatch(getCartByEmailAsync())
-        const totalItems = items?.reduce((accumulator, object) => {
-            return object.quantity + accumulator;
-        }, 0)
-        setTotalItems(totalItems)
-    }, [dispatch,totalItems])
+
+    const totalItems = items?.reduce((accumulator, object) => {
+        return object.quantity + accumulator;
+    }, 0)
+    
+    // useEffect(() => {
+    //     dispatch(getCartByEmailAsync())
+
+    //     setTotalItems(totalItems)
+        
+    // }, [dispatch,totalItems])
     
     return (
         <> {
