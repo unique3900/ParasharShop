@@ -67,26 +67,26 @@ const SellerDashboard = () => {
 
   return (
     <>
-      <div className="h-screen flex flex-col justify-center items-center lg:justify-start p-5 mt-40 lg:mt-10">
+      <div className="h-screen flex flex-col justify-center items-center lg:justify-start p-5 mt-[25rem] lg:mt-10">
         <div className="grid grid-cols-1  lg:grid-cols-[1fr_2fr]  w-full  gap-3">
           <div className="flex flex-row justify-center mt-4 h-fit lg:flex-col gap-2 text-sm flex-wrap">
             <Link
               to={"manage-products"}
               className="relative bg-violet-700 text-white font-bold text-center px-3 py-4 flex flex-row justify-center gap-6 items-center"
             >
-              Manage Products  <span className="absolute right-32"><FaRegArrowAltCircleRight size={28}/></span>
+              Manage Products  <span className="absolute right-28 hidden lg:flex"><FaRegArrowAltCircleRight size={28}/></span>
             </Link>
             <Link
               to={"manage-orders"}
               className="relative bg-violet-700 text-white font-bold text-center px-3 py-4 flex flex-row justify-center gap-6 items-center"
             >
-              Manage Orders <span className="absolute right-32"><FaRegArrowAltCircleRight size={28}/></span>
+              Manage Orders <span className="absolute right-28  hidden lg:flex"><FaRegArrowAltCircleRight size={28}/></span>
             </Link>
             <Link
               to={"change-password"}
               className="relative bg-violet-700 text-white font-bold text-center px-3 py-4 flex flex-row justify-center gap-6 items-center"
             >
-              Change Business Password <span className="absolute right-32"><FaRegArrowAltCircleRight size={28}/></span>
+              Change Business Password <span className="absolute right-28  hidden lg:flex"><FaRegArrowAltCircleRight size={28}/></span>
             </Link>
           </div>
           <div className="h-full flex flex-col items-center justify-center w-full">
@@ -117,7 +117,7 @@ const SellerDashboard = () => {
                 <p className="font-bold text-xl">NRS {sellerRevenue}</p>
               </div>
             </div>
-            <div className=" h-fit lg:min-h-screen w-full mt-0 lg:-mt-32  flex justify-center">
+            <div className=" w-full mt-0 lg:-mt-32  flex justify-center">
               <LineGraph />
             </div>
           </div>

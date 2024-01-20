@@ -196,7 +196,7 @@ export const ProductList = () => {
               {/* Product grid */}
                 <div className="lg:col-span-3">
                 <Toaster />
-        <h3 id='latestProduct' className="text-4xl font-bold text-center">Latest Products</h3>
+        <h3 id='latestProduct' className="text-4xl font-bold text-center">Products</h3>
 
                   <ProductGrid products={products} page={page} filters={filters} wishlist={wishlist} handleAddToWishlist={handleAddToWishlist} />
           <Pagination page={Math.ceil(page) } setPage={setPage} totalPage={Math.floor(products?.length)} />

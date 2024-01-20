@@ -55,55 +55,43 @@ const LineGraph = () => {
     const seller = useSelector(selectLoggedInSeller);
   const monthelyOrder = useSelector(selectMonthelyOrder);
   const monthelyProducts = useSelector(selectMonthelyProduct)
-  const orderMonths=useSelector(selectOrderMonths)
+  const orderMonths = useSelector(selectOrderMonths);
   const labels = useSelector(selectLabels);
 
-  // console.log(monthelyOrder,monthelyProducts)
-
-    const [monthelyProduct,setMonthelyProduct] = useState([]);
-    const [orderMonthely,setOrderMonthely] = useState([]);
-
-  const fetchMonthelyOrder = async () => {
-
-    const newArray = [];
-    console.log(labels)
-    for (let index = 0; index < labels.length; index++){
-      if (labels.includes(orderMonths[index])) {
-    
-       const ind = labels.indexOf(orderMonths[index])
-      // console.log(index, orderMonths[index])
-       orderMonths[index] ? newArray[ind] = monthelyProducts[index] : newArray[index] = 0;
-      }
-    }
-    setOrderMonthely(newArray)
-    // console.log(orderMonthely)
-    // console.log(monthelyProducts)
-  }
-    const data = {
-        labels,
+  
+    const orderdata = {
+        labels:orderMonths,
         datasets: [
           {
             label: 'Orders',
             data: monthelyOrder,
-            borderColor: 'rgb(255, 99, 132)',
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
-          },
-          {
-            label: 'Products',
-            data: monthelyProducts,
-            borderColor: 'rgb(115, 99, 255)',
-            backgroundColor: 'rgba(172, 99, 255, 0.5)',
+            borderColor: 'rgb(254, 10, 230)',
+            backgroundColor: 'rgba(132, 6, 65, 0.5)',
           },
         ],
   };
+
+  const productdata = {
+    labels,
+    datasets: [
+      {
+        label: 'products',
+        data: monthelyProducts,
+        borderColor: 'rgb(14, 29, 244)',
+        backgroundColor: 'rgba(20, 44, 179, 0.5)',
+      },
+
+    ],
+};
   
   useEffect(() => {
     dispatch(fetchMonthelyOrderAsync(seller?.id))
     dispatch(fetchMonthelyProductsAync(seller?.id))
   }, [dispatch])
   return (
-    <div className='flex flex-col justify-center w-full '>
-      <Line className='w-[10%]'  options={options} data={data} />
+    <div className='flex flex-col   justify-center w-full   lg:mt-[6rem] '>
+      <Line className='w-[10%]'  options={options} data={productdata} />
+      <Line className='w-[10%]'  options={options} data={orderdata} />
     </div>
     
   )
