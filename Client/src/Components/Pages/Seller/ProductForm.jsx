@@ -282,7 +282,7 @@ const ProductForm = () => {
                         type="number"
                         {...register("price", {
                           required: "Price is Required",
-                          max: 100000,
+                          max: 200000,
                           min: 1,
                         })}
                         id="price"

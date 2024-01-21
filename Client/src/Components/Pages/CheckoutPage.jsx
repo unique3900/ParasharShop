@@ -202,7 +202,6 @@ const CheckoutPage = () => {
         totalAmount,
       };
       
-
       await dispatch(newOrderAsync(order));
         navigate(`/order-success/${currentOrder?.length}`);
     
@@ -554,7 +553,7 @@ const CheckoutPage = () => {
                     <p className="mt-0.5 text-sm text-gray-500">
                       Terms and Conditons Applied
                     </p>
-                    {selectedPaymentMethod !== 'card' ? (
+                    {selectedPaymentMethod !== 'online' ? (
                                           <div className="mt-6">
                                           <button
                                             onClick={(e) => {
@@ -658,7 +657,7 @@ const CheckoutPage = () => {
                       setSelectedPaymentMethod(e.target.value);
                       console.log(e.target.value);
                     }}
-                    value={"card"}
+                    value={"online"}
                     type="radio"
                     name="paymentMethod"
                     id=""
@@ -667,7 +666,7 @@ const CheckoutPage = () => {
                     Online Payment
                   </label>
                 </div>
-                {selectedPaymentMethod == "card" && (
+                {selectedPaymentMethod == "online" && (
                   <CardPayment totalAmount={totalAmount} totalItems={totalItems} products={items} selectedPaymentMethod={selectedPaymentMethod } selectedDeliveryAddress={selectedDeliveryAddress?.id} />
                 )}
              

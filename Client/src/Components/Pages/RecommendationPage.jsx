@@ -42,7 +42,7 @@ const RecommendationPage = ({ id }) => {
                 >
                   <img
                     src={`http://localhost:8080/uploads/${item?.item.thumbnail}`}
-                    className="w-[200px] object-cover"
+                    className="max-h-56 w-[360px] object-cover"
                     alt=""
                   />
                 </Link>
