@@ -2090,7 +2090,6 @@ export const citiesData = [
                         id: 4,
                         address:"Balaju Area"
                     }
-        
                 ]
             },
             {
@@ -2115,7 +2114,88 @@ export const citiesData = [
                     }
         
                 ]
-            }
+            },
+            {
+                id: 3,
+                name: "Lalitpur",
+                locations: [
+                    {
+                        id: 1,
+                        address:"Satdobato Area"
+                    },
+                    {
+                        id: 2,
+                        address:"Bhaisepati Area"
+                    },
+                    {
+                        id: 3,
+                        address:"Thecho Area"
+                    },
+                    {
+                        id: 4,
+                        address:"Harisiddhi Area"
+                    }
+        
+                ]
+            },
+            {
+                id: 5,
+                name: "Kavre",
+                locations: [
+                    {
+                        id: 1,
+                        address:"Dhulikhel Area"
+                    },
+                    {
+                        id: 2,
+                        address:"Banepa Area"
+                    },
+                    {
+                        id: 3,
+                        address:"Panauti Area"
+                    },
+                    {
+                        id: 4,
+                        address:"Kushadevi Area"
+                    },
+                    {
+                        id: 5,
+                        address:"Panchkhal Area"
+                    },
+                    {
+                        id: 6,
+                        address:"Dolalghat Area"
+                    },
+        
+                ]
+            },
+            {
+                id: 4,
+                name: "Hetauda",
+                locations: [
+                    {
+                        id: 1,
+                        address:"Kamane Area"
+                    },
+                    {
+                        id: 2,
+                        address:"Golpingtar Area"
+                    },
+                    {
+                        id: 3,
+                        address:"Gangate Area"
+                    },
+                    {
+                        id: 4,
+                        address:"Badeldhap Area"
+                    },
+                    {
+                        id: 5,
+                        address:"Tutepani Area"
+                    }
+        
+                ]
+            },
         ]
     },
     {
@@ -2132,7 +2212,11 @@ export const citiesData = [
                     },
                     {
                         id: 2,
-                        address:"Makaie Area"
+                        address:"Dokhu Area"
+                    },
+                    {
+                        id: 3,
+                        address:"Suketar Area"
                     },
         
                 ]
@@ -2147,7 +2231,102 @@ export const citiesData = [
                     },
                     {
                         id: 2,
-                        address:"Chowk Area"
+                        address:"Garimani Area"
+                    },
+                    {
+                        id: 3,
+                        address:"Kakarmari Area"
+                    },
+                    {
+                        id: 4,
+                        address:"Dangibari Area"
+                    },
+                    {
+                        id: 5,
+                        address:"Fulbari Area"
+                    },
+                ]
+            },
+            {
+                id: 3,
+                name: "Dhangadi",
+                locations: [
+                    {
+                        id: 1,
+                        address:"Nainpur Area"
+                    },
+                    {
+                        id: 2,
+                        address:"Ayodhanagar Area"
+                    },
+                ]
+            },
+            {
+                id: 4,
+                name: "Biratnagar",
+                locations: [
+                    {
+                        id: 1,
+                        address:"Hatkhola Area"
+                    },
+                    {
+                        id: 2,
+                        address:"Madumara Area"
+                    },
+                    {
+                        id: 3,
+                        address:"Prithivi Chowk Area"
+                    },
+                    {
+                        id: 4,
+                        address:"Ikrahi Chowk Area"
+                    },
+                ]
+            }
+        ]
+    },
+    {
+        id: 3,
+        stateName: "Gandaki",
+        cities: [
+            {
+                id: 1,
+                name: "Pokhara",
+                locations: [
+                    {
+                        id: 1,
+                        address:"Chipledhunga Area"
+                    },
+                    {
+                        id: 2,
+                        address:"Pame Area"
+                    },
+                    {
+                        id: 3,
+                        address:"Sarangkot Area"
+                    },
+                    {
+                        id: 4,
+                        address:"Gharipatan Area"
+                    },
+        
+                ]
+            },
+            {
+                id: 2,
+                name: "Baglung",
+                locations: [
+                    {
+                        id: 1,
+                        address:"Baglung Bazar Area"
+                    },
+                    {
+                        id: 2,
+                        address:"Suldanda Area"
+                    },
+                    {
+                        id: 3,
+                        address:"Panchakot Area"
                     },
                 ]
             }

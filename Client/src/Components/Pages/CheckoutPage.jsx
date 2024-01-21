@@ -35,7 +35,7 @@ const CheckoutPage = () => {
   const navigate = useNavigate();
 
   // States
-  const [totalItems, setTotalItems] = useState(1);
+  // const [totalItems, setTotalItems] = useState(0);
   // const [totalAmount,setTotalAmount]=useState()
   const [selectedState, setSelectedState] = useState("");
   const [selectedDeliveryAddress, setSelectedDeliveryAddress] = useState(null);
@@ -211,19 +211,17 @@ const CheckoutPage = () => {
     }
   };
 
-  useEffect(() => {
-    dispatch(fetchUserAddressAsync(user.id));
-
-    const totalItems = items.reduce((accumulator, object) => {
-      return object.quantity + accumulator;
-    }, 0);
-    setTotalItems(totalItems);
-  }, [dispatch]);
+  const totalItems = items?.reduce((accumulator, object) => {
+    return object.quantity + accumulator;
+}, 0)
 
   return (
     <>
+      
       <Toaster/>
-      {!items.length || (!user && <Navigate to={"/"}></Navigate>)}
+      {
+            totalItems<=0 && <Navigate to={'/'} ></Navigate> 
+        }
       <div className="h-screen w-full flex flex-col ">
         <h1 className="text-5xl font-bold p-3 text-center">Checkout</h1>
         <div className="flex flex-col gap-3">
