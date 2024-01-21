@@ -53,7 +53,7 @@ const RecommendationPage = ({ id }) => {
 
                 <div className="flex gap-2">
                   <StarIcon className="w-6 h-6" />
-                  <p className="">4</p>
+                  <p className="">{item?.item.rating>0?item?.item.rating/item?.item.totalRatings:0 }</p>
                 </div>
                 <div className="flex justify-between">
                   {item?.item.discountPercentage ? (

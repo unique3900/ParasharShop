@@ -32,12 +32,12 @@ const OrderManage = () => {
     <>
       {" "}
       {/* component */}
-      <div className="overflow-scroll">
+      <div className="">
         <h2 className="text-center font-bold text-4xl p-3">Manage Orders</h2>
         <div className=" bg-gray-100 w-full flex  items-center justify-center font-sans overflow-hidden">
-          <div className="overflow-auto no-scrollbar">
+          <div className="overflow-auto">
             <div className=" bg-white w-screen min-w-max lg:min-w-fit lg:w-fit shadow-md rounded my-6 p-5">
-              <table className=" table-auto">
+              <table className=" table-auto overflow-y-auto-auto">
                 <thead className="">
                   <tr className="bg-gray-200  text-gray-600 uppercase text-sm leading-normal ">
                     <th className="py-3 px-6 text-left">Order Id</th>

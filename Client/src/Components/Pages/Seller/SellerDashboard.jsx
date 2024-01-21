@@ -113,7 +113,7 @@ const SellerDashboard = () => {
 
                           <div className="flex flex-col shadow-md p-10 bg-orange-600 items-center  min-w-[250px] text-white bg-gradient-to-br from-indigo-600 to-slate-700">
                           <RiMoneyDollarCircleLine size={50}/>
-                <h4 className="text-2xl ">Revenue</h4>
+                <h4 className="text-2xl ">Order Value</h4>
                 <p className="font-bold text-xl">NRS {sellerRevenue}</p>
               </div>
             </div>

@@ -213,7 +213,13 @@ const CheckoutPage = () => {
 
   const totalItems = items?.reduce((accumulator, object) => {
     return object.quantity + accumulator;
-}, 0)
+  }, 0)
+  
+  useEffect(() => {
+    dispatch(fetchUserAddressAsync(user.id));
+
+  }, [dispatch]);
+
 
   return (
     <>
@@ -582,7 +588,7 @@ const CheckoutPage = () => {
               </div>
             </section>
 
-            {addresses ? (
+            {addresses.length>0 ? (
               <section className="p-5 flex flex-col gap-2  ">
                 <h3 className="font-bold text-xl">Saved Addresses</h3>
                 <div className="flex p-7 flex-col gap-2 outline-black border-black">
