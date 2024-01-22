@@ -9,6 +9,7 @@ import {  getCartByEmailAsync, selectcartItems } from '../cart/cartSlice';
 import { selectLoggedInUserInfo } from '../user/userSlice';
 import { selectLoggedInUserToken } from '../Auth/authSlice';
 import { fetchUserWishlistAsync, selectUserWishList } from '../WishList/wishlistSlice';
+import { IoCloseCircleOutline } from 'react-icons/io5';
 
 const NavBar = () => {
   const [navState, setnavState] = useState(false);
@@ -34,10 +35,17 @@ useEffect(() => {
           <div className=" flex px-5 max-h-36 flex-row items-center justify-between gap-5">
             {/* Left */}
               <div className="">
-              <Link to={'/'} className='w-[200px] h-[200px] hidden lg:flex'><img src={`/img/logo.png`} alt="" /></Link>
-                  <GiHamburgerMenu className='lg:hidden cursor-pointer w-10 h-10' onClick={() => {
-                      setnavState(!navState)
-              }}/>
+          <Link to={'/'} className='w-[200px] h-[200px] hidden lg:flex'><img src={`/img/logo.png`} alt="" /></Link>
+          {
+            !navState ? (
+              <GiHamburgerMenu className='lg:hidden cursor-pointer w-10 h-10' onClick={() => {
+                setnavState(!navState)
+        }}/>
+            ) : <IoCloseCircleOutline className='lg:hidden cursor-pointer w-10 h-10' onClick={() => {
+              setnavState(!navState)
+            }} />
+          }
+                 
               </div>
 
               {/* Middle */}
@@ -60,7 +68,7 @@ useEffect(() => {
           </div>
 
           {/* Bottom Part of Navbar Login,signup,account,etc */}
-          <div className="w-full  flex  items-center justify-center bg-teal-500 bg-opacity-10 lg:bg-white  ">
+          <div className="w-full  flex  items-center justify-center bg-opacity-10 lg:bg-white  ">
               <NavbarList  navState={navState} />
       </div>
     </div>
