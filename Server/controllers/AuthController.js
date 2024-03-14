@@ -15,6 +15,7 @@ exports.LoginController = async (req, res) => {
 
 exports.CheckUser = async (req, res) => {
     res.json({success:'true',user:req.user});
+    
 }
 
 

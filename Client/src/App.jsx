@@ -7,7 +7,7 @@ import { Route, Routes } from 'react-router-dom'
 import axios, { Axios } from 'axios'
 import TopNavbar from './Components/Layout/TopNavbar'
 import toast, { Toaster } from 'react-hot-toast'
-import NavBar from './features/Navbar/Navbar'
+import NavBar from './features/Navbar/NavBar';
 import RegisterPage from './Components/Pages/RegisterPage'
 import LoginPage from './Components/Pages/LoginPage'
 import CartPage from './Components/Pages/CartPage'
@@ -43,7 +43,7 @@ import PasswordChange from './Components/Pages/Seller/PasswordChange'
 
 
 
-axios.defaults.baseURL = 'http://127.0.0.1:8080';
+axios.defaults.baseURL = 'http://localhost:8080';
 axios.defaults.withCredentials = true;
 const App = () => {
   const dispatch = useDispatch(); 
@@ -70,7 +70,7 @@ const App = () => {
     dispatch(checkUserAsync());
 }, [])
   
-  axios.defaults.baseURL = 'http://127.0.0.1:8080';
+  axios.defaults.baseURL = 'http://localhost:8080';
 axios.defaults.withCredentials = true;
   return (
     <div className='scroll-smooth'>

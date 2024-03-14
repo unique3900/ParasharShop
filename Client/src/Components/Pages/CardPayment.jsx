@@ -33,7 +33,7 @@ const CardPayment = ({totalAmount,totalItems,products,selectedPaymentMethod,sele
         const order = {
           products,
           nonce,
-          selectedPaymentMethod:'Online',
+          selectedPaymentMethod:'online',
           selectedDeliveryAddress,
           totalItems,
           totalAmount,

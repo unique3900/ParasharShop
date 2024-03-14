@@ -38,7 +38,7 @@ const SECRETKEY = "SECRET";
 async function main() {
   await mongoose.connect("mongodb://localhost:27017/ParasharShop");
 
-  // console.log("Database Connection Successful");
+  console.log("Database Connection Successful");
 }
 main().catch((err) => {
   console.log("Error Occured On Database Connection", err);
@@ -52,12 +52,12 @@ const server = express();
 server.use(
   "/uploads",
   express.static(
-    "D:/Web Dev/MERN projects/ParasharShop/ParasharShop/Server/Image/uploads"
+    "/media/parashar/New Volume/Web Dev/MERN projects/ParasharShop/ParasharShop/Server/Image/uploads"
   )
 );
 
 server.use(cors({
-  origin: 'http://127.0.0.1:5173',
+  origin: 'http://localhost:5173',
   credentials: true,
 }));
 
